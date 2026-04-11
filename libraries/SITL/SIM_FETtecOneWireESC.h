@@ -15,7 +15,7 @@
 /*
   Simulator for the FETtecOneWire ESCs
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=sim:fetteconewireesc --speedup=1 --console
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=sim:fetteconewireesc --speedup=1 --console
 
 param set SERIAL5_PROTOCOL 38
 param set SERIAL5_BAUD 500000
@@ -27,7 +27,7 @@ param fetch
 
 #param set SIM_FTOWESC_FM 1  # fail mask
 
-./Tools/autotest/autotest.py --gdb --debug build.ArduCopter fly.ArduCopter.FETtecESC
+./Tools/autotest/autotest.py --gdb --debug build.Kala fly.Kala.FETtecESC
 
 */
 

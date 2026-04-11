@@ -64,7 +64,7 @@ public:
 
     enum vehicle_type {
         NONE,
-        ArduCopter,
+        Kala,
         Rover,
         ArduPlane,
         ArduSub,

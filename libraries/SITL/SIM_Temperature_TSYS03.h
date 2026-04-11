@@ -7,7 +7,7 @@
 /*
   Simulator for the TSYS03 temperature sensor
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -f Callisto -A --speedup=1
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -f Callisto -A --speedup=1
 param set TEMP1_TYPE 4
 param fetch
 param set TEMP1_BUS 2

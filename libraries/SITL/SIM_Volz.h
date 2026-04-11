@@ -28,7 +28,7 @@ param fetch
 
 #param set SIM_VOLZ_FMASK 1  # fail mask
 
-./Tools/autotest/autotest.py --gdb --debug build.ArduCopter fly.ArduCopter.Volz
+./Tools/autotest/autotest.py --gdb --debug build.Kala fly.Kala.Volz
 
 */
 

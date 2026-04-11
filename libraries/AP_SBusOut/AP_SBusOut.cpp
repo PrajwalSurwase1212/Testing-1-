@@ -112,7 +112,7 @@ void AP_SBusOut::sbus_format_frame(uint16_t *channels, uint8_t num_channels, uin
 
         buffer[index] |= (value << (offset)) & 0xff;
         buffer[index + 1] |= (value >> (8 - offset)) & 0xff;
-        buffer[index + 2] |= (value >> (16 - offset)) & 0xff;
+        buffer[index + 2] |= (uint32_t(value) >> (16 - offset)) & 0xff;
         offset += 11;
     }
 }

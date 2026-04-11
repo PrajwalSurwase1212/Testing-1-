@@ -9,9 +9,10 @@ void Sub::read_inertia()
 
     // pull position from ahrs
     Location loc;
-    ahrs.get_location(loc);
-    current_loc.lat = loc.lat;
-    current_loc.lng = loc.lng;
+    if (ahrs.get_location(loc)) {
+        current_loc.lat = loc.lat;
+        current_loc.lng = loc.lng;
+    }
 
     // exit immediately if we do not have an altitude estimate
     if (!AP::ahrs().has_status(AP_AHRS::Status::VERT_POS)) {

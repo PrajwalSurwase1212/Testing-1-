@@ -2,7 +2,7 @@
 
 /*
 
-  ./Tools/autotest/sim_vehicle.py -v ArduCopter --gdb --debug --rgbled
+  ./Tools/autotest/sim_vehicle.py -v Kala --gdb --debug --rgbled
 
   param set NTF_LED_TYPES 8198  # enable ToshibaLED and LP5562
   reboot

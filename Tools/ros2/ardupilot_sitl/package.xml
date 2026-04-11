@@ -4,7 +4,7 @@
 <package format="3">
   <name>ardupilot_sitl</name>
   <version>0.0.0</version>
-  <description>ArduPlane, ArduCopter, ArduRover, ArduSub source</description>
+  <description>ArduPlane, Kala, ArduRover, ArduSub source</description>
   <maintainer email="rhys.mainwaring@me.com">maintainer</maintainer>
   <license>GPL-3.0</license>
 

@@ -2,7 +2,7 @@
 
 /*
 
-./Tools/autotest/sim_vehicle.py --gdb --debug  -v ArduCopter -A --serial5=sim:sagetech_mxs --no-configure --map
+./Tools/autotest/sim_vehicle.py --gdb --debug  -v Kala -A --serial5=sim:sagetech_mxs --no-configure --map
 
 param set SERIAL5_PROTOCOL 35          # ADSB
 param set ADSB_TYPE        4           # Sagetech MX Series

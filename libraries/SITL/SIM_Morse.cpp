@@ -376,7 +376,9 @@ void Morse::output_rover_regular(const struct sitl_input &input)
              steer, -force, 0.0);
     buf[sizeof(buf)-1] = 0;
 
-    control_sock->send(buf, strlen(buf));
+    if (control_sock->send(buf, strlen(buf)) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 /*
   output control command assuming skid-steering rover
@@ -397,7 +399,9 @@ void Morse::output_rover_skid(const struct sitl_input &input)
              speed_ms, -steering_rps);
     buf[sizeof(buf)-1] = 0;
 
-    control_sock->send(buf, strlen(buf));
+    if (control_sock->send(buf, strlen(buf)) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 /*
@@ -443,7 +447,9 @@ void Morse::output_pwm(const struct sitl_input &input)
              input.servos[8], input.servos[9], input.servos[10], input.servos[11],
              input.servos[12], input.servos[13], input.servos[14], input.servos[15]);
     buf[sizeof(buf)-1] = 0;
-    control_sock->send(buf, strlen(buf));
+    if (control_sock->send(buf, strlen(buf)) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 
@@ -667,7 +673,9 @@ void Morse::send_report(void)
         uint8_t msgbuf[len];
         len = mavlink_msg_to_send_buffer(msgbuf, &msg);
         if (len > 0) {
-            mav_socket.send(msgbuf, len);
+            if (mav_socket.send(msgbuf, len) < 0) {
+                // safe to ignore: telemetry drop should not interrupt execution
+            }
         }
     }
 

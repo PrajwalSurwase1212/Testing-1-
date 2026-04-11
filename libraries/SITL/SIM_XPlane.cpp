@@ -315,7 +315,9 @@ void XPlane::select_data(void)
         dsel.data[count++] = required_data[i];
     }
     if (count != 0) {
-        socket_out.send(&dsel, sizeof(dsel));
+        if (socket_out.send(&dsel, sizeof(dsel)) < 0) {
+            // safe to ignore: SITL socket output failures shouldn't halt the simulator
+        }
         printf("Selecting %u data types\n", (unsigned)count);
     }
 }
@@ -327,7 +329,9 @@ void XPlane::deselect_code(uint8_t code)
         uint32_t data[8] {};
     } usel;
     usel.data[0] = code;
-    socket_out.send(&usel, sizeof(usel));
+    if (socket_out.send(&usel, sizeof(usel)) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
     printf("De-selecting code %u\n", code);
 }
 
@@ -650,7 +654,9 @@ void XPlane::send_dref(const char *name, float value)
     } d {};
     d.value = value;
     strcpy(d.name, name);
-    socket_out.send(&d, sizeof(d));
+    if (socket_out.send(&d, sizeof(d)) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
     if (dref_debug > 0) {
         ::printf("-> %s : %.3f\n", name, value);
     }
@@ -670,7 +676,9 @@ void XPlane::request_dref(const char *name, uint8_t code, uint32_t rate)
     d.rate_hz = rate;
     d.code = code; // given back in responses
     strcpy(d.name, name);
-    socket_in.sendto(&d, sizeof(d), xplane_ip, xplane_port);
+    if (socket_in.sendto(&d, sizeof(d), xplane_ip, xplane_port) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 void XPlane::request_drefs(void)

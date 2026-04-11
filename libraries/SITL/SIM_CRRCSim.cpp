@@ -68,7 +68,10 @@ void CRRCSim::send_servos_heli(const struct sitl_input &input)
     pkt.yaw_rate   = constrain_float(yaw_rate, -0.5, 0.5);
     pkt.col_pitch  = constrain_float(col_pitch, -0.5, 0.5);
 
-    sock.sendto(&pkt, sizeof(pkt), "127.0.0.1", 9002);
+    if (sock.sendto(&pkt, sizeof(pkt), "127.0.0.1", 9002) != sizeof(pkt)) {
+        // safe to ignore: SITL UDP output failures shouldn't halt the simulator,
+        // it natively recovers on the next packet.
+    }
 }
 
 /*
@@ -88,7 +91,10 @@ void CRRCSim::send_servos_fixed_wing(const struct sitl_input &input)
     pkt.yaw_rate   = constrain_float(yaw_rate, -0.5, 0.5);
     pkt.col_pitch  = 0;
 
-    sock.sendto(&pkt, sizeof(pkt), "127.0.0.1", 9002);
+    if (sock.sendto(&pkt, sizeof(pkt), "127.0.0.1", 9002) != sizeof(pkt)) {
+        // safe to ignore: SITL UDP output failures shouldn't halt the simulator,
+        // it natively recovers on the next packet.
+    }
 }
 
 /*

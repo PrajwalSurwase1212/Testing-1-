@@ -28,7 +28,7 @@
 #         self.ap_sim_vehicle_cmd = "sim_vehicle.py"
 #         self.ap_serial_device = f"./dev/ttyROS1"
 #         self.ap_serial_baud = 115200
-#         self.ap_vehicle = "ArduCopter"
+#         self.ap_vehicle = "Kala"
 #         self.ap_frame = "quad"
 #
 #         pkg = get_package_share_directory("ardupilot_sitl")

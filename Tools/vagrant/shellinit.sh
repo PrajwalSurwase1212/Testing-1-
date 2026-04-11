@@ -18,7 +18,7 @@ esac
 export PATH=$APMROOT/Tools/autotest:$PATH
 export PATH=/usr/lib/ccache:$PATH
 
-cd $APMROOT/ArduCopter
+cd $APMROOT/Kala
 
 echo "Ardupilot environment ready.  Run 'sim_vehicle.py' to start simulating an arducopter instance."
 echo "To build for fmuv2:"

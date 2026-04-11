@@ -82,7 +82,7 @@ void AirSim::output_copter(const sitl_input& input)
 {
     servo_packet pkt;
 
-	for (uint8_t i=0; i<kArduCopterRotorControlCount; i++) {
+	for (uint8_t i=0; i<kKalaRotorControlCount; i++) {
 		pkt.pwm[i] = input.servos[i];
 	}
 

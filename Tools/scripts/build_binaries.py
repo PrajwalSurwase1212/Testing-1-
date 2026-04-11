@@ -596,7 +596,7 @@ is bob we will attempt to checkout bob-AVR'''
         boards.extend(["aerofc-v1"])
         boards.extend(self.board_list.find_autobuild_boards('Copter'))
         self.build_vehicle(tag,
-                           "ArduCopter",
+                           "Kala",
                            boards,
                            "Copter",
                            "arducopter",

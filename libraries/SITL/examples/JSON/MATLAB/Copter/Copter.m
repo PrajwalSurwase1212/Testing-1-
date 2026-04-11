@@ -2,7 +2,7 @@ clc
 clear
 close all
 
-% ArduCopter SITL example vehicle
+% Kala SITL example vehicle
 % This sets up the vehicle properties that are used in the simulation
 % simple 450 size x quad based on Hexsoon
 

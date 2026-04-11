@@ -466,7 +466,7 @@ local arming_checks = {}
     table.insert(arming_checks, Arming_Check(FIRMWARE.GLOBAL, 9,
                     rally_ok, "RALLY", "Rally too far", MAV_SEVERITY.WARNING, true, false))
 
--- ArduCopter specific checks. Note that the index number starts from 1 for FIRMWARE.COPTER (ARM_C_ parameters)
+-- Kala specific checks. Note that the index number starts from 1 for FIRMWARE.COPTER (ARM_C_ parameters)
 if FWVersion:type() == FIRMWARE.COPTER then -- add Copter specific Parameters
 --[[
     // @Param: ARM_C_RTL_ALT

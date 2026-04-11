@@ -26,7 +26,7 @@ class FirmwareVersionType(enum.Enum):
         Return the closest release type for a given version type, going down.
         This is required because it is common in ardupilot to increase the version type
         for successive betas, such as here:
-        https://github.com/ArduPilot/ardupilot/blame/8890c44370a7cf27d5efc872ef6da288ae3bc41f/ArduCopter/version.h#L12
+        https://github.com/ArduPilot/ardupilot/blame/8890c44370a7cf27d5efc872ef6da288ae3bc41f/Kala/version.h#L12
         """
         for release in reversed(FirmwareVersionType):
             if version >= release.value:
@@ -35,7 +35,7 @@ class FirmwareVersionType(enum.Enum):
 
 class VehicleType(enum.Enum):
     Rover = 1
-    ArduCopter = 2
+    Kala = 2
     ArduPlane = 3
     AntennaTracker = 4
     UNKNOWN = 5

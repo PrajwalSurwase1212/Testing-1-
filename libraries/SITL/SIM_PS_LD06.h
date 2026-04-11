@@ -16,7 +16,7 @@
 
   Datasheet: https://storage.googleapis.com/mauser-public-images/prod_description_document/2021/315/8fcea7f5d479f4f4b71316d80b77ff45_096-6212_a.pdf
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=sim:ld06 --speedup=1 -l 51.8752066,14.6487840,54.15,0 --map
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=sim:ld06 --speedup=1 -l 51.8752066,14.6487840,54.15,0 --map
 
 param set SERIAL5_PROTOCOL 11
 param set PRX1_TYPE 16

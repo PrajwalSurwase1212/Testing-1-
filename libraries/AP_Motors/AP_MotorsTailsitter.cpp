@@ -14,7 +14,7 @@
  */
 
 /*
- *       AP_MotorsTailsitter.cpp - ArduCopter motors library for tailsitters and bicopters
+ *       AP_MotorsTailsitter.cpp - Kala motors library for tailsitters and bicopters
  *
  */
 

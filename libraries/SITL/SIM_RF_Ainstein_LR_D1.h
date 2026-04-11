@@ -15,7 +15,7 @@
 /*
   Simulator for the Ainstein LR-D1 serial rangefinder
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=sim:ainsteinlrd1 --speedup=1
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=sim:ainsteinlrd1 --speedup=1
 
 param set SERIAL5_PROTOCOL 9
 param set RNGFND1_TYPE 42
@@ -27,7 +27,7 @@ arm throttle
 rc 3 1600
 
 # to pass canned data through the simulator:
-/Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=file:libraries/AP_RangeFinder/examples/captures/ainstein_lr-d1.bin --speedup=1
+/Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=file:libraries/AP_RangeFinder/examples/captures/ainstein_lr-d1.bin --speedup=1
 
 param set SERIAL5_PROTOCOL 9
 param set RNGFND1_TYPE 42

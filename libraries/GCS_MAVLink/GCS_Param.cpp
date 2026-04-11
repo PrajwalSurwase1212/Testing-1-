@@ -278,6 +278,19 @@ void GCS_MAVLINK::handle_param_set(const mavlink_message_t &msg)
     if (vp == nullptr || isnan(packet.param_value) || isinf(packet.param_value)) {
         return;
     }
+    
+
+     //  Block changes to FRAME_CLASS and FRAME_TYPE
+    if (strcmp(key, "FRAME_CLASS") == 0) {
+        GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "Param FRAME_CLASS locked (Hexa only)");
+        send_parameter_value("FRAME_CLASS", AP_PARAM_INT8, 2);
+        return;
+    }
+    if (strcmp(key, "FRAME_TYPE") == 0) {
+        GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "Param FRAME_TYPE locked (X only)");
+        send_parameter_value("FRAME_TYPE", AP_PARAM_INT8, 1);
+        return;
+    }
 
     float old_value = vp->cast_to_float(var_type);
 

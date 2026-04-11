@@ -1,7 +1,7 @@
 #pragma once
 
 /// @file    AC_CustomControl.h
-/// @brief   ArduCopter custom control library
+/// @brief   Kala custom control library
 
 #include "AC_CustomControl_config.h"
 

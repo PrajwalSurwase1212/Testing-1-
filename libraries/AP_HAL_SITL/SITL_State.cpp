@@ -216,7 +216,7 @@ void SITL_State::_output_to_flightgear(void)
     fdm.theta = radians(sfdm.pitchDeg);
     fdm.psi   = radians(sfdm.yawDeg);
     fdm.vcas  = sfdm.velocity_air_bf.length()/0.3048;
-    if (_vehicle == ArduCopter) {
+    if (_vehicle == Kala) {
         fdm.num_engines = 4;
         for (uint8_t i=0; i<4; i++) {
             fdm.rpm[i] = constrain_float((pwm_output[i]-1000), 0, 1000);

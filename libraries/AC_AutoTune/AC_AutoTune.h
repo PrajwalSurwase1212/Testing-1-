@@ -13,7 +13,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
-  support for autotune of multirotors. Based on original autotune code from ArduCopter, written by Leonard Hall
+  support for autotune of multirotors. Based on original autotune code from Kala, written by Leonard Hall
   Converted to a library by Andrew Tridgell
  */
 #pragma once

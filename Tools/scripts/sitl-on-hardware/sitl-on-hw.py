@@ -19,7 +19,7 @@ vinfo = vehicleinfo.VehicleInfo()
 
 vehicle_map = {
     "APMrover2": "Rover",
-    "Copter": "ArduCopter",
+    "Copter": "Kala",
     "Heli": "Helicopter",
     "Plane": "ArduPlane",
     "Sub": "ArduSub",
@@ -111,7 +111,7 @@ if args.simclass:
     hwdef_write("define AP_SIM_FRAME_CLASS %s\n" % args.simclass)
 if args.frame:
     hwdef_write('define AP_SIM_FRAME_STRING "%s"\n' % args.frame)
-    if vehicle_map[args.vehicle] == "ArduCopter" or args.simclass == "MultiCopter":
+    if vehicle_map[args.vehicle] == "Kala" or args.simclass == "MultiCopter":
         frame_found = False
         frame_defines = {
             "quad": "AP_MOTORS_FRAME_QUAD_ENABLED",

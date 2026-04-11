@@ -52,7 +52,7 @@ If there is a rally point more than RALLY_LIMIT_KM kilometers from the home loca
 
 # Copter specific checks
 
-The following checks only apply if the firmware is ArduCopter
+The following checks only apply if the firmware is Kala
 
 # ARM_C_RTL_ALT
 

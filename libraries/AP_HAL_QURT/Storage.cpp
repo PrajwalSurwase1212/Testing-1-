@@ -21,7 +21,7 @@ using namespace QURT;
  */
 
 // name the storage file after the sketch so you can use the same board
-// card for ArduCopter and ArduPlane
+// card for Kala and ArduPlane
 #define STORAGE_FILE AP_FILESYSTEM_POSIX_MAP_FILENAME_BASEDIR "/APM/" AP_BUILD_TARGET_NAME ".stg"
 
 extern const AP_HAL::HAL& hal;

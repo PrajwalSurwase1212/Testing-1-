@@ -1,7 +1,7 @@
 #pragma once
 
 /// @file    AC_CommandModel.h
-/// @brief   ArduCopter Command Model Library
+/// @brief   Kala Command Model Library
 
 #include <AP_Param/AP_Param.h>
 

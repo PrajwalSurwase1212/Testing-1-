@@ -1,7 +1,7 @@
 #pragma once
 
 /// @file    AC_AttitudeControl_Heli.h
-/// @brief   ArduCopter attitude control library for traditional helicopters
+/// @brief   Kala attitude control library for traditional helicopters
 
 #include "AC_AttitudeControl.h"
 #include <AP_Motors/AP_MotorsHeli.h>

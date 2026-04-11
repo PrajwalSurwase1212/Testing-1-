@@ -53,7 +53,7 @@ int SHT3x::rdwr(I2C::i2c_rdwr_ioctl_data *&data)
         case Command::MEASURE:
             AP_HAL::panic("Command is write-only?!");
         case Command::READ_STATUS:
-            data->msgs[1].buf[0] = status.value >> 16;
+            data->msgs[1].buf[0] = status.value >> 8;
             data->msgs[1].buf[1] = status.value & 0xff;
             data->msgs[1].len = 2;
             return 0;

@@ -381,7 +381,7 @@ Vector3f AC_CustomControl_PID::update()
     return motor_out;
 }
 
-// This example uses exact same controller architecture as ArduCopter attitude controller without all the safe guard against saturation.
+// This example uses exact same controller architecture as Kala attitude controller without all the safe guard against saturation.
 // The gains are scaled 0.9 times to better detect switch over response. 
 // Note that integrator are not reset correctly as it is done in reset_main_att_controller inside AC_CustomControl.cpp
 // This is done intentionally to demonstrate switch over performance of two exact controller with different reset handling.

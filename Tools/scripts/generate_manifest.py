@@ -432,7 +432,7 @@ class ManifestGenerator():
                     # the platform variant is
                     # encoded in the firmware filename
                     # (e.g. the "v1" in
-                    # ArduCopter-v1.px4)
+                    # Kala-v1.px4)
                     variant = m.group("variant")
                     file_platform = "-".join([platform, variant])
                 else:

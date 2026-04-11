@@ -15,7 +15,7 @@
 /*
   Simulator for the IntelligentEnergy 2.4kW FuelCell
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=sim:ie24 --speedup=1 --console
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=sim:ie24 --speedup=1 --console
 
 param set SERIAL5_PROTOCOL 30  # Generator
 param set SERIAL5_BAUD 115200
@@ -30,7 +30,7 @@ graph BATTERY_STATUS[1].voltages[0]/1000.0
 
 reboot
 
-# TODO: ./Tools/autotest/autotest.py --gdb --debug build.ArduCopter fly.ArduCopter.IntelligentEnergy24
+# TODO: ./Tools/autotest/autotest.py --gdb --debug build.Kala fly.Kala.IntelligentEnergy24
 
 */
 

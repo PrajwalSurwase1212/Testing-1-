@@ -42,7 +42,7 @@ generate_parameters() {
 
 generate_parameters ArduPlane
 
-generate_parameters ArduCopter
+generate_parameters Kala
 
 generate_parameters Rover
 

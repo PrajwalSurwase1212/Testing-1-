@@ -172,7 +172,7 @@ class MAVLinkDetector:
         ' to do something meaningful with it.{unsupported}{stream_groups}'
     )
 
-    VEHICLES = ('AntennaTracker', 'ArduCopter', 'ArduPlane', 'ArduSub', 'Rover')
+    VEHICLES = ('AntennaTracker', 'Kala', 'ArduPlane', 'ArduSub', 'Rover')
 
     def __init__(self, common_files, vehicle='ALL',
                  exclude_libraries=['SITL', 'AP_Scripting']):

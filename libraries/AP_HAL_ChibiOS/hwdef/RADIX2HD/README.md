@@ -105,7 +105,7 @@ BrainFPV website. You can do so [here](https://www.brainfpv.com/firmware).
 ### Option 2: Download the Firmware From the ArduPilot Build Server
 
 Download the ELF file from the [ArduPilot Build Server](https://firmware.ardupilot.org/).
-Make sure you download the file for the "RADIX2HD" target. For example, the ELF file for ArduCopter
+Make sure you download the file for the "RADIX2HD" target. For example, the ELF file for Kala
 is called "arducopter.elf".
 
 In order to use the ELF file with your RADIX 2 HD, it needs to be converted using the

@@ -188,7 +188,8 @@ struct dirent *AP_Filesystem_ROMFS::readdir(void *dirp)
     }
 
     // Copy full name
-    strncpy(dir[idx].de.d_name, name, sizeof(dir[idx].de.d_name));
+    strncpy(dir[idx].de.d_name, name, sizeof(dir[idx].de.d_name) - 1);
+dir[idx].de.d_name[sizeof(dir[idx].de.d_name) - 1] = '\0';
 
     const char* slash = strchr(name, '/');
     if (slash == nullptr) {

@@ -70,11 +70,15 @@ SOCKET_CLASS_NAME::SOCKET_CLASS_NAME(bool _datagram, int _fd) :
     fd(_fd)
 {
 #ifdef FD_CLOEXEC
-    CALL_PREFIX(fcntl)(fd, F_SETFD, FD_CLOEXEC);
+    if (CALL_PREFIX(fcntl)(fd, F_SETFD, FD_CLOEXEC) == -1) {
+        // Handle gracefully by continuing; CLOEXEC failure is not critical for basic socket I/O
+    }
 #endif
     if (!datagram) {
         int one = 1;
-        CALL_PREFIX(setsockopt)(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+        if (CALL_PREFIX(setsockopt)(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) == -1) {
+            // Handle gracefully by continuing; NODELAY failure is not critical for basic socket I/O
+        }
     }
 }
 
@@ -125,7 +129,9 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
         struct sockaddr_in sockaddr_mc = sockaddr;
         struct ip_mreq mreq {};
 #ifdef FD_CLOEXEC
-        CALL_PREFIX(fcntl)(fd_in, F_SETFD, FD_CLOEXEC);
+        if (CALL_PREFIX(fcntl)(fd_in, F_SETFD, FD_CLOEXEC) == -1) {
+            // Handle gracefully by continuing; CLOEXEC failure is not critical for basic socket I/O
+        }
 #endif
         IGNORE_RETURN(CALL_PREFIX(setsockopt)(fd_in, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)));
 
@@ -177,7 +183,9 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
         if (fd_in == -1) {
             goto fail_multi;
         }
-        CALL_PREFIX(setsockopt)(fd_in, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+        if (CALL_PREFIX(setsockopt)(fd_in, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
+            // Handle gracefully by continuing; REUSEADDR failure is not critical for basic socket I/O
+        }
         // 2nd socket needs to be bound to wildcard
         send_addr.sin_addr.s_addr = INADDR_ANY;
         ret = CALL_PREFIX(bind)(fd_in, (struct sockaddr *)&send_addr, sizeof(send_addr));
@@ -434,7 +442,9 @@ void SOCKET_CLASS_NAME::set_broadcast(void) const
         return;
     }
     int one = 1;
-    CALL_PREFIX(setsockopt)(fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
+    if (CALL_PREFIX(setsockopt)(fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one)) == -1) {
+        // Handle gracefully by continuing; BROADCAST failure is not critical for basic socket I/O
+    }
 }
 
 /*

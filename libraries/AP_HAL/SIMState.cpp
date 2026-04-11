@@ -35,7 +35,7 @@ using namespace AP_HAL;
 #include <AP_Terrain/AP_Terrain.h>
 
 #ifndef AP_SIM_FRAME_CLASS
-#if APM_BUILD_TYPE(APM_BUILD_ArduCopter)
+#if APM_BUILD_TYPE(APM_BUILD_Kala)
 #define AP_SIM_FRAME_CLASS MultiCopter
 #elif APM_BUILD_TYPE(APM_BUILD_Heli)
 #define AP_SIM_FRAME_CLASS Helicopter
@@ -55,7 +55,7 @@ using namespace AP_HAL;
 #endif
 
 #ifndef AP_SIM_FRAME_STRING
-#if APM_BUILD_TYPE(APM_BUILD_ArduCopter)
+#if APM_BUILD_TYPE(APM_BUILD_Kala)
 #define AP_SIM_FRAME_STRING "+"
 #elif APM_BUILD_TYPE(APM_BUILD_Heli)
 #define AP_SIM_FRAME_STRING "heli"

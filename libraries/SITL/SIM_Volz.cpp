@@ -103,7 +103,7 @@ void Volz::update_servos(const class Aircraft &aircraft)
 
     for (auto  &servo : servos) {
         const uint8_t idx = servo.id - 1;
-        if (idx > ARRAY_SIZE(aircraft.servo_filter)) {
+        if (idx >= ARRAY_SIZE(aircraft.servo_filter)) {
             continue;
         }
         servo.position = aircraft.servo_filter[idx].angle();
@@ -235,9 +235,13 @@ void Volz::update_sitl_input_pwm(struct sitl_input &input)
     // sitl_model->update_model with those we're receiving serially
     for (auto &servo : servos) {
         const uint8_t idx = servo.id - 1;
-        if (idx > ARRAY_SIZE(input.servos)) {
+        if (idx >= ARRAY_SIZE(input.servos)) {
             // silently ignore; input.servos is 12-long, we are
             // usually 16-long
+            continue;
+        }
+        // _output_mask and _failed_mask are 32-bit parameters
+        if (idx >= 32) {
             continue;
         }
         if ((_output_mask.get() & (1U<<idx)) == 0) {

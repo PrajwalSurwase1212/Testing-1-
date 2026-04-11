@@ -2,7 +2,7 @@
 /// @brief  Crop sprayer library
 
 /**
-    The crop spraying functionality can be enabled in ArduCopter by doing the following:
+    The crop spraying functionality can be enabled in Kala by doing the following:
         - set RC7_OPTION or RC8_OPTION parameter to 15 to allow turning the sprayer on/off from one of these channels
         - set SERVO10_FUNCTION to 22 to enable the servo output controlling the pump speed on servo-out 10
         - set SERVO11_FUNCTION to 23 to enable the servo output controlling the spinner on servo-out 11

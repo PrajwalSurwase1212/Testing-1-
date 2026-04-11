@@ -58,12 +58,12 @@ void Frsky_D::update()
                 // _lost_bytes++;
                 continue;
             }
-            memcpy(&_buffer[0], &_buffer[1], --_buflen); //srsly?!
+            memmove(&_buffer[0], &_buffer[1], --_buflen); //srsly?!
             _state = State::WANT_ID;
             break;
         case State::WANT_ID:
             _id = _buffer[0];
-            memcpy(&_buffer[0], &_buffer[1], --_buflen); //srsly?!
+            memmove(&_buffer[0], &_buffer[1], --_buflen); //srsly?!
             _state = State::WANT_BYTE1;
             break;
         case State::WANT_BYTE1:
@@ -87,7 +87,7 @@ void Frsky_D::update()
                 byte = _buffer[0];
             }
 
-            memcpy(&_buffer[0], &_buffer[consume], _buflen-consume);
+            memmove(&_buffer[0], &_buffer[consume], _buflen-consume);
             _buflen -= consume;
 
             switch (_state) {

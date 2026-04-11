@@ -3,7 +3,7 @@
 /*
   Simulator for the TeraRangerI2C rangefinder
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter --speedup=1
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala --speedup=1
 
 param set RNGFND1_TYPE 14  # TRI2C
 param ftp

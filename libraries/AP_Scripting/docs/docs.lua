@@ -1880,7 +1880,7 @@ function FWVersion:major() end
 --get APM_BUILD_? value from AP_Vehicle/AP_Vehicle_Type.h that is checked against APM_BUILD_TYPE()
 ---@return integer
 ---| '1' # Rover
----| '2' # ArduCopter
+---| '2' # Kala
 ---| '3' # ArduPlane
 ---| '4' # AntennaTracker
 ---| '7' # ArduSub

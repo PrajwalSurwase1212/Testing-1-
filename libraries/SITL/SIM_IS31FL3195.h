@@ -2,7 +2,7 @@
 
   DataSheet: https://www.lumissil.com/assets/pdf/core/IS31FL3195_DS.pdf
 
-  ./Tools/autotest/sim_vehicle.py -v ArduCopter --gdb --debug --rgbled
+  ./Tools/autotest/sim_vehicle.py -v Kala --gdb --debug --rgbled
 
   param set NTF_LED_TYPES 32772  # enable ToshibaLED and IS31FL3195
   reboot

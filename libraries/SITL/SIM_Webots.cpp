@@ -366,7 +366,9 @@ void Webots::output_rover(const struct sitl_input &input)
     
     buf[len] = 0;
 
-    sim_sock->send(buf, len);
+    if (sim_sock->send(buf, len) < 0) {
+        // ignore safely, Webots socket failures shouldn't halt the simulator
+    }
 }
 
 /*
@@ -394,7 +396,9 @@ void Webots::output_tricopter(const struct sitl_input &input)
     //printf("\"eng\": [%.3f, %.3f, %.3f, %.3f]\n",m_right, m_left, m_servo, m_back);
     buf[len] = 0;
 
-    sim_sock->send(buf, len);
+    if (sim_sock->send(buf, len) < 0) {
+        // ignore safely, Webots socket failures shouldn't halt the simulator
+    }
 }
 
 
@@ -413,7 +417,9 @@ void Webots::output_pwm(const struct sitl_input &input)
              input.servos[12], input.servos[13], input.servos[14], input.servos[15],
              input.wind.speed, wind_ef.x, wind_ef.y, wind_ef.z);
     buf[len] = 0;
-    sim_sock->send(buf, len);
+    if (sim_sock->send(buf, len) < 0) {
+        // ignore safely, Webots socket failures shouldn't halt the simulator
+    }
 }
 
 

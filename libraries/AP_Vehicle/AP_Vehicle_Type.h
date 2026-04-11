@@ -33,6 +33,7 @@
 #define APM_BUILD_AP_Bootloader  11
 #define APM_BUILD_Blimp      12
 #define APM_BUILD_Heli       13
+#define APM_BUILD_Kala       14
 // @LoggerEnumEnd
 
 #ifdef APM_BUILD_DIRECTORY
@@ -45,7 +46,7 @@
 /*
   Copter and heli share a lot of code. This macro makes it easier to check for both
 */
-#define APM_BUILD_COPTER_OR_HELI (APM_BUILD_TYPE(APM_BUILD_ArduCopter) || APM_BUILD_TYPE(APM_BUILD_Heli))
+#define APM_BUILD_COPTER_OR_HELI (APM_BUILD_TYPE(APM_BUILD_Kala) || APM_BUILD_TYPE(APM_BUILD_Heli))
 
 #else 
 #define APM_BUILD_TYPE(type) @Invalid_use_of_APM_BUILD_TYPE

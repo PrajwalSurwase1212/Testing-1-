@@ -59,10 +59,10 @@ private:
     };
 
     // rotor control packet sent by Ardupilot
-    static const int kArduCopterRotorControlCount = 11;
+    static const int kKalaRotorControlCount = 11;
 
     struct servo_packet {
-		uint16_t pwm[kArduCopterRotorControlCount];
+		uint16_t pwm[kKalaRotorControlCount];
 	};
 
 	// default connection_info_.ip_address

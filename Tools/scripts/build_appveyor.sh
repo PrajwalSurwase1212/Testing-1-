@@ -23,7 +23,7 @@ cd /cygdrive/c/work
     # map to the names that MissionPlanner expects
     cp /cygdrive/c/work/build/sitl/bin/ardurover.exe /cygdrive/c/work/sitl/Rover.elf
     cp /cygdrive/c/work/build/sitl/bin/arduplane.exe /cygdrive/c/work/sitl/ArduPlane.elf
-    cp /cygdrive/c/work/build/sitl/bin/arducopter.exe /cygdrive/c/work/sitl/ArduCopter.elf
+    cp /cygdrive/c/work/build/sitl/bin/arducopter.exe /cygdrive/c/work/sitl/Kala.elf
     cp /cygdrive/c/work/build/sitl/bin/arducopter-heli.exe /cygdrive/c/work/sitl/ArduHeli.elf
     cp /cygdrive/c/work/build/sitl/bin/ardusub.exe /cygdrive/c/work/sitl/ArduSub.elf
 

@@ -103,7 +103,7 @@ def check_sitl(skip=SkippedChecks()):
     '''
     vinfo = VehicleInfo()
     vehicle_name = {
-        'ArduCopter': 'Copter',
+        'Kala': 'Copter',
         'Helicopter': 'Copter',
         'Blimp': 'Blimp',
         'ArduPlane': 'Plane',

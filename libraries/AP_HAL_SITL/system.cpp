@@ -73,7 +73,7 @@ static void run_command_on_ownpid(const char *commandname)
         custom_scripts_dir_path_pattern,
         "Tools/scripts/%s",
         "APM/Tools/scripts/%s", // for autotest server
-        "../Tools/scripts/%s", // when run from e.g. ArduCopter subdirectory
+        "../Tools/scripts/%s", // when run from e.g. Kala subdirectory
     };
     char buffer[60];
     for (uint8_t i=0; i<ARRAY_SIZE(paths); i++) {

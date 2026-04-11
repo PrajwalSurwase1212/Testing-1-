@@ -6,7 +6,7 @@
 
 /ardupilot:
     sim_vehicle_cmd: ./src/ardupilot/Tools/autotest/sim_vehicle.py
-    vehicle: ArduCopter
+    vehicle: Kala
     frame: quad
     serial_baud: 115200
     serial_device: ./dev/ttyROS1

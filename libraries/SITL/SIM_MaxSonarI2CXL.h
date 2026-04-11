@@ -3,7 +3,7 @@
 /*
   Simulator for the MaxsonarI2XL rangefinder
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter --speedup=1
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala --speedup=1
 
 param set RNGFND1_TYPE 2
 graph RANGEFINDER.distance

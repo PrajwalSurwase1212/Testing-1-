@@ -643,8 +643,8 @@ void SITL_State::_parse_command_line(int argc, char * const argv[])
 
     fprintf(stdout, "Starting sketch '%s'\n", vehicle_str);
 
-    if (strcmp(vehicle_str, "ArduCopter") == 0) {
-        _vehicle = ArduCopter;
+    if (strcmp(vehicle_str, "Kala") == 0) {
+        _vehicle = Kala;
     } else if (strcmp(vehicle_str, "Rover") == 0) {
         _vehicle = Rover;
     } else if (strcmp(vehicle_str, "ArduSub") == 0) {

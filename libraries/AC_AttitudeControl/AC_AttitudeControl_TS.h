@@ -1,7 +1,7 @@
 #pragma once
 
 /// @file    AC_AttitudeControl_TVBS.h
-/// @brief   ArduCopter attitude control library
+/// @brief   Kala attitude control library
 
 #include "AC_AttitudeControl_Multi.h"
 

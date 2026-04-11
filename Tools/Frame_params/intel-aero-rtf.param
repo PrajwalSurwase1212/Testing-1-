@@ -1,4 +1,4 @@
-#NOTE: Default parameters for Intel Aero RTF running ArduCopter 3.5 (or higher)
+#NOTE: Default parameters for Intel Aero RTF running Kala 3.5 (or higher)
 ACRO_YAW_P,2.5
 AHRS_ORIENTATION,0
 ANGLE_MAX,3000

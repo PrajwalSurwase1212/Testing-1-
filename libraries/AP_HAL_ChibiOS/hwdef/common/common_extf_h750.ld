@@ -231,7 +231,7 @@ SECTIONS
         /* scheduler task table */
         AntennaTracker/Tracker.*(.rodata*)
         AP_Vehicle/AP_Vehicle.*(.rodata*)
-        ArduCopter/Copter.*(.rodata*)
+        Kala/Copter.*(.rodata*)
         ArduPlane/ArduPlane.*(.rodata*)
         ArduSub/ArduSub.*(.rodata*)
         Blimp/Blimp.*(.rodata*)

@@ -263,7 +263,8 @@ void AP_Generator_IE_2400::decode_v2_data()
             break;
 
         case 11:
-            strncpy(_parsed_V2.info_str, _term, ARRAY_SIZE(_parsed_V2.info_str));
+            strncpy(_parsed_V2.info_str, _term, ARRAY_SIZE(_parsed_V2.info_str) - 1);
+            _parsed_V2.info_str[ARRAY_SIZE(_parsed_V2.info_str) - 1] = '\0';
             break;
 
         case 12: {
@@ -298,22 +299,26 @@ void AP_Generator_IE_2400::decode_info_packet()
     switch (_term_number) {
         case 1:
             // PCM software number
-            strncpy(_info.PCM_number, _term, ARRAY_SIZE(_info.PCM_number));
+            strncpy(_info.PCM_number, _term, ARRAY_SIZE(_info.PCM_number) - 1);
+            _info.PCM_number[ARRAY_SIZE(_info.PCM_number) - 1] = '\0';
             break;
 
         case 2:
             // Software version
-            strncpy(_info.Software_version, _term, ARRAY_SIZE(_info.Software_version));
+            strncpy(_info.Software_version, _term, ARRAY_SIZE(_info.Software_version) - 1);
+            _info.Software_version[ARRAY_SIZE(_info.Software_version) - 1] = '\0';
             break;
 
         case 3:
             // protocol version
-            strncpy(_info.Protocol_version, _term, ARRAY_SIZE(_info.Protocol_version));
+            strncpy(_info.Protocol_version, _term, ARRAY_SIZE(_info.Protocol_version) - 1);
+            _info.Protocol_version[ARRAY_SIZE(_info.Protocol_version) - 1] = '\0';
             break;
 
         case 4:
             // Hardware serial number
-            strncpy(_info.Serial_number, _term, ARRAY_SIZE(_info.Serial_number));
+            strncpy(_info.Serial_number, _term, ARRAY_SIZE(_info.Serial_number) - 1);
+            _info.Serial_number[ARRAY_SIZE(_info.Serial_number) - 1] = '\0';
             break;
 
         case 5: {

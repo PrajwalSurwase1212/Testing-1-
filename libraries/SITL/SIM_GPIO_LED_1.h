@@ -2,7 +2,7 @@
 
   Simulator for GPIO-based "Board LEDs"
 
-  ./Tools/autotest/sim_vehicle.py -v ArduCopter --gdb --debug --rgbled
+  ./Tools/autotest/sim_vehicle.py -v Kala --gdb --debug --rgbled
 
   reboot
 

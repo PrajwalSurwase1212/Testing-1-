@@ -3,7 +3,7 @@
 /*
  * To test in SITL:
  *
- * ./Tools/autotest/sim_vehicle.py -v ArduCopter --rgbled
+ * ./Tools/autotest/sim_vehicle.py -v Kala --rgbled
  */
 
 #include "SIM_config.h"

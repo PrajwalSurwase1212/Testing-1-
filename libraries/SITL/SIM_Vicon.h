@@ -15,7 +15,7 @@
 /*
   VICON (visual positioning) simulation
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=sim:vicon:
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=sim:vicon:
 param set SERIAL5_PROTOCOL 1
 graph SIMSTATE.lat-GPS_GLOBAL_ORIGIN.latitude SIMSTATE.lng-GPS_GLOBAL_ORIGIN.longitude
 reboot

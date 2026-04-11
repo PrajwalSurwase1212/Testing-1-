@@ -13,7 +13,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
-  Multirotor implementation of AutoTune. Based on the original ArduCopter
+  Multirotor implementation of AutoTune. Based on the original Kala
   autotune code by Leonard Hall.
  */
 

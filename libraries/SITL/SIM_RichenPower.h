@@ -15,7 +15,7 @@
 /*
   Simulator for the RichenPower Hybrid generators
 
-./Tools/autotest/sim_vehicle.py --gdb --debug -v ArduCopter -A --serial5=sim:richenpower --speedup=1 --console
+./Tools/autotest/sim_vehicle.py --gdb --debug -v Kala -A --serial5=sim:richenpower --speedup=1 --console
 
 param set SERIAL5_PROTOCOL 30
 param set SERIAL5_BAUD 9600
@@ -34,7 +34,7 @@ module load generator
 
 arm throttle (denied because generator not running)
 
-./Tools/autotest/autotest.py --gdb --debug build.ArduCopter fly.ArduCopter.RichenPower
+./Tools/autotest/autotest.py --gdb --debug build.Kala fly.Kala.RichenPower
 
 */
 
