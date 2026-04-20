@@ -312,7 +312,18 @@ bool JSBSim::open_control_socket(void)
         "resume\n"
         "iterate 1\n"
         "set atmosphere/turb-type 4\n";
-    sock_control.send(startup, strlen(startup));
+    const ssize_t startup_len = strlen(startup);
+    const ssize_t sent = sock_control.send(startup, startup_len);
+    if (sent < 0) {
+        if (errno != EAGAIN && errno != EWOULDBLOCK) {
+            fprintf(stderr, "Failed to send JSBSim startup commands: %s\n",
+                    strerror(errno));
+        }
+    } else if (sent < startup_len) {
+        fprintf(stderr, "Failed to send all JSBSim startup bytes (%d/%d)\n",
+                static_cast<int>(sent),
+                static_cast<int>(startup_len));
+    }
     return true;
 }
 

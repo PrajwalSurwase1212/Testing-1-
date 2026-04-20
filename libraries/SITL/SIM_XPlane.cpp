@@ -315,8 +315,13 @@ void XPlane::select_data(void)
         dsel.data[count++] = required_data[i];
     }
     if (count != 0) {
-        if (socket_out.send(&dsel, sizeof(dsel)) < 0) {
-            // safe to ignore: SITL socket output failures shouldn't halt the simulator
+        const ssize_t sent = socket_out.send(&dsel, sizeof(dsel));
+        if (sent < 0) {
+            printf("Failed to select X-Plane data, send returned %ld\n", (long)sent);
+        } else if (sent < static_cast<ssize_t>(sizeof(dsel))) {
+            printf("Sent %ld bytes instead of %u while selecting X-Plane data\n",
+                   (long)sent,
+                   static_cast<unsigned>(sizeof(dsel)));
         }
         printf("Selecting %u data types\n", (unsigned)count);
     }

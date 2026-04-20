@@ -15,19 +15,15 @@
 /*
   simple socket handling class for systems with BSD socket API
  */
-
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Networking/AP_Networking_Config.h>
 #if AP_NETWORKING_SOCKETS_ENABLED || defined(AP_SOCKET_NATIVE_ENABLED)
-
 #ifndef SOCKET_CLASS_NAME
 #define SOCKET_CLASS_NAME SocketAPM
 #endif
-
 #ifndef IN_SOCKET_NATIVE_CPP
 #include "Socket.hpp"
 #endif
-
 #if AP_NETWORKING_BACKEND_CHIBIOS || AP_NETWORKING_BACKEND_PPP
 #include <lwip/sockets.h>
 #else
@@ -129,8 +125,9 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
         struct sockaddr_in sockaddr_mc = sockaddr;
         struct ip_mreq mreq {};
 #ifdef FD_CLOEXEC
-        if (CALL_PREFIX(fcntl)(fd_in, F_SETFD, FD_CLOEXEC) == -1) {
-            // Handle gracefully by continuing; CLOEXEC failure is not critical for basic socket I/O
+        ret = CALL_PREFIX(fcntl)(fd_in, F_SETFD, FD_CLOEXEC);
+        if (ret == -1) {
+            printf("Socket: failed to set FD_CLOEXEC on multicast socket (errno=%d)\n", errno);
         }
 #endif
         IGNORE_RETURN(CALL_PREFIX(setsockopt)(fd_in, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)));
@@ -156,13 +153,11 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
             goto fail_multi;
         }
     }
-
     if (datagram && sockaddr.sin_addr.s_addr == INADDR_BROADCAST) {
         // setup for bi-directional UDP broadcast
         set_broadcast();
         reuseaddress();
     }
-
     ret = CALL_PREFIX(connect)(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret != 0) {
         if (errno == EINPROGRESS) {
@@ -171,7 +166,6 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
         return false;
     }
     connected = true;
-
     if (datagram && sockaddr.sin_addr.s_addr == INADDR_BROADCAST) {
         // for bi-directional UDP broadcast we need 2 sockets
         struct sockaddr_in send_addr;
@@ -194,14 +188,12 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
         }
     }
     return true;
-
 fail_multi:
     CALL_PREFIX(close)(fd_in);
     fd_in = -1;
     return false;
 }
 #endif // !defined(HAL_BOOTLOADER_BUILD) || AP_NETWORKING_CAN_MCAST_ENABLED
-
 /*
   connect the socket with a timeout
  */
@@ -235,7 +227,6 @@ bool SOCKET_CLASS_NAME::connect_timeout(const char *address, uint16_t port, uint
     connected = sock_error == 0;
     return connected;
 }
-
 /*
   bind the socket
  */
@@ -253,7 +244,6 @@ bool SOCKET_CLASS_NAME::bind(const char *address, uint16_t port)
     }
     return true;
 }
-
 
 /*
   set SO_REUSEADDR
@@ -402,7 +392,6 @@ void SOCKET_CLASS_NAME::last_recv_address(const char *&ip_addr, uint16_t &port) 
     auto *str = last_recv_address(buf, sizeof(buf), port);
     ip_addr = str;
 }
-
 /*
   return the IP address and port of the last received packet, using caller supplied buffer
  */
@@ -435,7 +424,6 @@ bool SOCKET_CLASS_NAME::last_recv_address(uint32_t &ip_addr, uint16_t &port) con
     }
     return true;
 }
-
 void SOCKET_CLASS_NAME::set_broadcast(void) const
 {
     if (fd == -1) {
@@ -446,7 +434,6 @@ void SOCKET_CLASS_NAME::set_broadcast(void) const
         // Handle gracefully by continuing; BROADCAST failure is not critical for basic socket I/O
     }
 }
-
 /*
   return true if there is pending data for input
  */
@@ -461,17 +448,13 @@ bool SOCKET_CLASS_NAME::pollin(uint32_t timeout_ms)
         return false;
     }
     FD_SET(fin, &fds);
-
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000UL;
-
     if (CALL_PREFIX(select)(fin+1, &fds, nullptr, nullptr, &tv) != 1) {
         return false;
     }
     return true;
 }
-
-
 /*
   return true if there is room for output data
  */
@@ -502,7 +485,6 @@ bool SOCKET_CLASS_NAME::pollout(uint32_t timeout_ms)
         }
         pending_connect = false;
     }
-
     return true;
 }
 

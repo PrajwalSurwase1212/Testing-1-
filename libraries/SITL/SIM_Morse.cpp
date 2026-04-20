@@ -431,7 +431,15 @@ void Morse::output_quad(const struct sitl_input &input)
              m_back, m_right, m_front, m_left);
     buf[sizeof(buf)-1] = 0;
 
-    control_sock->send(buf, strlen(buf));
+    const size_t len = strlen(buf);
+    const ssize_t sent = control_sock->send(buf, len);
+    if (sent < 0) {
+        printf("Failed to send Morse quad output, send returned %ld\n", (long)sent);
+    } else if (sent < static_cast<ssize_t>(len)) {
+        printf("Sent %ld bytes instead of %u for Morse quad output\n",
+               (long)sent,
+               static_cast<unsigned>(len));
+    }
 }
 
 /*

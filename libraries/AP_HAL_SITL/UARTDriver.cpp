@@ -627,7 +627,10 @@ void UARTDriver::_uart_start_connection(void)
     // set non-blocking
     int flags = fcntl(_fd, F_GETFL, 0);
     flags = flags | O_NONBLOCK;
-    fcntl(_fd, F_SETFL, flags);
+    const int ret = fcntl(_fd, F_SETFL, flags);
+    if (ret == -1) {
+        ::printf("Failed to set non-blocking on %s: %s\n", _uart_path, strerror(errno));
+    }
 
     // disable LF -> CR/LF
     tcgetattr(_fd, &t);
@@ -1054,4 +1057,3 @@ void UARTDriver::uart_info(ExpandingString &str, StatsTracker &stats, const uint
 #endif
 
 #endif // CONFIG_HAL_BOARD
-

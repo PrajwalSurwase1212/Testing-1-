@@ -231,7 +231,18 @@ void SITL_State::_output_to_flightgear(void)
     }
     fdm.ByteSwap();
 
-    fg_socket.send(&fdm, sizeof(fdm));
+    const ssize_t sent = fg_socket.send(&fdm, sizeof(fdm));
+    if (sent != static_cast<ssize_t>(sizeof(fdm))) {
+        if (sent < 0) {
+            if (errno != EAGAIN && errno != EWOULDBLOCK) {
+                ::fprintf(stderr, "FlightGear send failed - %s\n", strerror(errno));
+            }
+        } else {
+            ::fprintf(stderr, "FlightGear send short write (%d/%u)\n",
+                      static_cast<int>(sent),
+                      static_cast<unsigned>(sizeof(fdm)));
+        }
+    }
 }
 
 /*

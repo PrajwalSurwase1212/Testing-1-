@@ -212,7 +212,15 @@ Connection: Keep-Alive
 %s)",
              action,
              (unsigned)strlen(req1), req1);
-    sock->send(req, strlen(req));
+    const size_t req_len = strlen(req);
+    const ssize_t sent = sock->send(req, req_len);
+    if (sent < 0) {
+        printf("Failed to send FlightAxis SOAP request, send returned %ld\n", (long)sent);
+    } else if (sent < static_cast<ssize_t>(req_len)) {
+        printf("Sent %ld bytes instead of %u for FlightAxis SOAP request\n",
+               (long)sent,
+               (unsigned)req_len);
+    }
     free(req1);
     free(req);
     return true;

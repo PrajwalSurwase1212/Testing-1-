@@ -185,7 +185,14 @@ void JSON_Master::send(const struct sitl_fdm &output, const Vector3d &position)
                             output.speedN, output.speedE, output.speedD);
 
     for (socket_list *list = &_list; list->next; list=list->next) {
-        list->sock_out.send(json_out,length);
+        const ssize_t sent = list->sock_out.send(json_out, length);
+        if (sent < 0) {
+            printf("Unable to send JSON output to slave %u - Error: %s, Return value: %ld\n",
+                   list->instance, strerror(errno), (long)sent);
+        } else if (sent < static_cast<ssize_t>(length)) {
+            printf("Sent %ld bytes instead of %d bytes to slave %u\n",
+                   (long)sent, length, list->instance);
+        }
     }
     free(json_out);
 }

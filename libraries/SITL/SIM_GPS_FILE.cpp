@@ -47,7 +47,10 @@ void GPS_FILE::publish(const GPS_Data *d)
         }
         if (header.time_ms+base_time[instance] > AP_HAL::millis()) {
             // not ready for this data yet
-            ::lseek(fd[instance], -sizeof(header), SEEK_CUR);
+            const off_t ret = ::lseek(fd[instance], -sizeof(header), SEEK_CUR);
+            if (ret == (off_t)-1) {
+                ::printf("GPS[%u] failed to rewind header\n", unsigned(instance));
+            }
             return;
         }
         buf = NEW_NOTHROW uint8_t[header.n];
