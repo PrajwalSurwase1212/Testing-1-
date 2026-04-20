@@ -1,0 +1,30 @@
+stages:
+  - analysis
+
+cppcheck:
+  stage: analysis
+  image: ubuntu:22.04
+  before_script:
+    - apt update
+    - apt install -y cppcheck
+  script:
+    - mkdir -p reports
+    - cppcheck --enable=warning,style,performance --inconclusive \
+      --xml --xml-version=2 . 2> reports/cppcheck.xml
+  artifacts:
+    paths:
+      - reports/cppcheck.xml
+
+clang_tidy:
+  stage: analysis
+  image: ubuntu:22.04
+  before_script:
+    - apt update
+    - apt install -y clang-tidy
+  script:
+    - mkdir -p reports
+    - find . -name "*.cpp" > files.txt
+    - xargs -a files.txt clang-tidy > reports/clang-tidy.txt || true
+  artifacts:
+    paths:
+      - reports/clang-tidy.txt
