@@ -490,7 +490,7 @@ void AP_Generator_RichenPower::send_generator_status(const GCS_MAVLINK &channel)
         status |= MAV_GENERATOR_STATUS_FLAG_REDUCED_POWER;
     }
 
-    if (last_reading.errors & (uint8_t)Errors::MaintenanceRequired) {
+    if (last_reading.errors & (1U << uint8_t(Errors::MaintenanceRequired))){
         status |= MAV_GENERATOR_STATUS_FLAG_MAINTENANCE_REQUIRED;
     }
     if (last_reading.errors & (uint8_t)Errors::StartDisabled) {
