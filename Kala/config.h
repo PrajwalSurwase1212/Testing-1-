@@ -30,7 +30,14 @@
 #include <AP_ADSB/AP_ADSB_config.h>
 #include <AP_Follow/AP_Follow_config.h>
 #include <AC_Avoidance/AC_Avoidance_config.h>
+// add the this pacth herre 
+#ifndef HAL_ADSB_ENABLED
+#define HAL_ADSB_ENABLED 0
+#endif
 
+#ifndef MODE_GUIDED_ENABLED
+#define MODE_GUIDED_ENABLED 1
+#endif
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 // HARDWARE CONFIGURATION AND CONNECTIONS

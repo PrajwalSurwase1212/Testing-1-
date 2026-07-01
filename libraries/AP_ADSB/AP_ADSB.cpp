@@ -21,7 +21,9 @@
 */
 
 #include "AP_ADSB_config.h"
-
+#ifndef HAL_ADSB_ENABLED     // <--- ADD THIS
+#define HAL_ADSB_ENABLED 0   // <--- ADD THIS
+#endif
 #if HAL_ADSB_ENABLED
 
 #include "AP_ADSB.h"

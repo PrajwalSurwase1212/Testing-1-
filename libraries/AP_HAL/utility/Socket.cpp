@@ -40,7 +40,7 @@
 #endif
 
 #include <errno.h>
-
+#include <stdio.h>
 #if AP_NETWORKING_BACKEND_CHIBIOS || AP_NETWORKING_BACKEND_PPP
 #define CALL_PREFIX(x) ::lwip_##x
 #else

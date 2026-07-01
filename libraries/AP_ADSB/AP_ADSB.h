@@ -23,13 +23,17 @@
 
 #include "AP_ADSB_config.h"
 
+#ifndef HAL_ADSB_ENABLED
+#define HAL_ADSB_ENABLED 0
+#endif
+
 #if HAL_ADSB_ENABLED
+
 #include <AP_Common/AP_Common.h>
 #include <AP_Param/AP_Param.h>
 #include <AP_Common/Location.h>
 #include <GCS_MAVLink/GCS_MAVLink.h>
 #include <AP_GPS/AP_GPS_FixType.h>
-
 #define ADSB_MAX_INSTANCES             1   // Maximum number of ADSB sensor instances available on this platform
 
 #define ADSB_BITBASK_RF_CAPABILITIES_UAT_IN         (1 << 0)
