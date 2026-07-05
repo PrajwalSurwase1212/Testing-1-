@@ -1351,7 +1351,7 @@ AP_GPS_UBLOX::_parse_gps(void)
                 int8_t cfg_idx = find_active_config_index(id);
                 if (cfg_idx >= 0) {
                     CFG_Debug("valset(0x%lx): %u", (long unsigned)id, unsigned((*cfg_data) & 0x1));
-                    const uint8_t key_size = config_key_size(id);
+                    const uint8_t key_size = MIN(config_key_size(id), (uint8_t)sizeof(active_config.list[cfg_idx].value));
                     if (cfg_len < key_size
                         // for keys of length 1 only the LSB is significant
                         || (key_size == 1 && (active_config.list[cfg_idx].value & 0x1) != (*cfg_data & 0x1))

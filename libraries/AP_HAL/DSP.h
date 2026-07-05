@@ -68,9 +68,9 @@ public:
         // intermediate real FFT data
         float* _rfft_data;
         // averaged frequency data via Welch's method
-        float* _avg_freq_bins;
+        float* _avg_freq_bins = nullptr;
         // sliding window of _bin_count frames
-        float* _sliding_window;
+        float* _sliding_window = nullptr;
         // three highest peaks
         FrequencyPeakData _peak_data[MAX_TRACKED_PEAKS];
         // Hanning window for incoming samples, see https://en.wikipedia.org/wiki/Window_function#Hann_.28Hanning.29_window

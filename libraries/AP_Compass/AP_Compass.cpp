@@ -910,7 +910,7 @@ Compass::Priority Compass::_update_priority_list(int32_t dev_id)
 // priority list, only call before detection at boot
 void Compass::_reorder_compass_params()
 {
-    mag_state swap_state;
+    mag_state swap_state{};
     StateIndex curr_state_id;
     for (Priority i(0); i<COMPASS_MAX_INSTANCES; i++) {
         if (_priority_did_list[i] == 0) {

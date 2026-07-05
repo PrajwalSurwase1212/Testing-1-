@@ -30,7 +30,7 @@ public:
     }
     
     // paths for UART devices
-    const char *_serial_path[9] {
+    const char *_serial_path[10] {
         "tcp:0:wait",
         "tcp:2",
         "tcp:3",
@@ -40,6 +40,7 @@ public:
         "tcp:6",
         "tcp:7",
         "tcp:8",
+        "tcp:9",
     };
     ObjectArray<struct AP_Param::defaults_table_struct> cmdline_param{100};
 

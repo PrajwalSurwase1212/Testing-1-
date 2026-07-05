@@ -34,7 +34,7 @@ int SITL::TSYS01::rdwr(I2C::i2c_rdwr_ioctl_data *&data)
             if (data->msgs[1].len != 2) {
                 AP_HAL::panic("Unexpected prom read length");
             }
-            uint8_t offs = ARRAY_SIZE(_k)-((uint8_t(command) - uint8_t(Command::READ_PROM0))/2);
+            uint8_t offs = (ARRAY_SIZE(_k)-((uint8_t(command) - uint8_t(Command::READ_PROM0))/2)) % ARRAY_SIZE(_k);
             const uint16_t k = _k[offs];
             data->msgs[1].buf[0] = k >> 8;
             data->msgs[1].buf[1] = k & 0xFF;

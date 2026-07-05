@@ -50,7 +50,7 @@ public:
         void reset(float temperature);
         float start_temp;
         float start_tmax;
-        uint32_t last_save_ms;
+        uint32_t last_save_ms = 0;
 
         AP_InertialSensor_TCal &tcal;
         uint8_t instance(void) const {

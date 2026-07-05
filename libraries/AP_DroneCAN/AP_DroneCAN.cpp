@@ -904,7 +904,7 @@ void AP_DroneCAN::SRV_send_esc_hobbywing(void)
     if (active_esc_num > 0) {
         k = 0;
         const bool armed = hal.util->get_soft_armed();
-        for (uint8_t i = esc_offset; i < max_esc_num && k < 20; i++) {
+        for (uint8_t i = esc_offset; i < max_esc_num && k < ARRAY_SIZE(esc_msg.command.data); i++) {
             if (armed && ((((uint32_t) 1U) << i) & _ESC_armed_mask)) {
                 esc_msg.command.data[k] = scale_esc_output(i);
             } else {

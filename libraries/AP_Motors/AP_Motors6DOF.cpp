@@ -311,8 +311,8 @@ void AP_Motors6DOF::output_armed_stabilizing()
         forward_thrust = _forward_in;
         lateral_thrust = _lateral_in;
 
-        float rpy_out[AP_MOTORS_MAX_NUM_MOTORS]; // buffer so we don't have to multiply coefficients multiple times.
-        float linear_out[AP_MOTORS_MAX_NUM_MOTORS]; // 3 linear DOF mix for each motor
+        float rpy_out[AP_MOTORS_MAX_NUM_MOTORS]{}; // buffer so we don't have to multiply coefficients multiple times.
+        float linear_out[AP_MOTORS_MAX_NUM_MOTORS]{}; // 3 linear DOF mix for each motor
 
         // initialize limits flags
         limit.set_all(false);
