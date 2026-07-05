@@ -129,12 +129,12 @@ private:
 
 #if AP_BATTERY_SCRIPTING_ENABLED
 struct BattMonitorScript_State {
-    float voltage; // Battery voltage in volts
-    bool healthy; // True if communicating properly
-    uint8_t cell_count; // Number of valid cells in state
+    float voltage = 0.0f; // Battery voltage in volts
+    bool healthy = false; // True if communicating properly
+    uint8_t cell_count = 0; // Number of valid cells in state
     uint8_t capacity_remaining_pct=UINT8_MAX; // Remaining battery capacity in percent, 255 for invalid
     uint8_t state_of_health_pct=UINT8_MAX; // Remaining battery health in percent, 255 for invalid
-    uint16_t cell_voltages[32]; // allow script to have up to 32 cells, will be limited internally
+    uint16_t cell_voltages[32]{}; // allow script to have up to 32 cells, will be limited internally
     uint16_t cycle_count=UINT16_MAX; // Battery cycle count, 65535 for unavailable
     /*
       all of the following float variables should be set to NaN by the

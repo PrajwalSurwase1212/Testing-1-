@@ -45,9 +45,9 @@ public:
 
 private:
 
-    bool have_info;             // true if torqeedo has provided battery info at least once
-    bool have_capacity;         // true once torqeedo has provided battery capacity
-    uint8_t remaining_pct;      // battery remaining capacity as a percentage
+    bool have_info = false;             // true if torqeedo has provided battery info at least once
+    bool have_capacity = false;         // true once torqeedo has provided battery capacity
+    uint8_t remaining_pct = 0;      // battery remaining capacity as a percentage
 };
 
 #endif

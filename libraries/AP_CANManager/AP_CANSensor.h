@@ -73,15 +73,15 @@ private:
 
     const char *const _driver_name;
     const uint16_t _stack_size;
-    bool _initialized;
-    uint8_t _driver_index;
+    bool _initialized = false;
+    uint8_t _driver_index = 0;
 
     // this is true when we are setup as an auxillary driver using CAN_Dn_PROTOCOL2
-    bool is_aux_11bit_driver;
+    bool is_aux_11bit_driver = false;
 
-    AP_CANDriver *_can_driver;
+    AP_CANDriver *_can_driver = nullptr;
     HAL_BinarySemaphore sem_handle;
-    AP_HAL::CANIface* _can_iface;
+    AP_HAL::CANIface* _can_iface = nullptr;
 
 #ifdef HAL_BUILD_AP_PERIPH
     void register_driver_periph(const AP_CAN::Protocol dtype);

@@ -50,13 +50,13 @@ private:
     } _state = ParseState::HEADER;
 
     // members
-    uint8_t _msgbuf[NOOPLOOP_MSG_BUF_MAX];      // buffer to hold most recent message from tag
-    uint16_t _msg_len;                          // number of bytes received from the current message (may be larger than size of _msgbuf)
-    uint16_t _frame_len;                        // message supplied frame length
-    uint8_t _crc_expected;                      // calculated crc which is compared against actual received crc
-    uint32_t _last_update_ms;                   // last time we receive data from tag
-    bool _anchor_pos_avail;                     // flag indicates if we got anchor position or not
-    uint32_t _last_request_setting_ms;          // last time we sent request_setting0 packet to tag
+    uint8_t _msgbuf[NOOPLOOP_MSG_BUF_MAX]{};      // buffer to hold most recent message from tag
+    uint16_t _msg_len = 0;                          // number of bytes received from the current message (may be larger than size of _msgbuf)
+    uint16_t _frame_len = 0;                        // message supplied frame length
+    uint8_t _crc_expected = 0;                      // calculated crc which is compared against actual received crc
+    uint32_t _last_update_ms = 0;                   // last time we receive data from tag
+    bool _anchor_pos_avail = false;                     // flag indicates if we got anchor position or not
+    uint32_t _last_request_setting_ms = 0;          // last time we sent request_setting0 packet to tag
 };
 
 #endif  // AP_BEACON_NOOPLOOP_ENABLED

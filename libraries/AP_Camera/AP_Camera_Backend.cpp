@@ -15,8 +15,22 @@ extern const AP_HAL::HAL& hal;
 AP_Camera_Backend::AP_Camera_Backend(AP_Camera &frontend, AP_Camera_Params &params, uint8_t instance) :
     _frontend(frontend),
     _params(params),
+    camera_feedback{},
+    time_interval_settings{},
     _instance(instance)
-{}
+{
+    timer_installed = false;
+    isr_installed = false;
+    last_pin_state = 0;
+    feedback_trigger_count = 0;
+    feedback_trigger_timestamp_us = 0;
+    feedback_trigger_logged_count = 0;
+    trigger_pending = false;
+    last_picture_time_ms = 0;
+    last_location = {};
+    image_index = 0;
+    last_is_armed = false;
+}
 
 void AP_Camera_Backend::init()
 {

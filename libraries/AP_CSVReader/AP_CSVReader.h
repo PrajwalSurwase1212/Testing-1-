@@ -47,7 +47,7 @@ private:
     const uint8_t term_len;
 
     // offset into term for next character
-    uint8_t term_ofs;
+    uint8_t term_ofs = 0;
 
     void set_state(State newstate) {
         state = newstate;

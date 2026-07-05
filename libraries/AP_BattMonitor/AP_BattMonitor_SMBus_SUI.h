@@ -27,8 +27,8 @@ private:
     bool read_block_bare(uint8_t reg, uint8_t* data, uint8_t len) const;
 
     const uint8_t cell_count;
-    bool phase_voltages;
-    uint32_t last_volt_read_us;
+    bool phase_voltages = false;
+    uint32_t last_volt_read_us = 0;
 };
 
 #endif  // AP_BATTERY_SMBUS_SUI_ENABLED

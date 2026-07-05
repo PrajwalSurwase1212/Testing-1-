@@ -65,13 +65,13 @@ private:
     void request_camera_information() const;
 
     // internal members
-    bool _initialised;          // true once the camera has provided a CAMERA_INFORMATION
-    bool _got_camera_info;      // true once camera has provided CAMERA_INFORMATION
+    bool _initialised = false;          // true once the camera has provided a CAMERA_INFORMATION
+    bool _got_camera_info = false;      // true once camera has provided CAMERA_INFORMATION
     mavlink_camera_information_t _cam_info {}; // latest camera information received from camera
-    uint32_t _last_caminfo_req_ms;  // system time that CAMERA_INFORMATION was last requested (used to throttle requests)
-    class GCS_MAVLINK *_link;   // link we have found the camera on. nullptr if not seen yet
-    uint8_t _sysid;             // sysid of camera
-    uint8_t _compid;            // component id of gimbal
+    uint32_t _last_caminfo_req_ms = 0;  // system time that CAMERA_INFORMATION was last requested (used to throttle requests)
+    class GCS_MAVLINK *_link = nullptr;   // link we have found the camera on. nullptr if not seen yet
+    uint8_t _sysid = 0;             // sysid of camera
+    uint8_t _compid = 0;            // component id of gimbal
 };
 
 #endif // AP_CAMERA_MAVLINKCAMV2_ENABLED

@@ -31,15 +31,15 @@ private:
         ParseState_WaitingForMsgId = 1,
         ParseState_WaitingForLen = 2,
         ParseState_WaitingForContents = 3
-    } parse_state;
+    } parse_state = ParseState_WaitingForHeader;
 
     // parse buffer
     void parse_buffer();
 
-    uint8_t parse_msg_id;
-    uint8_t parse_msg_len;
+    uint8_t parse_msg_id = 0;
+    uint8_t parse_msg_len = 0;
 
-    uint8_t linebuf[AP_BEACON_POZYX_MSG_LEN_MAX];
+    uint8_t linebuf[AP_BEACON_POZYX_MSG_LEN_MAX]{};
     uint8_t linebuf_len = 0;
     uint32_t last_update_ms = 0;
 };

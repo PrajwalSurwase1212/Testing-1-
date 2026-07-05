@@ -56,14 +56,14 @@ protected:
     AP_Beacon &_frontend;
 
     // yaw correction
-    int16_t orient_yaw_deg; // cached version of orient_yaw parameter
-    float orient_cos_yaw = 0.0f;
-    float orient_sin_yaw = 1.0f;
+    int16_t orient_yaw_deg = -999; // cached version of orient_yaw parameter
+    float orient_cos_yaw = 1.0f;
+    float orient_sin_yaw = 0.0f;
 
     // yaw correction methods
     Vector3f correct_for_orient_yaw(const Vector3f &vector);
 
-    AP_HAL::UARTDriver *uart;
+    AP_HAL::UARTDriver *uart = nullptr;
 };
 
 #endif  // AP_BEACON_ENABLED

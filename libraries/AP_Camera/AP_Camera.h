@@ -268,10 +268,10 @@ private:
 #endif
 
     HAL_Semaphore _rsem;                // semaphore for multi-thread access
-    AP_Camera_Backend *primary;         // primary camera backed
-    bool _is_in_auto_mode;              // true if in AUTO mode
+    AP_Camera_Backend *primary = nullptr;         // primary camera backed
+    bool _is_in_auto_mode = false;              // true if in AUTO mode
     uint32_t log_camera_bit;            // logging bit (from LOG_BITMASK) to enable camera logging
-    AP_Camera_Backend *_backends[AP_CAMERA_MAX_INSTANCES];  // pointers to instantiated backends
+    AP_Camera_Backend *_backends[AP_CAMERA_MAX_INSTANCES]{};  // pointers to instantiated backends
 };
 
 namespace AP {

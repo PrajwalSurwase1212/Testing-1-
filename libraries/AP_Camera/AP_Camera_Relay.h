@@ -40,7 +40,7 @@ public:
 
 private:
 
-    uint16_t trigger_counter;   // count of number of cycles shutter should be held open
+    uint16_t trigger_counter = 0;   // count of number of cycles shutter should be held open
 };
 
 #endif // AP_CAMERA_RELAY_ENABLED

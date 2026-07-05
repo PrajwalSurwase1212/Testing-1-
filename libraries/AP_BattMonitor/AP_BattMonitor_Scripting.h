@@ -25,7 +25,7 @@ public:
 
 protected:
     BattMonitorScript_State internal_state;
-    uint32_t last_update_us;
+    uint32_t last_update_us = 0;
 
     HAL_Semaphore sem;
 };

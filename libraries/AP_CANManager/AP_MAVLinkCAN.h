@@ -47,16 +47,16 @@ private:
      * Structure to maintain forwarding state
      */
     struct {
-        mavlink_channel_t chan;
-        uint8_t system_id;
-        uint8_t component_id;
-        uint8_t frame_counter;
-        uint32_t last_callback_enable_ms;
+        mavlink_channel_t chan = MAVLINK_COMM_0;
+        uint8_t system_id = 0;
+        uint8_t component_id = 0;
+        uint8_t frame_counter = 0;
+        uint32_t last_callback_enable_ms = 0;
         HAL_Semaphore sem;
-        uint16_t num_filter_ids;
-        uint16_t *filter_ids;
-        uint8_t callback_id;
-        uint8_t callback_bus;
+        uint16_t num_filter_ids = 0;
+        uint16_t *filter_ids = nullptr;
+        uint8_t callback_id = 0;
+        uint8_t callback_bus = 0;
     } can_forward;
 
     // Buffer for storing CAN frames to be sent
@@ -67,7 +67,7 @@ private:
     
     // Frame buffer for queuing frames
     HAL_Semaphore frame_buffer_sem;
-    ObjectBuffer<BufferFrame> *frame_buffer;
+    ObjectBuffer<BufferFrame> *frame_buffer = nullptr;
 
     static AP_MAVLinkCAN *ensure_singleton();
 

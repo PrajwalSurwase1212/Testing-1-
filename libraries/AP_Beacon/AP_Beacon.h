@@ -130,12 +130,12 @@ private:
     AP_Int16 orient_yaw;
 
     // external references
-    AP_Beacon_Backend *_driver;
+    AP_Beacon_Backend *_driver = nullptr;
 
     // last known position
     Vector3f veh_pos_ned;
-    float veh_pos_accuracy;
-    uint32_t veh_pos_update_ms;
+    float veh_pos_accuracy = 0.0f;
+    uint32_t veh_pos_update_ms = 0;
 
     // individual beacon data
     uint8_t num_beacons = 0;
@@ -143,8 +143,8 @@ private:
 
     // fence boundary
     Vector2f boundary[AP_BEACON_MAX_BEACONS+1]; // array of boundary points (used for fence)
-    uint8_t boundary_num_points;                // number of points in boundary
-    uint8_t boundary_num_beacons;               // total number of beacon points consumed while building boundary
+    uint8_t boundary_num_points = 0;                // number of points in boundary
+    uint8_t boundary_num_beacons = 0;               // total number of beacon points consumed while building boundary
 };
 
 namespace AP {

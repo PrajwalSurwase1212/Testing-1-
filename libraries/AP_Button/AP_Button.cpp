@@ -129,6 +129,20 @@ const AP_Param::GroupInfo AP_Button::var_info[] = {
 // constructor
 AP_Button::AP_Button(void)
 {
+    last_mask = 0;
+    debounce_mask = 0;
+    pwm_state = 0;
+    tentative_pwm_state = 0;
+    pwm_start_debounce_ms = 0;
+    state_actioned_mask = 0;
+    last_debounced_change_ms = 0;
+    last_debounce_ms = 0;
+    last_change_time_ms = 0;
+    last_action_time_ms = 0;
+    aux_functions_initialised = false;
+    last_report_ms = 0;
+    initialised = false;
+
     AP_Param::setup_object_defaults(this, var_info);
 
     if (_singleton != nullptr) {

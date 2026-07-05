@@ -130,7 +130,7 @@ private:
         AP_Int32 _options;
 
 #if AP_CAN_LOGGING_ENABLED && HAL_LOGGING_ENABLED
-        uint8_t logging_id;
+        uint8_t logging_id = 0;
 #endif
     };
 
@@ -149,25 +149,25 @@ private:
     private:
         AP_Int8 _driver_type;
         AP_Int8 _driver_type_11bit;
-        AP_CANDriver* _uavcan;
-        AP_CANDriver* _piccolocan;
+        AP_CANDriver* _uavcan = nullptr;
+        AP_CANDriver* _piccolocan = nullptr;
     };
 
     CANIface_Params _interfaces[HAL_NUM_CAN_IFACES];
-    AP_CANDriver* _drivers[HAL_MAX_CAN_PROTOCOL_DRIVERS];
+    AP_CANDriver* _drivers[HAL_MAX_CAN_PROTOCOL_DRIVERS]{};
     CANDriver_Params _drv_param[HAL_MAX_CAN_PROTOCOL_DRIVERS];
-    AP_CAN::Protocol _driver_type_cache[HAL_MAX_CAN_PROTOCOL_DRIVERS];
+    AP_CAN::Protocol _driver_type_cache[HAL_MAX_CAN_PROTOCOL_DRIVERS]{};
 
     AP_Int8 _loglevel;
-    uint8_t _num_drivers;
+    uint8_t _num_drivers = 0;
 #if AP_CAN_SLCAN_ENABLED
     SLCAN::CANIface _slcan_interface;
 #endif
 
     static AP_CANManager *_singleton;
 
-    char* _log_buf;
-    uint32_t _log_pos;
+    char* _log_buf = nullptr;
+    uint32_t _log_pos = 0;
 
     HAL_Semaphore _sem;
 

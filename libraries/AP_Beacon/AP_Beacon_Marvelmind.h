@@ -76,10 +76,10 @@ private:
         RECV_DGRAM
     } parse_state = RECV_HDR; // current state of receive data
 
-    MarvelmindHedge hedge;
-    uint8_t input_buffer[AP_BEACON_MARVELMIND_BUF_SIZE];
-    uint16_t num_bytes_in_block_received;
-    uint16_t data_id;
+    MarvelmindHedge hedge{};
+    uint8_t input_buffer[AP_BEACON_MARVELMIND_BUF_SIZE]{};
+    uint16_t num_bytes_in_block_received = 0;
+    uint16_t data_id = 0;
 
     StationaryBeaconPosition* get_or_alloc_beacon(uint8_t address);
     void process_beacons_positions_datagram();
@@ -92,15 +92,15 @@ private:
     int8_t find_beacon_instance(uint8_t address) const;
 
     // Variables for Ardupilot
-    uint32_t last_update_ms;
+    uint32_t last_update_ms = 0;
 
     // cache the vehicle position in NED coordinates [m]
     Vector3f vehicle_position_NED__m;
-    bool vehicle_position_initialized;
+    bool vehicle_position_initialized = false;
 
     // cache the beacon positions in NED coordinates [m]
     Vector3f beacon_position_NED__m[AP_BEACON_MAX_BEACONS];
-    bool beacon_position_initialized;
+    bool beacon_position_initialized = false;
 };
 
 #endif  // AP_BEACON_MARVELMIND_ENABLED

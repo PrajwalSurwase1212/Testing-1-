@@ -198,17 +198,17 @@ protected:
 
     // internal members
     uint8_t _instance;      // this instance's number
-    bool timer_installed;   // true if feedback pin change detected using timer
-    bool isr_installed;     // true if feedback pin change is detected with an interrupt
-    uint8_t last_pin_state; // last pin state.  used by timer based detection
-    uint32_t feedback_trigger_count;        // number of times the interrupt detected the feedback pin changed
-    uint32_t feedback_trigger_timestamp_us; // system time (in microseconds) that timer detected the feedback pin changed
-    uint32_t feedback_trigger_logged_count; // number of times the feedback has been logged
-    bool trigger_pending;           // true if a call to take_pic() was delayed due to the minimum time interval time
-    uint32_t last_picture_time_ms;    // system time that photo was last taken
-    Location last_location;         // Location that last picture was taken at (used for trigg_dist calculation)
-    uint16_t image_index;           // number of pictures taken since boot
-    bool last_is_armed;             // stores last arm/disarm state. true if it was armed lastly
+    bool timer_installed = false;   // true if feedback pin change detected using timer
+    bool isr_installed = false;     // true if feedback pin change is detected with an interrupt
+    uint8_t last_pin_state = 0; // last pin state.  used by timer based detection
+    uint32_t feedback_trigger_count = 0;        // number of times the interrupt detected the feedback pin changed
+    uint32_t feedback_trigger_timestamp_us = 0; // system time (in microseconds) that timer detected the feedback pin changed
+    uint32_t feedback_trigger_logged_count = 0; // number of times the feedback has been logged
+    bool trigger_pending = false;           // true if a call to take_pic() was delayed due to the minimum time interval time
+    uint32_t last_picture_time_ms = 0;    // system time that photo was last taken
+    Location last_location{};         // Location that last picture was taken at (used for trigg_dist calculation)
+    uint16_t image_index = 0;           // number of pictures taken since boot
+    bool last_is_armed = false;             // stores last arm/disarm state. true if it was armed lastly
 };
 
 #endif // AP_CAMERA_ENABLED
