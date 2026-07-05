@@ -103,10 +103,10 @@ private:
     bool set_power_mode(const enum power_mode mode);
     bool read_bytes(const uint8_t reg, uint8_t *out, const uint16_t read_len);
 
-    uint8_t _compass_instance;
-    bool _force_external;
-    enum Rotation _rotation;
-    struct mag_compensate _mag_comp;  // Structure for mag compensate
+    uint8_t _compass_instance = 0;
+    bool _force_external = false;
+    enum Rotation _rotation = ROTATION_NONE;
+    struct mag_compensate _mag_comp{};  // Structure for mag compensate
 };
 
 #endif  // AP_COMPASS_BMM350_ENABLED

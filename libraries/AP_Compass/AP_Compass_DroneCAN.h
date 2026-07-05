@@ -31,7 +31,7 @@ private:
 
     static AP_Compass_DroneCAN* get_dronecan_backend(AP_DroneCAN* ap_dronecan, uint8_t node_id, uint8_t sensor_id);
 
-    uint8_t  _instance;
+    uint8_t  _instance = 0;
 
     uint32_t _devid;
 

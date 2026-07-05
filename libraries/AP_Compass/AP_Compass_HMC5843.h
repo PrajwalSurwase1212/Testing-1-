@@ -57,18 +57,18 @@ private:
     AP_HMC5843_BusDriver *_bus;
 
     Vector3f _scaling;
-    float _gain_scale;
+    float _gain_scale = 1.0f;
 
-    int16_t _mag_x;
-    int16_t _mag_y;
-    int16_t _mag_z;
+    int16_t _mag_x = 0;
+    int16_t _mag_y = 0;
+    int16_t _mag_z = 0;
 
-    uint8_t _compass_instance;
+    uint8_t _compass_instance = 0;
 
     enum Rotation _rotation;
     
-    bool _initialised:1;
-    bool _force_external:1;
+    bool _initialised = false;
+    bool _force_external = false;
 };
 
 class AP_HMC5843_BusDriver
@@ -153,9 +153,9 @@ public:
     uint32_t get_bus_id(void) const override;
     
 private:
-    AuxiliaryBus *_bus;
-    AuxiliaryBusSlave *_slave;
-    bool _started;
+    AuxiliaryBus *_bus = nullptr;
+    AuxiliaryBusSlave *_slave = nullptr;
+    bool _started = false;
 };
 #endif  // AP_INERTIALSENSOR_ENABLED
 

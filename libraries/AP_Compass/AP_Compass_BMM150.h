@@ -54,7 +54,7 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
-    uint8_t _compass_instance;
+    uint8_t _compass_instance = 0;
 
     struct {
         int8_t x1;
@@ -71,8 +71,8 @@ private:
     } _dig;
 
     uint32_t _last_read_ms;
-    enum Rotation _rotation;
-    bool _force_external;
+    enum Rotation _rotation = ROTATION_NONE;
+    bool _force_external = false;
 };
 
 #endif  // AP_COMPASS_BMM150_ENABLED
