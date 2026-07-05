@@ -39,28 +39,28 @@ private:
     Vector3f base_field;
         
     // sum of calibration field samples
-    Vector3f field_sum[4];
+    Vector3f field_sum[4]{};
 
     // sum of output (voltage*scaledpwm) in calibration
-    float output_sum[4];
+    float output_sum[4]{};
         
     // count of calibration accumulation
-    uint16_t count[4];
+    uint16_t count[4]{};
 
     // time a motor started in milliseconds
-    uint32_t start_ms[4];
+    uint32_t start_ms[4]{};
         
     // battery voltage
-    float voltage;
+    float voltage = 0.0f;
 
     // is calibration running?
-    bool running;
+    bool running = false;
 
     // get scaled motor ouput
     float scaled_output(uint8_t motor);
 
     // map of motors
-    bool have_motor_map;
-    uint8_t motor_map[4];
+    bool have_motor_map = false;
+    uint8_t motor_map[4]{};
 };
 

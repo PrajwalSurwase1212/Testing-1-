@@ -56,7 +56,7 @@ public:
         uint8_t attempt;
         float completion_pct;
         completion_mask_t completion_mask;
-    } cal_state;
+    } cal_state{};
 
     // Structure accessed after calibration is finished/failed
     struct Report {
@@ -70,7 +70,7 @@ public:
         Rotation orientation;
         float scale_factor;
         bool check_orientation;
-    } cal_report;
+    } cal_report{};
 
     // Structure setup to set calibration run settings
     struct Settings {
@@ -87,7 +87,7 @@ public:
         uint32_t start_time_ms;
         uint8_t compass_idx;
         bool always_45_deg;
-    } cal_settings;
+    } cal_settings{};
 
     // Get calibration result
     const Report get_report();
@@ -210,46 +210,46 @@ private:
     // running method for use in thread
     bool _running() const;
 
-    uint8_t _compass_idx;                   // index of the compass providing data
-    Status _status;                         // current state of calibrator
+    uint8_t _compass_idx = 0;                   // index of the compass providing data
+    Status _status = Status::NOT_STARTED;       // current state of calibrator
 
     // values provided by caller
-    float _delay_start_sec;                 // seconds to delay start of calibration (provided by caller)
-    bool _retry;                            // true if calibration should be restarted on failured (provided by caller)
-    float _tolerance = 5.0;                 // worst acceptable RMS tolerance (aka fitness).  see set_tolerance()
-    uint16_t _offset_max;                   // maximum acceptable offsets (provided by caller)
+    float _delay_start_sec = 0.0f;              // seconds to delay start of calibration (provided by caller)
+    bool _retry = false;                        // true if calibration should be restarted on failured (provided by caller)
+    float _tolerance = 5.0;                     // worst acceptable RMS tolerance (aka fitness).  see set_tolerance()
+    uint16_t _offset_max = 0;                   // maximum acceptable offsets (provided by caller)
 
     // behavioral state
-    uint32_t _start_time_ms;                // system time start() function was last called
-    uint8_t _attempt;                       // number of attempts have been made to calibrate
-    completion_mask_t _completion_mask;     // bitmask of directions in which we have samples
-    CompassSample *_sample_buffer;          // buffer of sensor values
-    uint16_t _samples_collected;            // number of samples in buffer
-    uint16_t _samples_thinned;              // number of samples removed by the thin_samples() call (called before step 2 begins)
+    uint32_t _start_time_ms = 0;                // system time start() function was last called
+    uint8_t _attempt = 0;                       // number of attempts have been made to calibrate
+    completion_mask_t _completion_mask{};       // bitmask of directions in which we have samples
+    CompassSample *_sample_buffer = nullptr;    // buffer of sensor values
+    uint16_t _samples_collected = 0;            // number of samples in buffer
+    uint16_t _samples_thinned = 0;              // number of samples removed by the thin_samples() call (called before step 2 begins)
 
     // fit state
     class param_t _params;                  // latest calibration outputs
-    uint16_t _fit_step;                     // step during RUNNING_STEP_ONE/TWO which performs sphere fit and ellipsoid fit
-    float _fitness;                         // fitness (mean squared residuals) of current parameters
-    float _initial_fitness;                 // fitness before latest "fit" was attempted (used to determine if fit was an improvement)
-    float _sphere_lambda;                   // sphere fit's lambda
-    float _ellipsoid_lambda;                // ellipsoid fit's lambda
+    uint16_t _fit_step = 0;                 // step during RUNNING_STEP_ONE/TWO which performs sphere fit and ellipsoid fit
+    float _fitness = 0.0f;                  // fitness (mean squared residuals) of current parameters
+    float _initial_fitness = 0.0f;          // fitness before latest "fit" was attempted (used to determine if fit was an improvement)
+    float _sphere_lambda = 0.0f;            // sphere fit's lambda
+    float _ellipsoid_lambda = 0.0f;         // ellipsoid fit's lambda
 
     // variables for orientation checking
-    enum Rotation _orientation;             // latest detected orientation
-    enum Rotation _orig_orientation;        // original orientation provided by caller
-    enum Rotation _orientation_solution;    // latest solution
-    bool _is_external;                      // true if compass is external (provided by caller)
-    bool _check_orientation;                // true if orientation should be automatically checked
-    bool _fix_orientation;                  // true if orientation should be fixed if necessary
-    bool _always_45_deg;                    // true if orientation should consider 45deg with equal tolerance
-    float _orientation_confidence;          // measure of confidence in automatic orientation detection
+    enum Rotation _orientation = ROTATION_NONE;          // latest detected orientation
+    enum Rotation _orig_orientation = ROTATION_NONE;     // original orientation provided by caller
+    enum Rotation _orientation_solution = ROTATION_NONE; // latest solution
+    bool _is_external = false;                  // true if compass is external (provided by caller)
+    bool _check_orientation = false;            // true if orientation should be automatically checked
+    bool _fix_orientation = false;              // true if orientation should be fixed if necessary
+    bool _always_45_deg = false;                // true if orientation should consider 45deg with equal tolerance
+    float _orientation_confidence = 0.0f;       // measure of confidence in automatic orientation detection
     CompassSample _last_sample;
 
-    Status _requested_status;
-    bool   _status_set_requested;
+    Status _requested_status = Status::NOT_STARTED;
+    bool   _status_set_requested = false;
 
-    bool _new_sample;
+    bool _new_sample = false;
 
     // Semaphore for state related intermediate structures
     HAL_Semaphore state_sem;

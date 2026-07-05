@@ -57,7 +57,7 @@ private:
     bool init();
     void timer();
 
-    uint8_t compass_instance;
+    uint8_t compass_instance = 0;
     bool force_external;
     enum Rotation rotation;
     float _scaler = 1.0;
