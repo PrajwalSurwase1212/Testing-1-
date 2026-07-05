@@ -15,10 +15,10 @@ public:
     void handle_external(const AP_ExternalAHRS::baro_data_message_t &pkt) override;
 
 private:
-    uint8_t instance;
-    float sum_pressure;
-    float sum_temp;
-    uint16_t count;
+    uint8_t instance = 0;
+    float sum_pressure = 0.0f;
+    float sum_temp = 0.0f;
+    uint16_t count = 0;
 };
 
 #endif // AP_BARO_EXTERNALAHRS_ENABLED

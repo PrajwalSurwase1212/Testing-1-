@@ -288,7 +288,7 @@ void AP_GPS_Backend::check_new_itow(uint32_t itow, uint32_t msg_length)
         dt_ms = ((dt_ms + (_rate_ms/2)) / _rate_ms) * _rate_ms;
 
         // calculate pseudo-itow
-        _pseudo_itow += dt_ms * 1000U;
+        _pseudo_itow += (uint64_t)dt_ms * 1000U;
 
         // use msg arrival time, and correct for jitter
         uint64_t local_us = jitter_correction.correct_offboard_timestamp_usec(_pseudo_itow, uart_us);

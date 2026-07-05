@@ -45,14 +45,14 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
-    uint8_t _instance;
-    float _pressure_sum;
-    uint32_t _pressure_count;
-    float _temperature;
+    uint8_t _instance = 0;
+    float _pressure_sum = 0.0f;
+    uint32_t _pressure_count = 0;
+    float _temperature = 0.0f;
 
     uint32_t CallTime = 0;
 
-    enum LPS2XH_TYPE _lps2xh_type;
+    enum LPS2XH_TYPE _lps2xh_type = BARO_LPS22H;
 };
 
 #endif  // AP_BARO_LPS2XH_ENABLED

@@ -207,7 +207,9 @@ extern const AP_HAL::HAL& hal;
 
 // constructor
 AP_AHRS::AP_AHRS(uint8_t flags) :
-    _ekf_flags(flags)
+    _ekf_flags(flags),
+    _home_is_set(false),
+    _home_locked(false)
 {
     _singleton = this;
 

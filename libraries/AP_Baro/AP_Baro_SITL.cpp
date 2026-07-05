@@ -12,8 +12,17 @@ extern const AP_HAL::HAL& hal;
  */
 AP_Baro_SITL::AP_Baro_SITL(AP_Baro &baro) :
     AP_Baro_Backend(baro),
+    _instance(0),
     _sitl(AP::sitl()),
-    _has_sample(false)
+    _store_index(0),
+    _last_store_time(0),
+    _has_sample(false),
+    _last_sample_time(0),
+    _recent_temp(0.0f),
+    _recent_press(0.0f),
+    _last_altitude(0.0f),
+    last_drift_delta_t_ms(0),
+    total_alt_drift(0.0f)
 {
     if (_sitl != nullptr) {
         _instance = _frontend.register_sensor();

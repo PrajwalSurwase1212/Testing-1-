@@ -85,8 +85,25 @@ extern const AP_HAL::HAL &hal;
 AP_Baro_SPL06::AP_Baro_SPL06(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev)
     : AP_Baro_Backend(baro)
     , _dev(std::move(dev))
-{
-}
+    , _timer_counter(-1)
+    , _instance(0)
+    , _temp_raw(0.0f)
+    , _pressure_sum(0.0f)
+    , _pressure_count(0)
+    , _temperature(0.0f)
+    , _c00(0)
+    , _c10(0)
+    , _c0(0)
+    , _c1(0)
+    , _c01(0)
+    , _c11(0)
+    , _c20(0)
+    , _c21(0)
+    , _c30(0)
+    , _c31(0)
+    , _c40(0)
+    , type(Type::UNKNOWN)
+{}
 
 AP_Baro_Backend *AP_Baro_SPL06::probe(AP_Baro &baro,
                                        AP_HAL::OwnPtr<AP_HAL::Device> dev)

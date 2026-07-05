@@ -71,7 +71,7 @@ private:
     // state variable for the last rangefinder we sent a WATER_DEPTH
     // message for.  We cycle through the rangefinder backends to
     // limit the amount of telemetry bandwidth we consume.
-    uint8_t last_WATER_DEPTH_index;
+    uint8_t last_WATER_DEPTH_index = 0;
 #endif
 
 #if HAL_HIGH_LATENCY2_ENABLED

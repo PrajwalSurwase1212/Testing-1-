@@ -70,7 +70,7 @@ protected:
     AP_Int8 _custom_controller_mask;
 
 private:
-    AC_CustomControl_Backend *_backend;
+    AC_CustomControl_Backend *_backend = nullptr;
 };
 
 #endif  // AP_CUSTOMCONTROL_ENABLED

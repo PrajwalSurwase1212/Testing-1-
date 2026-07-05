@@ -73,10 +73,10 @@ private:
 
     void pack_state_data();
 
-    uint8_t packetcount;
-    uint32_t gsofmsg_time;
-    uint8_t gsofmsgreq_index;
-    uint16_t next_req_gsof;
+    uint8_t packetcount = 0;
+    uint32_t gsofmsg_time = 0;
+    uint8_t gsofmsgreq_index = 0;
+    uint16_t next_req_gsof = 0;
     AP_GSOF::MsgTypes requested_msgs;
 };
 #endif

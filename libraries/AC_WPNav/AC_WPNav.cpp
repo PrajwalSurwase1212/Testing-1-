@@ -111,6 +111,17 @@ AC_WPNav::AC_WPNav(const AP_AHRS_View& ahrs, AC_PosControl& pos_control, const A
     _pos_control(pos_control),
     _attitude_control(attitude_control)
 {
+    _wp_speed_cms.set(WPNAV_WP_SPEED_CMS);
+    _wp_radius_cm.set(WPNAV_WP_RADIUS_CM);
+    _wp_speed_up_cms.set(WPNAV_WP_SPEED_UP_CMS);
+    _wp_speed_down_cms.set(WPNAV_WP_SPEED_DOWN_CMS);
+    _wp_accel_cmss.set(WPNAV_ACCELERATION_MS * 100.0);
+    _wp_accel_z_cmss.set(WPNAV_WP_ACCEL_Z_DEFAULT_CMSS);
+    _wp_jerk_msss.set(1.0f);
+    _terrain_margin_m.set(10.0f);
+    _wp_accel_c_cmss.set(0.0f);
+    _rangefinder_use.set(1);
+
     AP_Param::setup_object_defaults(this, var_info);
 
     // init flags

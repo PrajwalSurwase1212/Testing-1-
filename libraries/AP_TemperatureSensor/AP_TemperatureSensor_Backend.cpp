@@ -83,7 +83,7 @@ void AP_TemperatureSensor_Backend::set_temperature(const float temperature)
 void AP_TemperatureSensor_Backend::update_external_libraries(const float temperature)
 {
 #if HAL_WITH_ESC_TELEM
-    AP_ESC_Telem_Backend::TelemetryData t;
+    AP_ESC_Telem_Backend::TelemetryData t{};
 #endif
 
     switch ((AP_TemperatureSensor_Params::Source)_params.source.get()) {

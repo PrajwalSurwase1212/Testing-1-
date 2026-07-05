@@ -734,7 +734,8 @@ MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_name(sbuf_t *dst)
         const uint32_t visible_time_ms = AP_HAL::millis() - notify->get_text_updated_millis();
         if (visible_time_ms < msgtime_ms && !msp->_msp_status.flight_mode_focus) {
             char buffer[NOTIFY_TEXT_BUFFER_SIZE];
-            strncpy(buffer, notify->get_text(), ARRAY_SIZE(buffer));
+            strncpy(buffer, notify->get_text(), ARRAY_SIZE(buffer) - 1);
+            buffer[ARRAY_SIZE(buffer) - 1] = '\0';
             const uint8_t len = strnlen(buffer, ARRAY_SIZE(buffer));
 
             for (uint8_t i=0; i<len; i++) {

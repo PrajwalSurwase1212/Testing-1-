@@ -541,9 +541,14 @@ const AP_Param::GroupInfo *AP_BattMonitor::backend_var_info[AP_BATT_MONITOR_MAX_
 // their values.
 //
 AP_BattMonitor::AP_BattMonitor(uint32_t log_battery_bit, battery_failsafe_handler_fn_t battery_failsafe_handler_fn, const int8_t *failsafe_priorities) :
+    state{},
+    drivers{},
     _log_battery_bit(log_battery_bit),
+    _num_instances(0),
     _battery_failsafe_handler_fn(battery_failsafe_handler_fn),
-    _failsafe_priorities(failsafe_priorities)
+    _failsafe_priorities(failsafe_priorities),
+    _highest_failsafe_priority(INT8_MAX),
+    _has_triggered_failsafe(false)
 {
     AP_Param::setup_object_defaults(this, var_info);
 

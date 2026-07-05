@@ -63,9 +63,9 @@ private:
         uint32_t sum_pressure;
         uint32_t sum_temperature;
         uint8_t num_samples;
-    } _accum;
+    } _accum{};
 
-    uint8_t _instance;
+    uint8_t _instance = 0;
 
     enum class SensorMode {
         PR_MODE = 0,    // Vented gauge
@@ -75,13 +75,13 @@ private:
     };
 
     // to store sensor mode
-    SensorMode _p_mode;
+    SensorMode _p_mode = SensorMode::UNDEFINED;
     // Model-specific offset/calibration values stored in device ROM
     //  pressure offset used in pressure calculation
-    float _p_mode_offset;
+    float _p_mode_offset = 0.0f;
     //  measurement range parameters used in pressure calculation
-    float _p_min;
-    float _p_max;
+    float _p_min = 0.0f;
+    float _p_max = 0.0f;
 
     // helpers for reading out calibration information:
     bool transfer_with_delays(uint8_t *send, uint8_t sendlen, uint8_t *recv, uint8_t recvlen);

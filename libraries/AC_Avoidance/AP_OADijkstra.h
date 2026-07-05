@@ -130,32 +130,32 @@ private:
     bool calc_shortest_path(const Location &origin, const Location &destination, AP_OADijkstra_Error &err_id);
 
     // shortest path state variables
-    bool _inclusion_polygon_with_margin_ok;
-    bool _exclusion_polygon_with_margin_ok;
-    bool _exclusion_circle_with_margin_ok;
-    bool _polyfence_visgraph_ok;
-    bool _shortest_path_ok;
+    bool _inclusion_polygon_with_margin_ok = false;
+    bool _exclusion_polygon_with_margin_ok = false;
+    bool _exclusion_circle_with_margin_ok = false;
+    bool _polyfence_visgraph_ok = false;
+    bool _shortest_path_ok = false;
 
     Location _destination_prev;     // destination of previous iterations (used to determine if path should be re-calculated)
     Location _next_destination_prev;// next_destination of previous iterations (used to determine if path should be re-calculated)
-    uint8_t _path_idx_returned;     // index into _path array which gives location vehicle should be currently moving towards
-    bool _dest_to_next_dest_clear;  // true if path from dest to next_dest is clear (i.e. does not intersects a fence)
+    uint8_t _path_idx_returned = 0;     // index into _path array which gives location vehicle should be currently moving towards
+    bool _dest_to_next_dest_clear = false;  // true if path from dest to next_dest is clear (i.e. does not intersects a fence)
 
     // inclusion polygon (with margin) related variables
     float _polyfence_margin = 10;           // margin around polygon defaults to 10m but is overriden with set_fence_margin
     AP_ExpandingArray<Vector2f> _inclusion_polygon_pts; // array of nodes corresponding to inclusion polygon points plus a margin
-    uint8_t _inclusion_polygon_numpoints;   // number of points held in above array
-    uint32_t _inclusion_polygon_update_ms;  // system time of boundary update from AC_Fence (used to detect changes to polygon fence)
+    uint8_t _inclusion_polygon_numpoints = 0;   // number of points held in above array
+    uint32_t _inclusion_polygon_update_ms = 0;  // system time of boundary update from AC_Fence (used to detect changes to polygon fence)
 
     // exclusion polygon related variables
     AP_ExpandingArray<Vector2f> _exclusion_polygon_pts; // array of nodes corresponding to exclusion polygon points plus a margin
-    uint8_t _exclusion_polygon_numpoints;   // number of points held in above array
-    uint32_t _exclusion_polygon_update_ms;  // system time exclusion polygon was updated (used to detect changes)
+    uint8_t _exclusion_polygon_numpoints = 0;   // number of points held in above array
+    uint32_t _exclusion_polygon_update_ms = 0;  // system time exclusion polygon was updated (used to detect changes)
 
     // exclusion circle related variables
     AP_ExpandingArray<Vector2f> _exclusion_circle_pts; // array of nodes surrounding exclusion circles plus a margin
-    uint8_t _exclusion_circle_numpoints;    // number of points held in above array
-    uint32_t _exclusion_circle_update_ms;   // system time exclusion circles were updated (used to detect changes)
+    uint8_t _exclusion_circle_numpoints = 0;    // number of points held in above array
+    uint32_t _exclusion_circle_update_ms = 0;   // system time exclusion circles were updated (used to detect changes)
 
     // visibility graphs
     AP_OAVisGraph _fence_visgraph;          // holds distances between all inclusion/exclusion fence points (with margin)
@@ -176,7 +176,7 @@ private:
         float distance_cm;              // distance from source (number is tentative until this node is the current node and/or visited = true)
     };
     AP_ExpandingArray<ShortPathNode> _short_path_data;
-    node_index _short_path_data_numpoints;  // number of elements in _short_path_data array
+    node_index _short_path_data_numpoints = 0;  // number of elements in _short_path_data array
 
     // update total distance for all nodes visible from current node
     // curr_node_idx is an index into the _short_path_data array
@@ -192,7 +192,7 @@ private:
 
     // final path variables and functions
     AP_ExpandingArray<AP_OAVisGraph::OAItemID> _path;   // ids of points on return path in reverse order (i.e. destination is first element)
-    uint8_t _path_numpoints;                            // number of points on return path
+    uint8_t _path_numpoints = 0;                            // number of points on return path
     Vector2f _path_source;                              // source point used in shortest path calculations (offset in cm from EKF origin)
     Vector2f _path_destination;                         // destination position used in shortest path calculations (offset in cm from EKF origin)
 
@@ -206,8 +206,8 @@ private:
     // returns true if successful and pos is updated
     bool convert_node_to_point(const AP_OAVisGraph::OAItemID& id, Vector2f& pos) const;
 
-    AP_OADijkstra_Error _error_last_id;                 // last error id sent to GCS
-    uint32_t _error_last_report_ms;                     // last time an error message was sent to GCS
+    AP_OADijkstra_Error _error_last_id = AP_OADijkstra_Error::DIJKSTRA_ERROR_NONE;                 // last error id sent to GCS
+    uint32_t _error_last_report_ms = 0;                     // last time an error message was sent to GCS
 
 #if HAL_LOGGING_ENABLED
     // Logging functions
@@ -217,8 +217,8 @@ private:
     void Write_OADijkstra(const uint8_t state, const uint8_t error_id, const uint8_t curr_point, const uint8_t tot_points, const Location &final_dest, const Location &oa_dest) const {}
     void Write_Visgraph_point(const uint8_t version, const uint8_t point_num, const int32_t Lat, const int32_t Lon) const {}
 #endif
-    uint8_t _log_num_points;
-    uint8_t _log_visgraph_version;
+    uint8_t _log_num_points = 0;
+    uint8_t _log_visgraph_version = 0;
 
     // reference to AP_OAPathPlanner options param
     AP_Int16 &_options;

@@ -50,20 +50,20 @@ public:
 private:
     void timer();
 
-    float pressure;
-    float temperature;
-    float temperature_sum;
-    float pressure_sum;
-    uint32_t temp_count;
-    uint32_t press_count;
+    float pressure = 0.0f;
+    float temperature = 0.0f;
+    float temperature_sum = 0.0f;
+    float pressure_sum = 0.0f;
+    uint32_t temp_count = 0;
+    uint32_t press_count = 0;
     
-    uint32_t last_sample_time_ms;
+    uint32_t last_sample_time_ms = 0;
     const float range_inH2O;
 
     // initialise the sensor
     void setup();
 
-    AP_HAL::I2CDevice *dev;
+    AP_HAL::I2CDevice *dev = nullptr;
 };
 
 #endif  // AP_AIRSPEED_DLVR_ENABLED

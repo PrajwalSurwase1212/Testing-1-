@@ -29,5 +29,5 @@ private:
     bool is_underspeed(const float aspeed) const override;
     float get_measured_rate() const override;
 
-    bool in_recovery;
+    bool in_recovery = false;
 };

@@ -56,7 +56,7 @@ public:
 private:
 
     AP_ExpandingArray<VisGraphItem> _items;
-    uint16_t _num_items;
+    uint16_t _num_items = 0;
 };
 
 #endif  // AP_OAPATHPLANNER_ENABLED

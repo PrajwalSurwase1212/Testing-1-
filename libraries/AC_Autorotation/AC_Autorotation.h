@@ -62,7 +62,7 @@ private:
     float get_speed_forward_ms(void) const;
 
     // (s) Time step, updated dynamically from vehicle
-    float _dt; 
+    float _dt = 0.0f; 
 
     // Parameter values
     AP_Int8  _param_enable;
@@ -78,24 +78,24 @@ private:
     // Forward speed controller
     void update_forward_speed_controller(float pilot_norm_accel);
     AC_PID_Basic _fwd_speed_pid{2.0, 2.0, 0.2, 0.1, 4.0, 0.0, 10.0};  // PID object for vel to accel controller, Default values for kp, ki, kd, kff, imax, filt E Hz, filt D Hz
-    bool _limit_accel;      // flag used for limiting integrator wind up if vehicle is against an accel or angle limit
-    float _desired_vel_ms;  // (m/s) This is the velocity that we want.  This is the variable that is set by the invoking function to request a certain speed
-    float _target_vel_ms;   // (m/s) This is the acceleration constrained velocity that we are allowed
+    bool _limit_accel = false;      // flag used for limiting integrator wind up if vehicle is against an accel or angle limit
+    float _desired_vel_ms = 0.0f;  // (m/s) This is the velocity that we want.  This is the variable that is set by the invoking function to request a certain speed
+    float _target_vel_ms = 0.0f;   // (m/s) This is the acceleration constrained velocity that we are allowed
 
     // Head speed controller variables
     void update_headspeed_controller(void);  // Update controller used to drive head speed with collective
-    float _hs_accel;                         // The head speed target acceleration during the entry phase
-    float _head_speed_error;                 // Error between target head speed and current head speed. Normalised by head speed set point RPM.
-    float _target_head_speed;                // Normalised target head speed.  Normalised by head speed set point RPM.
-    float _p_term_hs;                        // Proportional contribution to collective setting.
-    float _ff_term_hs;                       // Following trim feed forward contribution to collective setting.
+    float _hs_accel = 0.0f;                         // The head speed target acceleration during the entry phase
+    float _head_speed_error = 0.0f;                 // Error between target head speed and current head speed. Normalised by head speed set point RPM.
+    float _target_head_speed = 0.0f;                // Normalised target head speed.  Normalised by head speed set point RPM.
+    float _p_term_hs = 0.0f;                        // Proportional contribution to collective setting.
+    float _ff_term_hs = 0.0f;                       // Following trim feed forward contribution to collective setting.
     LowPassFilterFloat col_trim_lpf;         // Low pass filter for collective trim
 
     // Flags used to check if we believe the aircraft has landed
     struct {
-        bool min_speed;
-        bool land_col;
-        bool is_still;
+        bool min_speed = false;
+        bool land_col = false;
+        bool is_still = false;
     } _landed_reason;
 
     // Parameter accessors that provide value constraints

@@ -28,6 +28,7 @@ status EFI_STATUS
 
 #pragma once
 
+#include <string.h>
 #include <SITL/SITL.h>
 #include <AP_HAL/utility/Socket_native.h>
 #include "SIM_SerialDevice.h"
@@ -86,6 +87,7 @@ private:
 
     class PACKED Record1 {
     public:
+        Record1() { memset(this, 0, sizeof(*this)); }
         uint8_t reserved1[2];
         uint16_t save_in_flash;  // "1 = data are saved in flash automatically"
         uint8_t reserved2[4];
@@ -118,6 +120,7 @@ private:
 
     class PACKED Record2 {
     public:
+        Record2() { memset(this, 0, sizeof(*this)); }
         uint8_t reserved1[12];
         int16_t injection_rate_from_basic_graphic_map;
         int16_t reserved2;
@@ -152,6 +155,7 @@ private:
 
     class PACKED Record3 {
     public:
+        Record3() { memset(this, 0, sizeof(*this)); }
         uint16_t voltage_excess_temperature_1;
         uint16_t voltage_excess_temperature_2;
         uint16_t voltage_excess_temperature_3;
@@ -202,12 +206,12 @@ private:
 
     // these records are just used for initial values of the fields;
     // they aren't used past that.
-    Record1 record1;
-    Record2 record2;
-    Record3 record3;
+    Record1 record1{};
+    Record2 record2{};
+    Record3 record3{};
 
 
-    SetValues settings;
+    SetValues settings{};
 
     PackedRecord<Record1> packed_record1{PacketCode::DataRecord1, record1};
     PackedRecord<Record2> packed_record2{PacketCode::DataRecord2, record2};
@@ -216,12 +220,12 @@ private:
     struct {
         PacketCode code;  // code which was requested by driver
         uint32_t time_ms;  // time that code was requested by driver
-    } requested_data_record;
+    } requested_data_record{};
 
-    uint8_t receive_buf[32];
-    uint8_t receive_buf_ofs;
+    uint8_t receive_buf[32]{};
+    uint8_t receive_buf_ofs{};
 
-    float throttle;
+    float throttle{};
 
     uint16_t engine_status_field_value() const;
 
@@ -234,7 +238,7 @@ private:
         float cht1_temperature;  // engine reports in deg-C
         float cht2_temperature;
         uint32_t last_update_ms;
-    } engine;
+    } engine{};
 };
 
 }

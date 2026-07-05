@@ -30,7 +30,7 @@ public:
     void handle_msg(const mavlink_landing_target_t &packet, uint32_t timestamp_ms) override;
 
 private:
-    bool                _wrong_frame_msg_sent;
+    bool                _wrong_frame_msg_sent = false;
 };
 
 

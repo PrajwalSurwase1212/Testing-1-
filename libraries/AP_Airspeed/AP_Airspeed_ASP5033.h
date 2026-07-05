@@ -44,15 +44,15 @@ public:
 private:
     void timer();
     bool confirm_sensor_id(void);
-    float temp_sum;
-    float press_sum;
-    float last_pressure;
-    float last_temperature;
-    uint32_t press_count;
-    uint32_t temp_count;
-    uint32_t last_sample_ms;
+    float temp_sum = 0.0f;
+    float press_sum = 0.0f;
+    float last_pressure = 0.0f;
+    float last_temperature = 0.0f;
+    uint32_t press_count = 0;
+    uint32_t temp_count = 0;
+    uint32_t last_sample_ms = 0;
 
-    AP_HAL::I2CDevice *dev;
+    AP_HAL::I2CDevice *dev = nullptr;
 };
 
 #endif  // AP_AIRSPEED_ASP5033_ENABLED

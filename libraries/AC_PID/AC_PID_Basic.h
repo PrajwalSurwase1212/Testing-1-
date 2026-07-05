@@ -86,11 +86,11 @@ protected:
     AP_Float _filt_D_hz;         // PID derivative filter frequency in Hz
 
     // internal variables
-    float _target;      // target value to enable filtering
-    float _error;       // error value to enable filtering
-    float _derivative;  // last derivative for low-pass filter
-    float _integrator;  // integrator value
-    bool _reset_filter; // true when input filter should be reset during next call to set_input
+    float _target = 0.0f;      // target value to enable filtering
+    float _error = 0.0f;       // error value to enable filtering
+    float _derivative = 0.0f;  // last derivative for low-pass filter
+    float _integrator = 0.0f;  // integrator value
+    bool _reset_filter = true; // true when input filter should be reset during next call to set_input
 
     AP_PIDInfo _pid_info;
 

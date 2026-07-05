@@ -41,15 +41,15 @@ protected:
 
     AP_HAL::OwnPtr<AP_HAL::Device> dev;
 
-    uint8_t instance;
+    uint8_t instance = 0;
 
-    uint32_t count;
-    uint8_t err_count;
-    float pressure_sum;
-    float temperature_sum;
-    float last_temperature;
-    bool pending_reset;
-    bool is_dps310;
+    uint32_t count = 0;
+    uint8_t err_count = 0;
+    float pressure_sum = 0.0f;
+    float temperature_sum = 0.0f;
+    float last_temperature = 0.0f;
+    bool pending_reset = false;
+    bool is_dps310 = false;
 
     struct dps280_cal {
         int16_t C0;  // 12bit
@@ -62,7 +62,7 @@ protected:
         int16_t C21; // 16bit
         int16_t C30; // 16bit
         uint8_t temp_source;
-    } calibration;
+    } calibration{};
 };
 
 class AP_Baro_DPS310 : public AP_Baro_DPS280 {

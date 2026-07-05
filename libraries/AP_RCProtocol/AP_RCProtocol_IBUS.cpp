@@ -86,7 +86,7 @@ void AP_RCProtocol_IBUS::_process_byte(uint32_t timestamp_us, uint8_t b)
     byte_input.buf[byte_input.ofs++] = b;
 
     if (byte_input.ofs == sizeof(byte_input.buf)) {
-        uint16_t values[IBUS_INPUT_CHANNELS];
+        uint16_t values[MAX_RCIN_CHANNELS] {};
         bool ibus_failsafe = false;
         log_data(AP_RCProtocol::IBUS, timestamp_us, byte_input.buf, byte_input.ofs);
         if (ibus_decode(byte_input.buf, values, &ibus_failsafe)) {

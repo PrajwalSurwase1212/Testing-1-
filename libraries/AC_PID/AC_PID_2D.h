@@ -95,7 +95,7 @@ protected:
     Vector2f    _error;         // error value to enable filtering
     Vector2f    _derivative;    // last derivative from low-pass filter
     Vector2f    _integrator;    // integrator value
-    bool        _reset_filter;  // true when input filter should be reset during next call to update_all
+    bool        _reset_filter = true;  // true when input filter should be reset during next call to update_all
 
     AP_PIDInfo _pid_info_x;
     AP_PIDInfo _pid_info_y;

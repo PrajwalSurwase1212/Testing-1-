@@ -108,21 +108,21 @@ private:
     ParametersG2 g2;
 
     // primary input control channels
-    RC_Channel *channel_right;
-    RC_Channel *channel_front;
-    RC_Channel *channel_up;
-    RC_Channel *channel_yaw;
+    RC_Channel *channel_right = nullptr;
+    RC_Channel *channel_front = nullptr;
+    RC_Channel *channel_up = nullptr;
+    RC_Channel *channel_yaw = nullptr;
 
     // flight modes convenience array
-    AP_Int8 *flight_modes;
+    AP_Int8 *flight_modes = nullptr;
     const uint8_t num_flight_modes = 6;
 
     // Arming/Disarming management class
     AP_Arming_Blimp arming;
 
     // system time in milliseconds of last recorded yaw reset from ekf
-    uint32_t ekfYawReset_ms;
-    int8_t ekf_primary_core;
+    uint32_t ekfYawReset_ms = 0;
+    int8_t ekf_primary_core = 0;
 
     // vibration check
     struct {
@@ -172,7 +172,7 @@ private:
     RCMapper rcmap;
 
     // inertial nav alt when we armed
-    float arming_altitude_m;
+    float arming_altitude_m = 0.0f;
 
     // Failsafe
     struct {
@@ -189,14 +189,14 @@ private:
     }
 
     // Motor Output
-    Fins *motors;
-    Loiter *loiter;
+    Fins *motors = nullptr;
+    Loiter *loiter = nullptr;
 
-    int32_t _home_bearing;
-    uint32_t _home_distance;
+    int32_t _home_bearing = 0;
+    uint32_t _home_distance = 0;
 
     // Stores initial bearing when armed - initial simple bearing is modified in super simple mode so not suitable
-    int32_t initial_armed_bearing;
+    int32_t initial_armed_bearing = 0;
 
     // Battery Sensors
     AP_BattMonitor battery{MASK_LOG_CURRENT,
@@ -204,7 +204,7 @@ private:
                        _failsafe_priorities};
 
     // Altitude
-    int32_t baro_alt;            // barometer altitude in cm above home
+    int32_t baro_alt = 0;            // barometer altitude in cm above home
 
     // filtered pilot's throttle input used to cancel landing if throttle held high
     LowPassFilterFloat rc_throttle_control_in_filter;
@@ -216,8 +216,8 @@ private:
     Vector3f vel_ned_filtd;
 
     Vector3f pos_ned;
-    float vel_yaw;
-    float vel_yaw_filtd;
+    float vel_yaw = 0.0f;
+    float vel_yaw_filtd = 0.0f;
     NotchFilterVector2f vel_xy_filter;
     NotchFilterFloat vel_z_filter;
     NotchFilterFloat vel_yaw_filter;
@@ -237,16 +237,16 @@ private:
     // System Timers
     // --------------
     // arm_time_ms - Records when vehicle was armed. Will be Zero if we are disarmed.
-    uint32_t arm_time_ms;
+    uint32_t arm_time_ms = 0;
 
     // last valid RC input time
-    uint32_t last_radio_update_ms;
+    uint32_t last_radio_update_ms = 0;
 
     // Top-level logic
     // setup the var_info table
     AP_Param param_loader;
 
-    bool standby_active;
+    bool standby_active = false;
 
     static const AP_Scheduler::Task scheduler_tasks[];
     static const AP_Param::Info var_info[];
@@ -421,7 +421,7 @@ private:
     const char* get_frame_string();
     void allocate_motors(void);
 
-    Mode *flightmode;
+    Mode *flightmode = nullptr;
     ModeManual mode_manual;
     ModeLand mode_land;
     ModeVelocity mode_velocity;

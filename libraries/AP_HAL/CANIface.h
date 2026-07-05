@@ -146,6 +146,15 @@ public:
         bool setup:1;
         bool canfd_frame:1;
 
+        CanTxItem() :
+            loopback(false),
+            abort_on_error(false),
+            aborted(false),
+            pushed(false),
+            setup(false),
+            canfd_frame(false)
+        {}
+
         bool operator<(const CanTxItem& rhs) const
         {
             if (frame.priorityLowerThan(rhs.frame)) {

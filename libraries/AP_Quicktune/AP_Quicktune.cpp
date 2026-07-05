@@ -268,6 +268,9 @@ void AP_Quicktune::update(bool mode_supports_quicktune)
     }
 
     const Param pname = get_pname(axis, current_stage);
+    if (uint8_t(pname) >= uint8_t(Param::END)) {
+        return;
+    }
     const float pval = get_param_value(pname);
     const float limit = gain_limit(pname);
     const bool limited = (limit > 0.0 && pval >= limit);
@@ -475,6 +478,9 @@ void AP_Quicktune::adjust_gain_limited(AP_Quicktune::Param param, float value)
 
 float AP_Quicktune::limit_gain(AP_Quicktune::Param param, float value)
 {
+    if (uint8_t(param) >= uint8_t(Param::END)) {
+        return value;
+    }
     const float saved_value = param_saved[uint8_t(param)];
     if (reduce_max >= 0 && reduce_max < 100 && saved_value > 0) {
         // Check if we exceeded gain reduction

@@ -750,8 +750,8 @@ float AP_GyroFFT::calculate_notch_frequency(float* freqs, uint16_t numpeaks, flo
     // select the harmonics that were matched
     for (uint8_t i = 0; i < numpeaks; i++) {
         for (uint8_t x = 1; x <=HNF_MAX_HARMONICS; x++) {
-            if (is_harmonic_of(freqs[i], harmonic, x, harmonic_fit)) {
-                harmonics |= 1<<(x - 1);
+            if (x > 0 && is_harmonic_of(freqs[i], harmonic, x, harmonic_fit)) {
+                harmonics |= 1U << (x - 1);
             }
         }
     }
@@ -1198,7 +1198,9 @@ uint8_t AP_GyroFFT::calculate_tracking_peaks(float& weighted_center_freq_hz, boo
         } else {
             center = FrequencyPeak::NONE;
         }
-        weighted_center_freq_hz = freqs.get_weighted_frequency(center);
+        if (center != FrequencyPeak::NONE) {
+            weighted_center_freq_hz = freqs.get_weighted_frequency(center);
+        }
         _thread_state._center_peak[_update_axis] = center;
         update_snr_values(freqs);
         // if two adjacent peaks have simply swapped, we will allow this to continue indefinitely
@@ -1243,7 +1245,7 @@ uint8_t AP_GyroFFT::calculate_tracking_peaks(float& weighted_center_freq_hz, con
 // called from FFT thread
 bool AP_GyroFFT::calculate_filtered_noise(FrequencyPeak target_peak, FrequencyPeak source_peak, const FrequencyData& freqs, const EngineConfig& config)
 {
-    if (source_peak > FrequencyPeak::MAX_TRACKED_PEAKS) {
+    if (source_peak >= FrequencyPeak::MAX_TRACKED_PEAKS) {
         // if we failed to find a signal, carry on using the previous readings
         if (_missed_cycles[_update_axis][target_peak]++ < FFT_MAX_MISSED_UPDATES) {
             return true; // the peak is synthetic

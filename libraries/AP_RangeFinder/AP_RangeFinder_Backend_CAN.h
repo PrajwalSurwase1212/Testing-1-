@@ -46,16 +46,16 @@ protected:
     };
 
     // linked list
-    AP_RangeFinder_Backend_CAN *next;
+    AP_RangeFinder_Backend_CAN *next = nullptr;
 
     AP_Int32 receive_id; // CAN ID to receive for this backend
     AP_Int32 snr_min; // minimum signal strength to accept packet
 
-    MultiCAN* multican_rangefinder; // Allows for multiple CAN rangefinders on a single bus
+    MultiCAN* multican_rangefinder = nullptr; // Allows for multiple CAN rangefinders on a single bus
 private:
 
-    float _distance_sum; // meters
-    uint32_t _distance_count;
+    float _distance_sum = 0.0f; // meters
+    uint32_t _distance_count = 0;
 };
 
 #endif  // AP_RANGEFINDER_BACKEND_CAN_ENABLED

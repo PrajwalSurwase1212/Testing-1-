@@ -37,16 +37,16 @@ private:
 
     static AP_Airspeed_DroneCAN* get_dronecan_backend(AP_DroneCAN* ap_dronecan, uint8_t node_id);
 
-    float _pressure; // Pascal
-    float _temperature; // Celcius
-    uint32_t _last_sample_time_ms;
+    float _pressure = 0.0f; // Pascal
+    float _temperature = 0.0f; // Celcius
+    uint32_t _last_sample_time_ms = 0;
 
     // hygrometer data
     struct {
         float temperature;
         float humidity;
         uint32_t last_sample_ms;
-    } _hygrometer;
+    } _hygrometer{};
 
     HAL_Semaphore _sem_airspeed;
 
@@ -58,7 +58,7 @@ private:
     } _detected_modules[AIRSPEED_MAX_SENSORS];
 
     static HAL_Semaphore _sem_registry;
-    bool _have_temperature;
+    bool _have_temperature = false;
 };
 
 

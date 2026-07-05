@@ -151,7 +151,7 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
             switch (_rxpacket.type) {
 
             case ST24_PACKET_TYPE_CHANNELDATA12: {
-                uint16_t values[12];
+                uint16_t values[MAX_RCIN_CHANNELS] {};
                 uint8_t num_values;
                 ChannelData12 *d = (ChannelData12 *)_rxpacket.st24_data;
                 //TBD: add support for RSSI
@@ -182,7 +182,7 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
             break;
 
             case ST24_PACKET_TYPE_CHANNELDATA24: {
-                uint16_t values[24];
+                uint16_t values[MAX_RCIN_CHANNELS] {};
                 uint8_t num_values;
                 ChannelData24 *d = (ChannelData24 *)&_rxpacket.st24_data;
 

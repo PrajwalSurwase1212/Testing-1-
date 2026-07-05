@@ -87,12 +87,12 @@ public:
     AP_Float fixed_gain;
     AP_Float flap_angle_deg;
 
-    float current_tilt;
-    float current_throttle;
-    bool _motors_active:1;
-    float transition_yaw_cd;
-    uint32_t transition_yaw_set_ms;
-    bool _is_vectored;
+    float current_tilt = 0.0f;
+    float current_throttle = 0.0f;
+    bool _motors_active = false;
+    float transition_yaw_cd = 0.0f;
+    uint32_t transition_yaw_set_ms = 0;
+    bool _is_vectored = false;
 
     // types of tilt mechanisms
     enum {TILT_TYPE_CONTINUOUS    =0,
@@ -114,23 +114,23 @@ private:
         float front_right_tilt;
     };
 
-    bool setup_complete;
+    bool setup_complete = false;
 
     // true if a fixed forward motor is setup
-    bool _have_fw_motor;
+    bool _have_fw_motor = false;
 
     // true if all motors tilt with no fixed VTOL motor
-    bool _have_vtol_motor;
+    bool _have_vtol_motor = false;
 
     // true if the current tilt angle is equal to the desired
     // with slow tilt rates the tilt angle can lag
-    bool angle_achieved;
+    bool angle_achieved = false;
 
     // references for convenience
     QuadPlane& quadplane;
     AP_MotorsMulticopter*& motors;
 
-    Tiltrotor_Transition* transition;
+    Tiltrotor_Transition* transition = nullptr;
 
 };
 

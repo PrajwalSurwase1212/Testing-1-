@@ -185,9 +185,9 @@ protected:
     AP_Enum<RequireLocation> require_location;
 
     // internal members
-    bool                    armed;
-    uint32_t                last_accel_pass_ms;
-    uint32_t                last_gyro_pass_ms;
+    bool                    armed = false;
+    uint32_t                last_accel_pass_ms = 0;
+    uint32_t                last_gyro_pass_ms = 0;
 
     virtual bool barometer_checks(bool report);
 
@@ -315,10 +315,10 @@ private:
         AUTH_FAILED,
         AUTH_PASSED
     } aux_auth_state[aux_auth_count_max] = {};  // state of each auxiliary authorisation
-    uint8_t aux_auth_count;     // number of auxiliary authorisers
-    uint8_t aux_auth_fail_msg_source;   // authorisation id who set aux_auth_fail_msg
-    char* aux_auth_fail_msg;    // buffer for holding failure messages
-    bool aux_auth_error;        // true if too many auxiliary authorisers
+    uint8_t aux_auth_count = 0;     // number of auxiliary authorisers
+    uint8_t aux_auth_fail_msg_source = 0;   // authorisation id who set aux_auth_fail_msg
+    char* aux_auth_fail_msg = nullptr;    // buffer for holding failure messages
+    bool aux_auth_error = false;        // true if too many auxiliary authorisers
     HAL_Semaphore aux_auth_sem; // semaphore for accessing the aux_auth_state and aux_auth_fail_msg
 #endif
 
@@ -327,13 +327,13 @@ private:
     Method _last_disarm_method = Method::UNKNOWN;
     Method _last_arm_method = Method::UNKNOWN;
 
-    uint64_t last_arm_time_us; // last time we successfully armed
+    uint64_t last_arm_time_us = 0; // last time we successfully armed
 
-    uint32_t last_prearm_display_ms;  // last time we send statustexts for prearm failures
-    bool running_arming_checks;  // true if the arming checks currently being performed are being done because the vehicle is trying to arm the vehicle
+    uint32_t last_prearm_display_ms = 0;  // last time we send statustexts for prearm failures
+    bool running_arming_checks = false;  // true if the arming checks currently being performed are being done because the vehicle is trying to arm the vehicle
     
-    bool last_prearm_checks_result; // result of last prearm check
-    bool report_immediately; // set to true when check goes from true to false, to trigger immediate report
+    bool last_prearm_checks_result = false; // result of last prearm check
+    bool report_immediately = false; // set to true when check goes from true to false, to trigger immediate report
 
     void update_arm_gpio();
 

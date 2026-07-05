@@ -102,6 +102,16 @@ const AP_Param::GroupInfo AC_PID::var_info[] = {
 // Constructor
 AC_PID::AC_PID(float initial_p, float initial_i, float initial_d, float initial_ff, float initial_imax, float initial_filt_T_hz, float initial_filt_E_hz, float initial_filt_D_hz,
                float initial_srmax, float initial_srtau, float initial_dff) :
+    _flags{},
+    _integrator(0.0f),
+    _target(0.0f),
+    _error(0.0f),
+    _derivative(0.0f),
+    _target_derivative(0.0f),
+#if AP_FILTER_ENABLED
+    _target_notch(nullptr),
+    _error_notch(nullptr),
+#endif
     default_kp(initial_p),
     default_ki(initial_i),
     default_kd(initial_d),

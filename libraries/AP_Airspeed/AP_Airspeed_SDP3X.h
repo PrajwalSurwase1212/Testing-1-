@@ -58,16 +58,16 @@ private:
     bool _crc(const uint8_t data[], uint8_t size, uint8_t checksum);
     float _correct_pressure(float press);
 
-    float _temp;
-    float _press;
-    uint16_t _temp_count;
-    uint16_t _press_count;
-    float _temp_sum;
-    float _press_sum;
-    uint32_t _last_sample_time_ms;
-    uint16_t _scale;
+    float _temp = 0.0f;
+    float _press = 0.0f;
+    uint16_t _temp_count = 0;
+    uint16_t _press_count = 0;
+    float _temp_sum = 0.0f;
+    float _press_sum = 0.0f;
+    uint32_t _last_sample_time_ms = 0;
+    uint16_t _scale = 0;
 
-    AP_HAL::I2CDevice *_dev;
+    AP_HAL::I2CDevice *_dev = nullptr;
 };
 
 

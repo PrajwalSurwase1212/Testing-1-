@@ -1626,7 +1626,8 @@ void AP_OSD_Screen::draw_message(uint8_t x, uint8_t y)
         int32_t visible_time = AP_HAL::millis() - notify->get_text_updated_millis();
         if (visible_time < osd->msgtime_s *1000) {
             char buffer[NOTIFY_TEXT_BUFFER_SIZE];
-            strncpy(buffer, notify->get_text(), sizeof(buffer));
+            strncpy(buffer, notify->get_text(), sizeof(buffer) - 1);
+            buffer[sizeof(buffer) - 1] = '\0';
             int16_t len = strnlen(buffer, sizeof(buffer));
 
             for (int16_t i=0; i<len; i++) {

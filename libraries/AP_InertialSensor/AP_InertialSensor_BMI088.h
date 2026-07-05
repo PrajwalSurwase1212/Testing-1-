@@ -80,10 +80,10 @@ private:
     AP_HAL::Device::PeriodicHandle gyro_periodic_handle;
 
     enum Rotation rotation;
-    uint8_t temperature_counter;
-    enum DevTypes _accel_devtype;
-    float accel_range;
+    uint8_t temperature_counter = 0;
+    enum DevTypes _accel_devtype = DEVTYPE_INS_BMI088;
+    float accel_range = 0.0f;
 
-    bool done_accel_config;
-    uint32_t accel_config_count;
+    bool done_accel_config = false;
+    uint32_t accel_config_count = 0;
 };

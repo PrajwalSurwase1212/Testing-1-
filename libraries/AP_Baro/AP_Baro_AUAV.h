@@ -35,17 +35,17 @@ protected:
     void timer();
 
     AP_HAL::OwnPtr<AP_HAL::Device> dev;
-    AP_HAL::I2CDevice *i2c_dev;
+    AP_HAL::I2CDevice *i2c_dev = nullptr;
 
     AUAV_Pressure_sensor sensor { i2c_dev, AUAV_Pressure_sensor::Type::Absolute };
 
-    uint8_t instance;
+    uint8_t instance = 0;
 
-    uint32_t count;
-    float pressure_sum;
-    float temperature_sum;
+    uint32_t count = 0;
+    float pressure_sum = 0.0f;
+    float temperature_sum = 0.0f;
 
-    bool measurement_requested;
+    bool measurement_requested = false;
 };
 
 #endif  // AP_BARO_AUAV_ENABLED

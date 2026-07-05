@@ -59,8 +59,8 @@ private:
 	AP_Float _K_D;
 	AP_Float _minspeed;
     AP_Int16  _imax;
-	uint32_t _last_t;
-	float _last_out;
+	uint32_t _last_t = 0;
+	float _last_out = 0.0f;
 
 	AP_Float _deratespeed;
 	AP_Float _deratefactor;
@@ -68,5 +68,5 @@ private:
 
     AP_PIDInfo _pid_info {};
 
-    bool _reverse;
+    bool _reverse = false;
 };

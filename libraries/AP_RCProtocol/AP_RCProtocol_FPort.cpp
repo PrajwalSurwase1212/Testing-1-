@@ -86,7 +86,7 @@ AP_RCProtocol_FPort::AP_RCProtocol_FPort(AP_RCProtocol &_frontend, bool _inverte
 // decode a full FPort control frame
 void AP_RCProtocol_FPort::decode_control(const FPort_Frame &frame)
 {
-    uint16_t values[MAX_CHANNELS];
+    uint16_t values[MAX_RCIN_CHANNELS] {};
 
     decode_11bit_channels(frame.control.data, MAX_CHANNELS, values, CHAN_SCALE_FACTOR1, CHAN_SCALE_FACTOR2, CHAN_SCALE_OFFSET);
 

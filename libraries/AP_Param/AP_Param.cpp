@@ -3155,7 +3155,7 @@ bool AP_Param::add_table(uint8_t _key, const char *prefix, uint8_t num_params)
     hinfo.offset = 0;
     hinfo.type = AP_PARAM_INT32;
     // fill in default value with the CRC. Relies on sizeof crc == sizeof float
-    memcpy((uint8_t *)&hinfo.def_value, (const uint8_t *)&crc, sizeof(crc));
+    hinfo.def_value = int32_to_float_le(uint32_t(crc));
 
     // remember the table size
     if (_dynamic_table_sizes[i] == 0) {
@@ -3291,8 +3291,7 @@ bool AP_Param::add_param(uint8_t _key, uint8_t param_num, const char *pname, flo
     }
     ginfo.offset = param_num*sizeof(float);
     ginfo.idx = param_num;
-    float *def_value = const_cast<float *>(&ginfo.def_value);
-    *def_value = default_value;
+    ginfo.def_value = default_value;
     ginfo.type = AP_PARAM_FLOAT;
 
     // load from storage if available, the param is hidden during this

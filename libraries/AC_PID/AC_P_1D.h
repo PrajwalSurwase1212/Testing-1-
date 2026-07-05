@@ -55,10 +55,10 @@ private:
     AP_Float _kp;
 
     // internal variables
-    float _error;       // time step in seconds
-    float _error_min; // error limit in negative direction
-    float _error_max; // error limit in positive direction
-    float _D1_max;      // maximum first derivative of output
+    float _error = 0.0f;       // time step in seconds
+    float _error_min = 0.0f; // error limit in negative direction
+    float _error_max = 0.0f; // error limit in positive direction
+    float _D1_max = 0.0f;      // maximum first derivative of output
 
     const float default_kp;
 };

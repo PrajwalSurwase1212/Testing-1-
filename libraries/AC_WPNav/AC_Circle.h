@@ -220,20 +220,20 @@ private:
 
     // internal variables
     Vector3p _center_neu_m;             // Center of the circle in meters from EKF origin (NEU frame).
-    float    _radius_m;                 // Current circle radius in meters.
-    float    _rotation_rate_max_rads;   // Requested circle turn rate in rad/s (+ve = CW, -ve = CCW).
-    float    _yaw_rad;                  // Desired yaw heading in radians (typically toward circle center or tangent).
-    float    _angle_rad;                // Current angular position around the circle in radians (0 = due north of center).
-    float    _angle_total_rad;          // Accumulated angle travelled in radians (used for full rotations).
-    float    _angular_vel_rads;         // Current angular velocity in rad/s.
-    float    _angular_vel_max_rads;     // Maximum allowed angular velocity in rad/s.
-    float    _angular_accel_radss;      // Angular acceleration limit in rad/s².
-    uint32_t _last_update_ms;           // Timestamp (in milliseconds) of the last update() call.
-    float    _last_radius_param_cm;     // Cached copy of radius parameter (cm) to detect parameter changes.
+    float    _radius_m = 0.0f;                 // Current circle radius in meters.
+    float    _rotation_rate_max_rads = 0.0f;   // Requested circle turn rate in rad/s (+ve = CW, -ve = CCW).
+    float    _yaw_rad = 0.0f;                  // Desired yaw heading in radians (typically toward circle center or tangent).
+    float    _angle_rad = 0.0f;                // Current angular position around the circle in radians (0 = due north of center).
+    float    _angle_total_rad = 0.0f;          // Accumulated angle travelled in radians (used for full rotations).
+    float    _angular_vel_rads = 0.0f;         // Current angular velocity in rad/s.
+    float    _angular_vel_max_rads = 0.0f;     // Maximum allowed angular velocity in rad/s.
+    float    _angular_accel_radss = 0.0f;      // Angular acceleration limit in rad/s².
+    uint32_t _last_update_ms = 0;           // Timestamp (in milliseconds) of the last update() call.
+    float    _last_radius_param_cm = 0.0f;     // Cached copy of radius parameter (cm) to detect parameter changes.
 
     // terrain following variables
-    bool  _is_terrain_alt;               // True if _center_neu_m.z is relative to terrain height; false if relative to EKF origin.
-    bool  _rangefinder_available;        // True if rangefinder is available and enabled.
-    bool  _rangefinder_healthy;          // True if rangefinder reading is within valid operating range.
-    float _rangefinder_terrain_offset_m; // Terrain height above EKF origin (meters), from rangefinder or terrain database.
+    bool  _is_terrain_alt = false;               // True if _center_neu_m.z is relative to terrain height; false if relative to EKF origin.
+    bool  _rangefinder_available = false;        // True if rangefinder is available and enabled.
+    bool  _rangefinder_healthy = false;          // True if rangefinder reading is within valid operating range.
+    float _rangefinder_terrain_offset_m = 0.0f; // Terrain height above EKF origin (meters), from rangefinder or terrain database.
 };

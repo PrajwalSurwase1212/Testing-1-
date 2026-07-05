@@ -75,16 +75,16 @@ private:
         bool is_active() const { return active; }
 
     private:
-        uint32_t start_ms;
-        uint32_t last_ms;
-        bool active;
+        uint32_t start_ms = 0;
+        uint32_t last_ms = 0;
+        bool active = false;
     };
     Assist_Hysteresis angle_error;
     Assist_Hysteresis alt_error;
 
     // Force and speed assist have no hysteresis
-    bool force_assist;
-    bool speed_assist;
+    bool force_assist = false;
+    bool speed_assist = false;
 
     // Reference to access quadplane
     QuadPlane& quadplane;

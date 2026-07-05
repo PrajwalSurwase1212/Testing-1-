@@ -66,16 +66,16 @@ private:
         READY_TO_CALIBRATE, // ready to calibrate (may wait until vehicle is disarmed)
         SUCCESS,
         FAILED
-    } _cal_state;
+    } _cal_state = CalState::NOT_STARTED;
 
     // local variables
-    uint32_t _start_time_ms;                                // time the calibration was started
+    uint32_t _start_time_ms = 0;                            // time the calibration was started
     struct {
         sample_t samples[AP_OPTICALFLOW_CAL_MAX_SAMPLES];   // buffer of sensor samples
-        uint8_t num_samples;                                // number of samples in samples buffer
-        float best_scalar;                                  // best scaling value found so far
-        float best_scalar_fitness;                          // fitness (rms of error) of best scaling value
-    } _cal_data[2];                                         // x and y axis
-    uint32_t _last_sample_timestamp_ms;                     // system time of last sample's timestamp, used to ignore duplicates
-    uint32_t _last_report_ms;                               // system time of last status report
+        uint8_t num_samples = 0;                            // number of samples in samples buffer
+        float best_scalar = 0.0f;                           // best scaling value found so far
+        float best_scalar_fitness = 0.0f;                   // fitness (rms of error) of best scaling value
+    } _cal_data[2] {};                                      // x and y axis
+    uint32_t _last_sample_timestamp_ms = 0;                 // system time of last sample's timestamp, used to ignore duplicates
+    uint32_t _last_report_ms = 0;                           // system time of last status report
 };

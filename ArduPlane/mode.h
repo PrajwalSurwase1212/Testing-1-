@@ -382,7 +382,7 @@ protected:
 #endif
 
 private:
-    float active_radius_m;
+    float active_radius_m = 0.0f;
 };
 
 class ModeCircle: public Mode
@@ -839,7 +839,7 @@ private:
     enum class SubMode {
         climb,
         RTL,
-    } submode;
+    } submode = SubMode::climb;
 };
 
 class ModeQAcro : public Mode
@@ -926,7 +926,7 @@ protected:
     AP_Int16 target_dist;
     AP_Int8 level_pitch;
 
-    bool takeoff_mode_setup;
+    bool takeoff_mode_setup = false;
     Location start_loc;
 
     bool _enter() override;
@@ -934,7 +934,7 @@ protected:
 private:
 
     // flag that we have already called autoenable fences once in MODE TAKEOFF
-    bool have_autoenabled_fences;
+    bool have_autoenabled_fences = false;
 
 };
 #if MODE_AUTOLAND_ENABLED
@@ -998,7 +998,7 @@ protected:
     AP_Mission::Mission_Command cmd_loiter;
     AP_Mission::Mission_Command cmd_land;
     Location land_start;
-    AutoLandStage stage;
+    AutoLandStage stage = AutoLandStage::CLIMB;
     void set_autoland_direction(const float heading);
 };
 #endif

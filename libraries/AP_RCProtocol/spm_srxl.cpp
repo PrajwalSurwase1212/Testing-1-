@@ -1372,7 +1372,7 @@ bool srxlUpdateCommStats(bool isFade)
 
             if((srxlRx.rcvr[i].rssiRcvd & RSSI_RCVD_DBM) && srxlRx.bestRssi_dBm < srxlRx.rcvr[i].rssi_dBm)
                 srxlRx.bestRssi_dBm = srxlRx.rcvr[i].rssi_dBm;
-            if((srxlRx.rcvr[i].rssiRcvd & RSSI_RCVD_PCT) && srxlRx.bestRssi_dBm < srxlRx.rcvr[i].rssi_Pct)
+            if((srxlRx.rcvr[i].rssiRcvd & RSSI_RCVD_PCT) && srxlRx.bestRssi_Pct < srxlRx.rcvr[i].rssi_Pct)
                 srxlRx.bestRssi_Pct = srxlRx.rcvr[i].rssi_Pct;
         }
     }

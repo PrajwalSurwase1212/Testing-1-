@@ -212,9 +212,9 @@ protected:
     class AR_AttitudeControl &attitude_control;
 
     // private members for waypoint navigation
-    float _distance_to_destination; // distance from vehicle to final destination in meters
-    bool _reached_destination;  // true once the vehicle has reached the destination
-    float _desired_yaw_cd;      // desired yaw in centi-degrees.  used in Auto, Guided and Loiter
+    float _distance_to_destination = 0.0f; // distance from vehicle to final destination in meters
+    bool _reached_destination = false;  // true once the vehicle has reached the destination
+    float _desired_yaw_cd = 0.0f;      // desired yaw in centi-degrees.  used in Auto, Guided and Loiter
 };
 
 
@@ -314,7 +314,7 @@ protected:
         Stop,              // stop the vehicle as quickly as possible
         NavScriptTime,     // accept targets from lua scripts while NAV_SCRIPT_TIME commands are executing
         Circle,            // circle a given location
-    } _submode;
+    } _submode = SubMode::Stop;
 
 private:
 
@@ -356,49 +356,49 @@ private:
     bool verify_nav_script_time();
 #endif
 
-    bool waiting_to_start;  // true if waiting for EKF origin before starting mission
-    bool auto_triggered;        // true when auto has been triggered to start
+    bool waiting_to_start = false;  // true if waiting for EKF origin before starting mission
+    bool auto_triggered = false;        // true when auto has been triggered to start
 
     // HeadingAndSpeed sub mode variables
-    float _desired_speed;   // desired speed in HeadingAndSpeed submode
-    bool _reached_heading;  // true when vehicle has reached desired heading in TurnToHeading sub mode
+    float _desired_speed = 0.0f;   // desired speed in HeadingAndSpeed submode
+    bool _reached_heading = false;  // true when vehicle has reached desired heading in TurnToHeading sub mode
 
     // Loiter control
-    uint16_t loiter_duration;       // How long we should loiter at the nav_waypoint (time in seconds)
-    uint32_t loiter_start_time;     // How long have we been loitering - The start time in millis
-    bool previously_reached_wp;     // set to true if we have EVER reached the waypoint
+    uint16_t loiter_duration = 0;       // How long we should loiter at the nav_waypoint (time in seconds)
+    uint32_t loiter_start_time = 0;     // How long have we been loitering - The start time in millis
+    bool previously_reached_wp = false;     // set to true if we have EVER reached the waypoint
 
     // Guided-within-Auto variables
     struct {
-        Location loc;           // location target sent to external navigation
-        bool valid;             // true if loc is valid
-        uint32_t last_sent_ms;  // system time that target was last sent to offboard navigation
+        Location loc = {};           // location target sent to external navigation
+        bool valid = false;             // true if loc is valid
+        uint32_t last_sent_ms = 0;  // system time that target was last sent to offboard navigation
     } guided_target;
 
     // Conditional command
     // A value used in condition commands (eg delay, change alt, etc.)
     // For example in a change altitude command, it is the altitude to change to.
-    int32_t condition_value;
+    int32_t condition_value = 0;
     // A starting value used to check the status of a conditional command.
     // For example in a delay command the condition_start records that start time for the delay
-    int32_t condition_start;
+    int32_t condition_start = 0;
 
     // Delay the next navigation command
-    uint32_t nav_delay_time_max_ms;  // used for delaying the navigation commands
-    uint32_t nav_delay_time_start_ms;
+    uint32_t nav_delay_time_max_ms = 0;  // used for delaying the navigation commands
+    uint32_t nav_delay_time_start_ms = 0;
 
 #if AP_SCRIPTING_ENABLED
     // nav_script_time command variables
     struct {
-        bool done;          // true once lua script indicates it has completed
-        uint16_t id;        // unique id to avoid race conditions between commands and lua scripts
-        uint32_t start_ms;  // system time nav_script_time command was received (used for timeout)
-        uint8_t command;    // command number provided by mission command
-        uint8_t timeout_s;  // timeout (in seconds) provided by mission command
-        float arg1;         // 1st argument provided by mission command
-        float arg2;         // 2nd argument provided by mission command
-        int16_t arg3;       // 3rd argument provided by mission command
-        int16_t arg4;       // 4th argument provided by mission command
+        bool done = false;          // true once lua script indicates it has completed
+        uint16_t id = 0;        // unique id to avoid race conditions between commands and lua scripts
+        uint32_t start_ms = 0;  // system time nav_script_time command was received (used for timeout)
+        uint8_t command = 0;    // command number provided by mission command
+        uint8_t timeout_s = 0;  // timeout (in seconds) provided by mission command
+        float arg1 = 0.0f;         // 1st argument provided by mission command
+        float arg2 = 0.0f;         // 2nd argument provided by mission command
+        int16_t arg3 = 0;       // 3rd argument provided by mission command
+        int16_t arg4 = 0;       // 4th argument provided by mission command
     } nav_scripting;
 #endif
 
@@ -492,18 +492,18 @@ protected:
         float radius;   // circle radius
         float speed;    // desired speed around circle in m/s
         Direction dir;  // direction, 0:clockwise, 1:counter-clockwise
-    } config;
+    } config = {};
     struct {
         float speed;    // vehicle's target speed around circle in m/s
         float yaw_rad;  // earth-frame angle of tarrget point on the circle
         Vector2p pos;   // latest position target sent to position controller
         Vector2f vel;   // latest velocity target sent to position controller
         Vector2f accel; // latest accel target sent to position controller
-    } target;
-    float angle_total_rad;  // total angle in radians that vehicle has circled
-    bool reached_edge;      // true once vehicle has reached edge of circle
-    float dist_to_edge_m;   // distance to edge of circle in meters (equivalent to crosstrack error)
-    bool tracking_back;     // true if the vehicle is trying to track back onto the circle
+    } target = {};
+    float angle_total_rad = 0.0f;  // total angle in radians that vehicle has circled
+    bool reached_edge = false;      // true once vehicle has reached edge of circle
+    float dist_to_edge_m = 0.0f;   // distance to edge of circle in meters (equivalent to crosstrack error)
+    bool tracking_back = false;     // true if the vehicle is trying to track back onto the circle
 };
 
 class ModeGuided : public Mode
@@ -588,28 +588,28 @@ protected:
     // scurves provide path planning and object avoidance but cannot handle fast updates to the destination (for fast updates use position controller input shaping)
     bool use_scurves_for_navigation() const;
 
-    SubMode _guided_mode;    // stores which GUIDED mode the vehicle is in
+    SubMode _guided_mode = SubMode::Stop;    // stores which GUIDED mode the vehicle is in
 
     // attitude control
-    bool have_attitude_target;  // true if we have a valid attitude target
-    uint32_t _des_att_time_ms;  // system time last call to set_desired_attitude was made (used for timeout)
-    float _desired_yaw_rate_cds;// target turn rate centi-degrees per second
-    bool send_notification;     // used to send one time notification to ground station
-    float _desired_speed;       // desired speed used only in HeadingAndSpeed submode
+    bool have_attitude_target = false;  // true if we have a valid attitude target
+    uint32_t _des_att_time_ms = 0;  // system time last call to set_desired_attitude was made (used for timeout)
+    float _desired_yaw_rate_cds = 0.0f;// target turn rate centi-degrees per second
+    bool send_notification = false;     // used to send one time notification to ground station
+    float _desired_speed = 0.0f;       // desired speed used only in HeadingAndSpeed submode
 
     // direct steering and throttle control
-    bool _have_strthr;          // true if we have a valid direct steering and throttle inputs
-    uint32_t _strthr_time_ms;   // system time last call to set_steering_and_throttle was made (used for timeout)
-    float _strthr_steering;     // direct steering input in the range -1 to +1
-    float _strthr_throttle;     // direct throttle input in the range -1 to +1
+    bool _have_strthr = false;          // true if we have a valid direct steering and throttle inputs
+    uint32_t _strthr_time_ms = 0;   // system time last call to set_steering_and_throttle was made (used for timeout)
+    float _strthr_steering = 0.0f;     // direct steering input in the range -1 to +1
+    float _strthr_throttle = 0.0f;     // direct throttle input in the range -1 to +1
 
     // limits
     struct {
-        uint32_t timeout_ms;// timeout from the time that guided is invoked
-        float horiz_max;    // horizontal position limit in meters from where guided mode was initiated (0 = no limit)
-        uint32_t start_time_ms; // system time in milliseconds that control was handed to the external computer
-        Location start_loc; // starting location for checking horiz_max limit
-    } limit;
+        uint32_t timeout_ms = 0;// timeout from the time that guided is invoked
+        float horiz_max = 0.0f;    // horizontal position limit in meters from where guided mode was initiated (0 = no limit)
+        uint32_t start_time_ms = 0; // system time in milliseconds that control was handed to the external computer
+        Location start_loc = {}; // starting location for checking horiz_max limit
+    } limit = {};
 };
 
 
@@ -659,8 +659,8 @@ protected:
 
     bool _enter() override;
 
-    Location _destination;      // target location to hold position around
-    float _desired_speed;       // desired speed (ramped down from initial speed to zero)
+    Location _destination = {};      // target location to hold position around
+    float _desired_speed = 0.0f;       // desired speed (ramped down from initial speed to zero)
 };
 
 class ModeManual : public Mode
@@ -717,8 +717,8 @@ protected:
 
     bool _enter() override;
 
-    bool send_notification; // used to send one time notification to ground station
-    bool _loitering;        // true if loitering at end of RTL
+    bool send_notification = false; // used to send one time notification to ground station
+    bool _loitering = false;        // true if loitering at end of RTL
 
 };
 
@@ -759,11 +759,11 @@ protected:
         PathFollow,
         StopAtHome,
         Failure
-    } smart_rtl_state;
+    } smart_rtl_state = SmartRTLState::WaitForPathCleanup;
 
     bool _enter() override;
-    bool _load_point;
-    bool _loitering;        // true if loitering at end of SRTL
+    bool _load_point = false;
+    bool _loitering = false;        // true if loitering at end of SRTL
 };
 
 
@@ -790,7 +790,7 @@ public:
 
 private:
 
-    float _desired_lat_accel;   // desired lateral acceleration calculated from pilot steering input
+    float _desired_lat_accel = 0.0f;   // desired lateral acceleration calculated from pilot steering input
 };
 
 class ModeInitializing : public Mode

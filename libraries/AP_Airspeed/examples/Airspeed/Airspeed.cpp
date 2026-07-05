@@ -31,15 +31,25 @@ const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 float temperature;
 
-// create an AHRS object for get_airspeed_max
-AP_AHRS ahrs;
-
-// create airspeed object
-AP_Airspeed airspeed;
-
-static AP_BoardConfig board_config;
-
 namespace {
+AP_AHRS &get_ahrs()
+{
+    static AP_AHRS ahrs;
+    return ahrs;
+}
+
+AP_Airspeed &get_airspeed()
+{
+    static AP_Airspeed airspeed;
+    return airspeed;
+}
+
+AP_BoardConfig &get_board_config()
+{
+    static AP_BoardConfig board_config;
+    return board_config;
+}
+
 // try to set the object value but provide diagnostic if it failed
 void set_object_value(const void *object_pointer,
                       const struct AP_Param::GroupInfo *group_info,
@@ -57,12 +67,15 @@ void setup()
 {
     hal.console->printf("ArduPilot Airspeed library test\n");
 
-    // set airspeed pin to 65, enable and use to true
-    set_object_value(&airspeed, airspeed.var_info, "PIN", 65);
-    set_object_value(&airspeed, airspeed.var_info, "ENABLE", 1);
-    set_object_value(&airspeed, airspeed.var_info, "USE", 1);
+    get_ahrs();
+    AP_Airspeed &airspeed = get_airspeed();
 
-    board_config.init();
+    // set airspeed pin to 65, enable and use to true
+    set_object_value(&airspeed, AP_Airspeed::var_info, "PIN", 65);
+    set_object_value(&airspeed, AP_Airspeed::var_info, "ENABLE", 1);
+    set_object_value(&airspeed, AP_Airspeed::var_info, "USE", 1);
+
+    get_board_config().init();
 
     // initialize airspeed
     // Note airspeed.set_log_bit(LOG_BIT) would need to be called in order to enable logging
@@ -75,6 +88,7 @@ void setup()
 void loop(void)
 {
     static uint32_t timer;
+    AP_Airspeed &airspeed = get_airspeed();
 
     // run read() and get_temperature() in 10Hz
     if ((AP_HAL::millis() - timer) > 100) {

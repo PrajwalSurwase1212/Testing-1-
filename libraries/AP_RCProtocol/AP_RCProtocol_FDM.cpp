@@ -33,8 +33,8 @@ void AP_RCProtocol_FDM::update()
 
     // scale from FDM 0-1 floats to PWM values
     // these are the values that will be fed into the autopilot.
-    uint16_t pwm_input[16];
-    const uint8_t count = MIN(ARRAY_SIZE(pwm_input), fdm.rcin_chan_count);
+    uint16_t pwm_input[MAX_RCIN_CHANNELS] {};
+    const uint8_t count = MIN(MIN(ARRAY_SIZE(pwm_input), fdm.rcin_chan_count), ARRAY_SIZE(fdm.rcin));
     for (uint8_t i=0; i<count; i++) {
         pwm_input[i] = 1000 + fdm.rcin[i] * 1000;
     }

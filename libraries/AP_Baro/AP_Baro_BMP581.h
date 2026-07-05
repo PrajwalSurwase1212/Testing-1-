@@ -32,10 +32,10 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
-    uint8_t instance;
-    float pressure_sum;
-    uint32_t pressure_count;
-    float temperature;
+    uint8_t instance = 0;
+    float pressure_sum = 0.0f;
+    uint32_t pressure_count = 0;
+    float temperature = 0.0f;
 };
 
 #endif  // AP_BARO_BMP581_ENABLED

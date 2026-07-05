@@ -272,7 +272,7 @@ private:
     // _eos_offset - stores the offset in storage of the
     // end-of-storage marker.  Used by low-level manipulation code to
     // extend storage
-    uint16_t _eos_offset;
+    uint16_t _eos_offset = 0;
 
     // formatted - returns true if the fence storage space seems to be
     // formatted for new-style fence storage
@@ -295,11 +295,11 @@ private:
 
     // pointer into _loaded_offsets_from_origin where the return point
     // can be found:
-    Vector2f *_loaded_return_point;
+    Vector2f *_loaded_return_point = nullptr;
 
     // pointer into _loaded_points_lla where the return point
     // can be found:
-    Vector2l *_loaded_return_point_lla;
+    Vector2l *_loaded_return_point_lla = nullptr;
 
     class InclusionBoundary {
     public:
@@ -307,9 +307,9 @@ private:
         Vector2l *points_lla; // pointer into the _loaded_points_lla array
         uint8_t count; // count of points in the boundary
     };
-    InclusionBoundary *_loaded_inclusion_boundary;
+    InclusionBoundary *_loaded_inclusion_boundary = nullptr;
 
-    uint8_t _num_loaded_inclusion_boundaries;
+    uint8_t _num_loaded_inclusion_boundaries = 0;
 
     class ExclusionBoundary {
     public:
@@ -317,16 +317,16 @@ private:
         Vector2l *points_lla; // pointer into the _loaded_points_lla_lla array
         uint8_t count; // count of points in the boundary
     };
-    ExclusionBoundary *_loaded_exclusion_boundary;
+    ExclusionBoundary *_loaded_exclusion_boundary = nullptr;
 
-    uint8_t _num_loaded_exclusion_boundaries;
+    uint8_t _num_loaded_exclusion_boundaries = 0;
 
     // _loaded_offsets_from_origin - stores x/y offset-from-origin
     // coordinate pairs.  Various items store their locations in this
     // allocation - the polygon boundaries and the return point, for
     // example.
-    Vector2f *_loaded_offsets_from_origin;
-    Vector2l *_loaded_points_lla;
+    Vector2f *_loaded_offsets_from_origin = nullptr;
+    Vector2l *_loaded_points_lla = nullptr;
     Location loaded_origin; // origin at the time the boundary was loaded
 
     class ExclusionCircle {
@@ -335,9 +335,9 @@ private:
         Vector2l point;  // lat/lng of zone
         float radius;
     };
-    ExclusionCircle *_loaded_circle_exclusion_boundary;
+    ExclusionCircle *_loaded_circle_exclusion_boundary = nullptr;
     
-    uint8_t _num_loaded_circle_exclusion_boundaries;
+    uint8_t _num_loaded_circle_exclusion_boundaries = 0;
 
     class InclusionCircle {
     public:
@@ -345,18 +345,18 @@ private:
         Vector2l point;       // lat/lng of zone
         float radius;
     };
-    InclusionCircle *_loaded_circle_inclusion_boundary;
+    InclusionCircle *_loaded_circle_inclusion_boundary = nullptr;
 
-    uint8_t _num_loaded_circle_inclusion_boundaries;
+    uint8_t _num_loaded_circle_inclusion_boundaries = 0;
 
     // _load_attempted - true if we have attempted to load the fences
     // from storage into _loaded_circle_exclusion_boundary,
     // _loaded_offsets_from_origin etc etc
-    bool _load_attempted;
+    bool _load_attempted = false;
 
     // _load_time_ms - from millis(), system time when fence load last
     // succeeded.  Will be zero if fences are not loaded
-    uint32_t _load_time_ms;
+    uint32_t _load_time_ms = 0;
 
     // scale_latlon_from_origin - given a latitude/longitude
     // transforms the point to an offset-from-origin and deposits
@@ -408,7 +408,7 @@ private:
     // solely for compatibility with the FENCE_POINT protocol
     AP_Int8 &_total;
     const AP_Int16 &_options;
-    uint8_t _old_total;
+    uint8_t _old_total = 0;
 
 
     // scan_eeprom - a method that traverses the fence storage area,
@@ -421,8 +421,8 @@ private:
     // massed to scan_eeprom which counts the number of fences and
     // fence items present.  The results of this counting appear in _eeprom_fence_count and _eeprom_item_count
     void scan_eeprom_count_fences(const AC_PolyFenceType type, uint16_t read_offset);
-    uint16_t _eeprom_fence_count;
-    uint16_t _eeprom_item_count;
+    uint16_t _eeprom_fence_count = 0;
+    uint16_t _eeprom_item_count = 0;
 
     // scan_eeprom_index_fences - a static function designed to be
     // passed to scan_eeprom.  _index must be a pointer to
@@ -435,12 +435,12 @@ private:
     void scan_eeprom_index_fences(const AC_PolyFenceType type, uint16_t read_offset);
     // array specifying type of each fence in storage (and a count of
     // items in that fence)
-    FenceIndex *_index;
-    bool _indexed; // true if indexing successful
-    bool _index_attempted; // true if we attempted to index the eeprom
+    FenceIndex *_index = nullptr;
+    bool _indexed = false; // true if indexing successful
+    bool _index_attempted = false; // true if we attempted to index the eeprom
     // _num_fences - count of the number of fences in _index.  This
     // should be equal to _eeprom_fence_count
-    uint16_t _num_fences;
+    uint16_t _num_fences = 0;
 
     // count_eeprom_fences - refresh the count of fences in permanent storage
     bool count_eeprom_fences() WARN_IF_UNUSED;

@@ -88,10 +88,39 @@ AP_InertialSensor_Invensense::AP_InertialSensor_Invensense(AP_InertialSensor &im
                                                            AP_HAL::OwnPtr<AP_HAL::Device> dev,
                                                            enum Rotation rotation)
     : AP_InertialSensor_Backend(imu)
+    , _raw_temp(0)
+    , _temp_filtered(0.0f)
+    , _accel_scale(0.0f)
+    , _gyro_scale(0.0f)
+    , _fifo_accel_scale(0.0f)
+    , _fifo_gyro_scale(0.0f)
     , _temp_filter(1000, 1)
+    , last_reset_ms(0)
+    , reset_count(0)
+    , fast_reset_count(0)
+    , last_fast_reset_count(0)
+    , last_fast_reset_count_report_ms(0)
     , _rotation(rotation)
+    , _enable_offset_checking(false)
+    , _enable_fast_fifo_reset(false)
+    , _saved_y_ofs_high(0)
+    , _drdy_pin(nullptr)
     , _dev(std::move(dev))
+    , _auxiliary_bus(nullptr)
+    , _mpu_type(Invensense_MPU6000)
+    , _fast_sampling(false)
+    , _gyro_fifo_downsample_rate(0)
+    , _accel_fifo_downsample_rate(0)
+    , _gyro_to_accel_sample_ratio(0)
+    , _gyro_backend_rate_hz(0)
+    , _accel_backend_rate_hz(0)
+    , _last_stat_user_ctrl(0)
+    , _fifo_buffer(nullptr)
 {
+    _accum.accel.zero();
+    _accum.gyro.zero();
+    _accum.accel_count = 0;
+    _accum.gyro_count = 0;
 }
 
 AP_InertialSensor_Invensense::~AP_InertialSensor_Invensense()

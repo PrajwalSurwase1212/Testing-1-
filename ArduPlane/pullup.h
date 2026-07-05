@@ -35,7 +35,7 @@ public:
     static const struct AP_Param::GroupInfo var_info[];
 
 private:
-    Stage stage;
+    Stage stage = Stage::NONE;
     AP_Int8  enable;
     AP_Float elev_offset; // fraction of full elevator applied during WAIT_AIRSPEED and released during WAIT_PITCH
     AP_Float ng_limit;
@@ -43,7 +43,7 @@ private:
     AP_Float pitch_start;
     AP_Float ng_jerk_limit;
     AP_Float pitch_dem;
-    float ng_demand;
+    float ng_demand = 0.0f;
 };
 
 #endif // AP_PLANE_GLIDER_PULLUP_ENABLED

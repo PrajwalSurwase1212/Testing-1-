@@ -418,7 +418,7 @@ void CanardInterface::process(uint32_t duration_ms) {
 
 bool CanardInterface::add_interface(AP_HAL::CANIface *can_iface)
 {
-    if (num_ifaces > HAL_NUM_CAN_IFACES) {
+    if (num_ifaces >= HAL_NUM_CAN_IFACES) {
         AP::can().log_text(AP_CANManager::LOG_ERROR, LOG_TAG, "DroneCANIfaceMgr: Num Ifaces Exceeded\n");
         return false;
     }

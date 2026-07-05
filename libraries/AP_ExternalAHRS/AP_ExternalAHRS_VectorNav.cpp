@@ -415,7 +415,8 @@ bool AP_ExternalAHRS_VectorNav::decode_latest_term()
         case 2: 
             if (strncmp(nmea.term, "VN-", 3) == 0) {
                 // This term is the model number
-                strncpy(model_name, nmea.term, sizeof(model_name));
+                strncpy(model_name, nmea.term, sizeof(model_name) - 1);
+                model_name[sizeof(model_name) - 1] = '\0';
             }
             return true;
         default:

@@ -46,6 +46,7 @@ static const uint8_t CMD_REQUEST_MEASUREMENT = 0xAC;
 AP_Baro_KellerLD::AP_Baro_KellerLD(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev)
     : AP_Baro_Backend(baro)
     , _dev(std::move(dev))
+    , _instance(0)
 {
 }
 

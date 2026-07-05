@@ -213,53 +213,53 @@ private:
     void report_axis_gains(const char* axis_string, float rate_P, float rate_I, float rate_D, float rate_ff, float angle_P, float max_accel_radss) const;
 
     // define input type as Dwell or Sweep.  Used through entire class
-    AC_AutoTune_FreqResp::InputType input_type;
+    AC_AutoTune_FreqResp::InputType input_type = AC_AutoTune_FreqResp::InputType::DWELL;
     
-    sweep_info curr_data;                           // frequency response test results
-    float    next_test_freq;                        // next test frequency for next test cycle setup
+    sweep_info curr_data{};                           // frequency response test results
+    float    next_test_freq = 0.0f;                        // next test frequency for next test cycle setup
 
     // max gain data for rate p tuning
-    max_gain_data max_rate_p;
+    max_gain_data max_rate_p{};
     // max gain data for rate d tuning
-    max_gain_data max_rate_d;
+    max_gain_data max_rate_d{};
 
     // updating max gain variables
     // flag for finding maximum p gain
-    bool found_max_p;
+    bool found_max_p = false;
     // flag for finding maximum d gain
-    bool found_max_d;
+    bool found_max_d = false;
 
     // updating angle P up variables
-    float phase_max;             // track the maximum phase and freq
-    float freq_max;
-    float sp_prev_gain;          // previous gain
-    bool found_max_gain_freq;    // flag for finding max gain frequency
-    bool found_peak;             // flag for finding the peak of the gain response
+    float phase_max = 0.0f;             // track the maximum phase and freq
+    float freq_max = 0.0f;
+    float sp_prev_gain = 0.0f;          // previous gain
+    bool found_max_gain_freq = false;    // flag for finding max gain frequency
+    bool found_peak = false;             // flag for finding the peak of the gain response
 
     // updating rate D up
-    float rd_prev_gain;               // previous gain
+    float rd_prev_gain = 0.0f;               // previous gain
 
     // freq search for phase
-    sweep_info prev_test;              // data from previous dwell
+    sweep_info prev_test{};              // data from previous dwell
 
     // Dwell Test variables
-    AC_AutoTune_FreqResp::InputType test_input_type;
-    FreqRespCalcType test_calc_type;
-    FreqRespInput test_freq_resp_input;
-    uint8_t num_dwell_cycles;
-    float test_start_freq;
-    float tgt_attitude;
+    AC_AutoTune_FreqResp::InputType test_input_type = AC_AutoTune_FreqResp::InputType::DWELL;
+    FreqRespCalcType test_calc_type = FreqRespCalcType::RATE;
+    FreqRespInput test_freq_resp_input = FreqRespInput::TARGET;
+    uint8_t num_dwell_cycles = 0;
+    float test_start_freq = 0.0f;
+    float tgt_attitude = 0.0f;
     
-    float    pre_calc_cycles;                       // number of cycles to complete before running frequency response calculations
-    float    command_out;                           // test axis command output
-    float    filt_target_rate;                      // filtered target rate
-    float    dwell_start_time_ms;                   // start time in ms of dwell test
+    float    pre_calc_cycles = 0.0f;                       // number of cycles to complete before running frequency response calculations
+    float    command_out = 0.0f;                           // test axis command output
+    float    filt_target_rate = 0.0f;                      // filtered target rate
+    float    dwell_start_time_ms = 0.0f;                   // start time in ms of dwell test
 
-    sweep_info curr_test;
-    sweep_info curr_test_mtr;
-    sweep_info curr_test_tgt;
+    sweep_info curr_test{};
+    sweep_info curr_test_mtr{};
+    sweep_info curr_test_tgt{};
 
-    uint32_t settle_time;                           // time in ms for allowing aircraft to stabilize before initiating test
+    uint32_t settle_time = 0;                           // time in ms for allowing aircraft to stabilize before initiating test
 
     // variables from dwell test
     LowPassFilterVector2f filt_att_fdbk_from_velxy_cd;
@@ -268,8 +268,8 @@ private:
     LowPassFilterFloat filt_tgt_rate_reading;       // filtered target rate reading to keep oscillation centered
 
     // trim variables for determining trim state prior to test starting
-    float trim_yaw_tgt_reading_cd;                     // trim target yaw reading before starting test
-    float trim_yaw_heading_reading_cd;                 // trim heading reading before starting test
+    float trim_yaw_tgt_reading_cd = 0.0f;                     // trim target yaw reading before starting test
+    float trim_yaw_heading_reading_cd = 0.0f;                 // trim heading reading before starting test
 
     LowPassFilterFloat  command_filt;               // filtered command - filtering intended to remove noise
     LowPassFilterFloat  target_rate_filt;           // filtered target rate in radians/second - filtering intended to remove noise
@@ -279,11 +279,11 @@ private:
         sweep_info maxgain;
         sweep_info ph180;
         sweep_info ph270;
-        uint8_t  progress;  // set based on phase of frequency response.  0 - start; 1 - reached 180 deg; 2 - reached 270 deg;
+        uint8_t  progress = 0;  // set based on phase of frequency response.  0 - start; 1 - reached 180 deg; 2 - reached 270 deg;
     };
-    sweep_data sweep_mtr;
-    sweep_data sweep_tgt;
-    bool sweep_complete;
+    sweep_data sweep_mtr{};
+    sweep_data sweep_tgt{};
+    bool sweep_complete = false;
 
     // fix the frequency sweep time to 23 seconds
     const float sweep_time_ms = 23000;
@@ -303,8 +303,8 @@ private:
     AC_AutoTune_FreqResp freqresp_tgt; // frequency response of output to target input
 
     // allow tracking of cycles complete for frequency response object
-    bool cycle_complete_tgt;
-    bool cycle_complete_mtr;
+    bool cycle_complete_tgt = false;
+    bool cycle_complete_mtr = false;
 
     Chirp chirp_input;
 };

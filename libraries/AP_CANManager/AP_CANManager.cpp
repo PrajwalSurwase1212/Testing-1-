@@ -206,7 +206,7 @@ void AP_CANManager::init()
             _drivers[drv_num] = _drv_param[drv_num]._uavcan = NEW_NOTHROW AP_DroneCAN(drv_num);
 
             if (_drivers[drv_num] == nullptr) {
-                AP_BoardConfig::allocation_error("uavcan %d", i + 1);
+                AP_BoardConfig::allocation_error("uavcan %d", drv_num + 1);
                 continue;
             }
 

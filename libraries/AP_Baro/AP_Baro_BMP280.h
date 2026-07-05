@@ -34,15 +34,15 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
-    uint8_t _instance;
-    int32_t _t_fine;
-    float _pressure_sum;
-    uint32_t _pressure_count;
-    float _temperature;
+    uint8_t _instance = 0;
+    int32_t _t_fine = 0;
+    float _pressure_sum = 0.0f;
+    uint32_t _pressure_count = 0;
+    float _temperature = 0.0f;
 
     // Internal calibration registers
-    int16_t _t2, _t3, _p2, _p3, _p4, _p5, _p6, _p7, _p8, _p9;
-    uint16_t _t1, _p1;
+    int16_t _t2 = 0, _t3 = 0, _p2 = 0, _p3 = 0, _p4 = 0, _p5 = 0, _p6 = 0, _p7 = 0, _p8 = 0, _p9 = 0;
+    uint16_t _t1 = 0, _p1 = 0;
 };
 
 #endif  // AP_BARO_BMP280_ENABLED

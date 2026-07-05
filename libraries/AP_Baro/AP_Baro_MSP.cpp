@@ -3,9 +3,13 @@
 #if AP_BARO_MSP_ENABLED
 
 AP_Baro_MSP::AP_Baro_MSP(AP_Baro &baro, uint8_t _msp_instance) :
-    AP_Baro_Backend(baro)
+    AP_Baro_Backend(baro),
+    instance(0),
+    msp_instance(_msp_instance),
+    sum_pressure(0.0f),
+    sum_temp(0.0f),
+    count(0)
 {
-    msp_instance = _msp_instance;
     instance = _frontend.register_sensor();
     set_bus_id(instance, AP_HAL::Device::make_bus_id(AP_HAL::Device::BUS_TYPE_MSP,0,msp_instance,0));
 }

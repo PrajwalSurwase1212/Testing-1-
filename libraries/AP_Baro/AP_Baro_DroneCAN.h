@@ -28,16 +28,16 @@ private:
 
     static void _update_and_wrap_accumulator(float *accum, float val, uint8_t *count, const uint8_t max_count);
 
-    uint8_t _instance;
+    uint8_t _instance = 0;
 
-    bool new_pressure;
-    float _pressure;
-    float _temperature;
-    uint8_t  _pressure_count;
+    bool new_pressure = false;
+    float _pressure = 0.0f;
+    float _temperature = 0.0f;
+    uint8_t  _pressure_count = 0;
     HAL_Semaphore _sem_baro;
 
-    AP_DroneCAN* _ap_dronecan;
-    uint8_t _node_id;
+    AP_DroneCAN* _ap_dronecan = nullptr;
+    uint8_t _node_id = 0;
 
     // Module Detection Registry
     static struct DetectedModules {

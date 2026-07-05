@@ -34,10 +34,10 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> dev;
 
-    uint8_t instance;
-    float pressure_sum;
-    uint32_t pressure_count;
-    float temperature;
+    uint8_t instance = 0;
+    float pressure_sum = 0.0f;
+    uint32_t pressure_count = 0;
+    float temperature = 0.0f;
 
     // Internal calibration registers
     struct PACKED {
@@ -52,13 +52,13 @@ private:
         int16_t nvm_par_p9;
         int8_t nvm_par_p10;
         int8_t nvm_par_p11;
-    } calib_p;
+    } calib_p{};
 
     struct PACKED {
         uint16_t nvm_par_t1; // at 0x31
         uint16_t nvm_par_t2;
         int8_t nvm_par_t3;
-    } calib_t;
+    } calib_t{};
 
     // scaled calibration data
     struct {
@@ -77,7 +77,7 @@ private:
         float par_p10;
         float par_p11;
         float t_lin;
-    } calib;
+    } calib{};
 
     void scale_calibration_data(void);
     bool read_registers(uint8_t reg, uint8_t *data, uint8_t len);

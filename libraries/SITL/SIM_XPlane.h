@@ -69,19 +69,19 @@ private:
     SocketAPM_native socket_in{true};
     SocketAPM_native socket_out{true};
 
-    uint64_t time_base_us;
-    uint32_t last_data_time_ms;
+    uint64_t time_base_us = 0;
+    uint32_t last_data_time_ms = 0;
     Vector3d position_zero;
     Vector3f accel_earth;
     bool connected = false;
-    uint32_t xplane_frame_time;
-    uint64_t seen_mask;
+    uint32_t xplane_frame_time = 0;
+    uint64_t seen_mask = 0;
 
     struct {
-        uint32_t last_report_ms;
-        uint32_t data_count;
-        uint32_t frame_count;
-    } report;
+        uint32_t last_report_ms = 0;
+        uint32_t data_count = 0;
+        uint32_t frame_count = 0;
+    } report{};
 
     enum class DRefType {
         ANGLE = 0,
@@ -99,8 +99,8 @@ private:
     };
 
     // list of DRefs;
-    struct DRef *drefs;
-    uint32_t dref_debug;
+    struct DRef *drefs = nullptr;
+    uint32_t dref_debug = 0;
 
     enum class JoyType {
         AXIS = 0,
@@ -116,10 +116,10 @@ private:
         float input_min, input_max;
         uint32_t mask;
     };
-    struct JoyInput *joyinputs;
+    struct JoyInput *joyinputs = nullptr;
 
-    char *map_filename;
-    struct stat map_st;
+    char *map_filename = nullptr;
+    struct stat map_st{};
 
     bool load_dref_map(const char *map_json);
     void add_dref(const char *name, DRefType type, const AP_JSON::value &dref);
@@ -128,7 +128,7 @@ private:
 
     void check_reload_dref(void);
 
-    uint32_t xplane_version;
+    uint32_t xplane_version = 0;
 };
 
 

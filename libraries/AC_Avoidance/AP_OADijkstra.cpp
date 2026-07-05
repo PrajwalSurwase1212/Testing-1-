@@ -341,7 +341,7 @@ bool AP_OADijkstra::create_inclusion_polygon_with_margin(float margin_cm, AP_OAD
 
     // iterate through polygons and create inner points
     for (uint8_t i = 0; i < num_inclusion_polygons; i++) {
-        uint16_t num_points;
+        uint16_t num_points = 0;
         const Vector2f* boundary = fence->polyfence().get_inclusion_polygon(i, num_points);
 
         // for each point in inclusion polygon
@@ -442,7 +442,7 @@ bool AP_OADijkstra::create_exclusion_polygon_with_margin(float margin_cm, AP_OAD
 
     // iterate through exclusion polygons and create outer points
     for (uint8_t i = 0; i < num_exclusion_polygons; i++) {
-        uint16_t num_points;
+        uint16_t num_points = 0;
         const Vector2f* boundary = fence->polyfence().get_exclusion_polygon(i, num_points);
    
         // for each point in exclusion polygon

@@ -238,11 +238,11 @@ private:
     bool floor_enabled() const { return _enabled_fences & AC_FENCE_TYPE_ALT_MIN; }
 
     // parameters
-    uint8_t         _enabled_fences;        // fences that are currently enabled/disabled
-    bool            _last_enabled;          // value of enabled last time we checked
+    uint8_t         _enabled_fences = 0;    // fences that are currently enabled/disabled
+    bool            _last_enabled = false;  // value of enabled last time we checked
     AP_Int8         _enabled;               // overall feature control
     AP_Int8         _auto_enabled;          // top level flag for auto enabling fence
-    uint8_t         _last_auto_enabled;     // value of auto_enabled last time we checked
+    uint8_t         _last_auto_enabled = 0; // value of auto_enabled last time we checked
     AP_Int8         _configured_fences;     // bit mask holding which fences are enabled
     AP_Enum<Action> _action;                // recovery action specified by user
     AP_Float        _alt_max;               // altitude upper limit in meters
@@ -256,30 +256,30 @@ private:
     AP_Float        _notify_freq;    // margin notification frequency
 
     // backup fences
-    float           _alt_max_backup;        // backup altitude upper limit in meters used to refire the breach if the vehicle continues to move further away
-    float           _alt_min_backup;        // backup altitude lower limit in meters used to refire the breach if the vehicle continues to move further away
-    float           _circle_radius_backup;  // backup circle fence radius in meters used to refire the breach if the vehicle continues to move further away
+    float           _alt_max_backup = 0.0f;        // backup altitude upper limit in meters used to refire the breach if the vehicle continues to move further away
+    float           _alt_min_backup = 0.0f;        // backup altitude lower limit in meters used to refire the breach if the vehicle continues to move further away
+    float           _circle_radius_backup = 0.0f;  // backup circle fence radius in meters used to refire the breach if the vehicle continues to move further away
 
     // breach distances - negative means distance to fence
-    float           _alt_max_breach_distance;   // distance above the altitude max
-    float           _alt_min_breach_distance;   // distance below the altitude min
-    float           _circle_breach_distance;    // distance beyond the circular fence
-    float           _polygon_breach_distance;   // distance beyond the polygon fence
+    float           _alt_max_breach_distance = 0.0f;   // distance above the altitude max
+    float           _alt_min_breach_distance = 0.0f;   // distance below the altitude min
+    float           _circle_breach_distance = 0.0f;    // distance beyond the circular fence
+    float           _polygon_breach_distance = 0.0f;   // distance beyond the polygon fence
 
     // other internal variables
-    float           _home_distance;         // distance from home in meters (provided by main code)
-    float           _fence_distance;        // distance to the nearest fence
+    float           _home_distance = 0.0f;         // distance from home in meters (provided by main code)
+    float           _fence_distance = 0.0f;        // distance to the nearest fence
 
     // breach information
-    uint8_t         _breached_fences;       // bitmask holding the fence types that were breached (i.e. AC_FENCE_TYPE_ALT_MIN, AC_FENCE_TYPE_CIRCLE)
-    uint8_t         _breached_fence_margins; // bitmask holding the fence types that have margin breaches (i.e. AC_FENCE_TYPE_ALT_MIN, AC_FENCE_TYPE_CIRCLE)
-    uint32_t        _breach_time;           // time of last breach in milliseconds
-    uint32_t        _margin_breach_time;    // time of last margin breach in milliseconds
-    uint16_t        _breach_count;          // number of times we have breached the fence
-    uint32_t _last_breach_notify_sent_ms;  // last time we sent a message about newly-breaching the fences
-    uint32_t _last_margin_breach_notify_sent_ms;  // last time we sent a message about newly-breaching the fences
+    uint8_t         _breached_fences = 0;       // bitmask holding the fence types that were breached (i.e. AC_FENCE_TYPE_ALT_MIN, AC_FENCE_TYPE_CIRCLE)
+    uint8_t         _breached_fence_margins = 0; // bitmask holding the fence types that have margin breaches (i.e. AC_FENCE_TYPE_ALT_MIN, AC_FENCE_TYPE_CIRCLE)
+    uint32_t        _breach_time = 0;           // time of last breach in milliseconds
+    uint32_t        _margin_breach_time = 0;    // time of last margin breach in milliseconds
+    uint16_t        _breach_count = 0;          // number of times we have breached the fence
+    uint32_t _last_breach_notify_sent_ms = 0;  // last time we sent a message about newly-breaching the fences
+    uint32_t _last_margin_breach_notify_sent_ms = 0;  // last time we sent a message about newly-breaching the fences
 
-    uint32_t        _manual_recovery_start_ms;  // system time in milliseconds that pilot re-took manual control
+    uint32_t        _manual_recovery_start_ms = 0;  // system time in milliseconds that pilot re-took manual control
 
     enum class MinAltState
     {

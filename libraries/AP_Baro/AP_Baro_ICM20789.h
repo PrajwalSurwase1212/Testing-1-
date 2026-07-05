@@ -41,22 +41,22 @@ private:
     void timer(void);
     
     // calibration data
-    int16_t sensor_constants[4];
+    int16_t sensor_constants[4]{};
 
-    uint8_t instance;
+    uint8_t instance = 0;
 
     AP_HAL::OwnPtr<AP_HAL::I2CDevice> dev;
     AP_HAL::OwnPtr<AP_HAL::Device> dev_imu;
 
     // time last read command was sent
-    uint32_t last_measure_us;
+    uint32_t last_measure_us = 0;
 
     // accumulation structure, protected by _sem
     struct {
         float tsum;
         float psum;
         uint32_t count;
-    } accum;
+    } accum{};
 
     // conversion constants. Thanks to invensense for including python
     // sample code in the datasheet!

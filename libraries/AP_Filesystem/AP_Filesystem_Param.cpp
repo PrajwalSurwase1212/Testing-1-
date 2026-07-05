@@ -266,9 +266,13 @@ uint8_t AP_Filesystem_Param::pack_param(const struct rfile &r, struct cursor &c,
                 memcpy(&buf[2+name_len+type_len], &int32_default, type_len);
                 break;
             }
-            case AP_PARAM_FLOAT:
-            case AP_PARAM_VECTOR3F: {
+            case AP_PARAM_FLOAT: {
                 memcpy(&buf[2+name_len+type_len], &default_val, type_len);
+                break;
+            }
+            case AP_PARAM_VECTOR3F: {
+                const float default_vector[3] = { default_val, default_val, default_val };
+                memcpy(&buf[2+name_len+type_len], default_vector, type_len);
                 break;
             }
         }
@@ -310,10 +314,10 @@ bool AP_Filesystem_Param::token_seek(const struct rfile &r, const uint32_t data_
             // no more parameters
             break;
         }
-        uint8_t n = MIN(len, available);
+        uint8_t n = MIN(MIN(len, available), (uint8_t)sizeof(tbuf));
         if (len > available) {
-            c.trailer_len = len - available;
-            memcpy(c.trailer, &tbuf[n], c.trailer_len);
+            c.trailer_len = MIN(len - available, (uint8_t)sizeof(c.trailer));
+            memcpy(c.trailer, &tbuf[MIN(n, (uint8_t)sizeof(tbuf))], c.trailer_len);
         }
         c.token_ofs += n;
     }
@@ -435,10 +439,10 @@ int32_t AP_Filesystem_Param::read(int fd, void *buf, uint32_t count)
             }
             break;
         }
-        uint8_t n = MIN(len, count);
+        uint8_t n = MIN(MIN(len, count), (uint8_t)sizeof(tbuf));
         if (len > count) {
-            c.trailer_len = len - count;
-            memcpy(c.trailer, &tbuf[count], c.trailer_len);
+            c.trailer_len = MIN(len - count, (uint8_t)sizeof(c.trailer));
+            memcpy(c.trailer, &tbuf[MIN(count, (uint32_t)sizeof(tbuf))], c.trailer_len);
         }
         memcpy(ubuf, tbuf, n);
         count -= n;

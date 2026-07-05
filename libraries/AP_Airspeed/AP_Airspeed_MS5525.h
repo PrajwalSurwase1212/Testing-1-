@@ -60,25 +60,25 @@ private:
     int32_t read_adc();
     void calculate();
 
-    float pressure;
-    float temperature;
-    float temperature_sum;
-    float pressure_sum;
-    uint32_t temp_count;
-    uint32_t press_count;
+    float pressure = 0.0f;
+    float temperature = 0.0f;
+    float temperature_sum = 0.0f;
+    float pressure_sum = 0.0f;
+    uint32_t temp_count = 0;
+    uint32_t press_count = 0;
     
-    uint32_t last_sample_time_ms;
+    uint32_t last_sample_time_ms = 0;
 
-    uint16_t prom[8];
-    uint8_t state;
-    int32_t D1;
-    int32_t D2;
-    uint32_t command_send_us;
-    bool ignore_next;
-    uint8_t cmd_sent;
-    MS5525_ADDR _address;
+    uint16_t prom[8]{};
+    uint8_t state = 0;
+    int32_t D1 = 0;
+    int32_t D2 = 0;
+    uint32_t command_send_us = 0;
+    bool ignore_next = false;
+    uint8_t cmd_sent = 0;
+    MS5525_ADDR _address = MS5525_ADDR_AUTO;
 
-    AP_HAL::I2CDevice *dev;
+    AP_HAL::I2CDevice *dev = nullptr;
 };
 
 #endif  // AP_AIRSPEED_MS5525_ENABLED

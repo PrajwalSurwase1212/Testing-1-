@@ -184,6 +184,10 @@ void JSON_Master::send(const struct sitl_fdm &output, const Vector3d &position)
                             output.quaternion.q1, output.quaternion.q2, output.quaternion.q3, output.quaternion.q4,
                             output.speedN, output.speedE, output.speedD);
 
+    if (length < 0) {
+        return;
+    }
+
     for (socket_list *list = &_list; list->next; list=list->next) {
         const ssize_t sent = list->sock_out.send(json_out, length);
         if (sent < 0) {

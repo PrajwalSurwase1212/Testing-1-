@@ -46,5 +46,5 @@ private:
     uint8_t base_mode() const override;
     MAV_STATE vehicle_system_status() const override;
 
-    bool waypoint_receiving;
+    bool waypoint_receiving = false;
 };

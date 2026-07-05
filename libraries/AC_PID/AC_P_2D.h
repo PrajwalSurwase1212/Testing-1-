@@ -53,8 +53,8 @@ private:
 
     // internal variables
     Vector2f _error;    // error between target and measured
-    float _error_max;   // error limit in positive direction
-    float _D1_max;      // maximum first derivative of output
+    float _error_max = 0.0f;   // error limit in positive direction
+    float _D1_max = 0.0f;      // maximum first derivative of output
 
     const float default_kp;
 };

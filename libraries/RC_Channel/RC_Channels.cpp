@@ -62,11 +62,20 @@ void RC_Channels::init(void)
 
 uint8_t RC_Channels::get_radio_in(uint16_t *chans, const uint8_t num_channels)
 {
+    if (num_channels == 0) {
+        return 0;
+    }
     memset(chans, 0, num_channels*sizeof(*chans));
 
     const uint8_t read_channels = MIN(num_channels, NUM_RC_CHANNELS);
     for (uint8_t i = 0; i < read_channels; i++) {
-        chans[i] = channel(i)->get_radio_in();
+        if (i >= num_channels) {
+            break;
+        }
+        const auto *chan = channel(i);
+        if (chan != nullptr) {
+            chans[i] = chan->get_radio_in();
+        }
     }
 
     return read_channels;

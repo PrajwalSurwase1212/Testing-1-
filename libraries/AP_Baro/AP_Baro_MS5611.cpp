@@ -59,7 +59,12 @@ static const uint8_t ADDR_CMD_CONVERT_TEMPERATURE = ADDR_CMD_CONVERT_D2_OSR1024;
  */
 AP_Baro_MS56XX::AP_Baro_MS56XX(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev)
     : AP_Baro_Backend(baro)
+    , _instance(0)
+    , _D1(0.0f)
+    , _D2(0.0f)
     , _dev(std::move(dev))
+    , _state(0)
+    , _discard_next(false)
 {
 }
 

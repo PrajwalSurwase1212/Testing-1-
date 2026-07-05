@@ -289,7 +289,7 @@ void AP_OSD_ParamScreen::draw_parameter(uint8_t number, uint8_t x, uint8_t y)
 // modify the selected parameter number
 void AP_OSD_ParamScreen::modify_parameter(uint8_t number, Event ev)
 {
-    if (number > NUM_PARAMS) {
+    if (number < 1 || number > NUM_PARAMS) {
         return;
     }
 
@@ -341,7 +341,7 @@ void AP_OSD_ParamScreen::modify_parameter(uint8_t number, Event ev)
 // modify which parameter is configured for the given selection
 void AP_OSD_ParamScreen::modify_configured_parameter(uint8_t number, Event ev)
 {
-    if (number > NUM_PARAMS) {
+    if (number < 1 || number > NUM_PARAMS) {
         return;
     }
 
@@ -355,7 +355,7 @@ void AP_OSD_ParamScreen::modify_configured_parameter(uint8_t number, Event ev)
     } else {
         // going backwards is somewhat convoluted as the param code is geared for going forward
         ap_var_type type = AP_PARAM_NONE, prev_type = AP_PARAM_NONE, prev_prev_type = AP_PARAM_NONE;
-        AP_Param::ParamToken token {}, prev_token, prev_prev_token;
+        AP_Param::ParamToken token {}, prev_token {}, prev_prev_token {};
 
         for (param = AP_Param::first(&token, &type);
             param && (setting._current_token.key != token.key

@@ -200,6 +200,9 @@ void AP_Motors6DOF::setup_motors(motor_frame_class frame_class, motor_frame_type
 
 void AP_Motors6DOF::add_motor_raw_6dof(int8_t motor_num, float roll_fac, float pitch_fac, float yaw_fac, float throttle_fac, float forward_fac, float lat_fac, uint8_t testing_order)
 {
+    if (motor_num < 0 || motor_num >= AP_MOTORS_MAX_NUM_MOTORS) {
+        return;
+    }
     //Parent takes care of enabling output and setting up masks
     add_motor_raw(motor_num, roll_fac, pitch_fac, yaw_fac, testing_order);
 
@@ -237,7 +240,7 @@ int16_t AP_Motors6DOF::calc_thrust_to_pwm(float thrust_in) const
 void AP_Motors6DOF::output_to_motors()
 {
     int8_t i;
-    int16_t motor_out[AP_MOTORS_MAX_NUM_MOTORS];    // final pwm values sent to the motor
+    int16_t motor_out[AP_MOTORS_MAX_NUM_MOTORS]{};    // final pwm values sent to the motor
 
     switch (_spool_state) {
     case SpoolState::SHUT_DOWN:
@@ -410,8 +413,8 @@ void AP_Motors6DOF::output_armed_stabilizing_vectored()
     forward_thrust = _forward_in;
     lateral_thrust = _lateral_in;
 
-    float rpy_out[AP_MOTORS_MAX_NUM_MOTORS]; // buffer so we don't have to multiply coefficients multiple times.
-    float linear_out[AP_MOTORS_MAX_NUM_MOTORS]; // 3 linear DOF mix for each motor
+    float rpy_out[AP_MOTORS_MAX_NUM_MOTORS]{}; // buffer so we don't have to multiply coefficients multiple times.
+    float linear_out[AP_MOTORS_MAX_NUM_MOTORS]{}; // 3 linear DOF mix for each motor
 
     // initialize limits flags
     limit.set_all(false);
@@ -452,7 +455,7 @@ void AP_Motors6DOF::output_armed_stabilizing_vectored()
             // The following statements decouple forward/vertical hydrodynamic coupling on
             // vectored ROVs. This is done by limiting the maximum output of the "rear" vectored
             // thruster (where "rear" depends on direction of travel).
-            if (!is_zero(forward_thrust_limited)) {
+            if (!is_zero(forward_thrust_limited) && i < ARRAY_SIZE(forward_coupling_direction)) {
                 if ((forward_thrust < 0) == (forward_coupling_direction[i] < 0) && forward_coupling_direction[i] != 0) {
                     forward_thrust_limited = constrain_float(forward_thrust, -forward_coupling_limit, forward_coupling_limit);
                 }
@@ -491,8 +494,8 @@ void AP_Motors6DOF::output_armed_stabilizing_vectored_6dof()
     forward_thrust = _forward_in;
     lateral_thrust = _lateral_in;
 
-    float rpt_out[AP_MOTORS_MAX_NUM_MOTORS]; // buffer so we don't have to multiply coefficients multiple times.
-    float yfl_out[AP_MOTORS_MAX_NUM_MOTORS]; // 3 linear DOF mix for each motor
+    float rpt_out[AP_MOTORS_MAX_NUM_MOTORS]{}; // buffer so we don't have to multiply coefficients multiple times.
+    float yfl_out[AP_MOTORS_MAX_NUM_MOTORS]{}; // 3 linear DOF mix for each motor
     float rpt_max;
     float yfl_max;
 

@@ -59,6 +59,12 @@ extern const AP_HAL::HAL &hal;
 AP_Baro_LPS2XH::AP_Baro_LPS2XH(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev)
     : AP_Baro_Backend(baro)
     , _dev(std::move(dev))
+    , _instance(0)
+    , _pressure_sum(0.0f)
+    , _pressure_count(0)
+    , _temperature(0.0f)
+    , CallTime(0)
+    , _lps2xh_type(BARO_LPS22H)
 {
 }
 

@@ -87,25 +87,25 @@ void AP_Hott_Telem::send_EAM(void)
     struct PACKED {
         uint8_t start_byte = 0x7C;   //#01 start uint8_t
         uint8_t eam_sensor_id = 0x8E;//#02 EAM sensort id. constat value 0x8e
-        uint8_t warning_beeps;
+        uint8_t warning_beeps = 0;
         uint8_t sensor_id = 0xE0;
-        uint16_t alarms;             //#05 alarm bitmask. Value is displayed inverted
-        uint8_t cell_low[7];         //#07 cell voltage lower value. 0.02V steps, 124=2.48V
-        uint8_t cell_high[7];        //#14 cell voltage high value. 0.02V steps, 124=2.48V
-        uint16_t batt1_voltage;      //#21 battery 1 voltage in 100mv steps
-        uint16_t batt2_voltage;      //#23 battery 2 voltage in 100mv steps
-        uint8_t temp1;               //#25 Temperature sensor 1. 20=0C, 46=26C - offset of 20.
-        uint8_t temp2;               //#26 temperature sensor 2
-        uint16_t altitude;           //#27 Attitude unit: meters. Value of 500 = 0m
-        uint16_t current;            //#29 Current in 0.1A steps
-        uint16_t main_voltage;       //#31 Main power voltage (drive) in 0.1V steps
-        uint16_t batt_used;          //#33 used battery capacity in 10mAh steps
-        uint16_t climbrate;          //#35 climb rate in 0.01m/s. Value of 30000 = 0.00 m/s
-        uint8_t climbrate3s;         //#37 climbrate in m/3sec. Value of 120 = 0m/3sec
-        uint16_t rpm;                //#38 RPM. Steps: 10 rev/min
-        uint8_t electric_min;        //#40 Electric minutes. Time starts when motor current is > 3 A
-        uint8_t electric_sec;        //#41
-        uint16_t speed;               //#42 speed in km/h. Steps 1km/h
+        uint16_t alarms = 0;             //#05 alarm bitmask. Value is displayed inverted
+        uint8_t cell_low[7] {};         //#07 cell voltage lower value. 0.02V steps, 124=2.48V
+        uint8_t cell_high[7] {};        //#14 cell voltage high value. 0.02V steps, 124=2.48V
+        uint16_t batt1_voltage = 0;      //#21 battery 1 voltage in 100mv steps
+        uint16_t batt2_voltage = 0;      //#23 battery 2 voltage in 100mv steps
+        uint8_t temp1 = 0;               //#25 Temperature sensor 1. 20=0C, 46=26C - offset of 20.
+        uint8_t temp2 = 0;               //#26 temperature sensor 2
+        uint16_t altitude = 0;           //#27 Attitude unit: meters. Value of 500 = 0m
+        uint16_t current = 0;            //#29 Current in 0.1A steps
+        uint16_t main_voltage = 0;       //#31 Main power voltage (drive) in 0.1V steps
+        uint16_t batt_used = 0;          //#33 used battery capacity in 10mAh steps
+        uint16_t climbrate = 0;          //#35 climb rate in 0.01m/s. Value of 30000 = 0.00 m/s
+        uint8_t climbrate3s = 0;         //#37 climbrate in m/3sec. Value of 120 = 0m/3sec
+        uint16_t rpm = 0;                //#38 RPM. Steps: 10 rev/min
+        uint8_t electric_min = 0;        //#40 Electric minutes. Time starts when motor current is > 3 A
+        uint8_t electric_sec = 0;        //#41
+        uint16_t speed = 0;               //#42 speed in km/h. Steps 1km/h
         uint8_t stop_byte = 0x7D;     //#44 stop
     } msg {};
 
@@ -203,35 +203,35 @@ void AP_Hott_Telem::send_GPS(void)
     struct PACKED {
         uint8_t start_byte = 0x7c;    //#01 constant value 0x7c
         uint8_t gps_sensor_id = 0x8a; //#02 constant value 0x8a
-        uint8_t warning_beeps;        //#03
+        uint8_t warning_beeps = 0;    //#03
         uint8_t sensor_id = 0xA0;     //#04 constant (?) value 0xa0
-        uint16_t alarm;               //#05
-        uint8_t flight_direction;     //#07 flight direction in 2 degreees/step (1 = 2degrees);
-        uint16_t gps_speed_kmh;       //#08 km/h
-        uint8_t pos_NS;               //#10 north = 0, south = 1
-        uint16_t pos_NS_dm;           //#11 degree minutes
-        uint16_t pos_NS_sec;          //#13 position seconds
-        uint8_t pos_EW;               //#15 east = 0, west = 1
-        uint16_t pos_EW_dm;           //#16 degree minutes
-        uint16_t pos_EW_sec;          //#18 position seconds
-        uint16_t home_distance;       //#20 meters
-        uint16_t altitude;            //#22 meters. Value of 500 = 0m
-        uint16_t climbrate;           //#24 m/s 0.01m/s resolution. Value of 30000 = 0.00 m/s
-        uint8_t climbrate3s;          //#26 climbrate in m/3s resolution, value of 120 = 0 m/3s
-        uint8_t gps_satelites;        //#27 sat count
-        uint8_t gps_fix_char;         //#28 GPS fix character. display, 'D' = DGPS, '2' = 2D, '3' = 3D, '-' = no fix
-        uint8_t home_direction;       //#29 direction from starting point to Model position (2 degree steps)
-        int16_t vel_north;            //#30 velocity north mm/s
-        uint8_t speed_acc;            //#32 speed accuracy cm/s
-        uint8_t gps_time_h;           //#33 UTC time hours
-        uint8_t gps_time_m;           //#34 UTC time minutes
-        uint8_t gps_time_s;           //#35 UTC time seconds
-        uint8_t gps_time_hs;          //#36 UTC time 0.01s units
-        int16_t vel_east;             //#37 velocity north mm/s
-        uint8_t horiz_acc;            //#39 horizontal accuracy
-        uint8_t free_char1;           //#40 displayed to right of home
-        uint8_t free_char2;           //#41
-        uint8_t free_char3;           //#42 GPS fix character. display, 'D' = DGPS, '2' = 2D, '3' = 3D, '-' = no fix
+        uint16_t alarm = 0;           //#05
+        uint8_t flight_direction = 0; //#07 flight direction in 2 degreees/step (1 = 2degrees);
+        uint16_t gps_speed_kmh = 0;   //#08 km/h
+        uint8_t pos_NS = 0;               //#10 north = 0, south = 1
+        uint16_t pos_NS_dm = 0;           //#11 degree minutes
+        uint16_t pos_NS_sec = 0;          //#13 position seconds
+        uint8_t pos_EW = 0;               //#15 east = 0, west = 1
+        uint16_t pos_EW_dm = 0;           //#16 degree minutes
+        uint16_t pos_EW_sec = 0;          //#18 position seconds
+        uint16_t home_distance = 0;       //#20 meters
+        uint16_t altitude = 0;            //#22 meters. Value of 500 = 0m
+        uint16_t climbrate = 0;           //#24 m/s 0.01m/s resolution. Value of 30000 = 0.00 m/s
+        uint8_t climbrate3s = 0;          //#26 climbrate in m/3s resolution, value of 120 = 0 m/3s
+        uint8_t gps_satelites = 0;        //#27 sat count
+        uint8_t gps_fix_char = 0;         //#28 GPS fix character. display, 'D' = DGPS, '2' = 2D, '3' = 3D, '-' = no fix
+        uint8_t home_direction = 0;       //#29 direction from starting point to Model position (2 degree steps)
+        int16_t vel_north = 0;            //#30 velocity north mm/s
+        uint8_t speed_acc = 0;            //#32 speed accuracy cm/s
+        uint8_t gps_time_h = 0;           //#33 UTC time hours
+        uint8_t gps_time_m = 0;           //#34 UTC time minutes
+        uint8_t gps_time_s = 0;           //#35 UTC time seconds
+        uint8_t gps_time_hs = 0;          //#36 UTC time 0.01s units
+        int16_t vel_east = 0;             //#37 velocity north mm/s
+        uint8_t horiz_acc = 0;            //#39 horizontal accuracy
+        uint8_t free_char1 = 0;           //#40 displayed to right of home
+        uint8_t free_char2 = 0;           //#41
+        uint8_t free_char3 = 0;           //#42 GPS fix character. display, 'D' = DGPS, '2' = 2D, '3' = 3D, '-' = no fix
         uint8_t version = 1;          //#43 0: GPS Graupner #33600, 1: ArduPilot
         uint8_t stop_byte = 0x7d;     //#44
     } msg {};
@@ -312,18 +312,18 @@ void AP_Hott_Telem::send_Vario(void)
     struct PACKED {
         uint8_t start_byte = 0x7C;   //#01 start uint8_t
         uint8_t vario_id = 0x89;     //#02 ID
-        uint8_t warning_beeps;       //#03 warnings
+        uint8_t warning_beeps = 0;   //#03 warnings
         uint8_t sensor_id = 0x90;    //#04 sensor ID
-        uint8_t inv_status;          //#05 status
-        uint16_t altitude;           //#06 Attitude meters. Value of 500 = 0m
-        uint16_t altitude_max;       //#08 Attitude max meters. Value of 500 = 0m
-        uint16_t altitude_min;       //#10 Attitude min meters. Value of 500 = 0m
-        uint16_t climbrate;          //#12 climb rate in 0.01m/s. Value of 30000 = 0.00 m/s
-        uint16_t climbrate3s;        //#14 climb rate in meters per 3s Value of 30000 = 0.00 m/s
-        uint16_t climbrate10s;       //#16 climb rate in meters per 10s. Value of 30000 = 0.00 m/s
-        char     text[3][7];         //#18 #Text display
-        char     ascii3[3];          //#39 3 extra characters
-        uint8_t  yaw;                //#42 yaw in 2 degree units, 0 = north
+        uint8_t inv_status = 0;          //#05 status
+        uint16_t altitude = 0;           //#06 Attitude meters. Value of 500 = 0m
+        uint16_t altitude_max = 0;       //#08 Attitude max meters. Value of 500 = 0m
+        uint16_t altitude_min = 0;       //#10 Attitude min meters. Value of 500 = 0m
+        uint16_t climbrate = 0;          //#12 climb rate in 0.01m/s. Value of 30000 = 0.00 m/s
+        uint16_t climbrate3s = 0;        //#14 climb rate in meters per 3s Value of 30000 = 0.00 m/s
+        uint16_t climbrate10s = 0;       //#16 climb rate in meters per 10s. Value of 30000 = 0.00 m/s
+        char     text[3][7] {};         //#18 #Text display
+        char     ascii3[3] {};          //#39 3 extra characters
+        uint8_t  yaw = 0;                //#42 yaw in 2 degree units, 0 = north
         uint8_t  version = 1;        //#43 protocol version
         uint8_t  stop_byte = 0x7D;   //#44 stop
     } msg {};
@@ -353,8 +353,8 @@ void AP_Hott_Telem::send_Vario(void)
     AP_Notify *notify = AP_Notify::get_singleton();
     char fltmode[5] {};
     if (notify) {
-        strncpy(fltmode, notify->get_flight_mode_str(), sizeof(fltmode));
-        strncpy(msg.text[0], fltmode, sizeof(msg.text[0]));
+        snprintf(fltmode, sizeof(fltmode), "%s", notify->get_flight_mode_str());
+        snprintf(msg.text[0], sizeof(msg.text[0]), "%s", fltmode);
     }
     if (hal.util->get_soft_armed()) {
         strncpy(msg.text[1], "ARMED", sizeof(msg.text[1]));

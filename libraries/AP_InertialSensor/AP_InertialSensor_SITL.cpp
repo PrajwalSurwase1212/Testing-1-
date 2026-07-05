@@ -401,7 +401,7 @@ void AP_InertialSensor_SITL::start()
         hal.console->printf("Reading accel data from file for IMU[%u]\n", accel_instance);
     }
     if (sitl->gyro_file_rw == SITL::SIM::INSFileMode::INS_FILE_READ
-        || sitl->gyro_file_rw == SITL::SIM::INSFileMode::INS_FILE_READ) {
+        || sitl->gyro_file_rw == SITL::SIM::INSFileMode::INS_FILE_READ_STOP_ON_EOF) {
         hal.console->printf("Reading gyro data from file for IMU[%u]\n", gyro_instance);
     }
 #endif

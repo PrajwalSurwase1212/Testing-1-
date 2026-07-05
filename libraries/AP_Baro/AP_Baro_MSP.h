@@ -19,11 +19,11 @@ public:
     void handle_msp(const MSP::msp_baro_data_message_t &pkt) override;
 
 private:
-    uint8_t instance;
-    uint8_t msp_instance;
-    float sum_pressure;
-    float sum_temp;
-    uint16_t count;
+    uint8_t instance = 0;
+    uint8_t msp_instance = 0;
+    float sum_pressure = 0.0f;
+    float sum_temp = 0.0f;
+    uint16_t count = 0;
 };
 
 #endif // AP_BARO_MSP_ENABLED

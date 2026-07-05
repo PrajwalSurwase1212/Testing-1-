@@ -211,12 +211,12 @@ private:
 
     // Initialise motors to allow passing it to tailsitter in its constructor
     AP_MotorsMulticopter *motors = nullptr;
-    const struct AP_Param::GroupInfo *motors_var_info;
+    const struct AP_Param::GroupInfo *motors_var_info = nullptr;
 
-    AC_AttitudeControl_Multi *attitude_control;
-    AC_PosControl *pos_control;
-    AC_WPNav *wp_nav;
-    AC_Loiter *loiter_nav;
+    AC_AttitudeControl_Multi *attitude_control = nullptr;
+    AC_PosControl *pos_control = nullptr;
+    AC_WPNav *wp_nav = nullptr;
+    AC_Loiter *loiter_nav = nullptr;
     
     // maximum vertical velocity the pilot may request
     AP_Float pilot_speed_z_max_up_ms;
@@ -383,7 +383,7 @@ private:
 
     // manual forward throttle input
     AP_Float fwd_thr_max;
-    RC_Channel *rc_fwd_thr_ch;
+    RC_Channel *rc_fwd_thr_ch = nullptr;
 
     // QACRO mode max roll/pitch/yaw rates
     AP_Float acro_roll_rate;
@@ -429,7 +429,7 @@ private:
         float last_pct;
     } vel_forward;
 
-    AC_WeatherVane *weathervane;
+    AC_WeatherVane *weathervane = nullptr;
 
     bool initialised;
 
@@ -564,7 +564,7 @@ private:
     Tailsitter tailsitter{*this, motors};
 
     // the attitude view of the VTOL attitude controller
-    AP_AHRS_View *ahrs_view;
+    AP_AHRS_View *ahrs_view = nullptr;
 
     // time when motors were last active
     uint32_t last_motors_active_ms;

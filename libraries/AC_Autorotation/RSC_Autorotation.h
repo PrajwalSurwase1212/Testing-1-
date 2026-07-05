@@ -47,7 +47,7 @@ private:
     AP_Int8  bailout_runup_time;      // (seconds) expected time for the motor to fully engage and for the rotor to regain safe head speed if necessary
     AP_Int8  enable;                  // enables autorotation state within the RSC
 
-    State state;
-    uint32_t bail_out_started_ms;     // (milliseconds) time that bailout started, used to time transition from "bailing out" to "autorotation stopped"
+    State state = State::DEACTIVATED;
+    uint32_t bail_out_started_ms = 0;     // (milliseconds) time that bailout started, used to time transition from "bailing out" to "autorotation stopped"
 
 };

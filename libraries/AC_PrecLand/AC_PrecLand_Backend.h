@@ -56,10 +56,10 @@ protected:
     struct {
         Vector3f vec_unit;  // unit vector pointing towards target in earth or body frame (see frame)
         AC_PrecLand::VectorFrame frame;  // frame of vector pointing towards target
-        uint32_t time_ms;   // system time in milliseconds when the vector was measured
-        bool valid;         // true if there is a valid measurement from the sensor
+        uint32_t time_ms = 0;   // system time in milliseconds when the vector was measured
+        bool valid = false;         // true if there is a valid measurement from the sensor
     } _los_meas;
-    float               _distance_to_target;    // distance from the sensor to landing target in meters
+    float               _distance_to_target = 0.0f;    // distance from the sensor to landing target in meters
 };
 
 #endif // AC_PRECLAND_ENABLED

@@ -789,21 +789,21 @@ private:
     float _cos_roll{1.0f};
     float _cos_pitch{1.0f};
     float _cos_yaw{1.0f};
-    float _sin_roll;
-    float _sin_pitch;
-    float _sin_yaw;
+    float _sin_roll = 0.0f;
+    float _sin_pitch = 0.0f;
+    float _sin_yaw = 0.0f;
 
 #if HAL_NAVEKF2_AVAILABLE
     void update_EKF2(void);
-    bool _ekf2_started;
+    bool _ekf2_started = false;
 #endif
 #if HAL_NAVEKF3_AVAILABLE
-    bool _ekf3_started;
+    bool _ekf3_started = false;
     void update_EKF3(void);
 #endif
 
     const uint16_t startup_delay_ms = 1000;
-    uint32_t start_time_ms;
+    uint32_t start_time_ms = 0;
     uint8_t _ekf_flags; // bitmask from Flags enumeration
 
     EKFType ekf_type(void) const;
@@ -813,7 +813,7 @@ private:
      * home-related state
      */
     void load_watchdog_home();
-    bool _checked_watchdog_home;
+    bool _checked_watchdog_home = false;
     Location _home;
     bool _home_is_set :1;
     bool _home_locked :1;
@@ -830,11 +830,12 @@ private:
     /*
      * private AOA and SSA-related state and methods
      */
-    float _AOA, _SSA;
-    uint32_t _last_AOA_update_ms;
+    float _AOA = 0.0f;
+    float _SSA = 0.0f;
+    uint32_t _last_AOA_update_ms = 0;
     void update_AOA_SSA(void);
 
-    EKFType last_active_ekf_type;
+    EKFType last_active_ekf_type = EKFType(0);
 
 #if AP_AHRS_SIM_ENABLED
     void update_SITL(void);
@@ -858,27 +859,27 @@ private:
     Matrix3f _rotation_vehicle_body_to_autopilot_body;
 
     // last time orientation was updated from AHRS_ORIENTATION:
-    uint32_t last_orientation_update_ms;
+    uint32_t last_orientation_update_ms = 0;
 
     // updates matrices responsible for rotating vectors from vehicle body
     // frame to autopilot body frame from _trim variables
     void update_trim_rotation_matrices();
 
     /*
-     * AHRS is used as a transport for vehicle-takeoff-expected and
-     * vehicle-landing-expected:
+     *  AHRS is used as a transport for vehicle-takeoff-expected and
+     *  vehicle-landing-expected:
      */
     // update takeoff/touchdown flags
     void update_flags();
-    bool takeoff_expected;    // true if the vehicle is in a state that takeoff might be expected.  Ground effect may be in play.
-    uint32_t takeoff_expected_start_ms;
-    bool touchdown_expected;    // true if the vehicle is in a state that touchdown might be expected.  Ground effect may be in play.
-    uint32_t touchdown_expected_start_ms;
+    bool takeoff_expected = false;    // true if the vehicle is in a state that takeoff might be expected.  Ground effect may be in play.
+    uint32_t takeoff_expected_start_ms = 0;
+    bool touchdown_expected = false;    // true if the vehicle is in a state that touchdown might be expected.  Ground effect may be in play.
+    uint32_t touchdown_expected_start_ms = 0;
 
     /*
      * wind estimation support
      */
-    bool wind_estimation_enabled;
+    bool wind_estimation_enabled = false;
 
     /*
      * fly_forward is set by the vehicles to indicate the vehicle
@@ -886,7 +887,7 @@ private:
      * It is an additional piece of information that the backends can
      * use to provide additional and/or improved estimates.
      */
-    bool fly_forward; // true if we can assume the vehicle will be flying forward on its X axis
+    bool fly_forward = false; // true if we can assume the vehicle will be flying forward on its X axis
 
     // poke AP_Notify based on values from status
     void update_notify_from_filter_status(const nav_filter_status &status);
@@ -986,52 +987,52 @@ private:
       state updated at the end of each update() call
      */
     struct {
-        EKFType active_EKF;
-        uint8_t primary_IMU;
-        uint8_t primary_gyro;
-        uint8_t primary_accel;
-        uint8_t primary_core;
+        EKFType active_EKF = EKFType(0);
+        uint8_t primary_IMU = 0;
+        uint8_t primary_gyro = 0;
+        uint8_t primary_accel = 0;
+        uint8_t primary_core = 0;
         Vector3f gyro_estimate;
         Matrix3f dcm_matrix;
         Vector3f gyro_drift;
         Vector3f accel_ef;
         Vector3f accel_bias;
         Vector3f wind_estimate;
-        bool wind_estimate_ok;
-        float EAS2TAS;
-        bool airspeed_ok;
-        float airspeed;
-        AirspeedEstimateType airspeed_estimate_type;
-        bool airspeed_true_ok;
-        float airspeed_true;
+        bool wind_estimate_ok = false;
+        float EAS2TAS = 0.0f;
+        bool airspeed_ok = false;
+        float airspeed = 0.0f;
+        AirspeedEstimateType airspeed_estimate_type = AirspeedEstimateType(0);
+        bool airspeed_true_ok = false;
+        float airspeed_true = 0.0f;
         Vector3f airspeed_vec;
-        bool airspeed_vec_ok;
+        bool airspeed_vec_ok = false;
         Quaternion quat;
-        bool quat_ok;
+        bool quat_ok = false;
         Vector3f secondary_attitude;
-        bool secondary_attitude_ok;
+        bool secondary_attitude_ok = false;
         Quaternion secondary_quat;
-        bool secondary_quat_ok;
+        bool secondary_quat_ok = false;
         Location location;
-        bool location_ok;
+        bool location_ok = false;
         Location secondary_pos;
-        bool secondary_pos_ok;
+        bool secondary_pos_ok = false;
         Vector2f ground_speed_vec;
-        float ground_speed;
+        float ground_speed = 0.0f;
         Vector3f corrected_dv;
-        float corrected_dv_dt;
+        float corrected_dv_dt = 0.0f;
         Location origin;
-        bool origin_ok;
+        bool origin_ok = false;
         Vector3f velocity_NED;
-        bool velocity_NED_ok;
-    } state;
+        bool velocity_NED_ok = false;
+    } state{};
 
     /*
      *  backends (and their results)
      */
 #if AP_AHRS_DCM_ENABLED
     AP_AHRS_DCM dcm{_kp_yaw, _kp, gps_gain, beta, _gps_use, _gps_minsats};
-    struct AP_AHRS_Backend::Estimates dcm_estimates;
+    struct AP_AHRS_Backend::Estimates dcm_estimates{};
 #endif
 #if AP_AHRS_SIM_ENABLED
 #if HAL_NAVEKF3_AVAILABLE
@@ -1039,12 +1040,12 @@ private:
 #else
     AP_AHRS_SIM sim;
 #endif
-    struct AP_AHRS_Backend::Estimates sim_estimates;
+    struct AP_AHRS_Backend::Estimates sim_estimates{};
 #endif
 
 #if AP_AHRS_EXTERNAL_ENABLED
     AP_AHRS_External external;
-    struct AP_AHRS_Backend::Estimates external_estimates;
+    struct AP_AHRS_Backend::Estimates external_estimates{};
 #endif
 
     enum class Options : uint16_t {
@@ -1059,7 +1060,7 @@ private:
     }
 
     // true when we have completed the common origin setup
-    bool done_common_origin;
+    bool done_common_origin = false;
 };
 
 namespace AP {

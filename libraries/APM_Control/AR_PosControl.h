@@ -100,11 +100,11 @@ private:
     AC_PID_2D _pid_vel;             // velocity PID controller to convert velocity error to desired acceleration
 
     // limits
-    float _speed_max;               // maximum forward speed in m/s
-    float _accel_max;               // maximum forward/back acceleration in m/s/s
-    float _lat_accel_max;           // lateral acceleration maximum in m/s/s
-    float _jerk_max;                // maximum jerk in m/s/s/s (used for both forward and lateral input shaping)
-    float _turn_radius;             // vehicle turn radius in meters
+    float _speed_max = 0.0f;               // maximum forward speed in m/s
+    float _accel_max = 0.0f;               // maximum forward/back acceleration in m/s/s
+    float _lat_accel_max = 0.0f;           // lateral acceleration maximum in m/s/s
+    float _jerk_max = 0.0f;                // maximum jerk in m/s/s/s (used for both forward and lateral input shaping)
+    float _turn_radius = 0.0f;             // vehicle turn radius in meters
 
     // position and velocity targets
     Vector2p _pos_target;           // position target as an offset (in meters) from the EKF origin
@@ -112,19 +112,19 @@ private:
     Vector2f _vel_target;           // velocity target in m/s in NE frame
     Vector2f _accel_desired;        // desired accel in m/s/s in NE frame.  This is the "feed forward" provided by SCurves
     Vector2f _accel_target;         // accel target in m/s/s in NE frame
-    bool _pos_target_valid;         // true if _pos_target is valid
-    bool _vel_desired_valid;        // true if _vel_desired is valid
-    bool _accel_desired_valid;      // true if _accel_desired is valid
+    bool _pos_target_valid = false;         // true if _pos_target is valid
+    bool _vel_desired_valid = false;        // true if _vel_desired is valid
+    bool _accel_desired_valid = false;      // true if _accel_desired is valid
 
     // variables for navigation
-    uint32_t _last_update_ms;       // system time of last call to update
-    bool _reversed;                 // true if vehicle should move in reverse towards target
+    uint32_t _last_update_ms = 0;       // system time of last call to update
+    bool _reversed = false;                 // true if vehicle should move in reverse towards target
 
     // main outputs
-    float _desired_speed;           // desired forward_back speed in m/s
-    float _desired_turn_rate_rads;  // desired turn-rate in rad/sec (negative is counter clockwise, positive is clockwise)
-    float _desired_lat_accel;       // desired lateral acceleration (for reporting only)
+    float _desired_speed = 0.0f;           // desired forward_back speed in m/s
+    float _desired_turn_rate_rads = 0.0f;  // desired turn-rate in rad/sec (negative is counter clockwise, positive is clockwise)
+    float _desired_lat_accel = 0.0f;       // desired lateral acceleration (for reporting only)
 
     // ekf reset handling
-    uint32_t _ekf_xy_reset_ms;      // system time of last recorded ekf xy position reset
+    uint32_t _ekf_xy_reset_ms = 0;      // system time of last recorded ekf xy position reset
 };

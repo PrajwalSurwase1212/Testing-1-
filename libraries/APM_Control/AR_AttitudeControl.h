@@ -159,19 +159,19 @@ private:
     AP_Float _turn_lateral_G_max;   // sterring maximum lateral acceleration limit in 'G'
 
     // steering control
-    uint32_t _steer_lat_accel_last_ms;  // system time of last call to lateral acceleration controller (i.e. get_steering_out_lat_accel)
-    uint32_t _steer_turn_last_ms;   // system time of last call to steering rate controller
-    float    _desired_lat_accel;    // desired lateral acceleration (in m/s/s) from latest call to get_steering_out_lat_accel (for reporting purposes)
-    float    _desired_turn_rate;    // desired turn rate (in radians/sec) either from external caller or from lateral acceleration controller
-    bool     _steering_limit_left;  // true when the steering control has reached its left limit (e.g. motor has reached limits or accel or turn rate limits applied)
-    bool     _steering_limit_right; // true when the steering control has reached its right limit (e.g. motor has reached limits or accel or turn rate limits applied)
+    uint32_t _steer_lat_accel_last_ms = 0;  // system time of last call to lateral acceleration controller (i.e. get_steering_out_lat_accel)
+    uint32_t _steer_turn_last_ms = 0;   // system time of last call to steering rate controller
+    float    _desired_lat_accel = 0.0f;    // desired lateral acceleration (in m/s/s) from latest call to get_steering_out_lat_accel (for reporting purposes)
+    float    _desired_turn_rate = 0.0f;    // desired turn rate (in radians/sec) either from external caller or from lateral acceleration controller
+    bool     _steering_limit_left = false;  // true when the steering control has reached its left limit (e.g. motor has reached limits or accel or turn rate limits applied)
+    bool     _steering_limit_right = false; // true when the steering control has reached its right limit (e.g. motor has reached limits or accel or turn rate limits applied)
 
     // throttle control
-    uint32_t _speed_last_ms;        // system time of last call to get_throttle_out_speed
-    float    _desired_speed;        // last recorded desired speed
-    uint32_t _stop_last_ms;         // system time the vehicle was at a complete stop
-    bool     _throttle_limit_low;   // throttle output was limited from going too low (used to reduce i-term buildup)
-    bool     _throttle_limit_high;  // throttle output was limited from going too high (used to reduce i-term buildup)
+    uint32_t _speed_last_ms = 0;        // system time of last call to get_throttle_out_speed
+    float    _desired_speed = 0.0f;        // last recorded desired speed
+    uint32_t _stop_last_ms = 0;         // system time the vehicle was at a complete stop
+    bool     _throttle_limit_low = false;   // throttle output was limited from going too low (used to reduce i-term buildup)
+    bool     _throttle_limit_high = false;  // throttle output was limited from going too high (used to reduce i-term buildup)
     AP_PIDInfo _throttle_speed_pid_info;   // local copy of throttle_speed controller's PID info to allow reporting of unusual FF
 
     // balancebot pitch control

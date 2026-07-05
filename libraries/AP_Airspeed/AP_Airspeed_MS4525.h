@@ -54,15 +54,15 @@ private:
     float _get_pressure(int16_t dp_raw) const;
     float _get_temperature(int16_t dT_raw) const;
 
-    float _temp_sum;
-    float _press_sum;
-    uint32_t _temp_count;
-    uint32_t _press_count;
-    float _temperature;
-    float _pressure;
-    uint32_t _last_sample_time_ms;
-    uint32_t _measurement_started_ms;
-    AP_HAL::I2CDevice *_dev;
+    float _temp_sum = 0.0f;
+    float _press_sum = 0.0f;
+    uint32_t _temp_count = 0;
+    uint32_t _press_count = 0;
+    float _temperature = 0.0f;
+    float _pressure = 0.0f;
+    uint32_t _last_sample_time_ms = 0;
+    uint32_t _measurement_started_ms = 0;
+    AP_HAL::I2CDevice *_dev = nullptr;
 
     bool probe(uint8_t bus, uint8_t address);
 };

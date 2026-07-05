@@ -102,7 +102,7 @@ private:
         Location next_destination;
         Vector2f ground_speed_vec;
         uint32_t request_time_ms;
-    } avoidance_request, avoidance_request2;
+    } avoidance_request{}, avoidance_request2{};
 
     // an avoidance result from the avoidance thread
     struct {
@@ -111,11 +111,11 @@ private:
         Location origin_new;        // intermediate origin.  The start of line segment that vehicle should follow
         Location destination_new;   // intermediate destination vehicle should move towards
         Location next_destination_new; // intermediate next destination vehicle should move towards
-        bool dest_to_next_dest_clear; // true if the path from destination_new to next_destination_new is clear and does not require path planning  (only supported by Dijkstras)
-        uint32_t result_time_ms;    // system time the result was calculated (used to verify the result is recent)
-        OAPathPlannerUsed path_planner_used;    // path planner that produced the result
-        OA_RetState ret_state;      // OA_SUCCESS if the vehicle should move along the path from origin_new to destination_new
-    } avoidance_result;
+        bool dest_to_next_dest_clear = false; // true if the path from destination_new to next_destination_new is clear and does not require path planning  (only supported by Dijkstras)
+        uint32_t result_time_ms = 0;    // system time the result was calculated (used to verify the result is recent)
+        OAPathPlannerUsed path_planner_used = OAPathPlannerUsed::None;    // path planner that produced the result
+        OA_RetState ret_state = OA_RetState::OA_NOT_REQUIRED;      // OA_SUCCESS if the vehicle should move along the path from origin_new to destination_new
+    } avoidance_result{};
 
     // parameters
     AP_Int8 _type;                  // avoidance algorithm to be used
@@ -124,13 +124,13 @@ private:
     
     // internal variables used by front end
     HAL_Semaphore _rsem;            // semaphore for multi-thread use of avoidance_request and avoidance_result
-    bool _thread_created;           // true once background thread has been created
-    AP_OABendyRuler *_oabendyruler; // Bendy Ruler algorithm
-    AP_OADijkstra *_oadijkstra;     // Dijkstra's algorithm
+    bool _thread_created = false;   // true once background thread has been created
+    AP_OABendyRuler *_oabendyruler = nullptr; // Bendy Ruler algorithm
+    AP_OADijkstra *_oadijkstra = nullptr;     // Dijkstra's algorithm
     AP_OADatabase _oadatabase;      // Database of dynamic objects to avoid
-    uint32_t avoidance_latest_ms;   // last time Dijkstra's or BendyRuler algorithms ran (in the avoidance thread)
-    uint32_t _last_update_ms;       // system time that mission_avoidance was called in main thread
-    uint32_t _activated_ms;         // system time that object avoidance was most recently activated (used to avoid timeout error on first run)
+    uint32_t avoidance_latest_ms = 0; // last time Dijkstra's or BendyRuler algorithms ran (in the avoidance thread)
+    uint32_t _last_update_ms = 0;   // system time that mission_avoidance was called in main thread
+    uint32_t _activated_ms = 0;     // system time that object avoidance was most recently activated (used to avoid timeout error on first run)
 
     bool proximity_only = true;
     static AP_OAPathPlanner *_singleton;

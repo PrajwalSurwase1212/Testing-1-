@@ -1052,6 +1052,11 @@ void AP_Mount_Topotek::gimbal_version_analyse()
     // the version can be in the format "1.2.3" or "123"
     const uint8_t data_buf_len = char_to_hex(_msg_buff[5]);
 
+    // clamp data_buf_len to avoid overrunning _msg_buff
+    if (data_buf_len > AP_MOUNT_TOPOTEK_DATALEN_MAX) {
+        return;
+    }
+
     // check for "."
     bool contains_period = false;
     for (uint8_t i = 0; i < data_buf_len; i++) {
@@ -1099,7 +1104,10 @@ void AP_Mount_Topotek::gimbal_version_analyse()
 // gimbal model name message analysis
 void AP_Mount_Topotek::gimbal_model_name_analyse()
 {
-    strncpy((char *)_model_name, (const char *)_msg_buff + 10, char_to_hex(_msg_buff[5]));
+    const uint8_t name_len = char_to_hex(_msg_buff[5]);
+    const uint8_t copy_len = MIN(name_len, sizeof(_model_name) - 1);
+    strncpy((char *)_model_name, (const char *)_msg_buff + 10, copy_len);
+    _model_name[copy_len] = '\0';
 
     // display gimbal model name to user
     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "%s %s", send_message_prefix, _model_name);

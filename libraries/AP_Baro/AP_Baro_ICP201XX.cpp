@@ -77,7 +77,9 @@ extern const AP_HAL::HAL &hal;
  */
 AP_Baro_ICP201XX::AP_Baro_ICP201XX(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::I2CDevice> _dev)
     : AP_Baro_Backend(baro)
+    , instance(0)
     , dev(std::move(_dev))
+    , last_measure_us(0)
 {
 }
 

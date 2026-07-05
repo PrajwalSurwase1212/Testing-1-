@@ -31,8 +31,8 @@ protected:
     AP_Float        kP;
     AP_Float        kI;
     AP_Float        imax;
-    float           integrator;
-    float           output_P;
+    float           integrator = 0.0f;
+    float           output_P = 0.0f;
 
 private:
     const float default_kp;

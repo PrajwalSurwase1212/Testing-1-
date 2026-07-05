@@ -322,16 +322,16 @@ private:
 #if AP_AIRSPEED_HYGROMETER_ENABLE
         uint32_t last_hygrometer_log_ms;
 #endif
-    } state[AIRSPEED_MAX_SENSORS];
+    } state[AIRSPEED_MAX_SENSORS]{};
 
-    bool calibration_enabled;
+    bool calibration_enabled = false;
 
     // can be set to true to disable the use of the airspeed sensor
-    bool _force_disable_use;
+    bool _force_disable_use = false;
 
     // current primary sensor
-    uint8_t primary;
-    uint8_t num_sensors;
+    uint8_t primary = 0;
+    uint8_t num_sensors = 0;
 
     uint32_t _log_bit = -1;     // stores which bit in LOG_BITMASK is used to indicate we should log airspeed readings
 
@@ -363,13 +363,13 @@ private:
     void check_sensor_failures();
     void check_sensor_ahrs_wind_max_failures(uint8_t i);
 
-    AP_Airspeed_Backend *sensor[AIRSPEED_MAX_SENSORS];
+    AP_Airspeed_Backend *sensor[AIRSPEED_MAX_SENSORS]{};
 
     void Log_Airspeed();
 
     bool add_backend(AP_Airspeed_Backend *backend);
     
-    const AP_FixedWing *fixed_wing_parameters;
+    const AP_FixedWing *fixed_wing_parameters = nullptr;
 
     void convert_per_instance();
 

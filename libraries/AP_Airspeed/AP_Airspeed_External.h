@@ -28,10 +28,10 @@ public:
     bool get_temperature(float &temperature) override;
     
 private:
-    float sum_pressure;
-    uint8_t press_count;
-    float sum_temperature;
-    uint8_t temperature_count;
+    float sum_pressure = 0.0f;
+    uint8_t press_count = 0;
+    float sum_temperature = 0.0f;
+    uint8_t temperature_count = 0;
 };
 
 #endif // AP_AIRSPEED_EXTERNAL_ENABLED

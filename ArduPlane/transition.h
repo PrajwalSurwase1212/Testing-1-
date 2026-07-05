@@ -109,23 +109,23 @@ protected:
         AIRSPEED_WAIT = 0,
         TIMER         = 1,
         DONE          = 2,
-    } transition_state;
+    } transition_state = State::DONE;
 
     // timer start for transition
-    uint32_t transition_start_ms;
-    uint32_t transition_low_airspeed_ms;
+    uint32_t transition_start_ms = 0;
+    uint32_t transition_low_airspeed_ms = 0;
 
     // last throttle value when active
-    float last_throttle;
+    float last_throttle = 0.0f;
 
     // time and pitch angle whe last in a vtol or FW control mode
-    uint32_t last_fw_mode_ms;
-    int32_t last_fw_nav_pitch_cd;
+    uint32_t last_fw_mode_ms = 0;
+    int32_t last_fw_nav_pitch_cd = 0;
 
     // tiltrotor tilt angle when airspeed wait transition stage completes
-    float airspeed_reached_tilt;
+    float airspeed_reached_tilt = 0.0f;
 
-    bool in_forced_transition;
+    bool in_forced_transition = false;
 
 };
 

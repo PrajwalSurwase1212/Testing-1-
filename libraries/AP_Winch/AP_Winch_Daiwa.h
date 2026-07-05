@@ -75,29 +75,29 @@ private:
     static const int16_t output_dz = 100;   // output deadzone in scale of -1000 to +1000
     const float line_length_correction_factor = 0.003333f;  // convert winch counter to meters
 
-    AP_HAL::UARTDriver *uart;
-    char buff[buff_len_max];    // buffer holding latest data from winch
-    uint8_t buff_len;           // number of bytes in buff
+    AP_HAL::UARTDriver *uart = nullptr;
+    char buff[buff_len_max] = {};    // buffer holding latest data from winch
+    uint8_t buff_len = 0;           // number of bytes in buff
 
     // winch data
     // latest holds most recent complete data received
     // intermediate holds partial results currently being processed
     struct WinchData {
-        uint32_t time_ms;               // winch system time in milliseconds
-        float line_length;              // length of line released in meters
-        uint16_t tension_uncorrected;   // uncorrected tension in grams (0 to 1024)
-        uint16_t tension_corrected;     // corrected tension in grams (0 to 1024)
-        bool thread_end;                // true if end of thread has been detected
-        uint8_t moving;                 // 0:stopped, 1:retracting line, 2:extending line, 3:clutch engaged, 4:zero reset
-        uint8_t clutch;                 // 0:clutch off, 1:clutch engaged weakly, 2:clutch engaged strongly, motor can spin freely
-        uint8_t speed_pct;              // speed motor is moving as a percentage
-        float voltage;                  // battery voltage (in voltes)
-        float current;                  // current draw (in amps)
-        float pcb_temp;                 // PCB temp in C
-        float motor_temp;               // motor temp in C
-    } latest, intermediate;
-    uint32_t data_update_ms;            // system time that latest was last updated
-    uint32_t control_update_ms;         // last time control_winch was called
+        uint32_t time_ms = 0;               // winch system time in milliseconds
+        float line_length = 0.0f;              // length of line released in meters
+        uint16_t tension_uncorrected = 0;   // uncorrected tension in grams (0 to 1024)
+        uint16_t tension_corrected = 0;     // corrected tension in grams (0 to 1024)
+        bool thread_end = false;                // true if end of thread has been detected
+        uint8_t moving = 0;                 // 0:stopped, 1:retracting line, 2:extending line, 3:clutch engaged, 4:zero reset
+        uint8_t clutch = 0;                 // 0:clutch off, 1:clutch engaged weakly, 2:clutch engaged strongly, motor can spin freely
+        uint8_t speed_pct = 0;              // speed motor is moving as a percentage
+        float voltage = 0.0f;                  // battery voltage (in voltes)
+        float current = 0.0f;                  // current draw (in amps)
+        float pcb_temp = 0.0f;                 // PCB temp in C
+        float motor_temp = 0.0f;               // motor temp in C
+    } latest = {}, intermediate = {};
+    uint32_t data_update_ms = 0;            // system time that latest was last updated
+    uint32_t control_update_ms = 0;         // last time control_winch was called
 
     // parsing state
     enum class ParseState : uint8_t {
@@ -113,26 +113,26 @@ private:
         WAITING_FOR_CURRENT,
         WAITING_FOR_PCB_TEMP,
         WAITING_FOR_MOTOR_TEMP
-    } parse_state;
+    } parse_state = ParseState::WAITING_FOR_TIME;
 
     // update user with changes to winch state via send text messages
     static const char* send_text_prefix;// send text prefix string to reduce flash cost
     void update_user();
     struct {
-        uint32_t last_ms;               // system time of last update to user
-        bool healthy;                   // latest reported health
-        float line_length;
-        bool thread_end;                // true if end of thread has been detected
-        uint8_t moving;                 // 0:stopped, 1:retracting line, 2:extending line, 3:clutch engaged, 4:zero reset
-        uint8_t clutch;                 // 0:clutch off, 1:clutch engaged weakly, 2:clutch engaged strongly, motor can spin freely
-    } user_update;
+        uint32_t last_ms = 0;               // system time of last update to user
+        bool healthy = false;                   // latest reported health
+        float line_length = 0.0f;
+        bool thread_end = false;                // true if end of thread has been detected
+        uint8_t moving = 0;                 // 0:stopped, 1:retracting line, 2:extending line, 3:clutch engaged, 4:zero reset
+        uint8_t clutch = 0;                 // 0:clutch off, 1:clutch engaged weakly, 2:clutch engaged strongly, motor can spin freely
+    } user_update = {};
 
     // stuck protection
     struct {
-        uint32_t last_update_ms;        // system time that stuck protection was last called
-        uint32_t stuck_start_ms;        // system time that winch became stuck (0 if not stuck)
-        bool user_notified;             // true if user has been notified that winch is stuck
-    } stuck_protection;
+        uint32_t last_update_ms = 0;        // system time that stuck protection was last called
+        uint32_t stuck_start_ms = 0;        // system time that winch became stuck (0 if not stuck)
+        bool user_notified = false;             // true if user has been notified that winch is stuck
+    } stuck_protection = {};
 };
 
 #endif  // AP_WINCH_DAIWA_ENABLED

@@ -90,7 +90,7 @@ private:
         RETRY_LANDING,          // Retry landing (only possible if we had the landing target in sight sometime during the flight)
     };
 
-    TargetLostAction landing_target_lost_action;  // Current action being done in the Lost Landing target state machine
+    TargetLostAction landing_target_lost_action = TargetLostAction::INIT;  // Current action being done in the Lost Landing target state machine
 
     // State Machine for landing retry
     enum class RetryLanding : uint8_t {
@@ -99,11 +99,11 @@ private:
         DESCEND,                // Descend to the original height from where we had started the retry
         COMPLETE                // Retry completed. We try failsafe measures after this
     };
-    RetryLanding _retry_state;   // Current action being done in the Landing retry state machine
-    uint8_t _retry_count;       // Total number of retires done in this mode
+    RetryLanding _retry_state = RetryLanding::INIT;   // Current action being done in the Landing retry state machine
+    uint8_t _retry_count = 0;       // Total number of retires done in this mode
 
-    bool failsafe_initialized;  // True if failsafe has been initalized
-    uint32_t failsafe_start_ms; // timestamp of when failsafe was triggered
+    bool failsafe_initialized = false;  // True if failsafe has been initalized
+    uint32_t failsafe_start_ms = 0; // timestamp of when failsafe was triggered
 
 };
 

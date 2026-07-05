@@ -1282,16 +1282,23 @@ void AP_CRSF_Telem::calc_parameter() {
 
         if (_pending_request.frame_type == AP_RCProtocol_CRSF::CRSF_FRAMETYPE_PARAMETER_READ) {
             // payload encoded from lua
+            const uint16_t offset = _param_request.param_chunk * CHUNK_SIZE;
+            const uint16_t copy_len = (param->length > offset) ? (param->length - offset) : 0;
+            const uint8_t max_copy = sizeof(_telem.ext.param_entry.payload) > idx ? sizeof(_telem.ext.param_entry.payload) - idx : 0;
+            const uint8_t actual_copy = MIN(copy_len, max_copy);
             memcpy((uint8_t*)&_telem.ext.param_entry.payload[idx],
-                    &param->data[_param_request.param_chunk * CHUNK_SIZE],
-                    _telem.ext.param_entry.header.chunks_left > 0 ? CHUNK_SIZE : param->length % CHUNK_SIZE);
-            idx += param->length;
+                    &param->data[offset],
+                    actual_copy);
+            idx += actual_copy;
         } else {
+            const uint8_t copy_len = _param_request.payload.payload_length;
+            const uint8_t max_copy = sizeof(_telem.ext.param_entry.payload) > idx ? sizeof(_telem.ext.param_entry.payload) - idx : 0;
+            const uint8_t actual_copy = MIN(copy_len, max_copy);
             memcpy((uint8_t*)&_telem.ext.param_entry.payload[idx], _param_request.payload.payload,
-                    _param_request.payload.payload_length);
-            idx += _param_request.payload.payload_length;
+                    actual_copy);
+            idx += actual_copy;
         }
-        _telem_size = sizeof(AP_CRSF_Telem::ParameterSettingsEntryHeader) + 1 + idx;
+        _telem_size = sizeof(AP_CRSF_Telem::ParameterSettingsEntryHeader) + idx;
         _telem_type = AP_RCProtocol_CRSF::CRSF_FRAMETYPE_PARAMETER_SETTINGS_ENTRY;
         _pending_request.frame_type = 0;
         _telem_pending = true;

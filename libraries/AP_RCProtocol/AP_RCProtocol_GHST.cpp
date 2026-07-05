@@ -199,7 +199,7 @@ void AP_RCProtocol_GHST::_process_byte(uint32_t timestamp_us, uint8_t byte)
         // decode here
         if (decode_ghost_packet()) {
             _last_tx_frame_time_us = timestamp_us;  // we have received a frame from the transmitter
-            add_input(MAX_CHANNELS, _channels, false, _link_status.rssi, _link_status.link_quality);
+            add_input(MIN(MAX_CHANNELS, ARRAY_SIZE(_channels)), _channels, false, _link_status.rssi, _link_status.link_quality);
         }
     }
 }

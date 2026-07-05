@@ -2063,7 +2063,11 @@ AP_GPS_UBLOX::_configure_list_valset(const config_list *list, uint8_t count, uin
         memcpy(payload, &list[i].key, sizeof(ConfigKey));
         payload += sizeof(ConfigKey);
         msg_len += sizeof(ConfigKey);
-        memcpy(payload, &list[i].value, len);
+        const uint8_t copy_len = MIN(len, (uint8_t)sizeof(list[i].value));
+        memcpy(payload, &list[i].value, copy_len);
+        if (len > copy_len) {
+            memset(payload + copy_len, 0, len - copy_len);
+        }
         payload += len;
         msg_len += len;
     }

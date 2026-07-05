@@ -214,15 +214,15 @@ private:
     AP_Int16                    _options;           // Bitmask for extra options
     AP_Enum<Rotation>           _orient;            // Orientation of camera/sensor
 
-    uint32_t                    _last_update_ms;    // system time in millisecond when update was last called
-    bool                        _target_acquired;   // true if target has been seen recently after estimator is initialized
-    bool                        _estimator_initialized; // true if estimator has been initialized after few seconds of the target being detected by sensor
-    uint32_t                    _estimator_init_ms; // system time in millisecond when EKF was init
-    uint32_t                    _last_backend_los_meas_ms;  // system time target was last seen
-    uint32_t                    _last_valid_target_ms;      // last time PrecLand library had a output of the landing target position
+    uint32_t                    _last_update_ms = 0;    // system time in millisecond when update was last called
+    bool                        _target_acquired = false;   // true if target has been seen recently after estimator is initialized
+    bool                        _estimator_initialized = false; // true if estimator has been initialized after few seconds of the target being detected by sensor
+    uint32_t                    _estimator_init_ms = 0; // system time in millisecond when EKF was init
+    uint32_t                    _last_backend_los_meas_ms = 0;  // system time target was last seen
+    uint32_t                    _last_valid_target_ms = 0;      // last time PrecLand library had a output of the landing target position
 
     PosVelEKF                   _ekf_x, _ekf_y;     // Kalman Filter for x and y axis
-    uint32_t                    _outlier_reject_count;  // mini-EKF's outlier counter (3 consecutive outliers lead to EKF accepting updates)
+    uint32_t                    _outlier_reject_count = 0;  // mini-EKF's outlier counter (3 consecutive outliers lead to EKF accepting updates)
 
     Vector3f                    _target_pos_rel_meas_NED; // target's relative position as 3D vector
     Vector3f                    _approach_vector_body;   // unit vector in landing approach direction (in body frame)
@@ -236,7 +236,7 @@ private:
     Vector2f                    _target_vel_rel_out_NE; // target's velocity relative to the CG, fed into position controller
     Vector3f                    _last_veh_velocity_NED_ms; // AHRS velocity at last estimate
 
-    TargetState                 _current_target_state;  // Current status of the landing target
+    TargetState                 _current_target_state = TargetState::TARGET_NEVER_SEEN;  // Current status of the landing target
 
     // structure and buffer to hold a history of vehicle velocity
     struct inertial_data_frame_s {
@@ -247,18 +247,18 @@ private:
         float dt;
         uint64_t time_usec;
     };
-    ObjectArray<inertial_data_frame_s> *_inertial_history;
-    struct inertial_data_frame_s *_inertial_data_delayed;
+    ObjectArray<inertial_data_frame_s> *_inertial_history = nullptr;
+    struct inertial_data_frame_s *_inertial_data_delayed = nullptr;
 
     // backend state
     struct precland_state {
         bool    healthy;
     } _backend_state;
-    AC_PrecLand_Backend         *_backend;  // pointers to backend precision landing driver
+    AC_PrecLand_Backend         *_backend = nullptr;  // pointers to backend precision landing driver
 
     // write out PREC message to log:
     void Write_Precland();
-    uint32_t _last_log_ms;  // last time we logged
+    uint32_t _last_log_ms = 0;  // last time we logged
 
     static AC_PrecLand *_singleton; //singleton
 };

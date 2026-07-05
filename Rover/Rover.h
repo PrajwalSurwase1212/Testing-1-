@@ -129,15 +129,15 @@ private:
     RCMapper rcmap;
 
     // primary control channels
-    RC_Channel *channel_steer;
-    RC_Channel *channel_throttle;
-    RC_Channel *channel_lateral;
-    RC_Channel *channel_roll;
-    RC_Channel *channel_pitch;
-    RC_Channel *channel_walking_height;
+    RC_Channel *channel_steer = nullptr;
+    RC_Channel *channel_throttle = nullptr;
+    RC_Channel *channel_lateral = nullptr;
+    RC_Channel *channel_roll = nullptr;
+    RC_Channel *channel_pitch = nullptr;
+    RC_Channel *channel_walking_height = nullptr;
 
     // flight modes convenience array
-    AP_Int8 *modes;
+    AP_Int8 *modes = nullptr;
     const uint8_t num_modes = 6;
 
     // Arming/Disarming management class
@@ -179,36 +179,36 @@ private:
 #endif
 
     // true if initialisation has completed
-    bool initialised;
+    bool initialised = false;
 
     // This is the state of the flight control system
     // There are multiple states defined such as MANUAL, AUTO, ...
-    Mode *control_mode;
+    Mode *control_mode = nullptr;
 
     // Used to maintain the state of the previous control switch position
     // This is set to -1 when we need to re-read the switch
-    uint8_t oldSwitchPosition;
+    uint8_t oldSwitchPosition = 0;
 
     // structure for holding failsafe state
     struct {
-        uint8_t bits;               // bit flags of failsafes that have started (but not necessarily triggered an action)
-        uint32_t start_time;        // start time of the earliest failsafe
-        uint8_t triggered;          // bit flags of failsafes that have triggered an action
-        uint32_t last_valid_rc_ms;  // system time of most recent RC input from pilot
-        bool ekf;
-    } failsafe;
+        uint8_t bits = 0;               // bit flags of failsafes that have started (but not necessarily triggered an action)
+        uint32_t start_time = 0;        // start time of the earliest failsafe
+        uint8_t triggered = 0;          // bit flags of failsafes that have triggered an action
+        uint32_t last_valid_rc_ms = 0;  // system time of most recent RC input from pilot
+        bool ekf = false;
+    } failsafe = {};
 
     // true if we have a position estimate from AHRS
-    bool have_position;
+    bool have_position = false;
 
 #if AP_RANGEFINDER_ENABLED
     // range finder last update for each instance (used for DPTH logging)
-    uint32_t rangefinder_last_reading_ms[RANGEFINDER_MAX_INSTANCES];
+    uint32_t rangefinder_last_reading_ms[RANGEFINDER_MAX_INSTANCES] = {};
 #endif
 
     // Ground speed
     // The amount current ground speed is below min ground speed.  meters per second
-    float ground_speed;
+    float ground_speed = 0.0f;
 
     // Battery Sensors
     AP_BattMonitor battery{MASK_LOG_CURRENT,
@@ -216,7 +216,7 @@ private:
                            _failsafe_priorities};
 
     // flyforward timer
-    uint32_t flyforward_start_ms;
+    uint32_t flyforward_start_ms = 0;
 
     static const AP_Scheduler::Task scheduler_tasks[];
 
@@ -226,14 +226,14 @@ private:
 #endif
 
     // latest wheel encoder values
-    float wheel_encoder_last_distance_m[WHEELENCODER_MAX_INSTANCES];    // total distance recorded by wheel encoder (for reporting to GCS)
-    bool wheel_encoder_initialised;                                     // true once arrays below have been initialised to sensors initial values
-    float wheel_encoder_last_angle_rad[WHEELENCODER_MAX_INSTANCES];     // distance in radians at time of last update to EKF
-    uint32_t wheel_encoder_last_reading_ms[WHEELENCODER_MAX_INSTANCES]; // system time of last ping from each encoder
-    uint8_t wheel_encoder_last_index_sent;                              // index of the last wheel encoder sent to the EKF
+    float wheel_encoder_last_distance_m[WHEELENCODER_MAX_INSTANCES] = {};    // total distance recorded by wheel encoder (for reporting to GCS)
+    bool wheel_encoder_initialised = false;                                     // true once arrays below have been initialised to sensors initial values
+    float wheel_encoder_last_angle_rad[WHEELENCODER_MAX_INSTANCES] = {};     // distance in radians at time of last update to EKF
+    uint32_t wheel_encoder_last_reading_ms[WHEELENCODER_MAX_INSTANCES] = {}; // system time of last ping from each encoder
+    uint8_t wheel_encoder_last_index_sent = 0;                              // index of the last wheel encoder sent to the EKF
 
     // True when we are doing motor test
-    bool motor_test;
+    bool motor_test = false;
 
     ModeInitializing mode_initializing;
     ModeHold mode_hold;
@@ -257,10 +257,10 @@ private:
     typedef struct {
         LowPassFilterFloat speed_filt{2.0f};
         LowPassFilterFloat throttle_filt{2.0f};
-        uint32_t learn_start_ms;
-        uint32_t log_count;
+        uint32_t learn_start_ms = 0;
+        uint32_t log_count = 0;
     } cruise_learn_t;
-    cruise_learn_t cruise_learn;
+    cruise_learn_t cruise_learn = {};
 
     // Rover.cpp
 #if AP_SCRIPTING_ENABLED || AP_EXTERNAL_CONTROL_ENABLED
@@ -441,13 +441,13 @@ public:
     AP_WheelRateControl& get_wheel_rate_control() { return g2.wheel_rate_control; }
 
     // Simple mode
-    float simple_sin_yaw;
+    float simple_sin_yaw = 0.0f;
 
 #if AP_ROVER_AUTO_ARM_ONCE_ENABLED
     struct {
-        uint32_t last_arm_attempt_ms;
-        bool done;
-    } auto_arm_once;
+        uint32_t last_arm_attempt_ms = 0;
+        bool done = false;
+    } auto_arm_once = {};
     void handle_auto_arm_once();
 #endif  // AP_ROVER_AUTO_ARM_ONCE_ENABLED
 };

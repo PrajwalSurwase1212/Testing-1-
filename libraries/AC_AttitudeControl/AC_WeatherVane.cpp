@@ -191,7 +191,7 @@ bool AC_WeatherVane::get_yaw_out(float &yaw_output, const int16_t pilot_yaw, con
 
         case Direction::NOSE_OR_TAIL_IN:
             output = MAX(fabsf(roll_cdeg) - deadzone_cdeg, 0.0);
-            if (is_negative(roll_cdeg) != is_positive(pitch_cdeg)) {
+            if (is_negative(roll_cdeg) != is_negative(pitch_cdeg)) {
                 output *= -1.0;
             }
             dir_string = "nose or tail in";

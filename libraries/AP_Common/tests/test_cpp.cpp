@@ -19,6 +19,8 @@ TEST(AP_Common, TEST_CPP)
 
     DummyDummy * test_d = (DummyDummy*) ::operator new (sizeof(DummyDummy));
     EXPECT_FALSE(test_d == nullptr);
+    test_d->count = 0;
+    test_d->d = 0.0;
     EXPECT_TRUE(sizeof(test_d) == 8);
     EXPECT_EQ(test_d->count, 0);  // constructor isn't called
     EXPECT_FLOAT_EQ(test_d->d, 0.0);

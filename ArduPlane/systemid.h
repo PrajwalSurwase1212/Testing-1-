@@ -37,7 +37,7 @@ public:
 
 private:
     Chirp chirp_input;
-    bool running;
+    bool running = false;
 
     enum class AxisType {
         NONE = 0,               // none
@@ -58,7 +58,7 @@ private:
 
     void set_bf_feedforward(bool value);
     void log_data() const;
-    int8_t log_subsample;       // Subsample multiple for logging.
+    int8_t log_subsample = 0;       // Subsample multiple for logging.
 
 
     AP_Enum<AxisType> axis;               // Controls which axis are being excited. Set to non-zero to display other parameters
@@ -71,14 +71,14 @@ private:
     AP_Float xy_control_mul;    // multiplier for VTOL XY control
 
     struct {
-        bool att_bf_feedforward;    // Setting of attitude_control->get_bf_feedforward
+        bool att_bf_feedforward = false;    // Setting of attitude_control->get_bf_feedforward
     } restore;
 
-    float waveform_time;        // Time reference for waveform
-    float waveform_sample;      // Current waveform sample
-    float waveform_freq_rads;   // Instantaneous waveform frequency
-    float time_const_freq;      // Time at constant frequency before chirp starts
-    uint32_t last_loop_time_ms;   // time in milliseconds of last loop
+    float waveform_time = 0.0f;        // Time reference for waveform
+    float waveform_sample = 0.0f;      // Current waveform sample
+    float waveform_freq_rads = 0.0f;   // Instantaneous waveform frequency
+    float time_const_freq = 0.0f;      // Time at constant frequency before chirp starts
+    uint32_t last_loop_time_ms = 0;   // time in milliseconds of last loop
 
     Vector2f target_vel;        // target velocity for position controller modes
     Vector2f target_pos;       // target position
@@ -86,9 +86,9 @@ private:
 
     // current attitude offset
     Vector3f attitude_offset_deg;
-    float throttle_offset;
+    float throttle_offset = 0.0f;
 
-    AxisType start_axis;
+    AxisType start_axis = AxisType::NONE;
 
 };
 

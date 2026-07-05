@@ -112,7 +112,11 @@ void AP_SBusOut::sbus_format_frame(uint16_t *channels, uint8_t num_channels, uin
 
         buffer[index] |= (value << (offset)) & 0xff;
         buffer[index + 1] |= (value >> (8 - offset)) & 0xff;
-        buffer[index + 2] |= (uint32_t(value) >> (16 - offset)) & 0xff;
+        // 11-bit value only spills into a 3rd byte when offset > 5
+        // (shift of 16-offset must be <= 10 for non-zero result on an 11-bit value)
+        if (offset > 5) {
+            buffer[index + 2] |= (uint32_t(value) >> (16 - offset)) & 0xff;
+        }
         offset += 11;
     }
 }

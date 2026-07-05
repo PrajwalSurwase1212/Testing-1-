@@ -1,5 +1,11 @@
 #include <AP_gtest.h>
 
+#ifndef HAL_ADSB_ENABLED
+#define HAL_ADSB_ENABLED 0
+#endif
+
+#if HAL_ADSB_ENABLED
+
 #include <AP_ADSB/AP_ADSB.h>
 
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
@@ -39,5 +45,7 @@ TEST(IsValidCallsign, Invalid)
 }
 
 AP_GTEST_MAIN()
+
+#endif
 
 #pragma GCC diagnostic pop

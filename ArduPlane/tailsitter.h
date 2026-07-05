@@ -111,7 +111,7 @@ public:
     AP_Float VTOL_yaw_scale;
     AP_Float disk_loading_min_outflow;
 
-    AP_MotorsTailsitter* tailsitter_motors;
+    AP_MotorsTailsitter* tailsitter_motors = nullptr;
 
 private:
 
@@ -126,30 +126,30 @@ private:
 
     // Data to be logged
     struct {
-        float throttle_scaler;
-        float speed_scaler;
-        float min_throttle;
+        float throttle_scaler = 0.0f;
+        float speed_scaler = 0.0f;
+        float min_throttle = 0.0f;
     } log_data;
 
 
-    bool setup_complete;
+    bool setup_complete = false;
 
     // true when flying a tilt-vectored tailsitter
-    bool _is_vectored;
+    bool _is_vectored = false;
 
     // true is outputs are configured
-    bool _have_elevator;
-    bool _have_aileron;
-    bool _have_rudder;
-    bool _have_elevon;
-    bool _have_v_tail;
+    bool _have_elevator = false;
+    bool _have_aileron = false;
+    bool _have_rudder = false;
+    bool _have_elevon = false;
+    bool _have_v_tail = false;
 
     // references for convenience
     QuadPlane& quadplane;
     AP_MotorsMulticopter*& motors;
 
     // transition logic
-    Tailsitter_Transition* transition;
+    Tailsitter_Transition* transition = nullptr;
 
 };
 
@@ -195,26 +195,26 @@ private:
         ANGLE_WAIT_FW   = 0,
         ANGLE_WAIT_VTOL = 1,
         DONE            = 2,
-    } transition_state;
+    } transition_state = State::DONE;
 
     // for transition to VTOL flight
-    uint32_t vtol_transition_start_ms;
-    float vtol_transition_initial_pitch;
+    uint32_t vtol_transition_start_ms = 0;
+    float vtol_transition_initial_pitch = 0.0f;
 
     // for rate limit of VTOL flight
-    uint32_t vtol_limit_start_ms;
-    float vtol_limit_initial_pitch;
+    uint32_t vtol_limit_start_ms = 0;
+    float vtol_limit_initial_pitch = 0.0f;
 
     // for rate limit of FW flight
-    uint32_t fw_limit_start_ms;
-    float fw_limit_initial_pitch;
+    uint32_t fw_limit_start_ms = 0;
+    float fw_limit_initial_pitch = 0.0f;
 
     // for transition to FW flight
-    uint32_t fw_transition_start_ms;
-    float fw_transition_initial_pitch;
+    uint32_t fw_transition_start_ms = 0;
+    float fw_transition_initial_pitch = 0.0f;
 
     // time when we were last in a vtol control mode
-    uint32_t last_vtol_mode_ms;
+    uint32_t last_vtol_mode_ms = 0;
 
     Tailsitter& tailsitter;
 

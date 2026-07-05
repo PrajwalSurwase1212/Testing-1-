@@ -67,7 +67,7 @@ public:
         E_high,
         E_low,
         Done,
-    } stage;
+    } stage = CoefficientStage::A_high;
 
     // Read extended compensation coefficients from sensor
     void read_coefficients();
@@ -82,19 +82,19 @@ private:
 
     // Extended compensation coefficients
     // Theses are read from the sensor in read_coefficients
-    float LIN_A;
-    float LIN_B;
-    float LIN_C;
-    float LIN_D;
-    float Es;
-    float TC50H;
-    float TC50L;
+    float LIN_A = 0.0f;
+    float LIN_B = 0.0f;
+    float LIN_C = 0.0f;
+    float LIN_D = 0.0f;
+    float Es = 0.0f;
+    float TC50H = 0.0f;
+    float TC50L = 0.0f;
 
     // Step of reading coefficients, request must be made before read.
     enum class CoefficientStep {
         request,
         read,
-    } coefficient_step;
+    } coefficient_step = CoefficientStep::request;
 
 };
 
@@ -119,14 +119,14 @@ private:
     bool probe(uint8_t bus, uint8_t address);
     void _timer();
 
-    uint32_t last_sample_time_ms;
-    bool measurement_requested;
-    AP_HAL::I2CDevice *_dev;
+    uint32_t last_sample_time_ms = 0;
+    bool measurement_requested = false;
+    AP_HAL::I2CDevice *_dev = nullptr;
 
     AUAV_Pressure_sensor sensor { _dev, AUAV_Pressure_sensor::Type::Differential };
 
-    float pressure;
-    float temp_C;
+    float pressure = 0.0f;
+    float temp_C = 0.0f;
     const float range_inH2O;
 };
 

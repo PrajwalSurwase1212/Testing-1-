@@ -83,8 +83,8 @@ void GPS_MSP::publish(const GPS_Data *d)
     msp_gps.min = tm->tm_min;
     msp_gps.sec = tm->tm_sec;
 
-    // CRC is over packet without first 3 bytes and trailing CRC byte
-    msp_gps.crc = crc8_dvb_s2_update(0, (uint8_t *)&msp_gps.hdr.flags, sizeof(msp_gps)-4);
+    const uint8_t *payload_ptr = (const uint8_t *)&msp_gps;
+    msp_gps.crc = crc8_dvb_s2_update(0, &payload_ptr[3], sizeof(msp_gps)-4);
 
     write_to_autopilot((const char *)&msp_gps, sizeof(msp_gps));
 }

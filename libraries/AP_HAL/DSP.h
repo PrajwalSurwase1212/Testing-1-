@@ -76,13 +76,13 @@ public:
         // Hanning window for incoming samples, see https://en.wikipedia.org/wiki/Window_function#Hann_.28Hanning.29_window
         float* _hanning_window;
         // Use in calculating the PS of the signal [Heinz] equations (20) & (21)
-        float _window_scale;
+        float _window_scale = 0.0f;
         // averaging is ongoing
-        bool _averaging;
+        bool _averaging = false;
         // number of samples in the average
-        uint32_t _averaging_samples;
+        uint32_t _averaging_samples = 0;
         // current sliding window slice
-        uint8_t _current_slice;
+        uint8_t _current_slice = 0;
         // get a frequency bin from an arbitrary slice
         float get_freq_bin(uint16_t idx) { return _sliding_window == nullptr ? _freq_bins[idx] : _avg_freq_bins[idx]; }
 

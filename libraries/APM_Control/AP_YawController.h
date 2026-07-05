@@ -63,17 +63,17 @@ private:
     AP_Int8  _rate_enable;
     AC_PID rate_pid{0.04, 0.15, 0, 0.15, 0.666, 3, 0, 12, 150, 1};
 
-    uint32_t _last_t;
-    float _last_out;
-    float _last_rate_hp_out;
-    float _last_rate_hp_in;
-    float _K_D_last;
+    uint32_t _last_t = 0;
+    float _last_out = 0.0f;
+    float _last_rate_hp_out = 0.0f;
+    float _last_rate_hp_in = 0.0f;
+    float _K_D_last = 0.0f;
 
-    float _integrator;
+    float _integrator = 0.0f;
 
-    AP_AutoTune::ATGains gains;
-    AP_AutoTune *autotune;
-    bool failed_autotune_alloc;
+    AP_AutoTune::ATGains gains{};
+    AP_AutoTune *autotune = nullptr;
+    bool failed_autotune_alloc = false;
     
     AP_PIDInfo _pid_info;
 };

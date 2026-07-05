@@ -97,7 +97,7 @@ private:
 
 #if AP_AIRSPEED_HYGROMETER_ENABLE
     void send_hygrometer();
-    uint8_t last_hygrometer_send_idx;
+    uint8_t last_hygrometer_send_idx = 0;
 #endif
 
     MAV_VTOL_STATE vtol_state() const override;

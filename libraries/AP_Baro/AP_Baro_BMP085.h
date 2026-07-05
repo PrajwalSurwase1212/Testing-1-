@@ -40,29 +40,29 @@ private:
 
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
-    AP_HAL::DigitalSource *_eoc;
+    AP_HAL::DigitalSource *_eoc = nullptr;
 
-    uint8_t _instance;
-    bool _has_sample;
+    uint8_t _instance = 0;
+    bool _has_sample = false;
 
     // Boards with no EOC pin: use times instead
-    uint32_t _last_press_read_command_time;
-    uint32_t _last_temp_read_command_time;
+    uint32_t _last_press_read_command_time = 0;
+    uint32_t _last_temp_read_command_time = 0;
 
     // State machine
-    uint8_t _state;
+    uint8_t _state = 0;
 
     // Internal calibration registers
-    int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
-    uint16_t ac4, ac5, ac6;
+    int16_t ac1 = 0, ac2 = 0, ac3 = 0, b1 = 0, b2 = 0, mb = 0, mc = 0, md = 0;
+    uint16_t ac4 = 0, ac5 = 0, ac6 = 0;
 
-    int32_t _raw_pressure;
-    int32_t _raw_temp;
-    int32_t _temp;
+    int32_t _raw_pressure = 0;
+    int32_t _raw_temp = 0;
+    int32_t _temp = 0;
     AverageIntegralFilter<int32_t, int32_t, 10> _pressure_filter;
 
-    uint8_t _vers;
-    uint8_t _type;
+    uint8_t _vers = 0;
+    uint8_t _type = 0;
 };
 
 #endif  // AP_BARO_BMP085_ENABLED

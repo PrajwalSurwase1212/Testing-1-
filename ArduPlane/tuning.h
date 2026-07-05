@@ -120,7 +120,7 @@ private:
     static const uint8_t tuning_set_pidff_pitch[];
 
     // mask of what params have been set
-    uint64_t have_set;
+    uint64_t have_set = 0;
 };
 
 #endif  // AP_TUNING_ENABLED

@@ -44,7 +44,7 @@ private:
     static constexpr uint8_t max_open_file = 4;
 
     // maximum size of one packed parameter and default value
-    static constexpr uint8_t max_pack_len = AP_MAX_NAME_SIZE + 2 + 4 + 4 + 3;
+    static constexpr uint8_t max_pack_len = AP_MAX_NAME_SIZE + 2 + 12 + 12 + 11;
 
     // Support both protocol versions
     static constexpr uint16_t pmagic = 0x671b;

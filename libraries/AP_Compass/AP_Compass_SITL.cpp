@@ -7,7 +7,8 @@
 extern const AP_HAL::HAL& hal;
 
 AP_Compass_SITL::AP_Compass_SITL()
-    : _sitl(AP::sitl())
+    : _num_compass(0)
+    , _sitl(AP::sitl())
 {
     if (_sitl != nullptr) {
         for (uint8_t i=0; i<MAX_CONNECTED_MAGS; i++) {

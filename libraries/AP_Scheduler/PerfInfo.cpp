@@ -130,7 +130,7 @@ void AP::PerfInfo::check_loop_time(uint32_t time_in_micros)
         long_running++;
     }
     sigma_time += time_in_micros;
-    sigmasquared_time += time_in_micros * time_in_micros;
+    sigmasquared_time += (uint64_t)time_in_micros * time_in_micros;
 
     /* we keep a filtered loop time for use as G_Dt which is the
        predicted time for the next loop. We remove really excessive

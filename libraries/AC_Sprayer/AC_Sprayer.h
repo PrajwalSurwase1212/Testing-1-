@@ -77,11 +77,11 @@ private:
         uint8_t spraying    : 1;            ///< 1 if we are currently spraying
         uint8_t testing     : 1;            ///< 1 if we are testing the sprayer and should output a minimum value
         uint8_t running     : 1;            ///< 1 if we are permitted to run sprayer
-    } _flags;
+    } _flags{};
 
     // internal variables
-    uint32_t        _speed_over_min_time;   ///< time at which we reached speed minimum
-    uint32_t        _speed_under_min_time;  ///< time at which we fell below speed minimum
+    uint32_t        _speed_over_min_time = 0;   ///< time at which we reached speed minimum
+    uint32_t        _speed_under_min_time = 0;  ///< time at which we fell below speed minimum
 
     void stop_spraying();
 };

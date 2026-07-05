@@ -33,7 +33,7 @@ private:
     bool flush_fifo();
     void timer();
 
-    uint8_t instance;
+    uint8_t instance = 0;
 
     AP_HAL::OwnPtr<AP_HAL::I2CDevice> dev;
 
@@ -42,10 +42,10 @@ private:
         float tsum;
         float psum;
         uint32_t count;
-    } accum;
+    } accum{};
 
     // time last read command was sent
-    uint32_t last_measure_us;
+    uint32_t last_measure_us = 0;
 
     enum class OP_MODE : uint8_t {
 		OP_MODE0 = 0,   /* Mode 0: Bw:6.25 Hz ODR: 25Hz */

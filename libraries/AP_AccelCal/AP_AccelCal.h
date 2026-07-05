@@ -53,15 +53,15 @@ public:
     bool running(void) const;
 
 private:
-    class GCS_MAVLINK *_gcs;
-    uint8_t _sysid;
-    uint8_t _compid;
+    class GCS_MAVLINK *_gcs = nullptr;
+    uint8_t _sysid = 0;
+    uint8_t _compid = 0;
     bool _use_gcs_snoop;
     bool _waiting_for_mavlink_ack = false;
-    uint32_t _last_position_request_ms;
-    uint8_t _step;
-    accel_cal_status_t _status;
-    accel_cal_status_t _last_result;
+    uint32_t _last_position_request_ms = 0;
+    uint8_t _step = 0;
+    accel_cal_status_t _status = ACCEL_CAL_NOT_STARTED;
+    accel_cal_status_t _last_result = ACCEL_CAL_NOT_STARTED;
 
     static uint8_t _num_clients;
     static AP_AccelCal_Client* _clients[AP_ACCELCAL_MAX_NUM_CLIENTS];
@@ -90,7 +90,7 @@ private:
     bool _started;
     bool _saving;
 
-    uint8_t _num_active_calibrators;
+    uint8_t _num_active_calibrators = 0;
 
     AccelCalibrator* get_calibrator(uint8_t i);
 };

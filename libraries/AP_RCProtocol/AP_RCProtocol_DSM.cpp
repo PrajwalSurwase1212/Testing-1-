@@ -525,7 +525,7 @@ void AP_RCProtocol_DSM::_process_byte(uint32_t timestamp_ms, uint8_t b)
     if (dsm_parse_byte(timestamp_ms, b, v, &nchan, AP_DSM_MAX_CHANNELS)) {
         memcpy(last_values, v, sizeof(v));
         if (nchan >= MIN_RCIN_CHANNELS) {
-            add_input(nchan, last_values, false);
+            add_input(MIN(nchan, (uint16_t)ARRAY_SIZE(last_values)), last_values, false);
         }
     }
 }

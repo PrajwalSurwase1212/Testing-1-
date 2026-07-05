@@ -47,42 +47,42 @@ public:
 protected:
     // internal variables
     const uint16_t      _loop_rate;                 // rate in Hz at which output() function is called (normally 400hz)
-    uint16_t            _speed_hz;                  // speed in hz to send updates to motors
-    float               _throttle_avg_max;          // last throttle input from set_throttle_avg_max
+    uint16_t            _speed_hz = 0;                  // speed in hz to send updates to motors
+    float               _throttle_avg_max = 0.0f;          // last throttle input from set_throttle_avg_max
 
-    float               _time;                       // current timestamp
+    float               _time = 0.0f;                       // current timestamp
 
-    bool _armed;             // 0 if disarmed, 1 if armed
+    bool _armed = false;             // 0 if disarmed, 1 if armed
 
-    float              _amp[NUM_FINS]; //amplitudes
-    float              _off[NUM_FINS]; //offsets
-    float              _freq[NUM_FINS]; //frequency multiplier
-    float              _pos[NUM_FINS]; //servo positions
+    float              _amp[NUM_FINS] = {}; //amplitudes
+    float              _off[NUM_FINS] = {}; //offsets
+    float              _freq[NUM_FINS] = {}; //frequency multiplier
+    float              _pos[NUM_FINS] = {}; //servo positions
 
-    float               _right_amp_factor[NUM_FINS];
-    float               _front_amp_factor[NUM_FINS];
-    float               _down_amp_factor[NUM_FINS];
-    float               _yaw_amp_factor[NUM_FINS];
+    float               _right_amp_factor[NUM_FINS] = {};
+    float               _front_amp_factor[NUM_FINS] = {};
+    float               _down_amp_factor[NUM_FINS] = {};
+    float               _yaw_amp_factor[NUM_FINS] = {};
 
-    float               _right_off_factor[NUM_FINS];
-    float               _front_off_factor[NUM_FINS];
-    float               _down_off_factor[NUM_FINS];
-    float               _yaw_off_factor[NUM_FINS];
+    float               _right_off_factor[NUM_FINS] = {};
+    float               _front_off_factor[NUM_FINS] = {};
+    float               _down_off_factor[NUM_FINS] = {};
+    float               _yaw_off_factor[NUM_FINS] = {};
 
-    int8_t              _num_added;
+    int8_t              _num_added = 0;
 
     //MIR This should probably become private in future.
 public:
-    float               right_out;                  //input right movement, negative for left, +1 to -1
-    float               front_out;                  //input front/forwards movement, negative for backwards, +1 to -1
-    float               yaw_out;                    //input yaw, +1 to -1
-    float               down_out;                   //input height control, +1 to -1
+    float               right_out = 0.0f;                  //input right movement, negative for left, +1 to -1
+    float               front_out = 0.0f;                  //input front/forwards movement, negative for backwards, +1 to -1
+    float               yaw_out = 0.0f;                    //input yaw, +1 to -1
+    float               down_out = 0.0f;                   //input height control, +1 to -1
 
     AP_Float            freq_hz;
     AP_Int8             turbo_mode;
 
-    bool _interlock;         // 1 if the motor interlock is enabled (i.e. motors run), 0 if disabled (motors don't run)
-    bool _initialised_ok;    // 1 if initialisation was successful
+    bool _interlock = false;         // 1 if the motor interlock is enabled (i.e. motors run), 0 if disabled (motors don't run)
+    bool _initialised_ok = false;    // 1 if initialisation was successful
 
     void output_min();
 

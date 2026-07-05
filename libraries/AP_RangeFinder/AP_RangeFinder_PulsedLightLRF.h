@@ -52,15 +52,15 @@ private:
     
     AP_HAL::OwnPtr<AP_HAL::I2CDevice> _dev;
 
-    uint8_t sw_version;
-    uint8_t hw_version;
-    uint8_t check_reg_counter;
-    bool v2_hardware;
-    bool v3hp_hardware;
-    uint16_t last_distance_cm;
+    uint8_t sw_version = 0;
+    uint8_t hw_version = 0;
+    uint8_t check_reg_counter = 0;
+    bool v2_hardware = false;
+    bool v3hp_hardware = false;
+    uint16_t last_distance_cm = 0;
     RangeFinder::Type rftype;
     
-    enum { PHASE_MEASURE, PHASE_COLLECT } phase;
+    enum { PHASE_MEASURE, PHASE_COLLECT } phase = PHASE_MEASURE;
 };
 
 #endif  // AP_RANGEFINDER_PULSEDLIGHTLRF_ENABLED

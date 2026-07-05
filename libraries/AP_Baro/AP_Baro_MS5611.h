@@ -53,15 +53,15 @@ protected:
     virtual const char *name() const = 0;
     virtual DevTypes devtype() const = 0;
 
-    uint8_t _instance;
+    uint8_t _instance = 0;
 
     /* Last compensated values from accumulated sample */
-    float _D1, _D2;
+    float _D1 = 0.0f, _D2 = 0.0f;
 
     // Internal calibration registers
     struct {
         uint16_t c1, c2, c3, c4, c5, c6;
-    } _cal_reg;
+    } _cal_reg{};
 
 private:
 
@@ -86,11 +86,11 @@ private:
         uint32_t s_D2;
         uint8_t d1_count;
         uint8_t d2_count;
-    } _accum;
+    } _accum{};
 
-    uint8_t _state;
+    uint8_t _state = 0;
 
-    bool _discard_next;
+    bool _discard_next = false;
 
     virtual bool _read_prom(uint16_t *prom) = 0;
     virtual void _calculate() = 0;
@@ -142,7 +142,9 @@ protected:
 class AP_Baro_MS5837 : public AP_Baro_MS56XX
 {
 public:
-    using AP_Baro_MS56XX::AP_Baro_MS56XX;
+    AP_Baro_MS5837(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev)
+        : AP_Baro_MS56XX(baro, std::move(dev))
+        , _subtype(DEVTYPE_BARO_MS5837_30BA) {}
     static AP_Baro_Backend *probe(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev);
 protected:
     const char *name() const override { return "MS5837"; }
@@ -153,7 +155,7 @@ protected:
     void _calculate_5837_02ba();
     void _calculate_5837_30ba();
 
-    DevTypes _subtype;
+    DevTypes _subtype = DEVTYPE_BARO_MS5837_30BA;
 };
 #endif  // AP_BARO_MS5837_ENABLED
 

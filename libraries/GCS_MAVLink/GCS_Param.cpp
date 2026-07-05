@@ -406,7 +406,8 @@ void GCS_MAVLINK::param_io_timer(void)
         }
         vp->copy_name_token(token, reply.param_name, AP_MAX_NAME_SIZE, true);
     } else {
-        strncpy(reply.param_name, req.param_name, AP_MAX_NAME_SIZE+1);
+        strncpy(reply.param_name, req.param_name, AP_MAX_NAME_SIZE);
+        reply.param_name[AP_MAX_NAME_SIZE] = '\0';
         vp = AP_Param::find(req.param_name, &reply.p_type);
         if (vp == nullptr) {
             return;

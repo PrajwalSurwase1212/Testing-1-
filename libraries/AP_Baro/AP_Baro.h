@@ -236,20 +236,20 @@ private:
     static AP_Baro *_singleton;
     
     // how many drivers do we have?
-    uint8_t _num_drivers;
-    AP_Baro_Backend *drivers[BARO_MAX_DRIVERS];
+    uint8_t _num_drivers = 0;
+    AP_Baro_Backend *drivers[BARO_MAX_DRIVERS]{};
 
     // how many sensors do we have?
-    uint8_t _num_sensors;
+    uint8_t _num_sensors = 0;
 
     // what is the primary sensor at the moment?
-    uint8_t _primary;
+    uint8_t _primary = 0;
 
     uint32_t _log_baro_bit = -1;
 
-    bool init_done;
+    bool init_done = false;
 
-    uint8_t msp_instance_mask;
+    uint8_t msp_instance_mask = 0;
 
     // bitmask values for GND_PROBE_EXT
     enum {
@@ -286,17 +286,17 @@ private:
 #endif
 
     struct sensor {
-        uint32_t last_update_ms;        // last update time in ms
-        uint32_t last_change_ms;        // last update time in ms that included a change in reading from previous readings
-        float pressure;                 // pressure in Pascal
-        float temperature;              // temperature in degrees C
-        float altitude;                 // calculated altitude
+        uint32_t last_update_ms = 0;        // last update time in ms
+        uint32_t last_change_ms = 0;        // last update time in ms that included a change in reading from previous readings
+        float pressure = 0.0f;                 // pressure in Pascal
+        float temperature = 0.0f;              // temperature in degrees C
+        float altitude = 0.0f;                 // calculated altitude
         AP_Float ground_pressure;
-        float p_correction;
-        baro_type_t type;               // 0 for air pressure (default), 1 for water pressure
-        bool healthy;                   // true if sensor is healthy
-        bool alt_ok;                    // true if calculated altitude is ok
-        bool calibrated;                // true if calculated calibrated successfully
+        float p_correction = 0.0f;
+        baro_type_t type = BARO_TYPE_AIR;               // 0 for air pressure (default), 1 for water pressure
+        bool healthy = false;                   // true if sensor is healthy
+        bool alt_ok = false;                    // true if calculated altitude is ok
+        bool calibrated = false;                // true if calculated calibrated successfully
         AP_Int32 bus_id;
 #if HAL_BARO_WIND_COMP_ENABLED
         WindCoeff wind_coeff;
@@ -306,26 +306,26 @@ private:
         AP_Float mot_scale;             // thrust-based pressure scaling
 #endif
 #if (HAL_BARO_WIND_COMP_ENABLED || AP_BARO_THST_COMP_ENABLED)
-        float corrected_pressure;
+        float corrected_pressure = 0.0f;
 #endif
     } sensors[BARO_MAX_INSTANCES];
 
     AP_Float                            _alt_offset;
-    float                               _alt_offset_active;
+    float                               _alt_offset_active = 0.0f;
     AP_Float                            _field_elevation;       // field elevation in meters
-    float                               _field_elevation_active;
-    uint32_t                            _field_elevation_last_ms;
+    float                               _field_elevation_active = 0.0f;
+    uint32_t                            _field_elevation_last_ms = 0;
     AP_Int8                             _primary_baro; // primary chosen by user
     AP_Int8                             _ext_bus; // bus number for external barometer
-    float                               _external_temperature;
-    uint32_t                            _last_external_temperature_ms;
+    float                               _external_temperature = 0.0f;
+    uint32_t                            _last_external_temperature_ms = 0;
     DerivativeFilterFloat_Size7         _climb_rate_filter;
     AP_Float                            _specific_gravity; // the specific gravity of fluid for an ROV 1.00 for freshwater, 1.024 for salt water
     AP_Float                            _user_ground_temperature; // user override of the ground temperature used for EAS2TAS
-    float                               _guessed_ground_temperature; // currently ground temperature estimate using our best available source
+    float                               _guessed_ground_temperature = 0.0f; // currently ground temperature estimate using our best available source
 
     // when did we last notify the GCS of new pressure reference?
-    uint32_t                            _last_notify_ms;
+    uint32_t                            _last_notify_ms = 0;
 
     // see if we already have probed a i2c driver by bus number and address
     bool _have_i2c_driver(uint8_t bus_num, uint8_t address) const;

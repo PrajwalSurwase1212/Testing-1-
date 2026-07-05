@@ -62,7 +62,7 @@ bool Semaphore::take(uint32_t timeout_ms)
             owner = pthread_self();
             return true;
         }
-    } while ((AP_HAL::micros64() - start) < timeout_ms * 1000);
+    } while ((AP_HAL::micros64() - start) < (uint64_t)timeout_ms * 1000);
     return false;
 }
 

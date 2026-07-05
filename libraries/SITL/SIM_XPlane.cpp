@@ -297,7 +297,7 @@ int8_t XPlane::find_data_index(uint8_t code)
  */
 void XPlane::select_data(void)
 {
-    const uint64_t all_mask = (1U<<ARRAY_SIZE(required_data))-1;
+    const uint64_t all_mask = (1ULL<<ARRAY_SIZE(required_data))-1;
     if ((seen_mask & all_mask) == all_mask) {
         // got it all
         return;
@@ -308,7 +308,7 @@ void XPlane::select_data(void)
     } dsel;
     uint8_t count = 0;
     for (uint8_t i=0; i<ARRAY_SIZE(required_data); i++) {
-        if (seen_mask & (1U<<i)) {
+        if (seen_mask & (1ULL<<i)) {
             // got this one
             continue;
         }
@@ -404,7 +404,7 @@ bool XPlane::receive_data(void)
             p += pkt_len;
             continue;
         }
-        seen_mask |= (1U<<idx);
+        seen_mask |= (1ULL<<idx);
 
         switch (code) {
         case Times: {

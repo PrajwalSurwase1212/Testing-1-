@@ -222,8 +222,8 @@ private:
 
     bool _proximity_enabled = true; // true if proximity sensor based avoidance is enabled (used to allow pilot to enable/disable)
     bool _proximity_alt_enabled = true; // true if proximity sensor based avoidance is enabled based on altitude
-    uint32_t _last_limit_time;      // the last time a limit was active
-    uint32_t _last_log_ms;          // the last time simple avoidance was logged
+    uint32_t _last_limit_time = 0;  // the last time a limit was active
+    uint32_t _last_log_ms = 0;      // the last time simple avoidance was logged
     Vector3f _prev_avoid_vel;       // copy of avoidance adjusted velocity
 
     static AC_Avoid *_singleton;

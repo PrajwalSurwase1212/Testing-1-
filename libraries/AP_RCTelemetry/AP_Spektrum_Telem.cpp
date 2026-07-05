@@ -236,7 +236,7 @@ bool AP_Spektrum_Telem::get_next_msg_chunk(void)
     }
 
     // skip leading whitespace
-    while (_statustext.next.text[_msg_chunk.char_index] == ' ' && _msg_chunk.char_index < message_len) {
+    while (_msg_chunk.char_index < message_len && _statustext.next.text[_msg_chunk.char_index] == ' ') {
         _msg_chunk.char_index++;
     }
 

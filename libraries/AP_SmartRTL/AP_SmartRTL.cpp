@@ -742,10 +742,10 @@ bool AP_SmartRTL::remove_points_by_loops(uint16_t num_points_to_remove)
         // fix the indices of any existing prune loops
         // we do not check for overlapping loops because add_loops should have caught them
         for (uint16_t loop_cnt = 0; loop_cnt < i; loop_cnt++) {
-            if (_prune.loops[loop_cnt].start_index >= loop.end_index) {
+            if (_prune.loops[loop_cnt].start_index > loop.start_index) {
                 _prune.loops[loop_cnt].start_index -= loop_num_points_to_remove;
             }
-            if (_prune.loops[loop_cnt].end_index >= loop.end_index) {
+            if (_prune.loops[loop_cnt].end_index > loop.start_index) {
                 _prune.loops[loop_cnt].end_index -= loop_num_points_to_remove;
             }
         }

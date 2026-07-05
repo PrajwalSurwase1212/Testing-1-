@@ -66,6 +66,7 @@ public:
             _terminate.set(0);
 
             _saved_wp = 0;
+            _failsafe_setup = false;
         }
 
     // get singleton instance
@@ -135,29 +136,29 @@ protected:
     AP_Int8  _enable_dual_loss;
     AP_Int16  _max_range_km;
 
-    bool _heartbeat_pin_value;
+    bool _heartbeat_pin_value = false;
 
     // saved waypoint for resuming mission
-    uint8_t _saved_wp;
+    uint8_t _saved_wp = 0;
     
     // number of times we've lost GPS
-    uint8_t _gps_loss_count;
+    uint8_t _gps_loss_count = 0;
 
     // number of times we've lost data link
-    uint8_t _comms_loss_count;
+    uint8_t _comms_loss_count = 0;
 
     // last comms loss time
-    uint32_t _last_comms_loss_ms;
+    uint32_t _last_comms_loss_ms = 0;
 
     // last GPS loss time
-    uint32_t _last_gps_loss_ms;
+    uint32_t _last_gps_loss_ms = 0;
 
     // have the failsafe values been setup?
     bool _failsafe_setup:1;
 
     Location _first_location;
-    bool _have_first_location;
-    uint32_t _term_range_notice_ms;
+    bool _have_first_location = false;
+    uint32_t _term_range_notice_ms = 0;
 
     bool check_altlimit(void);
 
