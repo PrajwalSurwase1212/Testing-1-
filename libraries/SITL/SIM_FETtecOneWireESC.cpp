@@ -212,7 +212,6 @@ void FETtecOneWireESC::bootloader_handle_config_message(FETtecOneWireESC::ESC &e
     case ConfigMessageType::SET_LED_TMP_COLOR:
         break;
     }
-    return;
     AP_HAL::panic("Unhandled config message in bootloader (%u)",
                   (unsigned)u.config_message_header.request_type);
 }

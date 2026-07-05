@@ -65,8 +65,8 @@ int SHT3x::rdwr(I2C::i2c_rdwr_ioctl_data *&data)
                 data->msgs[1].buf[i] = i;
             }
             return 0;
-        AP_HAL::panic("Bad command 0x%02x", (uint8_t)command);
         }
+        AP_HAL::panic("Bad command 0x%02x", (uint8_t)command);
     }
 
     if (data->nmsgs == 1 && data->msgs[0].flags == I2C_M_RD) {

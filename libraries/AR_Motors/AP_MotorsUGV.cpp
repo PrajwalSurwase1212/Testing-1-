@@ -431,7 +431,7 @@ bool AP_MotorsUGV::output_test_pct(motor_test_order motor_seq, float pct)
 bool AP_MotorsUGV::output_test_pwm(motor_test_order motor_seq, float pwm)
 {
     // check if the motor_seq is valid
-    if (motor_seq > MOTOR_TEST_THROTTLE_RIGHT) {
+    if (motor_seq >= MOTOR_TEST_LAST) {
         return false;
     }
     switch (motor_seq) {

@@ -52,7 +52,7 @@ void MCP9600::update(const class Aircraft &aircraft)
 
     // dont update if we already have data ready to read (CHECKME: fidelity)
     uint8_t status = 0;
-    get_reg_value(MCP9600DevReg::SENSOR_STATUS, config);
+    get_reg_value(MCP9600DevReg::SENSOR_STATUS, status);
 
     if (status & (uint8_t)MCP9600StatusBits::TH_UPDATE) {
         return;
