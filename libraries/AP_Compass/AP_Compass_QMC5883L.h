@@ -67,7 +67,7 @@ private:
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
     enum Rotation _rotation;
-    uint8_t _instance;
+    uint8_t _instance = 0;
     bool _force_external:1;
 };
 

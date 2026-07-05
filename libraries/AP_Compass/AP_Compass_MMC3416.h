@@ -48,14 +48,14 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> dev;
 
-    enum {
+    enum MMCState {
         STATE_REFILL1,
         STATE_REFILL1_WAIT,
         STATE_MEASURE_WAIT1,
         STATE_REFILL2_WAIT,
         STATE_MEASURE_WAIT2,
         STATE_MEASURE_WAIT3,
-    } state;
+    } state = STATE_REFILL1;
     
     /**
      * Device periodic callback to read data from the sensor.
@@ -64,15 +64,15 @@ private:
     void timer();
     void accumulate_field(Vector3f &field);
 
-    uint8_t compass_instance;
+    uint8_t compass_instance = 0;
     bool force_external;
     Vector3f offset;
-    uint16_t measure_count;
-    bool have_initial_offset;
-    uint32_t refill_start_ms;
-    uint32_t last_sample_ms;
+    uint16_t measure_count = 0;
+    bool have_initial_offset = false;
+    uint32_t refill_start_ms = 0;
+    uint32_t last_sample_ms = 0;
     
-    uint16_t data0[3];
+    uint16_t data0[3]{};
     
     enum Rotation rotation;
 };

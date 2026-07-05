@@ -42,20 +42,20 @@ private:
     bool _mag_set_range(uint8_t max_ga);
     bool _mag_set_samplerate(uint16_t frequency);
 
-    AP_HAL::DigitalSource *_drdy_pin_m;
+    AP_HAL::DigitalSource *_drdy_pin_m = nullptr;
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
-    float _mag_range_scale;
-    int16_t _mag_x;
-    int16_t _mag_y;
-    int16_t _mag_z;
+    float _mag_range_scale = 0.0f;
+    int16_t _mag_x = 0;
+    int16_t _mag_y = 0;
+    int16_t _mag_z = 0;
 
-    uint8_t _compass_instance;
-    bool _initialised;
+    uint8_t _compass_instance = 0;
+    bool _initialised = false;
 
-    uint8_t _mag_range_ga;
-    uint8_t _mag_samplerate;
-    uint8_t _reg7_expected;
+    uint8_t _mag_range_ga = 0;
+    uint8_t _mag_samplerate = 0;
+    uint8_t _reg7_expected = 0;
 };
 
 #endif  // AP_COMPASS_LSM303D_ENABLED

@@ -55,7 +55,7 @@ private:
         STATE_RESET_MEASURE,
         STATE_RESET_WAIT,
         STATE_MEASURE,
-    } state;
+    } state = MMCState::STATE_SET;
     
     /**
      * Device periodic callback to read data from the sensor.
@@ -64,15 +64,15 @@ private:
     void timer();
     void accumulate_field(Vector3f &field);
 
-    uint8_t compass_instance;
+    uint8_t compass_instance = 0;
     bool force_external;
     Vector3f offset;
-    uint16_t measure_count;
+    uint16_t measure_count = 0;
     bool have_initial_offset;
-    uint32_t refill_start_ms;
-    uint32_t last_sample_ms;
+    uint32_t refill_start_ms = 0;
+    uint32_t last_sample_ms = 0;
     
-    uint8_t data0[6];
+    uint8_t data0[6]{};
     
     enum Rotation rotation;
 };

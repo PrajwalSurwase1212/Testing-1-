@@ -41,12 +41,12 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
 
-    int32_t _mag_x;
-    int32_t _mag_y;
-    int32_t _mag_z;
+    int32_t _mag_x = 0;
+    int32_t _mag_y = 0;
+    int32_t _mag_z = 0;
 
-    uint8_t _compass_instance;
-    bool _initialised;
+    uint8_t _compass_instance = 0;
+    bool _initialised = false;
 };
 
 #endif  // AP_COMPASS_MAG3110_ENABLED

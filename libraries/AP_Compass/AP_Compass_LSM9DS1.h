@@ -39,8 +39,8 @@ private:
     void _dump_registers();
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
-    uint8_t _compass_instance;
-    float _scaling;
+    uint8_t _compass_instance = 0;
+    float _scaling = 1.0f;
     enum Rotation _rotation;
 
     struct PACKED sample_regs {
