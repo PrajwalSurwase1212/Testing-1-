@@ -224,10 +224,14 @@ void AP_OpenDroneID::update()
 
     const bool armed = hal.util->get_soft_armed();
     if (armed && !_was_armed) {
-        // use arm location as takeoff location
-        AP::ahrs().get_location(_takeoff_location);
+        // use arm location as takeoff location; if unavailable, retry on
+        // a subsequent call by not yet marking ourselves as armed
+        if (AP::ahrs().get_location(_takeoff_location)) {
+            _was_armed = true;
+        }
+    } else {
+        _was_armed = armed;
     }
-    _was_armed = armed;
 
     send_dynamic_out();
     send_static_out();

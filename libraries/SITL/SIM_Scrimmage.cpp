@@ -65,7 +65,9 @@ void Scrimmage::send_servos(const struct sitl_input &input)
     for (int i = 0; i < MAX_NUM_SERVOS; i++) {
         pkt.servos[i] = input.servos[i];
     }
-    send_sock.sendto(&pkt, sizeof(servo_packet), fdm_address, fdm_port_out);
+    if (send_sock.sendto(&pkt, sizeof(servo_packet), fdm_address, fdm_port_out) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 /*

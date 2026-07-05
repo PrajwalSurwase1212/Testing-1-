@@ -314,7 +314,9 @@ void AP_OSD::init()
         }
     }
     if (_backend_count > 0) {
-        hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&AP_OSD::osd_thread, void), "OSD", 1280, AP_HAL::Scheduler::PRIORITY_IO, 1);
+        if (!hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&AP_OSD::osd_thread, void), "OSD", 1280, AP_HAL::Scheduler::PRIORITY_IO, 1)) {
+            AP_HAL::panic("Failed to create OSD thread");
+        }
     }
 }
 

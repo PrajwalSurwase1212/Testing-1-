@@ -556,7 +556,11 @@ void SITL_State::multicast_state_send(void)
         multicast_state_open();
     }
     const auto &sfdm = _sitl->state;
-    send(mc_out_fd, (void*)&sfdm, sizeof(sfdm), 0);
+    if (send(mc_out_fd, (void*)&sfdm, sizeof(sfdm), 0) < 0) {
+        if (errno != EAGAIN && errno != EWOULDBLOCK) {
+            ::fprintf(stderr, "multicast send failed - %s\n", strerror(errno));
+        }
+    }
 
     check_servo_input();
 }

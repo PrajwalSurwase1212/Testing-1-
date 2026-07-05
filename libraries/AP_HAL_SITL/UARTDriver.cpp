@@ -388,9 +388,15 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
             fprintf(stderr, "accept() error - %s", strerror(errno));
             exit(1);
         }
-        setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-        setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
-        fcntl(_fd, F_SETFD, FD_CLOEXEC);
+        if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
+            fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
+        }
+        if (setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) == -1) {
+            fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
+        }
+        if (fcntl(_fd, F_SETFD, FD_CLOEXEC) == -1) {
+            fprintf(stderr, "fcntl failed on setting FD_CLOEXEC - %s\n", strerror(errno));
+        }
         _connected = true;
         fprintf(stdout, "Connection on serial port %u\n", (unsigned)ntohs(_listen_sockaddr.sin_port));
     }
@@ -438,7 +444,9 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
         }
 
         /* we want to be able to re-use ports quickly */
-        setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+        if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
+            fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
+        }
 
         ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
         if (ret == 0) {
@@ -459,9 +467,15 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
         exit(1);
     }
 
-    setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-    setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
-    fcntl(_fd, F_SETFD, FD_CLOEXEC);
+    if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
+        fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
+    }
+    if (setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) == -1) {
+        fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
+    }
+    if (fcntl(_fd, F_SETFD, FD_CLOEXEC) == -1) {
+        fprintf(stderr, "fcntl failed on setting FD_CLOEXEC - %s\n", strerror(errno));
+    }
     _connected = true;
     fprintf(stdout, "New remote connection on serial port %u, p %u at %d\n", _portNumber, (unsigned) ntohs(sockaddr.sin_port), AP_HAL::millis());
 }
@@ -703,7 +717,9 @@ bool UARTDriver::_select_check(int fd)
 void UARTDriver::_set_nonblocking(int fd)
 {
     unsigned v = fcntl(fd, F_GETFL, 0);
-    fcntl(fd, F_SETFL, v | O_NONBLOCK);
+    if (fcntl(fd, F_SETFL, v | O_NONBLOCK) == -1) {
+        fprintf(stderr, "fcntl failed on setting O_NONBLOCK - %s\n", strerror(errno));
+    }
 }
 
 bool UARTDriver::set_unbuffered_writes(bool on) {

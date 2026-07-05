@@ -762,9 +762,10 @@ void AC_PrecLand::run_output_prediction()
 
     // store the landing target as a offset from current position. This is used in landing retry
     Vector2f last_target_loc_rel_origin_ne_m;
-    get_target_position_m(last_target_loc_rel_origin_ne_m);
-    _last_target_pos_rel_origin_NED.x = last_target_loc_rel_origin_ne_m.x;
-    _last_target_pos_rel_origin_NED.y = last_target_loc_rel_origin_ne_m.y;
+    if (get_target_position_m(last_target_loc_rel_origin_ne_m)) {
+        _last_target_pos_rel_origin_NED.x = last_target_loc_rel_origin_ne_m.x;
+        _last_target_pos_rel_origin_NED.y = last_target_loc_rel_origin_ne_m.y;
+    }
 
     // record the last time there was a target output
     _last_valid_target_ms = AP_HAL::millis();

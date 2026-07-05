@@ -227,7 +227,9 @@ void ShipSim::send_report(void)
             &heartbeat);
         uint8_t buf[300];
         const uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
-        mav_socket.send(buf, len);
+        if (mav_socket.send(buf, len) < 0) {
+            // safe to ignore: telemetry drop should not interrupt execution
+        }
     }
 
 
@@ -274,7 +276,9 @@ void ShipSim::send_report(void)
         uint8_t buf[300];
         const uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
         if (len > 0) {
-            mav_socket.send(buf, len);
+            if (mav_socket.send(buf, len) < 0) {
+                // safe to ignore: telemetry drop should not interrupt execution
+            }
         }
     }
 
@@ -298,7 +302,9 @@ void ShipSim::send_report(void)
         uint8_t buf[300];
         const uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
         if (len > 0) {
-            mav_socket.send(buf, len);
+            if (mav_socket.send(buf, len) < 0) {
+                // safe to ignore: telemetry drop should not interrupt execution
+            }
         }
     }
 }

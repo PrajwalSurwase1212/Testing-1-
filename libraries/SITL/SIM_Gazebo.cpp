@@ -69,7 +69,9 @@ void Gazebo::send_servos(const struct sitl_input &input)
     {
       pkt.motor_speed[i] = (input.servos[i]-1000) / 1000.0f;
     }
-    socket_sitl.sendto(&pkt, sizeof(pkt), _gazebo_address, _gazebo_port);
+    if (socket_sitl.sendto(&pkt, sizeof(pkt), _gazebo_address, _gazebo_port) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 /*

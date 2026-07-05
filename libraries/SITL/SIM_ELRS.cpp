@@ -73,7 +73,9 @@ void ELRS::update()
         uint8_t buf[send_bytes];
         const uint32_t len = mavlinkInputBuffer.read(buf, send_bytes);
         if (len > 0) {
-            sock->send(buf, len);
+            if (sock->send(buf, len) < 0) {
+                // safe to ignore: telemetry drop should not interrupt execution
+            }
         }
     }
 

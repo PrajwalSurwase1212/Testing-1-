@@ -82,7 +82,9 @@ AP_KDECAN_Driver::AP_KDECAN_Driver() : CANSensor("KDECAN")
     register_driver(AP_CAN::Protocol::KDECAN);
 
     // start thread for receiving and sending CAN frames. Tests show we use about 640 bytes of stack
-    hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&AP_KDECAN_Driver::loop, void), "kdecan", 2048, AP_HAL::Scheduler::PRIORITY_CAN, 0);
+    if (!hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&AP_KDECAN_Driver::loop, void), "kdecan", 2048, AP_HAL::Scheduler::PRIORITY_CAN, 0)) {
+        AP_HAL::panic("Failed to create KDECAN thread");
+    }
 }
 
 // parse inbound frames

@@ -70,7 +70,9 @@ void WebotsPython::send_servos(const struct sitl_input &input)
     for (unsigned i = 0; i < 16; ++i){
       pkt.motor_speed[i] = (input.servos[i]-1000) / 1000.0f;
     }
-    socket_sitl.sendto(&pkt, sizeof(pkt), _webots_address, _webots_port);
+    if (socket_sitl.sendto(&pkt, sizeof(pkt), _webots_address, _webots_port) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 /*

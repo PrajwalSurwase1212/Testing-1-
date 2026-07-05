@@ -464,6 +464,11 @@ void Tiltrotor::tilt_compensate_angle(float *thrust, uint8_t num_motors, float n
         }
     }
 
+    if (tilt_count == 0) {
+        // no motors are currently tilting; nothing further to compensate
+        return;
+    }
+
     float largest_tilted = 0;
     const float sin_tilt = sinf(radians(current_tilt*90));
     // yaw_gain relates the amount of differential thrust we get from

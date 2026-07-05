@@ -94,7 +94,9 @@ void Storage::_storage_open(void)
             return;
         }
 
-        fcntl(log_fd, F_SETFD, FD_CLOEXEC);
+        if (fcntl(log_fd, F_SETFD, FD_CLOEXEC) == -1) {
+            hal.console->printf("fcntl failed to set FD_CLOEXEC for " HAL_STORAGE_FILE "\n");
+        }
 
         int ret = read(log_fd, _buffer, HAL_STORAGE_SIZE);
         if (ret < 0) {

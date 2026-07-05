@@ -82,7 +82,9 @@ void last_letter::send_servos(const struct sitl_input &input)
 {
     servo_packet pkt;
     memcpy(pkt.servos, input.servos, sizeof(pkt.servos));
-    sock.sendto(&pkt, sizeof(pkt), "127.0.0.1", fdm_port);
+    if (sock.sendto(&pkt, sizeof(pkt), "127.0.0.1", fdm_port) < 0) {
+        // safe to ignore: SITL socket output failures shouldn't halt the simulator
+    }
 }
 
 /*

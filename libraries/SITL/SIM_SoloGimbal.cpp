@@ -105,11 +105,13 @@ void SoloGimbal::param_send(const struct gimbal_param *p)
     uint8_t msgbuf[len];
     len = mavlink_msg_to_send_buffer(msgbuf, &msg);
     if (len > 0) {
-        mav_socket.send(msgbuf, len);
+        if (mav_socket.send(msgbuf, len) < 0) {
+            // safe to ignore: telemetry drop should not interrupt execution
+        }
     }
 }
 
-    
+
 /*
   send a report to the vehicle control code over MAVLink
 */
@@ -227,7 +229,9 @@ void SoloGimbal::send_report(void)
                                                   &mavlink.status,
                                                   &msg, &heartbeat);
 
-        mav_socket.send(&msg.magic, len);
+        if (mav_socket.send(&msg.magic, len) < 0) {
+            // safe to ignore: telemetry drop should not interrupt execution
+        }
         last_heartbeat_ms = now;
     }
 
