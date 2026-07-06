@@ -170,6 +170,7 @@ bool JSBSim::create_templates(void)
             home.lng*1.0e-7,
             degrees(y));
     fclose(f);
+    free(jsbsim_reset);
 
     created_templates = true;
     return true;

@@ -71,6 +71,7 @@ AIS_Replay::AIS_Replay() : SerialDevice::SerialDevice()
     IGNORE_RETURN(asprintf(&file_path, AP_BUILD_ROOT "/libraries/SITL/SIM_AIS_data.txt"));
 
     file = fopen(file_path,"r");
+    free(file_path);
 
     if (file == nullptr) {
         AP_HAL::panic("AIS could not open data file");

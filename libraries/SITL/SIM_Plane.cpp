@@ -132,6 +132,7 @@ void Plane::load_coeffs(const char *model_json)
     if (fname == nullptr) {
         AP_HAL::panic("%s failed to load", model_json);
     }
+    free(fname);
     AP_JSON::value *obj = AP_JSON::load_json(model_json);
     if (obj == nullptr) {
         AP_HAL::panic("%s failed to load", model_json);
