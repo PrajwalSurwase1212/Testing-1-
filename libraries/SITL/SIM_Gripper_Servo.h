@@ -48,15 +48,15 @@ private:
     AP_Int16 release_pwm;           // PWM value sent to Gripper to release the cargo
     AP_Int8 reverse;                // reverse closing direction
     const uint32_t report_interval = 1000000; // microseconds
-    uint64_t last_report_us;
+    uint64_t last_report_us = 0;
     bool jaw_open = false;
     const float gap = 30; // mm
-    float altitude;
-    float position; // percentage
+    float altitude = 0.0f;
+    float position = 0.0f; // percentage
     float position_slew_rate = 35; // percentage
     float reported_position = -1; // unlikely
 
-    uint64_t last_update_us;
+    uint64_t last_update_us = 0;
 
     bool should_report() const;
 

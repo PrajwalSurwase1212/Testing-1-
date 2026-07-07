@@ -31,18 +31,18 @@ private:
     static AP_RCProtocol_DroneCAN* get_dronecan_backend(AP_DroneCAN* ap_dronecan, uint8_t node_id);
 
     struct {
-        uint8_t quality;
+        uint8_t quality = 0;
         union {
-            uint16_t status;
+            uint16_t status = 0;
             struct {
                 uint8_t QUALITY_VALID : 1;
                 uint8_t FAILSAFE : 1;
             } bits;
         };
-        uint8_t num_channels;
-        uint16_t channels[MAX_RCIN_CHANNELS];
+        uint8_t num_channels = 0;
+        uint16_t channels[MAX_RCIN_CHANNELS] {};
 
-        uint32_t last_sample_time_ms;
+        uint32_t last_sample_time_ms = 0;
         HAL_Semaphore sem;
     } rcin;
 
@@ -56,7 +56,7 @@ private:
         HAL_Semaphore sem;
     } registry;
 
-    uint32_t last_receive_ms;
+    uint32_t last_receive_ms = 0;
 };
 
 

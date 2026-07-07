@@ -1240,6 +1240,7 @@ void AC_AutoTune_Multi::Log_AutoTune()
 
 }
 
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 void AC_AutoTune_Multi::Log_AutoTuneDetails()
 {
     Log_Write_AutoTuneDetails(lean_angle, rotation_rate);

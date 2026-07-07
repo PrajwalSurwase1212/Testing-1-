@@ -74,7 +74,7 @@ private:
             uint16_t ManufacturerID;
             uint16_t Die_ID;
         } byname;
-    } registers;
+    } registers {};
 
     // 256 2-byte registers:
     assert_storage_size<Registers::ByName, 512> assert_storage_size_registers_reg;

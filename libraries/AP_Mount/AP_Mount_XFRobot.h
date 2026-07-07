@@ -140,7 +140,7 @@ private:
     void check_recording_timeout();
 
     // internal variables
-    uint32_t last_send_ms;     // system time of last do_mount_control sent to gimbal
+    uint32_t last_send_ms = 0;     // system time of last do_mount_control sent to gimbal
 
     //
     // packet structures
@@ -258,15 +258,15 @@ private:
     union {
         GCUSimpleReply simple_reply;                        // simple reply
         uint8_t bytes[AP_MOUNT_XFROBOT_RECV_LENGTH_MAX];    // raw bytes
-    } msg_buff;
-    uint8_t msg_buff_len;                                   // number of bytes held in msg_buff.bytes
+    } msg_buff {};
+    uint8_t msg_buff_len = 0;                               // number of bytes held in msg_buff.bytes
 
     struct {
         ParseState state;           // state of incoming message processing
         uint8_t len_expected;       // expected number of data bytes we expect to receive
         uint16_t crc;               // latest message's crc
         uint32_t last_received_ms;  // system time of last message received and successfully parsed
-    } parser;
+    } parser {};
 
     // latest attitude
     struct {
@@ -274,7 +274,7 @@ private:
         float pitch_ef_deg;     // earth-frame pitch angle in degrees
         float yaw_bf_deg;       // body-frame yaw angle in degrees
         uint32_t update_ms;     // system time of last update
-    } attitude_latest;
+    } attitude_latest {};
 
     // local variables
     bool got_firmware_version = false;  // true once hardware and firmware version has been received
@@ -282,6 +282,6 @@ private:
         bool recording;         // true if currently recording video
         bool request_start;     // true if requested start recording and request_ms > 0, false if requested stop recording
         uint32_t request_ms;    // system time of request to start recording, 0 if not requested
-    } recording;
+    } recording {};
 };
 #endif // HAL_MOUNT_XFROBOT_ENABLED

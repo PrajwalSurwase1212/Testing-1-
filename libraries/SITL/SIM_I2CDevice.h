@@ -28,7 +28,7 @@ protected:
 
     void add_register(const char *name, uint8_t reg, RegMode mode);
 
-    const char *regname[256];
+    const char *regname[256] {};
     Bitmask<256> writable_registers;
     Bitmask<256> readable_registers;
 
@@ -36,7 +36,7 @@ protected:
     bool get_debug() const { return debug; }
 
 private:
-    bool debug;
+    bool debug = false;
 };
 
 class I2CRegisters_ConfigurableLength : public I2CRegisters {

@@ -122,7 +122,7 @@ private:
     } _flags_heli;
 
     // true in inverted flight mode
-    bool _inverted_flight;
+    bool _inverted_flight = false;
 
     // Integrate vehicle rate into _att_error_rot_vec_rad
     void integrate_bf_rate_error_to_angle_errors();
@@ -140,11 +140,11 @@ private:
     //
     
     // pass through for roll and pitch
-    float _passthrough_roll_norm;
-    float _passthrough_pitch_norm;
+    float _passthrough_roll_norm = 0.0f;
+    float _passthrough_pitch_norm = 0.0f;
 
     // pass through for yaw if tail_passthrough is set
-    float _passthrough_yaw_norm;
+    float _passthrough_yaw_norm = 0.0f;
 
     // internal variables
     float _hover_roll_trim_scalar = 0;              // scalar used to suppress Hover Roll Trim

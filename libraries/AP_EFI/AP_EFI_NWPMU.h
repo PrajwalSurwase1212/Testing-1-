@@ -36,7 +36,7 @@ public:
 private:
     void handle_frame(AP_HAL::CANFrame &frame) override;
 
-    bool _emitted_version;
+    bool _emitted_version = false;
 
     enum class NWPMU_ID {
         GCU    = 0x0006C000, // output voltage and current consumption

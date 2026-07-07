@@ -28,9 +28,9 @@ private:
     void irq_handler(uint8_t pin, bool pin_state, uint32_t timestamp);
 
     struct IrqState {
-        uint32_t pulse_count;
-        uint32_t total_us;
-        uint32_t last_pulse_us;
+        uint32_t pulse_count = 0;
+        uint32_t total_us = 0;
+        uint32_t last_pulse_us = 0;
     } irq_state;
 
     int8_t last_pin = -1;

@@ -261,39 +261,39 @@ private:
     // detected protocol version
     ProtocolVersion _protocol_version = ProtocolVersion::UNKNOWN;
     // uart for the device
-    AP_HAL::UARTDriver *uart;
+    AP_HAL::UARTDriver *uart = nullptr;
     // camera state
     State _state = State::INITIALIZING;
     // time since last OSD cycle
-    uint32_t _last_osd_update_ms;
+    uint32_t _last_osd_update_ms = 0;
     // start time of the current button press or boot sequence
-    uint32_t _transition_start_ms;
+    uint32_t _transition_start_ms = 0;
     // timeout of the current button press or boot sequence
-    uint32_t _transition_timeout_ms;
+    uint32_t _transition_timeout_ms = 0;
     // record last state transition to avoid spurious transitions
-    Event _last_rc_event;
+    Event _last_rc_event = Event::NONE;
     State _last_state = State::INITIALIZING;
     OSDOption _last_osd_option = OSDOption::NONE;
-    int8_t _last_in_menu;
+    int8_t _last_in_menu = -1;
     VideoOption _last_video_recording = VideoOption::NOT_RECORDING;
     // OSD state machine: button has been pressed
     ButtonState _button_pressed = ButtonState::NONE;
     // OSD state machine: waiting for a response
-    bool _waiting_device_response;
+    bool _waiting_device_response = false;
     // OSD option from RC switches
-    OSDOption _osd_option;
+    OSDOption _osd_option = OSDOption::NONE;
     // OSD state mechine: in the menu, value indicates depth
-    int8_t _in_menu;
+    int8_t _in_menu = -1;
     // the starting value of _in_menu
-    int8_t _menu_enter_level;
+    int8_t _menu_enter_level = -1;
     // OSD state machine: current selection in the top menu
-    int8_t _top_menu_pos;
+    int8_t _top_menu_pos = -1;
     // OSD state machine: current selection in the sub menu
-    uint8_t _sub_menu_pos;
+    uint8_t _sub_menu_pos = 0;
     // lengths of the sub-menus
     static uint8_t _sub_menu_lengths[RUNCAM_NUM_SUB_MENUS];
     // shared inbound scratch space
-    uint8_t _recv_buf[RUNCAM_MAX_PACKET_SIZE]; // all the response contexts use same recv buffer
+    uint8_t _recv_buf[RUNCAM_MAX_PACKET_SIZE] {}; // all the response contexts use same recv buffer
     // the runcam instance
     uint8_t _runcam_instance;
 
@@ -313,19 +313,19 @@ private:
                        uint32_t timeout, uint16_t maxRetryTimes, parse_func_t parserFunc);
         Request() { _command = Command::COMMAND_NONE; }
 
-        uint8_t *_recv_buf; // response data buffer
-        AP_RunCam *_device; // parent device
+        uint8_t *_recv_buf = nullptr; // response data buffer
+        AP_RunCam *_device = nullptr; // parent device
         Command _command; // command for which a response is expected
-        uint8_t _param; // parameter data, the protocol can take more but we never use it
+        uint8_t _param = 0; // parameter data, the protocol can take more but we never use it
 
     private:
-        uint8_t _recv_response_length;     // length of the data received
-        uint8_t _expected_response_length; // total length of response data wanted
-        uint32_t _timeout_ms; // how long to wait before giving up
-        uint32_t _request_timestamp_ms; // when the request was sent, if it's zero keep waiting for the response
-        uint16_t _max_retry_times; // number of times to resend the request
+        uint8_t _recv_response_length = 0;     // length of the data received
+        uint8_t _expected_response_length = 0; // total length of response data wanted
+        uint32_t _timeout_ms = 0; // how long to wait before giving up
+        uint32_t _request_timestamp_ms = 0; // when the request was sent, if it's zero keep waiting for the response
+        uint16_t _max_retry_times = 0; // number of times to resend the request
         parse_func_t _parser_func; // function to parse the response
-        RequestStatus _result; // whether we were successful or not
+        RequestStatus _result = RequestStatus::NONE; // whether we were successful or not
 
         // get the length of the expected response
         uint8_t get_expected_response_length(const Command command) const;

@@ -28,10 +28,10 @@ public:
 
 private:
 
-    GOPRO_CAPTURE_MODE gopro_capture_mode;
-    GOPRO_HEARTBEAT_STATUS gopro_status;
-    bool gopro_is_recording;
-    mavlink_channel_t heartbeat_channel;
+    GOPRO_CAPTURE_MODE gopro_capture_mode = GOPRO_CAPTURE_MODE_VIDEO;
+    GOPRO_HEARTBEAT_STATUS gopro_status = GOPRO_HEARTBEAT_STATUS_DISCONNECTED;
+    bool gopro_is_recording = false;
+    mavlink_channel_t heartbeat_channel = MAVLINK_COMM_0;
 };
 
 #endif // AP_CAMERA_SOLOGIMBAL_ENABLED

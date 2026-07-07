@@ -30,9 +30,9 @@ public:
 private:
 
     bool init();
-    bool init_done;
+    bool init_done = false;
 
-    uint32_t last_input_ms;
+    uint32_t last_input_ms = 0;
 
     void read_all_socket_input(void);
     SocketAPM_native rc_in{true};  // "true" means "datagram"
@@ -40,13 +40,13 @@ private:
     // these are the values that will be fed into the autopilot.
     // Packets we receive usually only contain a subset of channel
     // values to insert into here:
-    uint16_t pwm_input[16];
-    uint8_t num_channels;
+    uint16_t pwm_input[16] {};
+    uint8_t num_channels = 0;
 
     void set_default_pwm_input_values();
 
 #if AP_RCPROTOCOL_FDM_ENABLED
-    AP_RCProtocol_FDM *fdm_backend;
+    AP_RCProtocol_FDM *fdm_backend = nullptr;
 #endif
 };
 

@@ -59,9 +59,9 @@ public:
     }
 
 private:
-    struct log_RISH _RISH;
-    struct log_RISI _RISI[INS_MAX_INSTANCES];
-    float alpha;
+    struct log_RISH _RISH {};
+    struct log_RISI _RISI[INS_MAX_INSTANCES] {};
+    float alpha = 0.0f;
 
     // sensor positions
     Vector3f pos[INS_MAX_INSTANCES];
@@ -69,7 +69,7 @@ private:
     Vector3f gyro_filtered[INS_MAX_INSTANCES];
     Vector3f accel_filtered[INS_MAX_INSTANCES];
 
-    uint8_t _primary_gyro;
+    uint8_t _primary_gyro = 0;
 
     void update_filtered(uint8_t i);
 };

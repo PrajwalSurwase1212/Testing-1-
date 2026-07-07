@@ -451,7 +451,7 @@ private:
 
 #if AP_SDCARD_STORAGE_ENABLED
     // true if we failed to load SDCard storage on init
-    bool _failed_sdcard_storage;
+    bool _failed_sdcard_storage = false;
 #endif
 };
 

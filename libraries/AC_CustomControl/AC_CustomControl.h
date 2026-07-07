@@ -59,7 +59,7 @@ protected:
 
     // Intersampling period in seconds
     float _dt;
-    bool _custom_controller_active;
+    bool _custom_controller_active = false;
 
     // References to external libraries
     AP_AHRS_View*& _ahrs;

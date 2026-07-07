@@ -37,27 +37,27 @@ class SoaringController {
     Vector3f _prev_update_location;
 
     // store time thermal was entered for hysteresis
-    uint64_t _thermal_start_time_us;
+    uint64_t _thermal_start_time_us = 0;
 
     // store position thermal was entered as a backup check
     Vector3f _thermal_start_pos;
 
     // store time cruise was entered for hysteresis
-    uint64_t _cruise_start_time_us;
+    uint64_t _cruise_start_time_us = 0;
 
     // store time of last update
-    uint64_t _prev_update_time;
+    uint64_t _prev_update_time = 0;
 
     // store time of last NVT publish
 #if HAL_SOARING_NVF_EKF_ENABLED
-    uint32_t _prev_nvf_pub_time_ms;
+    uint32_t _prev_nvf_pub_time_ms = 0;
 #endif // #if HAL_SOARING_NVF_EKF_ENABLED
 
     bool _throttle_suppressed;
 
     float McCready(float alt);
 
-    float _thermalability;
+    float _thermalability = 0.0f;
 
     LowPassFilter<float> _position_x_filter{1/60.0};
     LowPassFilter<float> _position_y_filter{1/60.0};

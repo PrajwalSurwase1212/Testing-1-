@@ -14,8 +14,8 @@ public:
         AP_Float tau;
         AP_Int16 rmax_pos;
         AP_Int16 rmax_neg;
-        float FF, P, I, D, IMAX;
-        float flt_T, flt_E, flt_D;
+        float FF = 0.0f, P = 0.0f, I = 0.0f, D = 0.0f, IMAX = 0.0f;
+        float flt_T = 0.0f, flt_E = 0.0f, flt_D = 0.0f;
     };
 
     enum ATType {
@@ -62,7 +62,7 @@ public:
     void update(struct AP_PIDInfo &pid_info, float scaler, float angle_err_deg);
 
     // are we running?
-    bool running;
+    bool running = false;
 
     static const char *axis_string(ATType _type);
 
@@ -81,14 +81,14 @@ private:
     ATGains last_save;
 
     // last logging time
-    uint32_t last_log_ms;
+    uint32_t last_log_ms = 0;
 
     // the demanded/achieved state
     enum class ATState {IDLE,
                         DEMAND_POS,
                         DEMAND_NEG
                        };
-    ATState state;
+    ATState state = ATState::IDLE;
 
     // the demanded/achieved state
     enum class Action {NONE,
@@ -102,10 +102,10 @@ private:
                        LOWER_D,
                        LOWER_P
                       };
-    Action action;
+    Action action = Action::NONE;
 
     // when we entered the current state
-    uint32_t state_enter_ms;
+    uint32_t state_enter_ms = 0;
 
     void check_state_exit(uint32_t state_time_ms);
     void save_gains(void);
@@ -134,28 +134,28 @@ private:
     LowPassFilterConstDtFloat target_filter;
 
     // separate slew limiters for P and D
-    float slew_limit_max, slew_limit_tau;
+    float slew_limit_max = 0.0f, slew_limit_tau = 0.0f;
     SlewLimiter slew_limiter_P{slew_limit_max, slew_limit_tau};
     SlewLimiter slew_limiter_D{slew_limit_max, slew_limit_tau};
 
-    float max_actuator;
-    float min_actuator;
-    float max_rate;
-    float min_rate;
-    float max_target;
-    float min_target;
-    float max_P;
-    float max_D;
-    float min_Dmod;
-    float max_Dmod;
-    float max_SRate_P;
-    float max_SRate_D;
-    float FF_single;
-    uint16_t ff_count;
-    float dt;
-    float D_limit;
-    float P_limit;
-    uint32_t D_set_ms;
-    uint32_t P_set_ms;
-    uint8_t done_count;
+    float max_actuator = 0.0f;
+    float min_actuator = 0.0f;
+    float max_rate = 0.0f;
+    float min_rate = 0.0f;
+    float max_target = 0.0f;
+    float min_target = 0.0f;
+    float max_P = 0.0f;
+    float max_D = 0.0f;
+    float min_Dmod = 0.0f;
+    float max_Dmod = 0.0f;
+    float max_SRate_P = 0.0f;
+    float max_SRate_D = 0.0f;
+    float FF_single = 0.0f;
+    uint16_t ff_count = 0;
+    float dt = 0.0f;
+    float D_limit = 0.0f;
+    float P_limit = 0.0f;
+    uint32_t D_set_ms = 0;
+    uint32_t P_set_ms = 0;
+    uint8_t done_count = 0;
 };

@@ -871,9 +871,9 @@ protected:
     AC_PID          _pid_accel_u_cm_to_kt;  // Z axis acceleration controller to convert target acceleration (cm/s²) to throttle output (0 to 1000)
 
     // internal variables
-    float       _dt_s;                     // time difference (in seconds) since the last loop time
-    uint32_t    _last_update_ne_ticks;     // ticks of last last update_NE_controller call
-    uint32_t    _last_update_u_ticks;      // ticks of last update_z_controller call
+    float       _dt_s = 0.0f;               // time difference (in seconds) since the last loop time
+    uint32_t    _last_update_ne_ticks = 0;  // ticks of last last update_NE_controller call
+    uint32_t    _last_update_u_ticks = 0;   // ticks of last update_z_controller call
     float       _vel_max_ne_ms;            // max horizontal speed in m/s used for kinematic shaping
     float       _vel_max_up_ms;            // max climb rate in m/s used for kinematic shaping
     float       _vel_max_down_ms;          // max descent rate in m/s used for kinematic shaping
@@ -887,10 +887,10 @@ protected:
     float       _ne_control_scale_factor = 1.0; // single loop scale factor for XY control
 
     // output from controller
-    float       _roll_target_rad;            // desired roll angle in radians calculated by position controller
-    float       _pitch_target_rad;           // desired roll pitch in radians calculated by position controller
-    float       _yaw_target_rad;             // desired yaw in radians calculated by position controller
-    float       _yaw_rate_target_rads;       // desired yaw rate in radians per second calculated by position controller
+    float       _roll_target_rad = 0.0f;       // desired roll angle in radians calculated by position controller
+    float       _pitch_target_rad = 0.0f;      // desired roll pitch in radians calculated by position controller
+    float       _yaw_target_rad = 0.0f;        // desired yaw in radians calculated by position controller
+    float       _yaw_rate_target_rads = 0.0f;  // desired yaw rate in radians per second calculated by position controller
 
     // position controller internal variables
     Vector3p    _pos_estimate_neu_m;
@@ -905,10 +905,10 @@ protected:
     Vector3f    _limit_vector_neu;         // the direction that the position controller is limited, zero when not limited
 
     // terrain handling variables
-    float    _pos_terrain_target_u_m;    // position terrain target in m relative to the EKF origin in NEU frame
-    float    _pos_terrain_u_m;           // position terrain in m from the EKF origin in NEU frame. This terrain moves towards _pos_terrain_target_u_m
-    float    _vel_terrain_u_ms;          // velocity terrain in NEU m/s calculated by pos_to_rate step. This terrain moves towards _vel_terrain_target
-    float    _accel_terrain_u_mss;       // acceleration terrain in NEU m/s²
+    float    _pos_terrain_target_u_m = 0.0f;    // position terrain target in m relative to the EKF origin in NEU frame
+    float    _pos_terrain_u_m = 0.0f;           // position terrain in m from the EKF origin in NEU frame. This terrain moves towards _pos_terrain_target_u_m
+    float    _vel_terrain_u_ms = 0.0f;          // velocity terrain in NEU m/s calculated by pos_to_rate step. This terrain moves towards _vel_terrain_target
+    float    _accel_terrain_u_mss = 0.0f;       // acceleration terrain in NEU m/s²
 
     // offset handling variables
     Vector3p    _pos_offset_target_neu_m;      // position offset target in m relative to the EKF origin in NEU frame
@@ -917,18 +917,18 @@ protected:
     Vector3f    _vel_offset_neu_ms;            // velocity offset in NEU m/s calculated by pos_to_rate step. This offset moves towards _vel_offset_target_neu_ms
     Vector3f    _accel_offset_target_neu_mss;  // acceleration offset target in m/s² in NEU frame
     Vector3f    _accel_offset_neu_mss;         // acceleration offset in NEU m/s²
-    uint32_t    _posvelaccel_offset_target_ne_ms;   // system time that pos, vel, accel targets were set (used to implement timeouts)
-    uint32_t    _posvelaccel_offset_target_u_ms;    // system time that pos, vel, accel targets were set (used to implement timeouts)
+    uint32_t    _posvelaccel_offset_target_ne_ms = 0;   // system time that pos, vel, accel targets were set (used to implement timeouts)
+    uint32_t    _posvelaccel_offset_target_u_ms = 0;    // system time that pos, vel, accel targets were set (used to implement timeouts)
 
     // ekf reset handling
-    uint32_t    _ekf_ne_reset_ms;       // system time of last recorded ekf ne position reset
-    uint32_t    _ekf_u_reset_ms;        // system time of last recorded ekf altitude reset
+    uint32_t    _ekf_ne_reset_ms = 0;   // system time of last recorded ekf ne position reset
+    uint32_t    _ekf_u_reset_ms = 0;    // system time of last recorded ekf altitude reset
 
     // high vibration handling
-    bool        _vibe_comp_enabled;     // true when high vibration compensation is on
+    bool        _vibe_comp_enabled = false;  // true when high vibration compensation is on
 
     // angle max override, if zero then use ANGLE_MAX parameter
-    float       _angle_max_override_rad;
+    float       _angle_max_override_rad = 0.0f;
 
     // return true if on a real vehicle or SITL with lock-step scheduling
     bool has_good_timing(void) const;

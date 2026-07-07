@@ -40,14 +40,14 @@ private:
     const uint8_t half_bit; // width of half a bit in microseconds
     const enum serial_config config;
 
-    uint8_t data_width;
-    uint8_t byte_width;
-    uint16_t stop_mask;
-    uint32_t timestamp_us;
-    uint32_t byte_timestamp_us;
+    uint8_t data_width = 0;
+    uint8_t byte_width = 0;
+    uint16_t stop_mask = 0;
+    uint32_t timestamp_us = 0;
+    uint32_t byte_timestamp_us = 0;
 
     struct {
         uint32_t byte;
         uint16_t bit_ofs;
-    } state;
+    } state {};
 };

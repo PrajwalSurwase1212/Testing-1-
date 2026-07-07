@@ -47,8 +47,8 @@ public:
     static const struct AP_Param::GroupInfo var_info[];
 
 protected:
-    float alpharad;
-    float betarad;
+    float alpharad = 0.0f;
+    float betarad = 0.0f;
 
     AP_Float balloon_burst_amsl;
     AP_Float balloon_rate;
@@ -192,10 +192,10 @@ protected:
         PRE_RELEASE = 3, // had been released by launch vehicle
         RELEASED = 4 // had been released by launch vehicle
     } carriage_state;
-    bool plane_air_release;    // true when plane has separated from the airborne launching platform
+    bool plane_air_release = false;    // true when plane has separated from the airborne launching platform
 
-    uint32_t last_drag_ms;
-    float sim_LD;
+    uint32_t last_drag_ms = 0;
+    float sim_LD = 0.0f;
 };
 
 } // namespace SITL

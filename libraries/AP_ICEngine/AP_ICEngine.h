@@ -86,12 +86,12 @@ private:
     void set_ignition(bool on);
     void set_starter(bool on);
 
-    enum ICE_State state;
+    enum ICE_State state = ICE_OFF;
 
 #if AP_RPM_ENABLED
     // filter for RPM value
     LowPassFilterConstDtFloat _rpm_filter;
-    float filtered_rpm_value;
+    float filtered_rpm_value = 0.0f;
 #endif
 
     // enable library
@@ -113,7 +113,7 @@ private:
 
     // max crank retry
     AP_Int8 max_crank_retry;
-    int8_t crank_retry_ct;
+    int8_t crank_retry_ct = 0;
     
 #if AP_RPM_ENABLED
     // RPM above which engine is considered to be running
@@ -121,13 +121,13 @@ private:
 #endif
 
     // time when we started the starter
-    uint32_t starter_start_time_ms;
+    uint32_t starter_start_time_ms = 0;
 
     // time when we last ran the starter
-    uint32_t starter_last_run_ms;
+    uint32_t starter_last_run_ms = 0;
 
     // time when we last had an uncommanded engine stop
-    uint32_t last_uncommanded_stop_ms;
+    uint32_t last_uncommanded_stop_ms = 0;
 
     // throttle percentage for engine start
     AP_Int8 start_percent;
@@ -147,18 +147,18 @@ private:
 #endif
 
     // height when we enter ICE_START_HEIGHT_DELAY
-    float initial_height;
+    float initial_height = 0.0f;
 
     // height change required to start engine
-    float height_required;
+    float height_required = 0.0f;
 
     // we are waiting for valid height data
     bool height_pending:1;
 
-    bool allow_single_start_while_disarmed;
+    bool allow_single_start_while_disarmed = false;
 
     // idle governor
-    float idle_governor_integrator;
+    float idle_governor_integrator = 0.0f;
 
     enum class Options : uint16_t {
         DISABLE_IGNITION_RC_FAILSAFE = (1U << 0),
@@ -184,9 +184,9 @@ private:
     // redline rpm
     AP_Int32 redline_rpm;
     struct {
-        bool flag;
-        float governor_integrator;
-        float throttle_percentage;
+        bool flag = false;
+        float governor_integrator = 0.0f;
+        float throttle_percentage = 0.0f;
     } redline;
 #endif
 

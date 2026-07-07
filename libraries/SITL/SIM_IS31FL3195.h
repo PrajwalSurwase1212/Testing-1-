@@ -68,7 +68,7 @@ private:
 
     void reset_registers();
 
-    bool colour_update_register_poked;
+    bool colour_update_register_poked = false;
 
     SIM_RGBLED rgbled{"IS31FL3195"};
 };

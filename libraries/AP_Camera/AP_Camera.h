@@ -224,7 +224,7 @@ protected:
 #if AP_CAMERA_RUNCAM_ENABLED
     // var info pointer for RunCam
     static const struct AP_Param::GroupInfo *_backend_var_info[AP_CAMERA_MAX_INSTANCES];
-    uint8_t _runcam_instances;
+    uint8_t _runcam_instances = 0;
 #endif
 
 private:

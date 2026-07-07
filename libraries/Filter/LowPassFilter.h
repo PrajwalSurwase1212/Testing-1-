@@ -69,7 +69,7 @@ protected:
 
 private:
     T output;
-    bool initialised;
+    bool initialised = false;
 };
 
 // Low pass filter with constant time step

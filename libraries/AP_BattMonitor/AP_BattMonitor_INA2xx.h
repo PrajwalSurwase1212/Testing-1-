@@ -28,7 +28,7 @@ public:
     static const struct AP_Param::GroupInfo var_info[];
 
 private:
-    AP_HAL::I2CDevice *dev;
+    AP_HAL::I2CDevice *dev = nullptr;
 
     enum class DevType : uint8_t {
         UNKNOWN = 0,
@@ -39,7 +39,7 @@ private:
     };
 
     static const uint8_t i2c_probe_addresses[];
-    uint8_t i2c_probe_next;
+    uint8_t i2c_probe_next = 0;
 
     bool configure(DevType dtype);
     bool read_word16(const uint8_t reg, int16_t& data) const;
@@ -48,27 +48,27 @@ private:
     void timer(void);
     bool detect_device(void);
 
-    DevType dev_type;
-    uint32_t last_detect_ms;
+    DevType dev_type = DevType::UNKNOWN;
+    uint32_t last_detect_ms = 0;
 
     AP_Int8 i2c_bus;
     AP_Int8 i2c_address;
     AP_Float max_amps;
     AP_Float rShunt;
-    uint32_t failed_reads;
+    uint32_t failed_reads = 0;
 
     struct {
-        uint16_t count;
-        float volt_sum;
-        float current_sum;
+        uint16_t count = 0;
+        float volt_sum = 0.0f;
+        float current_sum = 0.0f;
         HAL_Semaphore sem;
     } accumulate;
-    float current_LSB;
-    float voltage_LSB;
+    float current_LSB = 0.0f;
+    float voltage_LSB = 0.0f;
 
-    float temperature;
+    float temperature = 0.0f;
 
-    bool has_temp;
+    bool has_temp = false;
 };
 
 #endif // AP_BATTERY_INA2XX_ENABLED

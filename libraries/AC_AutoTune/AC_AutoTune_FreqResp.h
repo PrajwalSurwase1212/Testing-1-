@@ -46,123 +46,123 @@ public:
 
 private:
     // time of the start of a new target value search.  keeps noise from prematurely starting the search of a new target value.
-    uint32_t new_tgt_time_ms;
+    uint32_t new_tgt_time_ms = 0;
 
     // flag for searching for a new target peak
     bool new_target = false;
 
     // maximum target value
-    float max_target;
+    float max_target = 0.0f;
 
     // time of maximum target value in current cycle
-    uint32_t max_tgt_time;
+    uint32_t max_tgt_time = 0;
 
     // counter for target value maximums
-    uint16_t max_target_cnt;
+    uint16_t max_target_cnt = 0;
 
     // holds previously determined maximum target value while current cycle is running
-    float temp_max_target;
+    float temp_max_target = 0.0f;
 
     // holds previously determined time of maximum target value while current cycle is running
-    uint32_t temp_max_tgt_time;
+    uint32_t temp_max_tgt_time = 0;
 
     // minimum target value
-    float min_target;
+    float min_target = 0.0f;
 
     // counter for target value minimums
-    uint16_t min_target_cnt;
+    uint16_t min_target_cnt = 0;
 
     // holds previously determined minimum target value while current cycle is running
-    float temp_min_target;
+    float temp_min_target = 0.0f;
 
     // maximum target value from previous cycle
-    float prev_target;
+    float prev_target = 0.0f;
 
     // maximum target response from previous cycle
-    float prev_tgt_resp;
+    float prev_tgt_resp = 0.0f;
 
     // holds target amplitude for gain calculation
-    float temp_tgt_ampl;
+    float temp_tgt_ampl = 0.0f;
 
     // time of the start of a new measured value search.  keeps noise from prematurely starting the search of a new measured value.
-    uint32_t new_meas_time_ms;
+    uint32_t new_meas_time_ms = 0;
 
     // flag for searching for a new measured peak
     bool new_meas = false;
 
     // maximum measured value
-    float max_meas;
+    float max_meas = 0.0f;
 
     // time of maximum measured value in current cycle
-    uint32_t max_meas_time;
+    uint32_t max_meas_time = 0;
 
     // counter for measured value maximums
-    uint16_t max_meas_cnt;
+    uint16_t max_meas_cnt = 0;
 
     // holds previously determined maximum measured value while current cycle is running
-    float temp_max_meas;
+    float temp_max_meas = 0.0f;
 
     // holds previously determined time of maximum measured value while current cycle is running
-    uint32_t temp_max_meas_time;
+    uint32_t temp_max_meas_time = 0;
 
     // minimum measured value
-    float min_meas;
+    float min_meas = 0.0f;
 
     // counter for measured value minimums
-    uint16_t min_meas_cnt;
+    uint16_t min_meas_cnt = 0;
 
     // holds previously determined minimum measured value while current cycle is running
-    float temp_min_meas;
+    float temp_min_meas = 0.0f;
 
     // maximum measured value from previous cycle
-    float prev_meas;
+    float prev_meas = 0.0f;
 
     // maximum measured response from previous cycle
-    float prev_meas_resp;
+    float prev_meas_resp = 0.0f;
 
     // holds measured amplitude for gain calculation
-    float temp_meas_ampl;
+    float temp_meas_ampl = 0.0f;
 
     // calculated target rate from angle data
-    float target_rate;
+    float target_rate = 0.0f;
 
     // calculated measured rate from angle data
-    float measured_rate;
+    float measured_rate = 0.0f;
 
     // holds start time of input to track length of time that input in running
-    uint32_t input_start_time_ms;
+    uint32_t input_start_time_ms = 0;
 
     // flag indicating when one oscillation cycle is complete
     bool cycle_complete = false;
 
     // number of dwell cycles to complete for dwell excitation
-    uint8_t dwell_cycles;
+    uint8_t dwell_cycles = 0;
 
     // current test frequency, gain, and phase
-    float curr_test_freq; 
-    float curr_test_gain;
-    float curr_test_phase;
+    float curr_test_freq = 0.0f;
+    float curr_test_gain = 0.0f;
+    float curr_test_phase = 0.0f;
 
     // maximum measured rate throughout excitation used for max accel calculation
-    float max_meas_rate;
+    float max_meas_rate = 0.0f;
 
     // maximum command associated with maximum rate used for max accel calculation
-    float max_command;
+    float max_command = 0.0f;
 
     // maximum acceleration in cdss determined during test
-    float max_accel;
+    float max_accel = 0.0f;
 
     // Input type for frequency response object
-    InputType excitation;
+    InputType excitation = InputType::DWELL;
 
     // Response type for frequency response object
-    ResponseType response;
+    ResponseType response = ResponseType::RATE;
 
     // sweep_peak_finding_data tracks the peak data
     struct sweep_peak_finding_data {
-        uint16_t count_m1;
-        float amplitude_m1;
-        float max_time_m1;
+        uint16_t count_m1 = 0;
+        float amplitude_m1 = 0.0f;
+        float max_time_m1 = 0.0f;
     };
 
     // Measured data for sweep peak
@@ -173,9 +173,9 @@ private:
 
     //store gain data in ring buffer
     struct peak_info {
-        uint16_t curr_count;
-        float amplitude;
-        uint32_t time_ms; 
+        uint16_t curr_count = 0;
+        float amplitude = 0.0f;
+        uint32_t time_ms = 0;
 
     };
 

@@ -79,11 +79,11 @@ private:
             int16_t MAPdot; // kPa/s
             int16_t dwell; // ms, scale 0.0666
         } data;
-        uint8_t pkt[400];
+        uint8_t pkt[400] {};
     };
-    uint16_t pkt_nbytes;
-    uint32_t last_request_ms;
-    uint32_t last_recv_ms;
+    uint16_t pkt_nbytes = 0;
+    uint32_t last_request_ms = 0;
+    uint32_t last_recv_ms = 0;
 };
 
 #endif  // AP_EFI_SERIAL_LUTAN_ENABLED

@@ -57,44 +57,44 @@ private:
     // serial port instance
     AP_HAL::UARTDriver *port;
 
-    // periodic refresh 
-    uint32_t last_request_ms;
-    uint32_t last_packet_ms;
-    uint32_t last_req_send_throttle_ms;
+    // periodic refresh
+    uint32_t last_request_ms = 0;
+    uint32_t last_packet_ms = 0;
+    uint32_t last_req_send_throttle_ms = 0;
 
     // raw bytes - max size
-    uint8_t raw_data[256];
+    uint8_t raw_data[256] {};
 
     // request and response data
-    uint8_t requested_code;
+    uint8_t requested_code = 0;
 
     // meta-data for a response
     struct {
         uint8_t quantity;
         uint8_t code;
         uint8_t checksum;
-    } res_data;
+    } res_data {};
 
     // TRUE - Request is sent; waiting for response
     // FALSE - Response is already received
-    bool waiting_response;
+    bool waiting_response = false;
 
     // Expected bytes from response
-    uint8_t expected_bytes;
+    uint8_t expected_bytes = 0;
 
     // Throttle values
-    uint16_t last_throttle;    
-    uint16_t throttle_to_hirth;
+    uint16_t last_throttle = 0;
+    uint16_t throttle_to_hirth = 0;
 
-    uint32_t last_fuel_integration_ms;
+    uint32_t last_fuel_integration_ms = 0;
 
     // custom status for Hirth
-    uint16_t sensor_status;
+    uint16_t sensor_status = 0;
 
-    uint16_t error_excess_temperature;
-    uint32_t crc_fail_cnt;
-    uint32_t uptime;
-    uint32_t ack_fail_cnt;
+    uint16_t error_excess_temperature = 0;
+    uint32_t crc_fail_cnt = 0;
+    uint32_t uptime = 0;
+    uint32_t ack_fail_cnt = 0;
 
     struct PACKED Record1 {
         uint8_t reserved1[2];

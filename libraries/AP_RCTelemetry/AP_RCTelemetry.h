@@ -107,29 +107,29 @@ protected:
 
     struct
     {
-        uint32_t last_poll_timer;
-        uint32_t avg_packet_counter;
-        uint32_t packet_timer[TELEM_TIME_SLOT_MAX];
-        uint32_t packet_weight[TELEM_TIME_SLOT_MAX];
-        uint32_t packet_min_period[TELEM_TIME_SLOT_MAX];
-        uint16_t avg_packet_rate;
-        uint16_t max_packet_rate;
+        uint32_t last_poll_timer = 0;
+        uint32_t avg_packet_counter = 0;
+        uint32_t packet_timer[TELEM_TIME_SLOT_MAX] {};
+        uint32_t packet_weight[TELEM_TIME_SLOT_MAX] {};
+        uint32_t packet_min_period[TELEM_TIME_SLOT_MAX] {};
+        uint16_t avg_packet_rate = 0;
+        uint16_t max_packet_rate = 0;
 #ifdef TELEM_DEBUG
-        uint8_t packet_rate[TELEM_TIME_SLOT_MAX];
+        uint8_t packet_rate[TELEM_TIME_SLOT_MAX] {};
 #endif
     } _scheduler;
 
     struct {
         HAL_Semaphore sem;
         ObjectBuffer<mavlink_statustext_t> queue{TELEM_PAYLOAD_STATUS_CAPACITY};
-        mavlink_statustext_t next;
-        bool available;
+        mavlink_statustext_t next {};
+        bool available = false;
     } _statustext;
 
 private:
-    uint32_t check_sensor_status_timer;
-    uint32_t check_ekf_status_timer;
-    uint32_t _disabled_scheduler_entries_bitmask;
+    uint32_t check_sensor_status_timer = 0;
+    uint32_t check_ekf_status_timer = 0;
+    uint32_t _disabled_scheduler_entries_bitmask = 0;
 
     // passthrough WFQ scheduler
     virtual void setup_wfq_scheduler() = 0;

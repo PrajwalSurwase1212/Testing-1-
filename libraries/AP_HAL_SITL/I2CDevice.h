@@ -95,7 +95,7 @@ public:
 protected:
     I2CBus &_bus;
     uint8_t _address;
-    uint8_t _retries;
+    uint8_t _retries = 0;
     bool _split_transfers = false;
 
     bool _transfer(const uint8_t *send, uint32_t send_len,

@@ -47,27 +47,27 @@ private:
 
 
     // message decoding related members
-    char _term[15];                         // buffer for the current term within the current sentence
-    uint8_t _term_offset;                   // offset within the _term buffer where the next character should be placed
-    uint8_t _term_number;                   // term index within the current sentence
-    float _speed;                           // speed in m/s
-    float _temp;                            // temp in deg c
-    uint8_t _checksum;                      // checksum accumulator
-    bool _term_is_checksum;                 // current term is the checksum
-    bool _sentence_done;                    // has the current term already been decoded
-    bool _sentence_valid;                   // is the decodeing valid so far
-    sentence_types _sentence_type;          // the sentence type currently being processed
+    char _term[15] {};                      // buffer for the current term within the current sentence
+    uint8_t _term_offset = 0;               // offset within the _term buffer where the next character should be placed
+    uint8_t _term_number = 0;               // term index within the current sentence
+    float _speed = 0.0f;                    // speed in m/s
+    float _temp = 0.0f;                     // temp in deg c
+    uint8_t _checksum = 0;                  // checksum accumulator
+    bool _term_is_checksum = false;         // current term is the checksum
+    bool _sentence_done = false;            // has the current term already been decoded
+    bool _sentence_valid = false;           // is the decodeing valid so far
+    sentence_types _sentence_type = TPYE_MTW; // the sentence type currently being processed
 
     // Store the temp ready for a temp request
-    float _temp_sum;
-    uint16_t _temp_count;
+    float _temp_sum = 0.0f;
+    uint16_t _temp_count = 0;
 
     // store last sent speed and temp as update rate is slow
-    float _last_temp;
-    float _last_speed;
+    float _last_temp = 0.0f;
+    float _last_speed = 0.0f;
 
     // time last message was received
-    uint32_t _last_update_ms;
+    uint32_t _last_update_ms = 0;
 };
 
 #endif  // AP_AIRSPEED_NMEA_ENABLED

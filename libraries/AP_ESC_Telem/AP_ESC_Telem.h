@@ -144,21 +144,21 @@ private:
 #endif
 
     // rpm data
-    volatile AP_ESC_Telem_Backend::RpmData _rpm_data[ESC_TELEM_MAX_ESCS];
+    volatile AP_ESC_Telem_Backend::RpmData _rpm_data[ESC_TELEM_MAX_ESCS] {};
     // telemetry data
-    volatile AP_ESC_Telem_Backend::TelemetryData _telem_data[ESC_TELEM_MAX_ESCS];
+    volatile AP_ESC_Telem_Backend::TelemetryData _telem_data[ESC_TELEM_MAX_ESCS] {};
 
-    uint32_t _last_telem_log_ms[ESC_TELEM_MAX_ESCS];
-    uint32_t _last_rpm_log_us[ESC_TELEM_MAX_ESCS];
-    uint8_t next_idx;
+    uint32_t _last_telem_log_ms[ESC_TELEM_MAX_ESCS] {};
+    uint32_t _last_rpm_log_us[ESC_TELEM_MAX_ESCS] {};
+    uint8_t next_idx = 0;
 
 #if AP_SCRIPTING_ENABLED
     // allow for scaling of RPMs via lua scripts
-    float rpm_scale_factor[ESC_TELEM_MAX_ESCS];
-    uint32_t rpm_scale_mask;
+    float rpm_scale_factor[ESC_TELEM_MAX_ESCS] {};
+    uint32_t rpm_scale_mask = 0;
 #endif
-    
-    bool _have_data;
+
+    bool _have_data = false;
 
     AP_Int8 mavlink_offset;
 

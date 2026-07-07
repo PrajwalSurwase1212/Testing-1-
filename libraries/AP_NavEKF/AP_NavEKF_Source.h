@@ -146,6 +146,6 @@ private:
 
     AP_Int16 _options;      // source options bitmask
 
-    uint8_t active_source_set; // index of active source set
-    bool _configured; // true once configured has returned true
+    uint8_t active_source_set = 0; // index of active source set
+    bool _configured = false; // true once configured has returned true
 };

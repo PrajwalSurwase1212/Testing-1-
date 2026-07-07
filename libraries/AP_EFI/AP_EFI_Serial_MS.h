@@ -42,14 +42,14 @@ private:
     uint32_t CRC32_compute_byte(uint32_t inCrc32, uint8_t data);
 
     // Serial Protocol Variables
-    uint32_t checksum;
-    uint8_t step;
-    uint8_t response_flag;
-    uint16_t message_counter;
-    uint32_t last_request_ms;
+    uint32_t checksum = 0;
+    uint8_t step = 0;
+    uint8_t response_flag = 0;
+    uint16_t message_counter = 0;
+    uint32_t last_request_ms = 0;
 
     // confirmed that last command was ok
-    bool last_command_confirmed;
+    bool last_command_confirmed = false;
 
     // Command Response Codes
     enum response_codes {

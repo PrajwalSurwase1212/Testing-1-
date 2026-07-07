@@ -90,7 +90,7 @@ class AP_DroneCAN_DNA_Server
         // bitmasks containing a status for each possible node ID (except 0 and > MAX_NODE_ID)
         Bitmask<128> node_registered; // have a registration for this node ID
 
-        StorageAccess *storage;
+        StorageAccess *storage = nullptr;
         HAL_Semaphore sem;
     };
 
@@ -102,10 +102,10 @@ class AP_DroneCAN_DNA_Server
         HEALTHY = 0
     };
 
-    uint32_t last_verification_request;
-    uint8_t curr_verifying_node;
-    uint8_t self_node_id;
-    bool nodeInfo_resp_rcvd;
+    uint32_t last_verification_request = 0;
+    uint8_t curr_verifying_node = 0;
+    uint8_t self_node_id = 0;
+    bool nodeInfo_resp_rcvd = false;
 
     // bitmasks containing a status for each possible node ID (except 0 and > MAX_NODE_ID)
     Bitmask<128> node_verified; // node seen and unique ID matches stored
@@ -113,18 +113,18 @@ class AP_DroneCAN_DNA_Server
     Bitmask<128> node_logged; // written to log fle
     Bitmask<128> node_healthy; // reports healthy
 
-    uint8_t last_logging_count;
+    uint8_t last_logging_count = 0;
 
     //Error State
-    enum ServerState server_state;
-    uint8_t fault_node_id;
-    char fault_node_name[15];
+    enum ServerState server_state = HEALTHY;
+    uint8_t fault_node_id = 0;
+    char fault_node_name[15] {};
 
 
     // dynamic node ID allocation state variables
-    uint8_t rcvd_unique_id[16];
-    uint8_t rcvd_unique_id_offset;
-    uint32_t last_alloc_msg_ms;
+    uint8_t rcvd_unique_id[16] {};
+    uint8_t rcvd_unique_id_offset = 0;
+    uint32_t last_alloc_msg_ms = 0;
 
     AP_DroneCAN &_ap_dronecan;
     CanardInterface &_canard_iface;

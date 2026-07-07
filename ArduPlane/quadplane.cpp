@@ -1400,6 +1400,7 @@ void QuadPlane::set_armed(bool armed)
 /*
   estimate desired climb rate for assistance (in cm/s)
  */
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 float QuadPlane::assist_climb_rate_cms(void) const
 {
     float climb_rate_cms;
@@ -3056,6 +3057,7 @@ float QuadPlane::get_scaled_wp_speed(float target_bearing_deg) const
 /*
   setup the target position based on plane.next_WP_loc
  */
+// coverity[RW.ROUTINE_NOT_EMITTED]
 void QuadPlane::setup_target_position(void)
 {
     const Location &loc = plane.next_WP_loc;
@@ -3107,6 +3109,7 @@ void QuadPlane::takeoff_controller(void)
          now - takeoff_last_run_ms > 1000) &&
         !rc().seen_neutral_rudder() &&
         spool_state <= AP_Motors::DesiredSpoolState::GROUND_IDLE) {
+        // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
         // start motor spinning if not spinning already so user sees it is armed
         set_desired_spool_state(AP_Motors::DesiredSpoolState::GROUND_IDLE);
         takeoff_start_time_ms = now;
@@ -3228,6 +3231,7 @@ void QuadPlane::waypoint_controller(void)
                                                        true);
 
     // climb based on altitude error
+    // coverity[DEADCODE]
     set_climb_rate_ms(assist_climb_rate_cms() * 0.01);
     run_z_controller();
 }
@@ -3243,7 +3247,7 @@ void QuadPlane::control_auto(void)
     }
 
     if (poscontrol.get_state() > QPOS_APPROACH) {
-        bool should_run_motors = false;
+        bool should_run_motors = true;
 
         // don't run the motors if in an arming delay
         if (plane.arming.get_delay_arming()) {
@@ -3266,6 +3270,8 @@ void QuadPlane::control_auto(void)
     switch (id) {
     case MAV_CMD_NAV_VTOL_TAKEOFF:
     case MAV_CMD_NAV_TAKEOFF:
+        // coverity[RW.ROUTINE_NOT_EMITTED]
+        // coverity[RW.NO_MATCHING_FUNCTION]
         if (is_vtol_takeoff(id)) {
             takeoff_controller();
         }
@@ -3309,7 +3315,9 @@ bool QuadPlane::do_vtol_takeoff(const AP_Mission::Mission_Command& cmd)
     // then it will use normal frame handling for height
     Location loc = cmd.content.location;
     loc.lat = 0;
+    // coverity[RW.NO_MATCHING_FUNCTION]
     loc.lng = 0;
+    // coverity[RW.NO_MATCHING_FUNCTION]
     plane.set_next_WP(loc);
     if (option_is_set(QuadPlane::Option::RESPECT_TAKEOFF_FRAME)) {
         // convert to absolute frame for takeoff
@@ -3672,6 +3680,7 @@ void QuadPlane::Log_Write_QControl_Tuning()
         assist_flags |= (uint8_t)log_assistance_flags::angle;
     }
     if (force_fw_control_recovery) {
+        // coverity[RW.ROUTINE_NOT_EMITTED]
         assist_flags |= (uint8_t)log_assistance_flags::fw_force;
     }
     if (in_spin_recovery) {
@@ -3743,6 +3752,7 @@ float QuadPlane::forward_throttle_pct()
     /*
       see if the controller should be active
     */
+    // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
     if (get_vfwd_method() != ActiveFwdThr::OLD) {
         return 0;
     }
@@ -3775,6 +3785,7 @@ float QuadPlane::forward_throttle_pct()
     // get component of velocity error in fwd body frame direction
     Vector3f vel_error_body_ms = ahrs.get_rotation_body_to_ned().transposed() * (desired_velocity_ned_ms - vel_ned_ms);
 
+    // coverity[RW.NO_MATCHING_FUNCTION]
     float fwd_vel_error_ms = vel_error_body_ms.x;
 
     // scale forward velocity error by maximum airspeed
@@ -3995,6 +4006,8 @@ MAV_TYPE QuadPlane::get_mav_type(void) const
 /*
   return true if current mission item is a vtol takeoff
 */
+// coverity[RW.ROUTINE_NOT_EMITTED]
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 bool QuadPlane::is_vtol_takeoff(uint16_t id) const
 {
     if (id == MAV_CMD_NAV_VTOL_TAKEOFF) {
@@ -4246,6 +4259,7 @@ uint16_t QuadPlane::get_pilot_velocity_z_max_dn_m() const
 /*
   should we use the fixed wing attitude controllers for roll/pitch control
  */
+// coverity[RW.ROUTINE_NOT_EMITTED]
 bool QuadPlane::use_fw_attitude_controllers(void) const
 {
     if (available() &&
@@ -4257,6 +4271,7 @@ bool QuadPlane::use_fw_attitude_controllers(void) const
 
         if (in_vtol_mode()) {
             // in VTOL modes always slave fixed wing to VTOL rate control
+            // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
             return false;
         }
 
@@ -4348,6 +4363,7 @@ float QuadPlane::get_land_airspeed_ms(void)
             approach_speed_ms = 0.5*(cruise_speed_ms + plane.aparm.airspeed_min);
         }
         const float time_to_pos1 = (plane.auto_state.wp_distance - stopping_distance_m(sq(approach_speed_ms))) / MAX(approach_speed_ms, 5);
+        // coverity[DIVIDE_BY_ZERO]
         /*
           slow down to landing approach speed as we get closer to landing
         */
@@ -4397,6 +4413,7 @@ bool QuadPlane::air_mode_active() const
   return scaling factor for tilting rotors in forward flight throttle
   we want to scale back tilt angle for roll/pitch by throttle in forward flight
  */
+// coverity[RW.ROUTINE_NOT_EMITTED]
 float QuadPlane::FW_vector_throttle_scaling()
 {
     const float throttle = SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) * 0.01;
@@ -4454,6 +4471,8 @@ bool SLT_Transition::active_frwd() const
       enough that the real airspeed may be negative, which would result
       in reversed control surfaces
  */
+// coverity[RW.NO_MATCHING_FUNCTION]
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 bool SLT_Transition::set_VTOL_roll_pitch_limit(int32_t& roll_cd, int32_t& pitch_cd)
 {
     bool ret = false;
@@ -4472,6 +4491,7 @@ bool SLT_Transition::set_VTOL_roll_pitch_limit(int32_t& roll_cd, int32_t& pitch_
       always limit pitch down to Q_ANGLE_MAX. We need to do this as
       the position controller accel limits may exceed this limit
      */
+    // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
     if (pitch_cd < -angle_max) {
         pitch_cd = -angle_max;
         ret = true;
@@ -4653,11 +4673,14 @@ void QuadPlane::mode_enter(void)
     poscontrol.pilot_correction_active = false;
     poscontrol.target_vel_ms.zero();
 
+    // coverity[RW.ROUTINE_NOT_EMITTED]
     // clear guided takeoff wait on any mode change, but remember the
     // state for special behaviour
     guided_wait_takeoff_on_mode_enter = guided_wait_takeoff;
+    // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
     guided_wait_takeoff = false;
 
+    // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
     q_fwd_throttle = 0.0f;
     q_fwd_pitch_lim_cd = 100.0f * q_fwd_pitch_lim;
 

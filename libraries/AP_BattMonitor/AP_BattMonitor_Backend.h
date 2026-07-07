@@ -119,12 +119,12 @@ protected:
 
 private:
     // resistance estimate
-    uint32_t    _resistance_timer_ms;    // system time of last resistance estimate update
-    float       _voltage_filt;           // filtered voltage
-    float       _current_max_amps;       // maximum current since start-up
-    float       _current_filt_amps;      // filtered current
-    float       _resistance_voltage_ref; // voltage used for maximum resistance calculation
-    float       _resistance_current_ref; // current used for maximum resistance calculation
+    uint32_t    _resistance_timer_ms = 0;    // system time of last resistance estimate update
+    float       _voltage_filt = 0.0f;           // filtered voltage
+    float       _current_max_amps = 0.0f;       // maximum current since start-up
+    float       _current_filt_amps = 0.0f;      // filtered current
+    float       _resistance_voltage_ref = 0.0f; // voltage used for maximum resistance calculation
+    float       _resistance_current_ref = 0.0f; // current used for maximum resistance calculation
 };
 
 #if AP_BATTERY_SCRIPTING_ENABLED

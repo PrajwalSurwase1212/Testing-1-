@@ -919,7 +919,8 @@ void Tailsitter_Transition::VTOL_update()
     restart();
 }
 
-// return true if we should show VTOL view
+// coverity[RW.ROUTINE_NOT_EMITTED]
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 bool Tailsitter_Transition::show_vtol_view() const
 {
     bool show_vtol = quadplane.in_vtol_mode();
@@ -949,6 +950,7 @@ void Tailsitter_Transition::set_FW_roll_pitch(int32_t& nav_pitch_cd, int32_t& na
         nav_roll_cd = 0;
 
     } else if (transition_state == State::DONE) {
+        // coverity[RW.ROUTINE_NOT_EMITTED]
         // still in FW, reset transition starting point
         vtol_transition_start_ms = now;
         vtol_transition_initial_pitch = constrain_float(plane.nav_pitch_cd,-8500,8500);

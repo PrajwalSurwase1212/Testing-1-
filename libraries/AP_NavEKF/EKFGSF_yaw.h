@@ -70,8 +70,8 @@ private:
     // Front, Right, Yaw frame of reference.
     Vector3F delta_angle;
     Vector3F delta_velocity;
-    ftype angle_dt;
-    ftype velocity_dt;
+    ftype angle_dt = 0;
+    ftype velocity_dt = 0;
     struct ahrs_struct {
         Matrix3F R;             // matrix that rotates a vector from body to earth frame
         Vector3F gyro_bias;     // gyro bias learned and used by the quaternion calculation
@@ -81,12 +81,12 @@ private:
         bool fuse_gps;          // true when GPS should be fused on that frame
         ftype accel_dt;         // time step used when generating _simple_accel_FR data (sec)
     };
-    ahrs_struct AHRS[N_MODELS_EKFGSF];
-    bool ahrs_tilt_aligned;         // true the initial tilt alignment has been calculated
-    ftype accel_gain;               // gain from accel vector tilt error to rate gyro correction used by AHRS calculation
+    ahrs_struct AHRS[N_MODELS_EKFGSF] {};
+    bool ahrs_tilt_aligned = false;  // true the initial tilt alignment has been calculated
+    ftype accel_gain = 0;           // gain from accel vector tilt error to rate gyro correction used by AHRS calculation
     Vector3F ahrs_accel;            // filtered body frame specific force vector used by AHRS calculation (m/s/s)
-    ftype ahrs_accel_norm;          // length of body frame specific force vector used by AHRS calculation (m/s/s)
-    ftype true_airspeed;            // true airspeed used to correct for centripetal acceleratoin in coordinated turns (m/s)
+    ftype ahrs_accel_norm = 0;       // length of body frame specific force vector used by AHRS calculation (m/s/s)
+    ftype true_airspeed = 0;         // true airspeed used to correct for centripetal acceleratoin in coordinated turns (m/s)
 
     // Runs quaternion prediction for the selected AHRS using IMU (and optionally true airspeed) data
     void predictAHRS(const uint8_t mdl_idx);
@@ -108,9 +108,9 @@ private:
         ftype S[2][2];  // N,E velocity innovation variance (m/s)^2
         ftype innov[2]; // Velocity N,E innovation (m/s)
     };
-    EKF_struct EKF[N_MODELS_EKFGSF];
-    bool vel_fuse_running;  // true when the bank of EKF's has started fusing GPS velocity data
-    bool run_ekf_gsf;       // true when operating condition is suitable for to run the GSF and EKF models and fuse velocity data
+    EKF_struct EKF[N_MODELS_EKFGSF] {};
+    bool vel_fuse_running = false;  // true when the bank of EKF's has started fusing GPS velocity data
+    bool run_ekf_gsf = false;       // true when operating condition is suitable for to run the GSF and EKF models and fuse velocity data
 
     // Resets states and covariances for the EKF's and GSF including GSF weights, but not the AHRS complementary filters
     void resetEKFGSF();
@@ -133,7 +133,7 @@ private:
         ftype yaw_variance;             // Yaw state variance (rad^2)
         ftype weights[N_MODELS_EKFGSF]; // Weighting applied to each EKF model. Sum of weights is unity.
     };
-    GSF_struct GSF;
+    GSF_struct GSF {};
 
     // Returns the probability for a selected model assuming a Gaussian error distribution
     // Used by the Guassian Sum Filter to calculate the weightings when combining the outputs from the bank of EKF's
@@ -141,5 +141,5 @@ private:
 
     // number of models whose weights underflowed due to excessive
     // innovation variances:
-    uint8_t n_clips;
+    uint8_t n_clips = 0;
 };

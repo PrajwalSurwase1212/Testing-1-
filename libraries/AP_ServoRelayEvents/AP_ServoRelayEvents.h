@@ -51,22 +51,22 @@ private:
         EVENT_TYPE_SERVO=1
     };
 
-    enum event_type type;
+    enum event_type type = EVENT_TYPE_SERVO;
 
 	// when the event was started in ms
-    uint32_t start_time_ms;
+    uint32_t start_time_ms = 0;
 
 	// how long to delay the next firing of event in millis
-    uint16_t delay_ms;
+    uint16_t delay_ms = 0;
 
 	// how many times to cycle : -1 (or -2) = forever, 2 = do one cycle, 4 = do two cycles
-    int16_t repeat;
+    int16_t repeat = 0;
 
     // RC channel for servos, relay number for relays
-    uint8_t channel;
+    uint8_t channel = 0;
 
 	// PWM for servos
-	uint16_t servo_value;
+	uint16_t servo_value = 0;
 };
 
 namespace AP {

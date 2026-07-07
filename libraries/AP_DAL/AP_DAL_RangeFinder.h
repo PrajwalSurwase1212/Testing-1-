@@ -38,9 +38,9 @@ public:
 
 private:
 
-    struct log_RRNH _RRNH;
-    struct log_RRNI *_RRNI;
-    AP_DAL_RangeFinder_Backend **_backend;
+    struct log_RRNH _RRNH {};
+    struct log_RRNI *_RRNI = nullptr;
+    AP_DAL_RangeFinder_Backend **_backend = nullptr;
 };
 
 

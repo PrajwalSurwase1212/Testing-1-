@@ -47,12 +47,12 @@ public:
     
 private:
     SITL_State *_sitlState;
-    AP_ESC_Telem_SITL *esc_telem;
+    AP_ESC_Telem_SITL *esc_telem = nullptr;
 
     uint16_t _freq_hz;
-    uint32_t _enable_mask;
-    bool _corked;
-    uint16_t _pending[SITL_NUM_CHANNELS];
+    uint32_t _enable_mask = 0;
+    bool _corked = false;
+    uint16_t _pending[SITL_NUM_CHANNELS] {};
 
     AP_HAL::Util::safety_state safety_state = AP_HAL::Util::safety_state::SAFETY_DISARMED;
 };

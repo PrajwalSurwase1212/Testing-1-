@@ -18,7 +18,7 @@ public:
     VectorN<float,N> X;
     MatrixN<float,N> P;
     MatrixN<float,N> Q;
-    float R;
+    float R = 0.0f;
     void reset(const VectorN<float,N> &x, const MatrixN<float,N> &p, const MatrixN<float,N> q, float r);
     void update(float z, float Px, float Py, float driftX, float driftY);
 

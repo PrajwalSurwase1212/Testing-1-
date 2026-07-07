@@ -44,11 +44,11 @@ private:
     AP_Int8  gripper_emp_servo_pin;
 
     const uint32_t report_interval = 100000; // microseconds
-    uint64_t last_report_us;
+    uint64_t last_report_us = 0;
 
     bool servo_based = true;
 
-    float field_strength;   // percentage
+    float field_strength = 0.0f;   // percentage
     float reported_field_strength = -1; // unlikely
 
     // I've a feeling these are probably a higher order than this:
@@ -56,7 +56,7 @@ private:
     const float field_decay_rate = 2; // percent of field strength/second
     const float field_degauss_rate = 300; // percent of field strength/second
 
-    uint64_t last_update_us;
+    uint64_t last_update_us = 0;
 
     bool should_report() const;
 
@@ -65,7 +65,7 @@ private:
 
     float tesla() const;
 
-    float demand;
+    float demand = 0.0f;
 };
 
 }

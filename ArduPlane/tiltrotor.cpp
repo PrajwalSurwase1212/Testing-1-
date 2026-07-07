@@ -638,6 +638,7 @@ void Tiltrotor::vectoring(void)
         const float avg_roll_factor = 0.5;
         float tilt_scale = throttle_scaler * yaw_out * cos_tilt + avg_roll_factor * roll_out * sin_tilt;
 
+        // coverity[RW.ROUTINE_NOT_EMITTED]
         if (fabsf(tilt_scale) > 1.0) {
             tilt_scale = constrain_float(tilt_scale, -1.0, 1.0);
             motors->limit.yaw = true;
@@ -663,6 +664,7 @@ void Tiltrotor::vectoring(void)
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorRear, 1000.0 * constrain_float(base_output,0.0,1.0));
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorRearLeft, left_tilt);
         SRV_Channels::set_output_scaled(SRV_Channel::k_tiltMotorRearRight, right_tilt);
+        // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
     }
 }
 

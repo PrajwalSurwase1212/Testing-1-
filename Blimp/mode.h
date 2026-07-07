@@ -256,7 +256,7 @@ protected:
 
 private:
     Vector3f target_pos;
-    float target_yaw;
+    float target_yaw = 0.0f;
 };
 
 class ModeLand : public Mode

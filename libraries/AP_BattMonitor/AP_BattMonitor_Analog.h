@@ -58,8 +58,8 @@ public:
 
 protected:
 
-    AP_HAL::AnalogSource *_volt_pin_analog_source;
-    AP_HAL::AnalogSource *_curr_pin_analog_source;
+    AP_HAL::AnalogSource *_volt_pin_analog_source = nullptr;
+    AP_HAL::AnalogSource *_curr_pin_analog_source = nullptr;
 
     // Parameters
     AP_Float _volt_multiplier;          /// voltage on volt pin multiplied by this to calculate battery voltage

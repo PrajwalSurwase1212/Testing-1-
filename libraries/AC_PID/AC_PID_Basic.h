@@ -92,7 +92,7 @@ protected:
     float _integrator = 0.0f;  // integrator value
     bool _reset_filter = true; // true when input filter should be reset during next call to set_input
 
-    AP_PIDInfo _pid_info;
+    AP_PIDInfo _pid_info{};
 
 private:
     const float default_kp;

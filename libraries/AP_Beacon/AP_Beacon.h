@@ -48,10 +48,10 @@ public:
 
     // The AP_BeaconState structure is filled in by the backend driver
     struct BeaconState {
-        uint16_t id;            // unique id of beacon
-        bool     healthy;       // true if beacon is healthy
-        float    distance;      // distance from vehicle to beacon (in meters)
-        uint32_t distance_update_ms;    // system time of last update from this beacon
+        uint16_t id = 0;            // unique id of beacon
+        bool     healthy = false;       // true if beacon is healthy
+        float    distance = 0.0f;      // distance from vehicle to beacon (in meters)
+        uint32_t distance_update_ms = 0;    // system time of last update from this beacon
         Vector3f position;      // location of beacon as an offset from origin in NED in meters
     };
 

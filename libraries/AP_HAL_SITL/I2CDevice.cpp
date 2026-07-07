@@ -50,7 +50,7 @@ private:
         AP_HAL::Device::PeriodicCb cb;
         uint32_t period_usec;
         uint64_t next_usec;
-    } *callbacks;
+    } *callbacks = nullptr;
 
     static uint8_t i2c_buscount;
 

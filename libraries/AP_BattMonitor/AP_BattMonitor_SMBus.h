@@ -95,19 +95,19 @@ protected:
     // buff is the data that was read or will be written
     uint8_t get_PEC(const uint8_t i2c_addr, uint8_t cmd, bool reading, const uint8_t buff[], uint8_t len) const;
 
-    AP_HAL::I2CDevice *_dev;
-    bool _pec_supported; // true if PEC is supported
+    AP_HAL::I2CDevice *_dev = nullptr;
+    bool _pec_supported = false; // true if PEC is supported
 
     int32_t _serial_number = -1;    // battery serial number
-    uint16_t _full_charge_capacity; // full charge capacity, used to stash the value before setting the parameter
-    bool _has_cell_voltages;        // smbus backends flag this as true once they have received a valid cell voltage report
+    uint16_t _full_charge_capacity = 0; // full charge capacity, used to stash the value before setting the parameter
+    bool _has_cell_voltages = false;        // smbus backends flag this as true once they have received a valid cell voltage report
     uint16_t _cycle_count = 0;      // number of cycles the battery has experienced. An amount of discharge approximately equal to the value of DesignCapacity.
-    bool _has_cycle_count;          // true if cycle count has been retrieved from the battery
-    bool _has_temperature;
+    bool _has_cycle_count = false;          // true if cycle count has been retrieved from the battery
+    bool _has_temperature = false;
 
     virtual void timer(void) = 0;   // timer function to read from the battery
 
-    AP_HAL::Device::PeriodicHandle timer_handle;
+    AP_HAL::Device::PeriodicHandle timer_handle = nullptr;
 
     // Parameters
     AP_Int8  _bus;          // I2C bus number

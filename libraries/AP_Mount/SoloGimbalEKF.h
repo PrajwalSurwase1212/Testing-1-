@@ -78,30 +78,30 @@ private:
         float gPhi;
         float gPsi;
         float gTheta;
-    } gSense;
+    } gSense {};
 
-    float Cov[9][9];                // covariance matrix
+    float Cov[9][9] {};             // covariance matrix
     Matrix3f Tsn;                   // Sensor to NED rotation matrix
-    float TiltCorrectionSquared;    // Angle correction applied to tilt from last velocity fusion (rad)
-    bool newDataMag;                // true when new magnetometer data is waiting to be used
-    uint32_t StartTime_ms;          // time the EKF was started (msec)
-    bool FiltInit;                  // true when EKF is initialised
-    bool YawAligned;          // true when EKF heading is initialised
-    float cosPhi;// = cosf(gSense.gPhi);
-    float cosTheta;// = cosf(gSense.gTheta);
-    float sinPhi;// = sinf(gSense.gPhi);
-    float sinTheta;// = sinf(gSense.gTheta);
-    float sinPsi;// = sinf(gSense.gPsi);
-    float cosPsi;// = cosf(gSense.gPsi);
-    uint32_t lastMagUpdate;
+    float TiltCorrectionSquared = 0.0f; // Angle correction applied to tilt from last velocity fusion (rad)
+    bool newDataMag = false;        // true when new magnetometer data is waiting to be used
+    uint32_t StartTime_ms = 0;      // time the EKF was started (msec)
+    bool FiltInit = false;          // true when EKF is initialised
+    bool YawAligned = false;  // true when EKF heading is initialised
+    float cosPhi = 0.0f;// = cosf(gSense.gPhi);
+    float cosTheta = 0.0f;// = cosf(gSense.gTheta);
+    float sinPhi = 0.0f;// = sinf(gSense.gPhi);
+    float sinTheta = 0.0f;// = sinf(gSense.gTheta);
+    float sinPsi = 0.0f;// = sinf(gSense.gPsi);
+    float cosPsi = 0.0f;// = cosf(gSense.gPsi);
+    uint32_t lastMagUpdate = 0;
     Vector3f magData;
 
-    uint32_t imuSampleTime_ms;
-    float dtIMU;
+    uint32_t imuSampleTime_ms = 0;
+    float dtIMU = 0.0f;
 
     // States used for unwrapping of compass yaw error
-    float innovationIncrement;
-    float lastInnovation;
+    float innovationIncrement = 0.0f;
+    float lastInnovation = 0.0f;
 
     // state prediction
     void predictStates();

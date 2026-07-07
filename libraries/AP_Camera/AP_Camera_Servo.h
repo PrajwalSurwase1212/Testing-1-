@@ -55,10 +55,10 @@ public:
     void init() override;
 
 private:
-    float zoom_current_rate;    // current zoom rate of change
-    float focus_current_rate;   // current focus rate of change
-    uint16_t trigger_counter;   // count of number of cycles shutter should be held open
-    uint16_t iso_counter;       // count of number of cycles iso output should be held open
+    float zoom_current_rate = 0.0f;    // current zoom rate of change
+    float focus_current_rate = 0.0f;   // current focus rate of change
+    uint16_t trigger_counter = 0;   // count of number of cycles shutter should be held open
+    uint16_t iso_counter = 0;       // count of number of cycles iso output should be held open
 };
 
 #endif // AP_CAMERA_SERVO_ENABLED

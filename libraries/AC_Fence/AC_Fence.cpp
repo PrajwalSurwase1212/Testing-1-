@@ -838,6 +838,7 @@ uint8_t AC_Fence::check(bool disable_auto_fences)
         ret |= AC_FENCE_TYPE_CIRCLE;
     }
 
+    // coverity[RW.ROUTINE_NOT_EMITTED]
     // polygon fence check
     if (!(disabled_fences & AC_FENCE_TYPE_POLYGON) && check_fence_polygon()) {
         ret |= AC_FENCE_TYPE_POLYGON;
@@ -862,6 +863,7 @@ uint8_t AC_Fence::check(bool disable_auto_fences)
     return ret;
 }
 
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 // returns true if the destination is within fence (used to reject waypoints outside the fence)
 bool AC_Fence::check_destination_within_fence(const Location& loc)
 {

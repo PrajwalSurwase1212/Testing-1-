@@ -286,7 +286,7 @@ private:
         DEFAULT = 0,
         MANUALLY_ENABLED,
         MANUALLY_DISABLED
-    } _min_alt_state;
+    } _min_alt_state = MinAltState::DEFAULT;
     
 
     AC_PolyFence_loader _poly_loader{_total, _options}; // polygon fence

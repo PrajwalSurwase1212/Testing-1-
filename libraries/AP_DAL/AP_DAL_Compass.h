@@ -72,6 +72,6 @@ public:
 
 private:
 
-    struct log_RMGH _RMGH;
-    struct log_RMGI _RMGI[COMPASS_MAX_INSTANCES];
+    struct log_RMGH _RMGH {};
+    struct log_RMGI _RMGI[COMPASS_MAX_INSTANCES] {};
 };

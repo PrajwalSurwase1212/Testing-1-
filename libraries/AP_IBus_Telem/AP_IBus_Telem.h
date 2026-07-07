@@ -118,9 +118,9 @@ private:
     static const uint8_t PROTOCOL_EIGHT_LENGTH = 0x08;     // indicate that the message has 8 bytes
     static const uint8_t PROTOCOL_INCOMING_MESSAGE_LENGTH = PROTOCOL_FOUR_LENGTH; // All incoming messages are the same length
 
-    AP_HAL::UARTDriver *port;
-    bool initialized;
-    uint32_t last_received_message_time_ms; // When the last message was received
+    AP_HAL::UARTDriver *port = nullptr;
+    bool initialized = false;
+    uint32_t last_received_message_time_ms = 0; // When the last message was received
 };
 
 #endif

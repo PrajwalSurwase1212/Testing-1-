@@ -53,10 +53,10 @@ private:
     };
 
     enum SUMD_DECODE_STATE _decode_state = SUMD_DECODE_STATE_UNSYNCED;
-    uint8_t _rxlen;
-    ReceiverFcPacketHoTT _rxpacket;
-    uint16_t 	_crc16;
-    uint32_t last_packet_us;
+    uint8_t _rxlen = 0;
+    ReceiverFcPacketHoTT _rxpacket {};
+    uint16_t 	_crc16 = 0;
+    uint32_t last_packet_us = 0;
 
     SoftSerial ss{115200, SoftSerial::SERIAL_CONFIG_8N1};
 };

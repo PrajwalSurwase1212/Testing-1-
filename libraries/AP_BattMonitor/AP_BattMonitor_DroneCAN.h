@@ -88,31 +88,31 @@ private:
 
     HAL_Semaphore _sem_battmon;
 
-    AP_DroneCAN* _ap_dronecan;
-    uint8_t _soc;
-    uint8_t _node_id;
-    uint16_t _cycle_count;
-    float _remaining_capacity_wh;
-    float _full_charge_capacity_wh;
-    bool _has_temperature;
-    bool _has_cell_voltages;
-    bool _has_time_remaining;
-    bool _has_battery_info_aux;
-    uint8_t _instance;                  // instance of this battery monitor
+    AP_DroneCAN* _ap_dronecan = nullptr;
+    uint8_t _soc = 0;
+    uint8_t _node_id = 0;
+    uint16_t _cycle_count = 0;
+    float _remaining_capacity_wh = 0.0f;
+    float _full_charge_capacity_wh = 0.0f;
+    bool _has_temperature = false;
+    bool _has_cell_voltages = false;
+    bool _has_time_remaining = false;
+    bool _has_battery_info_aux = false;
+    uint8_t _instance = 0;                  // instance of this battery monitor
 
     AP_Float _curr_mult;                 // scaling multiplier applied to current reports for adjustment
     // MPPT variables
     struct {
-        bool is_detected;               // true if this UAVCAN device is a Packet Digital MPPT
-        bool powered_state;             // true if the mppt is powered on, false if powered off
-        bool vehicle_armed_last;        // latest vehicle armed state. used to detect changes and power on/off MPPT board
-        uint8_t fault_flags;            // bits holding fault flags
-        uint32_t powered_state_remote_ms; // timestamp of when request was sent, zeroed on response. Used to retry
+        bool is_detected = false;               // true if this UAVCAN device is a Packet Digital MPPT
+        bool powered_state = false;             // true if the mppt is powered on, false if powered off
+        bool vehicle_armed_last = false;        // latest vehicle armed state. used to detect changes and power on/off MPPT board
+        uint8_t fault_flags = 0;            // bits holding fault flags
+        uint32_t powered_state_remote_ms = 0; // timestamp of when request was sent, zeroed on response. Used to retry
     } _mppt;
 
     void handle_outputEnable_response(const CanardRxTransfer&, const mppt_OutputEnableResponse&);
 
     Canard::ObjCallback<AP_BattMonitor_DroneCAN, mppt_OutputEnableResponse> mppt_outputenable_res_cb{this, &AP_BattMonitor_DroneCAN::handle_outputEnable_response};
-    Canard::Client<mppt_OutputEnableResponse> *mppt_outputenable_client;
+    Canard::Client<mppt_OutputEnableResponse> *mppt_outputenable_client = nullptr;
 };
 #endif

@@ -238,31 +238,31 @@ private:
     bool set_gimbal_lock(bool lock);
 
     // members
-    bool _recording;                                            // recording status (received from gimbal)
-    bool _is_tracking;                                          // whether to enable the tracking state
+    bool _recording = false;                                    // recording status (received from gimbal)
+    bool _is_tracking = false;                                  // whether to enable the tracking state
     TrackingStatus _last_tracking_state = TrackingStatus::STOPPED_TRACKING; // last tracking state received from gimbal
-    uint8_t _last_mode;                                         // mode during latest update, used to detect mode changes and cancel tracking
-    bool _sdcard_status;                                        // memory card status (received from gimbal)
-    bool _last_lock;                                            // last lock mode sent to gimbal
-    bool _got_gimbal_version;                                   // true if gimbal's version has been received
-    bool _got_gimbal_model_name;                                // true if gimbal's model name has been received
-    bool _last_zoom_stop;                                       // true if zoom has been stopped (used to re-send in order to handle lost packets)
-    bool _last_focus_stop;                                      // true if focus has been stopped (used to re-sent in order to handle lost packets)
-    uint8_t _model_name[16];                                    // gimbal model name
-    uint8_t _sent_time_count;                                   // count of current time messages sent to gimbal
-    uint32_t _firmware_ver;                                     // firmware version
+    uint8_t _last_mode = 0;                                     // mode during latest update, used to detect mode changes and cancel tracking
+    bool _sdcard_status = false;                                // memory card status (received from gimbal)
+    bool _last_lock = false;                                    // last lock mode sent to gimbal
+    bool _got_gimbal_version = false;                           // true if gimbal's version has been received
+    bool _got_gimbal_model_name = false;                        // true if gimbal's model name has been received
+    bool _last_zoom_stop = false;                               // true if zoom has been stopped (used to re-send in order to handle lost packets)
+    bool _last_focus_stop = false;                              // true if focus has been stopped (used to re-sent in order to handle lost packets)
+    uint8_t _model_name[16] {};                                 // gimbal model name
+    uint8_t _sent_time_count = 0;                               // count of current time messages sent to gimbal
+    uint32_t _firmware_ver = 0;                                 // firmware version
     Vector3f _current_angle_rad;                                // current angles in radians received from gimbal (x=roll, y=pitch, z=yaw)
-    uint32_t _last_current_angle_ms;                            // system time (in milliseconds) that angle information received from the gimbal
-    uint32_t _last_req_current_info_ms;                         // system time that this driver last requested current gimbal infomation
-    uint8_t _last_req_step;                                     // 10hz request loop step (different requests are sent at various steps)
-    uint8_t _stop_order_count;                                  // number of stop commands sent since target rates became zero
+    uint32_t _last_current_angle_ms = 0;                        // system time (in milliseconds) that angle information received from the gimbal
+    uint32_t _last_req_current_info_ms = 0;                     // system time that this driver last requested current gimbal infomation
+    uint8_t _last_req_step = 0;                                 // 10hz request loop step (different requests are sent at various steps)
+    uint8_t _stop_order_count = 0;                               // number of stop commands sent since target rates became zero
     float _measure_dist_m = -1.0f;                              // latest rangefinder distance (in meters)
-    uint8_t _msg_buff[AP_MOUNT_TOPOTEK_PACKETLEN_MAX];          // buffer holding bytes from latest packet received.  only used to calculate crc
-    uint8_t _msg_buff_len;                                      // number of bytes in the msg buffer
+    uint8_t _msg_buff[AP_MOUNT_TOPOTEK_PACKETLEN_MAX] {};       // buffer holding bytes from latest packet received.  only used to calculate crc
+    uint8_t _msg_buff_len = 0;                                  // number of bytes in the msg buffer
     struct {
         ParseState state;                                       // parser state
         uint8_t data_len;                                       // expected number of data bytes
-    } _parser;
+    } _parser {};
 
     // mapping from received message key to member function pointer to consume the message
     typedef struct {

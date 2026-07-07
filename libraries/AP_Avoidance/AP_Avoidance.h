@@ -127,7 +127,7 @@ protected:
     // gcs notification
     // specifies how long we should continue sending messages about a threat after it has cleared
     static const uint8_t _gcs_cleared_messages_duration = 5; // seconds
-    uint32_t _gcs_cleared_messages_first_sent;
+    uint32_t _gcs_cleared_messages_first_sent = 0;
 
     void handle_threat_gcs_notify(AP_Avoidance::Obstacle *threat);
 
@@ -185,10 +185,10 @@ private:
     bool obstacle_is_more_serious_threat(const AP_Avoidance::Obstacle &obstacle) const;
 
     // internal variables
-    AP_Avoidance::Obstacle *_obstacles;
-    uint8_t _obstacles_allocated;
-    uint8_t _obstacle_count;
-    int8_t _current_most_serious_threat;
+    AP_Avoidance::Obstacle *_obstacles = nullptr;
+    uint8_t _obstacles_allocated = 0;
+    uint8_t _obstacle_count = 0;
+    int8_t _current_most_serious_threat = -1;
     MAV_COLLISION_ACTION _latest_action = MAV_COLLISION_ACTION_NONE;
 
     // external references

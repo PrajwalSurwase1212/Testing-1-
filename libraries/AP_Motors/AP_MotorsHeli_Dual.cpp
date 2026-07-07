@@ -313,6 +313,7 @@ void AP_MotorsHeli_Dual::mix_tandem(float pitch_input, float roll_input, float y
     _swashplate2.calculate(swash2_roll, swash_pitch, swash2_coll);
 }
 
+// coverity[RW.ROUTINE_NOT_EMITTED]
 // Mix and output swashplates for transverse
 void AP_MotorsHeli_Dual::mix_transverse(float pitch_input, float roll_input, float yaw_input, float collective1_input, float collective2_input)
 {

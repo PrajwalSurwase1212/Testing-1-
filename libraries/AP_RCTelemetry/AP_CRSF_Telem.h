@@ -202,23 +202,23 @@ public:
     // to avoid heavy flash usage in the CRSF protocol implementation, the data encoding is
     // managed in lua
     struct ScriptedEntry {
-        uint8_t id; // indexed from the menu id + 1 to menu id + MAX_SCRIPTED_MENU_SIZE
-        uint8_t parent_id;
+        uint8_t id = 0; // indexed from the menu id + 1 to menu id + MAX_SCRIPTED_MENU_SIZE
+        uint8_t parent_id = 0;
     };
 
     struct ScriptedParameter : public ScriptedEntry {
-        uint16_t length;
-        const char* data;
+        uint16_t length = 0;
+        const char* data = nullptr;
     };
 
     // each menu contains a number of parameters and has a name
     struct ScriptedMenu : public ScriptedEntry {
         friend class AP_CRSF_Telem;
 
-        uint8_t num_params;
-        const char* name;
-        ScriptedParameter* params;
-        ScriptedMenu* next_menu;    // linked list of menus to make addition/removal/modification easy
+        uint8_t num_params = 0;
+        const char* name = nullptr;
+        ScriptedParameter* params = nullptr;
+        ScriptedMenu* next_menu = nullptr;    // linked list of menus to make addition/removal/modification easy
 
         ScriptedMenu(const char* menu_name, uint8_t size, uint8_t parent_menu);
         ~ScriptedMenu();

@@ -107,8 +107,8 @@ private:
 
     void set_forward_lateral_rad(float &euler_pitch_angle_rad, float &euler_roll_angle_rad);
 
-    float roll_offset_deg;
-    float pitch_offset_deg;
+    float roll_offset_deg = 0.0f;
+    float pitch_offset_deg = 0.0f;
 
     bool forward_enable = true;
     bool lateral_enable = true;

@@ -49,9 +49,9 @@ private:
     void _process_byte(uint32_t timestamp_us, uint8_t byte);
     int srxl_channels_get_v1v2(uint16_t max_values, uint8_t *num_values, uint16_t *values, bool *failsafe_state);
     int srxl_channels_get_v5(uint16_t max_values, uint8_t *num_values, uint16_t *values, bool *failsafe_state);
-    uint8_t buffer[SRXL_FRAMELEN_MAX];       /* buffer for raw srxl frame data in correct order --> buffer[0]=byte0  buffer[1]=byte1  */
-    uint8_t buflen;                          /* length in number of bytes of received srxl dataframe in buffer  */
-    uint32_t last_data_us;                   /* timespan since last received data in us   */
+    uint8_t buffer[SRXL_FRAMELEN_MAX] {};       /* buffer for raw srxl frame data in correct order --> buffer[0]=byte0  buffer[1]=byte1  */
+    uint8_t buflen = 0;                          /* length in number of bytes of received srxl dataframe in buffer  */
+    uint32_t last_data_us = 0;                   /* timespan since last received data in us   */
     uint16_t channels[SRXL_MAX_CHANNELS] = {0};    /* buffer for extracted RC channel data as pulsewidth in microseconds */
     uint16_t max_channels = 0;
     enum {

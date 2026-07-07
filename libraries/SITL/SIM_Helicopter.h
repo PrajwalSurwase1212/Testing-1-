@@ -51,8 +51,8 @@ protected:
         uint16_t servo5;
         uint16_t servo6;
     };
-    uint16_t _servos_delayed[6];
-    ObjectBuffer<servos_stored> *servos_stored_buffer;
+    uint16_t _servos_delayed[6] {};
+    ObjectBuffer<servos_stored> *servos_stored_buffer = nullptr;
     void push_to_buffer(const uint16_t servos_input[16]);
     void pull_from_buffer(uint16_t servos_delayed[6]);
 
@@ -64,20 +64,20 @@ private:
     float roll_rate_max = radians(1400);
     float pitch_rate_max = radians(1400);
     float yaw_rate_max = radians(1400);
-    float izz = 0.2f; 
-    float iyy;
+    float izz = 0.2f;
+    float iyy = 0.0f;
     float tr_dist = 0.85f;
     float cyclic_scalar = 7.2; // converts swashplate servo ouputs to cyclic blade pitch
-    float thrust_scale;
+    float thrust_scale = 0.0f;
     Vector2f _tpp_angle;
     Vector2f _tpp_angle_1;
     Vector2f _tpp_angle_2;
-    float torque_scale;
-    float torque_mpog;
-    float torque_max;
+    float torque_scale = 0.0f;
+    float torque_mpog = 0.0f;
+    float torque_max = 0.0f;
     float hover_coll = 5.0f;
-    bool motor_interlock;
-    uint8_t _time_delay;
+    bool motor_interlock = false;
+    uint8_t _time_delay = 0;
     enum frame_types {
         HELI_FRAME_CONVENTIONAL,
         HELI_FRAME_DUAL,
@@ -85,7 +85,7 @@ private:
         HELI_FRAME_BLADE360,
     } frame_type = HELI_FRAME_CONVENTIONAL;
     bool gas_heli = false;
-    float nominal_rpm;
+    float nominal_rpm = 0.0f;
 };
 
 } // namespace SITL

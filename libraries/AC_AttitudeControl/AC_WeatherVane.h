@@ -47,10 +47,10 @@ class AC_WeatherVane {
         AP_Int8 _takeoff_direction;
         AP_Int16 _options;
 
-        float last_output;
-        bool active_msg_sent;
-        uint32_t first_activate_ms;
-        uint32_t last_check_ms;
+        float last_output = 0.0f;
+        bool active_msg_sent = false;
+        uint32_t first_activate_ms = 0;
+        uint32_t last_check_ms = 0;
 
         // Init to true here to avoid a race between init of RC_channel and weathervane
         bool allowed = true;

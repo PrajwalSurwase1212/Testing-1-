@@ -47,7 +47,7 @@ public:
 
 private:
 
-    struct log_RBRH _RBRH;
-    struct log_RBRI _RBRI[BARO_MAX_INSTANCES];
+    struct log_RBRH _RBRH {};
+    struct log_RBRI _RBRI[BARO_MAX_INSTANCES] {};
 };
 

@@ -377,7 +377,7 @@ protected:
         uint8_t reached_destination     : 1;    // true if we have reached the destination
         uint8_t fast_waypoint           : 1;    // true if we should ignore the waypoint radius and consider the waypoint complete once the intermediate target has reached the waypoint
         uint8_t wp_yaw_set              : 1;    // true if yaw target has been set
-    } _flags;
+    } _flags{};
 
     // Calculates s-curve jerk and snap limits based on attitude controller capabilities.
     // Updates _scurve_jerk_max_msss and _scurve_snap_max_mssss with constrained values.
@@ -400,41 +400,41 @@ protected:
     AP_Float    _terrain_margin_m;   // minimum altitude margin in meters when terrain following is active
 
     // WPNAV_SPEED param change checker
-    bool _check_wp_speed_change;     // true if WPNAV_SPEED should be monitored for changes during flight
-    float _last_wp_speed_cms;        // last recorded WPNAV_SPEED value (cm/s) for change detection
-    float _last_wp_speed_up_cms;     // last recorded WPNAV_SPEED_UP value (cm/s)
-    float _last_wp_speed_down_cms;   // last recorded WPNAV_SPEED_DN value (cm/s)
+    bool _check_wp_speed_change = false;     // true if WPNAV_SPEED should be monitored for changes during flight
+    float _last_wp_speed_cms = 0.0f;         // last recorded WPNAV_SPEED value (cm/s) for change detection
+    float _last_wp_speed_up_cms = 0.0f;      // last recorded WPNAV_SPEED_UP value (cm/s)
+    float _last_wp_speed_down_cms = 0.0f;    // last recorded WPNAV_SPEED_DN value (cm/s)
 
     // s-curve trajectory objects
     SCurve _scurve_prev_leg;         // s-curve for the previous waypoint leg, used for smoothing transitions
     SCurve _scurve_this_leg;         // s-curve for the current active waypoint leg
     SCurve _scurve_next_leg;         // s-curve for the next waypoint leg, used for lookahead blending
-    float _scurve_jerk_max_msss;     // computed maximum jerk in m/s³ used for trajectory shaping
-    float _scurve_snap_max_mssss;    // computed maximum snap in m/s⁴ derived from controller responsiveness
+    float _scurve_jerk_max_msss = 0.0f;     // computed maximum jerk in m/s³ used for trajectory shaping
+    float _scurve_snap_max_mssss = 0.0f;    // computed maximum snap in m/s⁴ derived from controller responsiveness
 
     // spline curves
     SplineCurve _spline_this_leg;    // spline curve for the current segment
     SplineCurve _spline_next_leg;    // spline curve for the next segment
 
     // path type flags
-    bool _this_leg_is_spline;        // true if the current leg uses spline trajectory
-    bool _next_leg_is_spline;        // true if the next leg will use spline trajectory
+    bool _this_leg_is_spline = false;    // true if the current leg uses spline trajectory
+    bool _next_leg_is_spline = false;    // true if the next leg will use spline trajectory
 
     // waypoint navigation state
-    uint32_t _wp_last_update_ms;         // timestamp of the last update_wpnav() call (milliseconds)
-    float _wp_desired_speed_ne_ms;       // desired horizontal speed in m/s for the current segment
+    uint32_t _wp_last_update_ms = 0;     // timestamp of the last update_wpnav() call (milliseconds)
+    float _wp_desired_speed_ne_ms = 0.0f; // desired horizontal speed in m/s for the current segment
     Vector3f _origin_neu_m;              // origin of the current leg in meters (NEU frame)
     Vector3f _destination_neu_m;         // destination of the current leg in meters (NEU frame)
     Vector3f _next_destination_neu_m;    // destination of the next leg in meters (NEU frame)
-    float _track_dt_scalar;              // scalar to reduce or increase the advancement along the track (0.0–1.0)
-    float _offset_vel_ms;                // filtered horizontal speed target (used for terrain following or pause handling)
-    float _offset_accel_mss;             // filtered horizontal acceleration target (used for terrain following or pause handling)
-    bool _paused;                        // true if waypoint controller is paused
+    float _track_dt_scalar = 0.0f;       // scalar to reduce or increase the advancement along the track (0.0–1.0)
+    float _offset_vel_ms = 0.0f;         // filtered horizontal speed target (used for terrain following or pause handling)
+    float _offset_accel_mss = 0.0f;      // filtered horizontal acceleration target (used for terrain following or pause handling)
+    bool _paused = false;                // true if waypoint controller is paused
 
     // terrain following state
-    bool _is_terrain_alt;                // true if altitude values are relative to terrain height, false if relative to EKF origin
-    bool _rangefinder_available;         // true if a rangefinder is enabled and available for use
+    bool _is_terrain_alt = false;        // true if altitude values are relative to terrain height, false if relative to EKF origin
+    bool _rangefinder_available = false; // true if a rangefinder is enabled and available for use
     AP_Int8 _rangefinder_use;            // parameter specifying whether rangefinder should be used for terrain tracking
-    bool _rangefinder_healthy;           // true if the rangefinder reading is valid and within operational range
-    float _rangefinder_terrain_offset_m; // rangefinder-derived terrain offset (meters above EKF origin)
+    bool _rangefinder_healthy = false;   // true if the rangefinder reading is valid and within operational range
+    float _rangefinder_terrain_offset_m = 0.0f; // rangefinder-derived terrain offset (meters above EKF origin)
 };

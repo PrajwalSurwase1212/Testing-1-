@@ -38,9 +38,9 @@ private:
     static void handle_rpm(AP_DroneCAN *ap_dronecan, const CanardRxTransfer& transfer, const dronecan_sensors_rpm_RPM &msg);
 
     // Temporay variables used to update main state in update call
-    float rpm;
-    uint32_t last_reading_ms;
-    float signal_quality;
+    float rpm = 0.0f;
+    uint32_t last_reading_ms = 0;
+    float signal_quality = 0.0f;
 
     // Static list of drivers
     static AP_RPM_DroneCAN *_drivers[RPM_MAX_INSTANCES];

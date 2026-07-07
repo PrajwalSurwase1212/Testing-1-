@@ -35,7 +35,7 @@ private:
 
     ModeFilterFloat_Size5 signal_quality_filter {3};
     int8_t last_pin = -1;       // last pin number checked vs PIN parameter
-    bool interrupt_attached;    // true if an interrupt has been attached to last_pin
+    bool interrupt_attached = false;    // true if an interrupt has been attached to last_pin
     struct IrqState {
         uint32_t last_pulse_us;
         uint32_t dt_sum;

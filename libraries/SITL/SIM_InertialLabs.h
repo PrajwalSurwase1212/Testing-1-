@@ -54,7 +54,7 @@ private:
         uint16_t magic = 0x55AA;
         uint8_t msg_type = 0x01;
         uint8_t msg_id = 0x95;
-        uint16_t msg_len; // total packet length-2
+        uint16_t msg_len = 0; // total packet length-2
 
         // send Table4, 32 messages
         uint8_t num_messages = 32;
@@ -63,74 +63,74 @@ private:
             0x3b, 0x30, 0x32, 0x3e, 0x36, 0x41, 0xc0, 0x28, 0x86, 0x8a, 0x8d, 0x50, 0x52,
             0x5a, 0x33, 0x3a, 0x40, 0x42, 0x54
         };
-        uint32_t gnss_ins_time_ms; // ms since start of GPS week for IMU data
-        uint16_t gnss_week;
-        vec3_32_t accel_data_hr; // g * 1e6
-        vec3_32_t gyro_data_hr; // deg/s * 1e5
+        uint32_t gnss_ins_time_ms = 0; // ms since start of GPS week for IMU data
+        uint16_t gnss_week = 0;
+        vec3_32_t accel_data_hr {}; // g * 1e6
+        vec3_32_t gyro_data_hr {}; // deg/s * 1e5
         struct PACKED {
             uint16_t pressure_pa2; // Pascals/2
             int32_t baro_alt; // meters*100
-        } baro_data;
-        vec3_16_t mag_data; // nT/10
+        } baro_data {};
+        vec3_16_t mag_data {}; // nT/10
         struct PACKED {
             uint16_t yaw; // deg*100
             int16_t pitch; // deg*100
             int16_t roll; // deg*100
-        } orientation_angles; // 321 euler order
-        vec3_32_t velocity; // m/s * 100
+        } orientation_angles {}; // 321 euler order
+        vec3_32_t velocity {}; // m/s * 100
         struct PACKED {
             int32_t lat; // deg*1e7
             int32_t lon; // deg*1e7
             int32_t alt; // m*100, AMSL
-        } position;
-        vec3_u8_t kf_vel_covariance; // mm/s
-        vec3_u16_t kf_pos_covariance; // mm
-        uint16_t unit_status;
-        gnss_extended_info_t gnss_extended_info;
-        uint8_t num_sats;
+        } position {};
+        vec3_u8_t kf_vel_covariance {}; // mm/s
+        vec3_u16_t kf_pos_covariance {}; // mm
+        uint16_t unit_status = 0;
+        gnss_extended_info_t gnss_extended_info {};
+        uint8_t num_sats = 0;
         struct PACKED {
             int32_t lat; // deg*1e7
             int32_t lon; // deg*1e7
             int32_t alt; // m*100, AMSL
-        } gnss_position;
+        } gnss_position {};
         struct PACKED {
             int32_t hor_speed; // m/s*100
             uint16_t track_over_ground; // deg*100
             int32_t ver_speed; // m/s*100
-        } gnss_vel_track;
-        uint32_t gnss_pos_timestamp; // ms
-        gnss_info_short_t gnss_info_short;
-        uint8_t gnss_new_data;
-        uint8_t gnss_jam_status;
-        int32_t differential_pressure; // mbar*1e4
-        int16_t true_airspeed; // m/s*100
-        vec3_16_t wind_speed; // m/s*100
-        uint16_t air_data_status;
-        uint16_t supply_voltage; // V*100
-        int16_t temperature; // degC*10
-        uint16_t unit_status2;
+        } gnss_vel_track {};
+        uint32_t gnss_pos_timestamp = 0; // ms
+        gnss_info_short_t gnss_info_short {};
+        uint8_t gnss_new_data = 0;
+        uint8_t gnss_jam_status = 0;
+        int32_t differential_pressure = 0; // mbar*1e4
+        int16_t true_airspeed = 0; // m/s*100
+        vec3_16_t wind_speed {}; // m/s*100
+        uint16_t air_data_status = 0;
+        uint16_t supply_voltage = 0; // V*100
+        int16_t temperature = 0; // degC*10
+        uint16_t unit_status2 = 0;
         struct PACKED {
             uint16_t heading; // deg*100
             int16_t pitch; // deg*100
-        } gnss_angles;
-        uint8_t gnss_angle_pos_type;
-        uint32_t gnss_heading_timestamp; // ms
+        } gnss_angles {};
+        uint8_t gnss_angle_pos_type = 0;
+        uint32_t gnss_heading_timestamp = 0; // ms
         struct PACKED {
             uint16_t gdop;
             uint16_t pdop;
             uint16_t hdop;
             uint16_t vdop;
             uint16_t tdop;
-        } gnss_dop; // 10e3
-        uint8_t ins_sol_status;
-        uint16_t crc;
+        } gnss_dop {}; // 10e3
+        uint8_t ins_sol_status = 0;
+        uint16_t crc = 0;
     } pkt;
 
-    uint32_t last_pkt_us;
+    uint32_t last_pkt_us = 0;
     const uint16_t pkt_rate_hz = 200;
     const uint16_t gnss_rate_hz = 10;
     const uint16_t gnss_frequency = pkt_rate_hz / gnss_rate_hz;
-    uint32_t packets_sent;
+    uint32_t packets_sent = 0;
 };
 
 }

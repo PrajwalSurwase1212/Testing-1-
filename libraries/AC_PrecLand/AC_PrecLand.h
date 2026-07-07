@@ -252,7 +252,7 @@ private:
 
     // backend state
     struct precland_state {
-        bool    healthy;
+        bool    healthy = false;
     } _backend_state;
     AC_PrecLand_Backend         *_backend = nullptr;  // pointers to backend precision landing driver
 

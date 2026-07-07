@@ -129,7 +129,7 @@ private:
         bool high_vibes;    // true while high vibration are detected
         uint32_t start_ms;  // system time high vibration were last detected
         uint32_t clear_ms;  // system time high vibrations stopped
-    } vibration_check;
+    } vibration_check{};
 
     // GCS selection
     GCS_Blimp _gcs; // avoid using this; use gcs()
@@ -160,7 +160,7 @@ private:
         uint32_t value;
     } ap_t;
 
-    ap_t ap;
+    ap_t ap{};
 
     static_assert(sizeof(uint32_t) == sizeof(ap), "ap_t must be uint32_t");
 
@@ -181,7 +181,7 @@ private:
         uint8_t radio               : 1; // A status flag for the radio failsafe
         uint8_t gcs                 : 1; // A status flag for the ground station failsafe
         uint8_t ekf                 : 1; // true if ekf failsafe has occurred
-    } failsafe;
+    } failsafe{};
 
     bool any_failsafe_triggered() const
     {

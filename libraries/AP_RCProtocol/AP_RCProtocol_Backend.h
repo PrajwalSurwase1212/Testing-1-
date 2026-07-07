@@ -136,9 +136,9 @@ protected:
 private:
     uint32_t rc_input_count;
     uint32_t last_rc_input_count;
-    uint32_t rc_frame_count;
+    uint32_t rc_frame_count = 0;
 
-    uint16_t _pwm_values[MAX_RCIN_CHANNELS];
+    uint16_t _pwm_values[MAX_RCIN_CHANNELS] {};
     uint8_t  _num_channels;
     int16_t rssi = -1;
     int16_t rx_link_quality = -1;

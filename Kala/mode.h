@@ -452,7 +452,7 @@ protected:
     float throttle_hover() const override;
 
 private:
-    bool disable_air_mode_reset;
+    bool disable_air_mode_reset = false;
 };
 #endif
 
@@ -867,8 +867,8 @@ protected:
 
 private:
 
-    uint32_t _timeout_start;
-    uint32_t _timeout_ms;
+    uint32_t _timeout_start = 0;
+    uint32_t _timeout_ms = 0;
 
 };
 
@@ -1233,7 +1233,7 @@ public:
     const char *name4() const override { return short_name; }
 
     // State object which can be edited by scripting
-    AP_Vehicle::custom_mode_state state;
+    AP_Vehicle::custom_mode_state state{};
 
 private:
     const Number number;
@@ -1355,8 +1355,8 @@ protected:
 private:
 
 #if AC_PRECLAND_ENABLED
-    bool _precision_loiter_enabled;
-    bool _precision_loiter_active; // true if user has switched on prec loiter
+    bool _precision_loiter_enabled = false;
+    bool _precision_loiter_active = false; // true if user has switched on prec loiter
 #endif
 
 };
@@ -1543,7 +1543,7 @@ private:
         Location return_target;
         Location descent_target;
         bool land;
-    } rtl_path;
+    } rtl_path{};
 
     // return target alt type
     enum class ReturnTargetAltType {
@@ -1553,9 +1553,9 @@ private:
     };
 
     // Loiter timer - Records how long we have been in loiter
-    uint32_t _loiter_start_time;
+    uint32_t _loiter_start_time = 0;
 
-    bool terrain_following_allowed;
+    bool terrain_following_allowed = false;
 
     // enum for RTL_OPTIONS parameter
     enum class Options : int32_t {

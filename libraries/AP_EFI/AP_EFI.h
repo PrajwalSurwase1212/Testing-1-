@@ -131,7 +131,7 @@ protected:
 
     AP_Float ecu_fuel_density;
 
-    EFI_State state;
+    EFI_State state {};
 
 #if AP_EFI_THROTTLE_LINEARISATION_ENABLED
     AP_EFI_ThrLin throttle_linearisation;
@@ -142,7 +142,7 @@ private:
     AP_Enum<Type> type;
 
     // Tracking backends
-    AP_EFI_Backend *backend;
+    AP_EFI_Backend *backend = nullptr;
     static AP_EFI *singleton;
 
     // Semaphore for access to shared frontend data

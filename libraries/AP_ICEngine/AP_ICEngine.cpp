@@ -190,7 +190,8 @@ const AP_Param::GroupInfo AP_ICEngine::var_info[] = {
 };
 
 // constructor
-AP_ICEngine::AP_ICEngine()
+AP_ICEngine::AP_ICEngine() :
+    height_pending(false)
 {
     AP_Param::setup_object_defaults(this, var_info);
 

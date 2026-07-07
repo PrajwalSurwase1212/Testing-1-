@@ -379,8 +379,8 @@ private:
     bool send_m_ahrs();
 
     // internal variables
-    uint8_t _msg_buff[AP_MOUNT_VIEWPRO_PACKETLEN_MAX];  // buffer holding latest bytes from gimbal
-    uint8_t _msg_buff_len;                          // number of bytes held in msg buff
+    uint8_t _msg_buff[AP_MOUNT_VIEWPRO_PACKETLEN_MAX] {};  // buffer holding latest bytes from gimbal
+    uint8_t _msg_buff_len = 0;                      // number of bytes held in msg buff
     const uint8_t _msg_buff_data_start = 2;         // data starts at this byte of _msg_buff
 
     // parser state and unpacked fields
@@ -390,23 +390,23 @@ private:
         uint16_t data_bytes_received;               // number of data bytes received so far
         uint8_t crc;                                // latest message's crc
         ParseState state;                           // state of incoming message processing
-    } _parsed_msg;
+    } _parsed_msg {};
 
     // variables for sending packets to gimbal
-    uint8_t _last_frame_counter;                    // frame counter sent in last message
-    uint32_t _last_update_ms;                       // system time (in milliseconds) that angle or rate targets were last sent
+    uint8_t _last_frame_counter = 0;                // frame counter sent in last message
+    uint32_t _last_update_ms = 0;                   // system time (in milliseconds) that angle or rate targets were last sent
     Vector3f _current_angle_rad;                    // current angles in radians received from gimbal (x=roll, y=pitch, z=yaw)
-    uint32_t _last_current_angle_rad_ms;            // system time _current_angle_rad was updated (used for health reporting)
-    bool _recording;                                // recording status received from gimbal
-    bool _last_lock;                                // last lock mode sent to gimbal
-    TrackingStatus _last_tracking_status;           // last tracking status received from gimbal (used to notify users)
-    ImageSensor _image_sensor;                      // user selected image sensor (aka camera lens)
-    float _zoom_times;                              // zoom times received from gimbal
-    uint32_t _firmware_version;                     // firmware version from gimbal
-    bool _got_firmware_version;                     // true once we have received the firmware version
+    uint32_t _last_current_angle_rad_ms = 0;        // system time _current_angle_rad was updated (used for health reporting)
+    bool _recording = false;                        // recording status received from gimbal
+    bool _last_lock = false;                        // last lock mode sent to gimbal
+    TrackingStatus _last_tracking_status = TrackingStatus::STOPPED; // last tracking status received from gimbal (used to notify users)
+    ImageSensor _image_sensor = ImageSensor::NO_ACTION; // user selected image sensor (aka camera lens)
+    float _zoom_times = 0.0f;                       // zoom times received from gimbal
+    uint32_t _firmware_version = 0;                 // firmware version from gimbal
+    bool _got_firmware_version = false;             // true once we have received the firmware version
     uint8_t _model_name[11] {};                     // model name received from gimbal
-    bool _got_model_name;                           // true once we have received model name
-    float _rangefinder_dist_m;                      // latest rangefinder distance (in meters)
+    bool _got_model_name = false;                   // true once we have received model name
+    float _rangefinder_dist_m = 0.0f;               // latest rangefinder distance (in meters)
 };
 
 #endif // HAL_MOUNT_VIEWPRO_ENABLED

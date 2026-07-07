@@ -104,7 +104,7 @@ private:
     } address_driver[HAL_BATTMON_INA3221_MAX_DEVICES];
     static uint8_t address_driver_count;
 
-    AddressDriver::StateList *address_driver_state;
+    AddressDriver::StateList *address_driver_state = nullptr;
 };
 
 #endif  // AP_BATTERY_INA3221_ENABLED

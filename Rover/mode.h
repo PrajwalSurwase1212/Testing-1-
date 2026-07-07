@@ -869,8 +869,8 @@ public:
 
 private:
 
-    float _initial_heading_cd;  // vehicle heading (in centi-degrees) at moment vehicle was armed
-    float _desired_heading_cd;  // latest desired heading (in centi-degrees) from pilot
+    float _initial_heading_cd = 0.0f;  // vehicle heading (in centi-degrees) at moment vehicle was armed
+    float _desired_heading_cd = 0.0f;  // latest desired heading (in centi-degrees) from pilot
 };
 
 #if MODE_DOCK_ENABLED

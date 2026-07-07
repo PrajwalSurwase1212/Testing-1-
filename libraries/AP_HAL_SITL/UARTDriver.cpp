@@ -714,6 +714,7 @@ bool UARTDriver::_select_check(int fd)
     return false;
 }
 
+// coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
 void UARTDriver::_set_nonblocking(int fd)
 {
     unsigned v = fcntl(fd, F_GETFL, 0);

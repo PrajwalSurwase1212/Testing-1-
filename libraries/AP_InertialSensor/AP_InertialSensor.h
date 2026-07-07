@@ -363,7 +363,7 @@ public:
 
         // Parameters
         AP_Int16 _required_count;
-        uint16_t _real_required_count;
+        uint16_t _real_required_count = 0;
         AP_Int8 _sensor_mask;
         AP_Int8 _batch_options_mask;
 
@@ -400,26 +400,26 @@ public:
 
         bool has_option(batch_opt_t option) const { return _batch_options_mask & uint16_t(option); }
 
-        uint64_t measurement_started_us;
+        uint64_t measurement_started_us = 0;
 
-        bool initialised;
-        bool isbh_sent;
-        bool _doing_sensor_rate_logging;
-        bool _doing_post_filter_logging;
-        bool _doing_pre_post_filter_logging;
-        uint8_t instance; // instance we are sending data for
-        bool post_filter; // whether we are sending post-filter data
+        bool initialised = false;
+        bool isbh_sent = false;
+        bool _doing_sensor_rate_logging = false;
+        bool _doing_post_filter_logging = false;
+        bool _doing_pre_post_filter_logging = false;
+        uint8_t instance = 0; // instance we are sending data for
+        bool post_filter = false; // whether we are sending post-filter data
         AP_InertialSensor::IMU_SENSOR_TYPE type;
-        uint16_t isb_seqnum;
-        int16_t *data_x;
-        int16_t *data_y;
-        int16_t *data_z;
-        uint16_t data_write_offset; // units: samples
-        uint16_t data_read_offset; // units: samples
-        uint32_t last_sent_ms;
+        uint16_t isb_seqnum = 0;
+        int16_t *data_x = nullptr;
+        int16_t *data_y = nullptr;
+        int16_t *data_z = nullptr;
+        uint16_t data_write_offset = 0; // units: samples
+        uint16_t data_read_offset = 0; // units: samples
+        uint32_t last_sent_ms = 0;
 
         // all samples are multiplied by this
-        uint16_t multiplier; // initialised as part of init()
+        uint16_t multiplier = 0; // initialised as part of init()
 
         const AP_InertialSensor &_imu;
     };
@@ -503,29 +503,29 @@ private:
     void Write_IMU_instance(const uint64_t time_us, const uint8_t imu_instance) const;
     
     // backend objects
-    AP_InertialSensor_Backend *_backends[INS_MAX_BACKENDS];
+    AP_InertialSensor_Backend *_backends[INS_MAX_BACKENDS] {};
 
     // number of gyros and accel drivers. Note that most backends
     // provide both accel and gyro data, so will increment both
     // counters on initialisation
-    uint8_t _gyro_count;
-    uint8_t _accel_count;
-    uint8_t _backend_count;
+    uint8_t _gyro_count = 0;
+    uint8_t _accel_count = 0;
+    uint8_t _backend_count = 0;
 
     // the selected loop rate at which samples are made available
-    uint16_t _loop_rate;
-    float _loop_delta_t;
-    float _loop_delta_t_max;
+    uint16_t _loop_rate = 0;
+    float _loop_delta_t = 0.0f;
+    float _loop_delta_t_max = 0.0f;
 
     // Most recent accelerometer reading
     Vector3f _accel[INS_MAX_INSTANCES];
     Vector3f _delta_velocity[INS_MAX_INSTANCES];
-    float _delta_velocity_dt[INS_MAX_INSTANCES];
-    bool _delta_velocity_valid[INS_MAX_INSTANCES];
+    float _delta_velocity_dt[INS_MAX_INSTANCES] {};
+    bool _delta_velocity_valid[INS_MAX_INSTANCES] {};
     // delta velocity accumulator
     Vector3f _delta_velocity_acc[INS_MAX_INSTANCES];
     // time accumulator for delta velocity accumulator
-    float _delta_velocity_acc_dt[INS_MAX_INSTANCES];
+    float _delta_velocity_acc_dt[INS_MAX_INSTANCES] {};
 
     // Low Pass filters for gyro and accel
     LowPassFilter2pVector3f _accel_filter[INS_MAX_INSTANCES];
@@ -537,33 +537,33 @@ private:
     Vector3f _gyro_for_fft[INS_MAX_INSTANCES];
     Vector3f _last_gyro_for_fft[INS_MAX_INSTANCES];
     FloatBuffer _gyro_window[INS_MAX_INSTANCES][XYZ_AXIS_COUNT];
-    uint16_t _gyro_window_size;
+    uint16_t _gyro_window_size = 0;
     // capture a gyro window after the filters
     LowPassFilter2pVector3f _post_filter_gyro_filter[INS_MAX_INSTANCES];
-    bool _post_filter_fft;
-    uint8_t _fft_window_phase;
+    bool _post_filter_fft = false;
+    uint8_t _fft_window_phase = 0;
 #endif
-    bool _new_accel_data[INS_MAX_INSTANCES];
-    bool _new_gyro_data[INS_MAX_INSTANCES];
+    bool _new_accel_data[INS_MAX_INSTANCES] {};
+    bool _new_gyro_data[INS_MAX_INSTANCES] {};
 
     // Most recent gyro reading
     Vector3f _gyro[INS_MAX_INSTANCES];
     Vector3f _delta_angle[INS_MAX_INSTANCES];
-    float _delta_angle_dt[INS_MAX_INSTANCES];
-    bool _delta_angle_valid[INS_MAX_INSTANCES];
+    float _delta_angle_dt[INS_MAX_INSTANCES] {};
+    bool _delta_angle_valid[INS_MAX_INSTANCES] {};
     // time accumulator for delta angle accumulator
-    float _delta_angle_acc_dt[INS_MAX_INSTANCES];
+    float _delta_angle_acc_dt[INS_MAX_INSTANCES] {};
     Vector3f _delta_angle_acc[INS_MAX_INSTANCES];
     Vector3f _last_delta_angle[INS_MAX_INSTANCES];
     Vector3f _last_raw_gyro[INS_MAX_INSTANCES];
 
     // bitmask indicating if a sensor is doing sensor-rate sampling:
-    uint8_t _accel_sensor_rate_sampling_enabled;
-    uint8_t _gyro_sensor_rate_sampling_enabled;
+    uint8_t _accel_sensor_rate_sampling_enabled = 0;
+    uint8_t _gyro_sensor_rate_sampling_enabled = 0;
 
     // multipliers for data supplied via sensor-rate logging:
-    uint16_t _accel_raw_sampling_multiplier[INS_MAX_INSTANCES];
-    uint16_t _gyro_raw_sampling_multiplier[INS_MAX_INSTANCES];
+    uint16_t _accel_raw_sampling_multiplier[INS_MAX_INSTANCES] {};
+    uint16_t _gyro_raw_sampling_multiplier[INS_MAX_INSTANCES] {};
 
     // IDs to uniquely identify each sensor: shall remain
     // the same across reboots
@@ -610,26 +610,26 @@ private:
     INS_PARAM_WRAPPER(_accel_pos);
 
     // accelerometer and gyro raw sample rate in units of Hz
-    float  _accel_raw_sample_rates[INS_MAX_INSTANCES];
-    float  _gyro_raw_sample_rates[INS_MAX_INSTANCES];
+    float  _accel_raw_sample_rates[INS_MAX_INSTANCES] {};
+    float  _gyro_raw_sample_rates[INS_MAX_INSTANCES] {};
 
     // how many sensors samples per notify to the backend
-    uint8_t _accel_over_sampling[INS_MAX_INSTANCES];
-    uint8_t _gyro_over_sampling[INS_MAX_INSTANCES];
+    uint8_t _accel_over_sampling[INS_MAX_INSTANCES] {};
+    uint8_t _gyro_over_sampling[INS_MAX_INSTANCES] {};
 
     // last sample time in microseconds. Use for deltaT calculations
     // on non-FIFO sensors
-    uint64_t _accel_last_sample_us[INS_MAX_INSTANCES];
-    uint64_t _gyro_last_sample_us[INS_MAX_INSTANCES];
+    uint64_t _accel_last_sample_us[INS_MAX_INSTANCES] {};
+    uint64_t _gyro_last_sample_us[INS_MAX_INSTANCES] {};
 
     // sample times for checking real sensor rate for FIFO sensors
-    uint16_t _sample_accel_count[INS_MAX_INSTANCES];
-    uint32_t _sample_accel_start_us[INS_MAX_INSTANCES];
-    uint16_t _sample_gyro_count[INS_MAX_INSTANCES];
-    uint32_t _sample_gyro_start_us[INS_MAX_INSTANCES];
-    
+    uint16_t _sample_accel_count[INS_MAX_INSTANCES] {};
+    uint32_t _sample_accel_start_us[INS_MAX_INSTANCES] {};
+    uint16_t _sample_gyro_count[INS_MAX_INSTANCES] {};
+    uint32_t _sample_gyro_start_us[INS_MAX_INSTANCES] {};
+
     // temperatures for an instance if available
-    float _temperature[INS_MAX_INSTANCES];
+    float _temperature[INS_MAX_INSTANCES] {};
 
     // filtering frequency (0 means default)
     AP_Int16    _accel_filter_cutoff;
@@ -653,24 +653,24 @@ private:
     enum Rotation _board_orientation;
 
     // per-sensor orientation to allow for board type defaults at runtime
-    enum Rotation _gyro_orientation[INS_MAX_INSTANCES];
-    enum Rotation _accel_orientation[INS_MAX_INSTANCES];
+    enum Rotation _gyro_orientation[INS_MAX_INSTANCES] {};
+    enum Rotation _accel_orientation[INS_MAX_INSTANCES] {};
 
     // calibrated_ok/id_ok flags
     bool _gyro_cal_ok[INS_MAX_INSTANCES];
-    bool _accel_id_ok[INS_MAX_INSTANCES];
+    bool _accel_id_ok[INS_MAX_INSTANCES] {};
 
     // first usable gyro and accel
-    uint8_t _first_usable_gyro;
-    uint8_t _first_usable_accel;
+    uint8_t _first_usable_gyro = 0;
+    uint8_t _first_usable_accel = 0;
 
     // primary instance
-    uint8_t _primary;
+    uint8_t _primary = 0;
 
     // mask of accels and gyros which we will be actively using
     // and this should wait for in wait_for_sample()
-    uint8_t _gyro_wait_mask;
-    uint8_t _accel_wait_mask;
+    uint8_t _gyro_wait_mask = 0;
+    uint8_t _accel_wait_mask = 0;
 
     // bitmask bit which indicates if we should log raw accel and gyro data
     uint32_t _log_raw_bit;
@@ -681,34 +681,34 @@ private:
     bool _backends_detected:1;
 
     // are gyros or accels currently being calibrated
-    bool _calibrating_accel;
-    bool _calibrating_gyro;
-    bool _trimming_accel;
+    bool _calibrating_accel = false;
+    bool _calibrating_gyro = false;
+    bool _trimming_accel = false;
 
     // the delta time in seconds for the last sample
-    float _delta_time;
+    float _delta_time = 0.0f;
 
     // last time a wait_for_sample() returned a sample
-    uint32_t _last_sample_usec;
+    uint32_t _last_sample_usec = 0;
 
     // target time for next wait_for_sample() return
-    uint32_t _next_sample_usec;
+    uint32_t _next_sample_usec = 0;
 
     // time between samples in microseconds
-    uint32_t _sample_period_usec;
+    uint32_t _sample_period_usec = 0;
 
     // last time update() completed
-    uint32_t _last_update_usec;
+    uint32_t _last_update_usec = 0;
 
     // health of gyros and accels
-    bool _gyro_healthy[INS_MAX_INSTANCES];
-    bool _accel_healthy[INS_MAX_INSTANCES];
+    bool _gyro_healthy[INS_MAX_INSTANCES] {};
+    bool _accel_healthy[INS_MAX_INSTANCES] {};
 
-    uint32_t _accel_error_count[INS_MAX_INSTANCES];
-    uint32_t _gyro_error_count[INS_MAX_INSTANCES];
+    uint32_t _accel_error_count[INS_MAX_INSTANCES] {};
+    uint32_t _gyro_error_count[INS_MAX_INSTANCES] {};
 
     // vibration and clipping
-    uint32_t _accel_clip_count[INS_MAX_INSTANCES];
+    uint32_t _accel_clip_count[INS_MAX_INSTANCES] {};
     LowPassFilterVector3f _accel_vibe_floor_filter[INS_VIBRATION_CHECK_INSTANCES];
     LowPassFilterVector3f _accel_vibe_filter[INS_VIBRATION_CHECK_INSTANCES];
 

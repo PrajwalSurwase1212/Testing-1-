@@ -596,10 +596,10 @@ protected:
     // Latest body-frame gyro measurement (rad/s) used by rate controller
     Vector3f            _rate_gyro_rads;
     // timestamp of the latest gyro measurement (in microseconds) value used by the rate controller
-    uint64_t            _rate_gyro_time_us;
+    uint64_t            _rate_gyro_time_us = 0;
 
     // Intersampling period in seconds
-    float               _dt_s;
+    float               _dt_s = 0.0f;
 
     // This represents a 321-intrinsic rotation in NED frame to the target (setpoint)
     // attitude used in the attitude controller, in radians.
@@ -637,10 +637,10 @@ protected:
     Quaternion          _attitude_ang_error;
 
     // The angle between the target thrust vector and the current thrust vector.
-    float               _thrust_angle_rad;
+    float               _thrust_angle_rad = 0.0f;
 
     // The angle between the target thrust vector and the current thrust vector.
-    float               _thrust_error_angle_rad;
+    float               _thrust_error_angle_rad = 0.0f;
 
     // throttle provided as input to attitude controller.  This does not include angle boost.
     float               _throttle_in = 0.0f;
@@ -667,9 +667,9 @@ protected:
 
     // Rate controller input smoothing time constants
     // Time constant for shaping roll/pitch rate input [s]
-    float               _rate_rp_tc;
+    float               _rate_rp_tc = 0.0f;
     // Time constant for shaping yaw rate input [s]
-    float               _rate_y_tc;
+    float               _rate_y_tc = 0.0f;
 
     // Active scaling applied to Angle P gains for roll, pitch, yaw
     Vector3f            _angle_P_scale{1,1,1};
@@ -684,7 +684,7 @@ protected:
     Vector3f            _pd_scale_used;
 
     // Ratio of normal to reduced rate controller gain when landed to suppress ground resonance
-    float               _landed_gain_ratio;
+    float               _landed_gain_ratio = 0.0f;
 
     // References to external libraries
     const AP_AHRS_View&  _ahrs;

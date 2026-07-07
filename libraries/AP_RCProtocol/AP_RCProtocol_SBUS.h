@@ -38,12 +38,12 @@ private:
 
     bool inverted;
     SoftSerial ss;
-    uint32_t saved_width;
+    uint32_t saved_width = 0;
 
     struct {
-        uint8_t buf[25];
-        uint8_t ofs;
-        uint32_t last_byte_us;
+        uint8_t buf[25] {};
+        uint8_t ofs = 0;
+        uint32_t last_byte_us = 0;
     } byte_input;
 };
 

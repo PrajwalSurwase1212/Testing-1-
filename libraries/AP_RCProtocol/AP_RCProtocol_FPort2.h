@@ -42,23 +42,23 @@ private:
 
     void _process_byte(uint32_t timestamp_us, uint8_t byte);
     SoftSerial ss{115200, SoftSerial::SERIAL_CONFIG_8N1};
-    uint32_t saved_width;
+    uint32_t saved_width = 0;
 
     struct {
-        uint8_t buf[FPORT2_CONTROL_FRAME_SIZE];
-        uint8_t ofs;
-        uint32_t last_byte_us;
-        uint8_t control_len;
-        bool is_downlink;
+        uint8_t buf[FPORT2_CONTROL_FRAME_SIZE] {};
+        uint8_t ofs = 0;
+        uint32_t last_byte_us = 0;
+        uint8_t control_len = 0;
+        bool is_downlink = false;
     } byte_input;
 
-    uint8_t chan_count;
+    uint8_t chan_count = 0;
 
     const bool inverted;
 
     struct {
-        bool available;
-        AP_Frsky_SPort::sport_packet_t packet;
+        bool available = false;
+        AP_Frsky_SPort::sport_packet_t packet {};
     } telem_data;
 };
 

@@ -45,7 +45,7 @@ public:
     // void _timer_tick(); // in lieu of a thread-per-bus
     AP_HAL::Device::PeriodicHandle register_periodic_callback(uint32_t period_usec, AP_HAL::Device::PeriodicCb cb);
 
-    class SPIBus *next;
+    class SPIBus *next = nullptr;
 
 private:
     int _ioctl(uint8_t cs_pin, uint8_t ioctl_number, void *data);
@@ -55,7 +55,7 @@ private:
         AP_HAL::Device::PeriodicCb cb;
         uint32_t period_usec;
         uint64_t next_usec;
-    } *callbacks;
+    } *callbacks = nullptr;
 
     static uint8_t spi_buscount;
 

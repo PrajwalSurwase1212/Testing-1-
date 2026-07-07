@@ -85,13 +85,13 @@ private:
         gmb_param_state_t state;
         uint8_t fetch_attempts;
         bool seen;
-    } _params[MAVLINK_GIMBAL_NUM_TRACKED_PARAMS];
+    } _params[MAVLINK_GIMBAL_NUM_TRACKED_PARAMS] {};
 
-    uint32_t _last_request_ms;
-    uint32_t _last_set_ms;
-    gmb_flashing_step_t _flashing_step;
+    uint32_t _last_request_ms = 0;
+    uint32_t _last_set_ms = 0;
+    gmb_flashing_step_t _flashing_step = GMB_PARAM_NOT_FLASHING;
 
-    mavlink_channel_t _chan;
+    mavlink_channel_t _chan = MAVLINK_COMM_0;
 };
 
 #endif // HAL_SOLO_GIMBAL_ENABLED

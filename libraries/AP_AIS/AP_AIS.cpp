@@ -151,7 +151,7 @@ void AP_AIS::update()
                 // We have the last part, need to find preceding fragments
                 const uint8_t parts = _incoming.num - 1;
 
-                uint8_t msg_parts[parts];
+                uint8_t msg_parts[AIVDM_BUFFER_SIZE] {};
                 for  (uint8_t i = 0; i < AIVDM_BUFFER_SIZE; i++) {
                     // look for the rest of the message from the start of the buffer
                     // we assume the message has be received in the correct order

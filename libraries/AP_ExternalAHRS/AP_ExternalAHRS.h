@@ -182,7 +182,7 @@ protected:
     bool option_is_set(OPTIONS option) const { return (options.get() & int32_t(option)) != 0; }
 
 private:
-    AP_ExternalAHRS_backend *backend;
+    AP_ExternalAHRS_backend *backend = nullptr;
 
     AP_Enum<DevType> devtype;
     AP_Int16         rate;

@@ -72,9 +72,9 @@ protected:
 
     typedef uint8_t* chunk_ptr_t;   // pointer to a chunk
 
-    chunk_ptr_t *chunk_ptrs;    // array of pointers to allocated chunks
-    uint16_t chunk_count_max;   // number of elements in chunk_ptrs array
-    uint16_t chunk_count;       // number of allocated chunks
+    chunk_ptr_t *chunk_ptrs = nullptr;    // array of pointers to allocated chunks
+    uint16_t chunk_count_max = 0;   // number of elements in chunk_ptrs array
+    uint16_t chunk_count = 0;       // number of allocated chunks
 };
 
 template <typename T>

@@ -72,12 +72,12 @@ private:
     // Log telem of each servo
     void write_log();
 
-    volatile TelemetryData _telem_data[SERVO_TELEM_MAX_SERVOS];
+    volatile TelemetryData _telem_data[SERVO_TELEM_MAX_SERVOS] {};
 
-    uint32_t _last_telem_log_ms[SERVO_TELEM_MAX_SERVOS];
+    uint32_t _last_telem_log_ms[SERVO_TELEM_MAX_SERVOS] {};
 
     static AP_Servo_Telem *_singleton;
 
-    uint32_t active_mask;
+    uint32_t active_mask = 0;
 };
 #endif // AP_SERVO_TELEM_ENABLED

@@ -285,7 +285,10 @@ void Plane::calc_airspeed_errors()
         target_airspeed_cm += airspeed_nudge_cm;
     }
 
+    // coverity[RW.ROUTINE_NOT_EMITTED]
+    // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
     float airspeed_lower_bound = is_positive(aparm.airspeed_stall)
+                                     // coverity[RW.NO_MATCHING_OPERATOR_FUNCTION]
                                      ? aparm.airspeed_stall
                                      : aparm.airspeed_min;
 

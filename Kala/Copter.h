@@ -245,22 +245,22 @@ private:
     ParametersG2 g2;
 
     // used to detect MAVLink acks from GCS to stop compassmot
-    uint8_t command_ack_counter;
+    uint8_t command_ack_counter = 0;
 
     // primary input control channels
-    RC_Channel *channel_roll;
-    RC_Channel *channel_pitch;
-    RC_Channel *channel_throttle;
-    RC_Channel *channel_yaw;
+    RC_Channel *channel_roll = nullptr;
+    RC_Channel *channel_pitch = nullptr;
+    RC_Channel *channel_throttle = nullptr;
+    RC_Channel *channel_yaw = nullptr;
 
 #if AP_RC_TRANSMITTER_TUNING_ENABLED
     // channel which is being used to tune a parameter value:
-    RC_Channel *rc_tuning;
-    RC_Channel *rc_tuning2;
+    RC_Channel *rc_tuning = nullptr;
+    RC_Channel *rc_tuning2 = nullptr;
 #endif  // AP_RC_TRANSMITTER_TUNING_ENABLED
 
     // flight modes convenience array
-    AP_Int8 *flight_modes;
+    AP_Int8 *flight_modes = nullptr;
     const uint8_t num_flight_modes = 6;
 
     AP_SurfaceDistance rangefinder_state {ROTATION_PITCH_270, 0U};
@@ -298,16 +298,16 @@ private:
         void init(Surface surf) { surface = surf; }
 
     private:
-        Surface surface;
-        uint32_t last_update_ms;    // system time of last update to target_alt_m
-        uint32_t last_glitch_cleared_ms;    // system time of last handle glitch recovery
-        bool valid_for_logging;     // true if we have a desired target altitude
-        bool reset_target;          // true if target should be reset because of change in surface being tracked
+        Surface surface = Surface::NONE;
+        uint32_t last_update_ms = 0;    // system time of last update to target_alt_m
+        uint32_t last_glitch_cleared_ms = 0;    // system time of last handle glitch recovery
+        bool valid_for_logging = false;     // true if we have a desired target altitude
+        bool reset_target = false;          // true if target should be reset because of change in surface being tracked
     } surface_tracking;
 #endif
 
     // Inertial Navigation EKF - different viewpoint
-    AP_AHRS_View *ahrs_view;
+    AP_AHRS_View *ahrs_view = nullptr;
 
     // Arming/Disarming management class
     AP_Arming_Copter arming;
@@ -324,25 +324,25 @@ private:
 
 
     // system time in milliseconds of last recorded yaw reset from ekf
-    uint32_t ekfYawReset_ms;
-    int8_t ekf_primary_core;
+    uint32_t ekfYawReset_ms = 0;
+    int8_t ekf_primary_core = 0;
 
     // vibration check
     struct {
         bool high_vibes;    // true while high vibration are detected
         uint32_t start_ms;  // system time high vibration were last detected
         uint32_t clear_ms;  // system time high vibrations stopped
-    } vibration_check;
+    } vibration_check{};
 
     // EKF variances are unfiltered and are designed to recover very quickly when possible
-    // thus failsafes should be triggered on filtered values in order to avoid transient errors 
+    // thus failsafes should be triggered on filtered values in order to avoid transient errors
     LowPassFilterFloat pos_variance_filt;
     LowPassFilterFloat vel_variance_filt;
-    bool variances_valid;
-    uint32_t last_ekf_check_us;
+    bool variances_valid = false;
+    uint32_t last_ekf_check_us = 0;
 
     // takeoff check
-    uint32_t takeoff_check_warning_ms;  // system time user was last warned of takeoff check failure
+    uint32_t takeoff_check_warning_ms = 0;  // system time user was last warned of takeoff check failure
 
     // GCS selection
     GCS_Copter _gcs; // avoid using this; use gcs()
@@ -390,19 +390,19 @@ private:
         bool unused2_aux_switch_rc_override_allowed; // 24
         bool armed_with_airmode_switch;      // 25 we armed using a arming switch
         bool prec_land_active;               // 26 true if precland is active
-    } ap;
+    } ap{};
 
-    AirMode air_mode; // air mode is 0 = not-configured ; 1 = disabled; 2 = enabled;
-    bool force_flying; // force flying is enabled when true;
+    AirMode air_mode = AirMode::AIRMODE_NONE; // air mode is 0 = not-configured ; 1 = disabled; 2 = enabled;
+    bool force_flying = false; // force flying is enabled when true;
 
     // This is the state of the flight control system
     // There are multiple states defined such as STABILIZE, ACRO,
-    Mode *flightmode;
+    Mode *flightmode = nullptr;
 
     RCMapper rcmap;
 
     // inertial nav alt when we armed
-    float arming_altitude_m;
+    float arming_altitude_m = 0.0f;
 
     // Failsafe
     struct {
@@ -417,7 +417,7 @@ private:
         uint8_t terrain             : 1; // true if the missing terrain data failsafe has occurred
         uint8_t adsb                : 1; // true if an adsb related failsafe has occurred
         uint8_t deadreckon          : 1; // true if a dead reckoning failsafe has triggered
-    } failsafe;
+    } failsafe{};
 
     bool any_failsafe_triggered() const {
         return failsafe.radio || battery.has_failsafed() || failsafe.gcs || failsafe.ekf || failsafe.terrain || failsafe.adsb || failsafe.deadreckon;
@@ -428,14 +428,14 @@ private:
         bool active;        // true if dead reckoning (position estimate using estimated airspeed, no position or velocity source)
         bool timeout;       // true if dead reckoning has timedout and EKF's position and velocity estimate should no longer be trusted
         uint32_t start_ms;  // system time that EKF began deadreckoning
-    } dead_reckoning;
+    } dead_reckoning{};
 
     // Motor Output
-    MOTOR_CLASS *motors;
-    const struct AP_Param::GroupInfo *motors_var_info;
+    MOTOR_CLASS *motors = nullptr;
+    const struct AP_Param::GroupInfo *motors_var_info = nullptr;
 
-    float _home_bearing_rad;
-    float _home_distance_m;
+    float _home_bearing_rad = 0.0f;
+    float _home_distance_m = 0.0f;
 
     // SIMPLE Mode
     // Used to track the orientation of the vehicle for Simple mode. This value is reset at each arming
@@ -444,16 +444,16 @@ private:
         NONE = 0,
         SIMPLE = 1,
         SUPERSIMPLE = 2,
-    } simple_mode;
+    } simple_mode = SimpleMode::NONE;
 
     float simple_cos_yaw;
-    float simple_sin_yaw;
-    float super_simple_last_bearing_rad;
+    float simple_sin_yaw = 0.0f;
+    float super_simple_last_bearing_rad = 0.0f;
     float super_simple_cos_yaw;
-    float super_simple_sin_yaw;
+    float super_simple_sin_yaw = 0.0f;
 
     // Stores initial bearing when armed - initial simple bearing is modified in super simple mode so not suitable
-    float initial_armed_bearing_rad;
+    float initial_armed_bearing_rad = 0.0f;
 
     // Battery Sensors
     AP_BattMonitor battery{MASK_LOG_CURRENT,
@@ -465,7 +465,7 @@ private:
 #endif
 
     // Altitude
-    float baro_alt_m;                           // barometer altitude in meters above home
+    float baro_alt_m = 0.0f;                           // barometer altitude in meters above home
     LowPassFilterVector3f land_accel_ef_filter; // accelerations for land and crash detector tests
 
     // filtered pilot's throttle input used to cancel landing if throttle held high
@@ -477,24 +477,24 @@ private:
 
     // Attitude, Position and Waypoint navigation objects
     // To-Do: move inertial nav up or other navigation variables down here
-    AC_AttitudeControl *attitude_control;
-    const struct AP_Param::GroupInfo *attitude_control_var_info;
-    AC_PosControl *pos_control;
-    AC_WPNav *wp_nav;
-    AC_Loiter *loiter_nav;
+    AC_AttitudeControl *attitude_control = nullptr;
+    const struct AP_Param::GroupInfo *attitude_control_var_info = nullptr;
+    AC_PosControl *pos_control = nullptr;
+    AC_WPNav *wp_nav = nullptr;
+    AC_Loiter *loiter_nav = nullptr;
 
 #if AC_CUSTOMCONTROL_MULTI_ENABLED
     AC_CustomControl custom_control{ahrs_view, attitude_control, motors, scheduler.get_loop_period_s()};
 #endif
 
 #if MODE_CIRCLE_ENABLED
-    AC_Circle *circle_nav;
+    AC_Circle *circle_nav = nullptr;
 #endif
 
     // System Timers
     // --------------
     // arm_time_ms - Records when vehicle was armed. Will be Zero if we are disarmed.
-    uint32_t arm_time_ms;
+    uint32_t arm_time_ms = 0;
 
     // Camera
 #if AP_CAMERA_ENABLED
@@ -557,10 +557,10 @@ private:
 #endif
 
     // last valid RC input time
-    uint32_t last_radio_update_ms;
+    uint32_t last_radio_update_ms = 0;
 
     // last esc calibration notification update
-    uint32_t esc_calibration_notify_update_ms;
+    uint32_t esc_calibration_notify_update_ms = 0;
 
     // Top-level logic
     // setup the var_info table
@@ -572,9 +572,9 @@ private:
         uint8_t dynamic_flight          : 1;    // 0   // true if we are moving at a significant speed (used to turn on/off leaky I terms)
         bool coll_stk_low                  ;    // 1   // true when collective stick is on lower limit
     } heli_flags_t;
-    heli_flags_t heli_flags;
+    heli_flags_t heli_flags{};
 
-    int16_t hover_roll_trim_scalar_slew;
+    int16_t hover_roll_trim_scalar_slew = 0;
 #endif
 
     // ground effect detector
@@ -583,9 +583,9 @@ private:
         bool touchdown_expected;
         uint32_t takeoff_time_ms;
         float takeoff_alt_m;
-    } gndeffect_state;
+    } gndeffect_state{};
 
-    bool standby_active;
+    bool standby_active = false;
 
     static const AP_Scheduler::Task scheduler_tasks[];
     static const AP_Param::Info var_info[];
@@ -784,7 +784,7 @@ private:
     void thrust_loss_check();
     void yaw_imbalance_check();
     LowPassFilterFloat yaw_I_filt{0.05f};
-    uint32_t last_yaw_warn_ms;
+    uint32_t last_yaw_warn_ms = 0;
     void parachute_check();
     void parachute_release();
     void parachute_manual_release();
@@ -880,7 +880,7 @@ private:
         uint32_t last_logged_ms;
         uint32_t last_logged_count;
         uint16_t last_logged_flags;
-    } land_detector;
+    } land_detector{};
     void Log_LDET(uint16_t logging_flags, uint32_t land_detector_count);
 #endif
 
@@ -924,7 +924,7 @@ private:
     // mode.cpp
     bool set_mode(Mode::Number mode, ModeReason reason);
     bool set_mode(const uint8_t new_mode, const ModeReason reason) override;
-    ModeReason _last_reason;
+    ModeReason _last_reason = ModeReason::UNKNOWN;
     // called when an attempt to change into a mode is unsuccessful:
     void mode_change_failed(const Mode *mode, const char *reason);
     uint8_t get_mode() const override { return (uint8_t)flightmode->mode_number(); }
@@ -1058,7 +1058,7 @@ private:
     ModeGuided mode_guided;
 #if AP_SCRIPTING_ENABLED
     // Custom modes registered at runtime
-    ModeGuidedCustom *mode_guided_custom[5];
+    ModeGuidedCustom *mode_guided_custom[5] = {};
 #endif
 #endif
     ModeLand mode_land;
@@ -1111,8 +1111,8 @@ private:
     Mode *mode_from_mode_num(const Mode::Number mode);
     void exit_mode(Mode *&old_flightmode, Mode *&new_flightmode);
 
-    bool started_rate_thread;
-    bool using_rate_thread;
+    bool started_rate_thread = false;
+    bool using_rate_thread = false;
 
 public:
     void failsafe_check();      // failsafe.cpp

@@ -147,9 +147,9 @@ private:
     };
 
     enum ST24_DECODE_STATE _decode_state = ST24_DECODE_STATE_UNSYNCED;
-    uint8_t _rxlen;
+    uint8_t _rxlen = 0;
 
-    ReceiverFcPacket _rxpacket;
+    ReceiverFcPacket _rxpacket {};
 
     SoftSerial ss{115200, SoftSerial::SERIAL_CONFIG_8N1};
 };

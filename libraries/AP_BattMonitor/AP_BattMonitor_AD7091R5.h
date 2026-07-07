@@ -56,9 +56,9 @@ private:
     static bool _health;
 
     HAL_Semaphore sem; // semaphore for access to shared frontend data
-    AP_HAL::I2CDevice *_dev;
-    uint8_t volt_buff_pt;
-    uint8_t curr_buff_pt;
+    AP_HAL::I2CDevice *_dev = nullptr;
+    uint8_t volt_buff_pt = 0;
+    uint8_t curr_buff_pt = 0;
 
 protected:
 

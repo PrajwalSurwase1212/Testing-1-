@@ -55,7 +55,7 @@ protected:
 
     struct {
         Vector3f vec_unit;  // unit vector pointing towards target in earth or body frame (see frame)
-        AC_PrecLand::VectorFrame frame;  // frame of vector pointing towards target
+        AC_PrecLand::VectorFrame frame = AC_PrecLand::VectorFrame::BODY_FRD;  // frame of vector pointing towards target
         uint32_t time_ms = 0;   // system time in milliseconds when the vector was measured
         bool valid = false;         // true if there is a valid measurement from the sensor
     } _los_meas;

@@ -64,10 +64,10 @@ public:
 
     // The RPM_State structure is filled in by the backend driver
     struct RPM_State {
-        uint8_t                instance;        // the instance number of this RPM
-        float                  rate_rpm;        // measured rate in revs per minute
-        uint32_t               last_reading_ms; // time of last reading
-        float                  signal_quality;  // synthetic quality metric 
+        uint8_t                instance = 0;        // the instance number of this RPM
+        float                  rate_rpm = 0.0f;        // measured rate in revs per minute
+        uint32_t               last_reading_ms = 0; // time of last reading
+        float                  signal_quality = 0.0f;  // synthetic quality metric
     };
 
     // parameters for each instance
@@ -116,8 +116,8 @@ private:
     static AP_RPM *_singleton;
 
     RPM_State state[RPM_MAX_INSTANCES];
-    AP_RPM_Backend *drivers[RPM_MAX_INSTANCES];
-    uint8_t num_instances;
+    AP_RPM_Backend *drivers[RPM_MAX_INSTANCES] {};
+    uint8_t num_instances = 0;
 
     void Log_RPM() const;
 };

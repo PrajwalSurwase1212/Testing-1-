@@ -131,30 +131,30 @@ private:
     bool _get_telem_data(AP_RCProtocol_GHST::Frame* data, bool is_tx_active);
     bool _process_frame(AP_RCProtocol_GHST::FrameType frame_type, void* data);
 
-    TelemetryPayload _telem;
-    uint8_t _telem_size;
-    uint8_t _telem_type;
+    TelemetryPayload _telem {};
+    uint8_t _telem_size = 0;
+    uint8_t _telem_type = 0;
 
-    AP_RCProtocol_GHST::RFMode _rf_mode;
-    bool _enable_telemetry;
+    AP_RCProtocol_GHST::RFMode _rf_mode = AP_RCProtocol_GHST::RFMode::RF_MODE_UNKNOWN;
+    bool _enable_telemetry = false;
 
     // reporting telemetry rate
-    uint32_t _telem_last_report_ms;
-    uint16_t _telem_last_avg_rate;
+    uint32_t _telem_last_report_ms = 0;
+    uint16_t _telem_last_avg_rate = 0;
     // do we need to report the initial state
-    bool _telem_bootstrap_msg_pending;
+    bool _telem_bootstrap_msg_pending = false;
 
-    bool _telem_is_high_speed;
-    bool _telem_pending;
+    bool _telem_is_high_speed = false;
+    bool _telem_pending = false;
     // used to limit telemetry when in a failsafe condition
-    bool _is_tx_active;
+    bool _is_tx_active = false;
 
     struct {
         uint8_t destination = 0;
-        uint8_t frame_type;
+        uint8_t frame_type = 0;
     } _pending_request;
 
-    bool _noted_lq_as_rssi_active;
+    bool _noted_lq_as_rssi_active = false;
 
     static AP_GHST_Telem *singleton;
 };

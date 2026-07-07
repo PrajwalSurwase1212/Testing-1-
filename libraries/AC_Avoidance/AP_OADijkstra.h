@@ -61,7 +61,7 @@ private:
         DIJKSTRA_ERROR_TOO_MANY_FENCE_POINTS,
         DIJKSTRA_ERROR_NO_POSITION_ESTIMATE,
         DIJKSTRA_ERROR_COULD_NOT_FIND_PATH
-    } _error_id;
+    } _error_id = AP_OADijkstra_Error::DIJKSTRA_ERROR_NONE;
 
     // return error message for a given error id
     const char* get_error_msg(AP_OADijkstra_Error error_id) const;

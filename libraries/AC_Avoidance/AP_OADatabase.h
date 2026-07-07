@@ -107,21 +107,21 @@ private:
     AP_Float        _min_alt;                               // OADatabase minimum vehicle height check (in meters)
 
     struct {
-        ObjectBuffer<OA_DbItem> *items;                     // thread safe incoming queue of points from proximity sensor to be put into database
-        uint16_t        size;                               // cached value of _queue_size_param.
+        ObjectBuffer<OA_DbItem> *items = nullptr;           // thread safe incoming queue of points from proximity sensor to be put into database
+        uint16_t        size = 0;                           // cached value of _queue_size_param.
         HAL_Semaphore   sem;                                // semaphore for multi-thread use of queue
     } _queue;
-    float dist_to_radius_scalar;                            // scalar to convert the distance and beam width to an object radius
+    float dist_to_radius_scalar = 0.0f;                     // scalar to convert the distance and beam width to an object radius
 
     struct {
-        OA_DbItem       *items;                             // array of objects in the database
-        uint16_t        count;                              // number of objects in the items array
-        uint16_t        size;                               // cached value of _database_size_param that sticks after initialized
+        OA_DbItem       *items = nullptr;                   // array of objects in the database
+        uint16_t        count = 0;                          // number of objects in the items array
+        uint16_t        size = 0;                           // cached value of _database_size_param that sticks after initialized
     } _database;
 
-    uint16_t _next_index_to_send[MAVLINK_COMM_NUM_BUFFERS]; // index of next object in _database to send to GCS
-    uint16_t _highest_index_sent[MAVLINK_COMM_NUM_BUFFERS]; // highest index in _database sent to GCS
-    uint32_t _last_send_to_gcs_ms[MAVLINK_COMM_NUM_BUFFERS];// system time that send_adsb_vehicle was last called
+    uint16_t _next_index_to_send[MAVLINK_COMM_NUM_BUFFERS] {}; // index of next object in _database to send to GCS
+    uint16_t _highest_index_sent[MAVLINK_COMM_NUM_BUFFERS] {}; // highest index in _database sent to GCS
+    uint32_t _last_send_to_gcs_ms[MAVLINK_COMM_NUM_BUFFERS] {};// system time that send_adsb_vehicle was last called
 
     static AP_OADatabase *_singleton;
 };

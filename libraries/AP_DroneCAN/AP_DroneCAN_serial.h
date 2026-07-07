@@ -50,18 +50,18 @@ public:
         bool _discard_input() override;
         uint64_t receive_time_constraint_us(uint16_t nbytes) override;
 
-        ByteBuffer *readbuffer;
-        ByteBuffer *writebuffer;
-        uint32_t baudrate;
-        uint32_t last_send_ms;
-        uint32_t last_size_tx;
-        uint32_t last_size_rx;
-        uint64_t last_recv_us;
+        ByteBuffer *readbuffer = nullptr;
+        ByteBuffer *writebuffer = nullptr;
+        uint32_t baudrate = 0;
+        uint32_t last_send_ms = 0;
+        uint32_t last_size_tx = 0;
+        uint32_t last_size_rx = 0;
+        uint64_t last_recv_us = 0;
 
         // statistics
-        uint32_t tx_stats_bytes;
-        uint32_t rx_stats_bytes;
-        uint32_t rx_stats_dropped_bytes;
+        uint32_t tx_stats_bytes = 0;
+        uint32_t rx_stats_bytes = 0;
+        uint32_t rx_stats_dropped_bytes = 0;
 
         HAL_Semaphore sem;
 
@@ -78,9 +78,9 @@ public:
     Port ports[AP_DRONECAN_SERIAL_NUM_PORTS];
 
 private:
-    AP_DroneCAN *dronecan;
+    AP_DroneCAN *dronecan = nullptr;
 
-    Canard::Publisher<uavcan_tunnel_Targetted> *targetted;
+    Canard::Publisher<uavcan_tunnel_Targetted> *targetted = nullptr;
     static void handle_tunnel_targetted(AP_DroneCAN *dronecan,
                                         const CanardRxTransfer& transfer,
                                         const uavcan_tunnel_Targetted &msg);

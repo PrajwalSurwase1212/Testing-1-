@@ -147,7 +147,7 @@ public:
     bool enabled(void) const { return enable != 0; }
     
     // is throttle controlled landing descent active?
-    bool thr_ctrl_land;
+    bool thr_ctrl_land = false;
 
     uint16_t get_pilot_velocity_z_max_dn_m() const;
     
@@ -207,7 +207,7 @@ private:
     AP_Enum<AP_Motors::motor_frame_type> frame_type;
 
     // Types of different "quadplane" configurations.
-    ThrustType thrust_type;
+    ThrustType thrust_type = ThrustType::SLT;
 
     // Initialise motors to allow passing it to tailsitter in its constructor
     AP_MotorsMulticopter *motors = nullptr;
@@ -226,7 +226,7 @@ private:
     AP_Float pilot_accel_z_mss;
 
     // air mode state: OFF, ON, ASSISTED_FLIGHT_ONLY
-    AirMode air_mode;
+    AirMode air_mode = AirMode::OFF;
 
     // Command model parameter class
     // Default max rate, default expo, default time constant
@@ -326,13 +326,13 @@ private:
         };
         AP_Int16 timeout;
         AP_Enum<ACTION> action;
-        bool warned;
+        bool warned = false;
     } transition_failure;
 
 
     // Quadplane trim, degrees
     AP_Float ahrs_trim_pitch;
-    float _last_ahrs_trim_pitch;
+    float _last_ahrs_trim_pitch = 0.0f;
 
     // fw landing approach radius
     AP_Float fw_land_approach_radius_m;
@@ -406,7 +406,7 @@ private:
         NEW  = 2,
     };
     // override with AUX function
-    bool vfwd_enable_active;
+    bool vfwd_enable_active = false;
     
     // specifies when the feature controlled by q_fwd_thr_gain and q_fwd_pitch_lim is used
     enum class FwdThrUse : uint8_t {
@@ -420,40 +420,40 @@ private:
     ActiveFwdThr get_vfwd_method(void) const;
 
     // time we last got an EKF yaw reset
-    uint32_t ekfYawReset_ms;
+    uint32_t ekfYawReset_ms = 0;
 
     struct {
         AP_Float gain;
-        float integrator;
-        uint32_t last_ms;
-        float last_pct;
+        float integrator = 0.0f;
+        uint32_t last_ms = 0;
+        float last_pct = 0.0f;
     } vel_forward;
 
     AC_WeatherVane *weathervane = nullptr;
 
-    bool initialised;
+    bool initialised = false;
 
     Location last_auto_target;
 
-    float q_fwd_throttle; // forward throttle used in q modes
-    float q_fwd_pitch_lim_cd; // forward pitch limit applied when using q_fwd_throttle
-    float q_bck_pitch_lim_cd; // backward pitch limit applied when using Q_BCK_PIT_LIM
-    uint32_t q_pitch_limit_update_ms; // last time the backward pitch limit was updated
+    float q_fwd_throttle = 0.0f; // forward throttle used in q modes
+    float q_fwd_pitch_lim_cd = 0.0f; // forward pitch limit applied when using q_fwd_throttle
+    float q_bck_pitch_lim_cd = 0.0f; // backward pitch limit applied when using Q_BCK_PIT_LIM
+    uint32_t q_pitch_limit_update_ms = 0; // last time the backward pitch limit was updated
 
     // when did we last run the attitude controller?
-    uint32_t last_att_control_ms;
+    uint32_t last_att_control_ms = 0;
 
     // transition logic
     Transition *transition = nullptr;
 
     // true when waiting for pilot throttle
-    bool throttle_wait;
+    bool throttle_wait = false;
 
     // true when quad is assisting a fixed wing mode
-    bool assisted_flight;
+    bool assisted_flight = false;
 
     // are we in a guided takeoff?
-    bool guided_takeoff;
+    bool guided_takeoff = false;
 
     /* if we arm in guided mode when we arm then go into a "waiting
        for takeoff command" state. In this state we are waiting for
@@ -476,14 +476,14 @@ private:
           - arms
           - changes mode to AUTO
     */
-    bool guided_wait_takeoff;
-    bool guided_wait_takeoff_on_mode_enter;
+    bool guided_wait_takeoff = false;
+    bool guided_wait_takeoff_on_mode_enter = false;
 
     struct {
         // time when motors reached lower limit
-        uint32_t lower_limit_start_ms;
-        uint32_t land_start_ms;
-        float vpos_start_m;
+        uint32_t lower_limit_start_ms = 0;
+        uint32_t land_start_ms = 0;
+        float vpos_start_m = 0.0f;
 
         // landing detection threshold in meters
         AP_Float detect_alt_change_m;
@@ -493,7 +493,7 @@ private:
     LowPassFilterVector3f throttle_mix_accel_ef_filter{1.0};
 
     // time we last set the loiter target
-    uint32_t last_loiter_ms;
+    uint32_t last_loiter_ms = 0;
 
     enum position_control_state {
         QPOS_NONE = 0,
@@ -508,6 +508,9 @@ private:
     };
     class PosControlState {
     public:
+        PosControlState() :
+            slow_descent(false)
+        {}
         enum position_control_state get_state() const {
             return state;
         }
@@ -519,43 +522,43 @@ private:
         Vector2f correction_ne_m;
         Vector3f target_vel_ms;
         bool slow_descent:1;
-        bool pilot_correction_active;
-        bool pilot_correction_done;
-        uint32_t thrust_loss_start_ms;
-        uint32_t last_log_ms;
-        bool reached_wp_speed;
-        uint32_t last_run_ms;
-        float pos1_speed_limit_ms;
-        bool done_accel_init;
+        bool pilot_correction_active = false;
+        bool pilot_correction_done = false;
+        uint32_t thrust_loss_start_ms = 0;
+        uint32_t last_log_ms = 0;
+        bool reached_wp_speed = false;
+        uint32_t last_run_ms = 0;
+        float pos1_speed_limit_ms = 0.0f;
+        bool done_accel_init = false;
         Vector2f velocity_match_ms;
-        uint32_t last_velocity_match_ms;
-        float target_speed_ms;
-        float target_accel_mss;
-        uint32_t last_pos_reset_ms;
-        bool overshoot;
+        uint32_t last_velocity_match_ms = 0;
+        float target_speed_ms = 0.0f;
+        float target_accel_mss = 0.0f;
+        uint32_t last_pos_reset_ms = 0;
+        bool overshoot = false;
 
-        float override_descent_rate_ms;
-        uint32_t last_override_descent_ms;
+        float override_descent_rate_ms = 0.0f;
+        uint32_t last_override_descent_ms = 0;
     private:
-        uint32_t last_state_change_ms;
-        enum position_control_state state;
+        uint32_t last_state_change_ms = 0;
+        enum position_control_state state = QPOS_NONE;
     } poscontrol;
 
     struct {
-        bool running;
-        uint32_t start_ms;            // system time the motor test began
+        bool running = false;
+        uint32_t start_ms = 0;        // system time the motor test began
         uint32_t timeout_ms = 0;      // test will timeout this many milliseconds after the motor_test_start_ms
         uint8_t seq = 0;              // motor sequence number of motor being tested
         uint8_t throttle_type = 0;    // motor throttle type (0=throttle percentage, 1=PWM, 2=pilot throttle channel pass-through)
         uint16_t throttle_value = 0;  // throttle to be sent to motor, value depends upon it's type
-        uint8_t motor_count;          // number of motors to cycle
+        uint8_t motor_count = 0;      // number of motors to cycle
     } motor_test;
 
     // time of last MOTB log message
-    uint32_t last_motb_log_ms;
+    uint32_t last_motb_log_ms = 0;
 
     // time of last QTUN log message
-    uint32_t last_qtun_log_ms;
+    uint32_t last_qtun_log_ms = 0;
 
     // Tiltrotor control
     Tiltrotor tiltrotor{*this, motors};
@@ -567,11 +570,11 @@ private:
     AP_AHRS_View *ahrs_view = nullptr;
 
     // time when motors were last active
-    uint32_t last_motors_active_ms;
+    uint32_t last_motors_active_ms = 0;
 
     // time when we last ran the vertical accel controller
-    uint32_t last_pidz_active_ms;
-    uint32_t last_pidz_init_ms;
+    uint32_t last_pidz_active_ms = 0;
+    uint32_t last_pidz_init_ms = 0;
 
     // throttle scailing for vectored motors in FW flighy
     float FW_vector_throttle_scaling(void);
@@ -618,28 +621,28 @@ private:
 
     AP_Float takeoff_failure_scalar;
     AP_Float maximum_takeoff_airspeed_ms;
-    uint32_t takeoff_start_time_ms;
-    uint32_t takeoff_time_limit_ms;
+    uint32_t takeoff_start_time_ms = 0;
+    uint32_t takeoff_time_limit_ms = 0;
 
-    float last_land_final_agl_m;
+    float last_land_final_agl_m = 0.0f;
 
     // AHRS alt for land abort and package place, meters
-    float land_descend_start_alt_m;
+    float land_descend_start_alt_m = 0.0f;
 
     // min alt for navigation in takeoff
     AP_Float takeoff_navalt_min_m;
-    uint32_t takeoff_last_run_ms;
-    float takeoff_start_alt_m;
+    uint32_t takeoff_last_run_ms = 0;
+    float takeoff_start_alt_m = 0.0f;
 
     // oneshot with duration ARMING_DELAY_MS used by quadplane to delay spoolup after arming:
     // ignored unless OPTION_DELAY_ARMING or OPTION_TILT_DISARMED is set
-    bool delay_arming;
+    bool delay_arming = false;
 
     // should we force use of fixed wing controller for attitude upset recovery?
-    bool force_fw_control_recovery;
+    bool force_fw_control_recovery = false;
 
     // are we in spin recovery?
-    bool in_spin_recovery;
+    bool in_spin_recovery = false;
 
     /*
       return true if current mission item is a vtol takeoff

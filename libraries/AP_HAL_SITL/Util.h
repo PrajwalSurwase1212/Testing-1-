@@ -84,8 +84,8 @@ private:
     static ToneAlarm_SF _toneAlarm;
 #endif
 
-    int saved_argc;
-    char *const *saved_argv;
+    int saved_argc = 0;
+    char *const *saved_argv = nullptr;
 
 #if HAL_UART_STATS_ENABLED
     // request information on uart I/O

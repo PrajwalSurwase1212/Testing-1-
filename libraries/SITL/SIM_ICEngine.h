@@ -37,15 +37,17 @@ public:
         starter_servo(_starter),
         slew_rate(_slew_rate),
         throttle_reversed(_throttle_reversed)
-    {}
+    {
+        overheat = false;
+    }
 
     // update motor state
     float update(const struct sitl_input &input);
 
 private:
-    float last_output;
-    uint64_t start_time_us;
-    uint64_t last_update_us;
+    float last_output = 0.0f;
+    uint64_t start_time_us = 0;
+    uint64_t last_update_us = 0;
     union state {
         struct {
             bool choke:1;
@@ -53,7 +55,7 @@ private:
             bool starter:1;
         };
         uint8_t value;
-    } state, last_state;
+    } state {}, last_state {};
     bool overheat:1;
     bool throttle_reversed;
 };

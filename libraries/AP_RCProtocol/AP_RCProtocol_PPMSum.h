@@ -29,8 +29,8 @@ public:
 private:
     // state of ppm decoder
     struct {
-        int8_t _channel_counter;
-        uint16_t _pulse_capt[MAX_RCIN_CHANNELS];
+        int8_t _channel_counter = -1;
+        uint16_t _pulse_capt[MAX_RCIN_CHANNELS] {};
     } ppm_state;
 };
 

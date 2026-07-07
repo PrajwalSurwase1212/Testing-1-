@@ -55,10 +55,10 @@ public:
 
 private:
 
-    uint8_t _num_outputs;
-    AP_HAL::UARTDriver* _uart[NMEA_MAX_OUTPUTS];
+    uint8_t _num_outputs = 0;
+    AP_HAL::UARTDriver* _uart[NMEA_MAX_OUTPUTS] {};
 
-    uint32_t _last_run_ms;
+    uint32_t _last_run_ms = 0;
 
     AP_Int16 _interval_ms;
     AP_Int16 _message_enable_bitmask;

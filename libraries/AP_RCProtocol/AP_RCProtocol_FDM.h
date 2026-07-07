@@ -17,7 +17,7 @@ public:
 
 private:
 
-    uint32_t last_input_ms;
+    uint32_t last_input_ms = 0;
 };
 
 

@@ -217,19 +217,19 @@ private:
     void logging();
     
     // get parameter on a node
-    ParamGetSetIntCb *param_int_cb;         // latest get param request callback function (for integers)
-    ParamGetSetFloatCb *param_float_cb;     // latest get param request callback function (for floats)
-    ParamGetSetStringCb *param_string_cb;   // latest get param request callback function (for strings)
+    ParamGetSetIntCb *param_int_cb = nullptr;         // latest get param request callback function (for integers)
+    ParamGetSetFloatCb *param_float_cb = nullptr;     // latest get param request callback function (for floats)
+    ParamGetSetStringCb *param_string_cb = nullptr;   // latest get param request callback function (for strings)
     bool param_request_sent = true;         // true after a param request has been sent, false when queued to be sent
-    uint32_t param_request_sent_ms;         // system time that get param request was sent
+    uint32_t param_request_sent_ms = 0;         // system time that get param request was sent
     HAL_Semaphore _param_sem;               // semaphore protecting this block of variables
-    uint8_t param_request_node_id;          // node id of most recent get param request
+    uint8_t param_request_node_id = 0;          // node id of most recent get param request
 
     // save parameters on a node
-    ParamSaveCb *save_param_cb;             // latest save param request callback function
+    ParamSaveCb *save_param_cb = nullptr;             // latest save param request callback function
     bool param_save_request_sent = true;    // true after a save param request has been sent, false when queued to be sent
     HAL_Semaphore _param_save_sem;          // semaphore protecting this block of variables
-    uint8_t param_save_request_node_id;     // node id of most recent save param request
+    uint8_t param_save_request_node_id = 0;     // node id of most recent save param request
 
     // UAVCAN parameters
     AP_Int8 _dronecan_node;
@@ -242,7 +242,7 @@ private:
     AP_Int16 _pool_size;
     AP_Int32 _esc_rv;
 
-    uint32_t *mem_pool;
+    uint32_t *mem_pool = nullptr;
 
     uint8_t _driver_index;
 
@@ -250,26 +250,26 @@ private:
 
     AP_DroneCAN_DNA_Server _dna_server;
 
-    char _thread_name[13];
-    bool _initialized;
+    char _thread_name[13] {};
+    bool _initialized = false;
     ///// SRV output /////
     struct {
-        uint16_t pulse;
+        uint16_t pulse = 0;
         bool esc_pending;
         bool servo_pending;
     } _SRV_conf[DRONECAN_SRV_NUMBER];
 
-    uint32_t _esc_send_count;
-    uint32_t _srv_send_count;
-    uint32_t _fail_send_count;
+    uint32_t _esc_send_count = 0;
+    uint32_t _srv_send_count = 0;
+    uint32_t _fail_send_count = 0;
 
-    uint32_t _SRV_armed_mask; // mask of servo outputs that are active
-    uint32_t _ESC_armed_mask; // mask of ESC outputs that are active
-    uint32_t _SRV_last_send_us;
+    uint32_t _SRV_armed_mask = 0; // mask of servo outputs that are active
+    uint32_t _ESC_armed_mask = 0; // mask of ESC outputs that are active
+    uint32_t _SRV_last_send_us = 0;
     HAL_Semaphore SRV_sem;
 
     // last log time
-    uint32_t last_log_ms;
+    uint32_t last_log_ms = 0;
 
 #if AP_DRONECAN_SEND_GPS
     // send GNSS Fix and yaw, same thing AP_GPS_DroneCAN would receive
@@ -278,28 +278,28 @@ private:
     
     // GNSS Fix and Status
     struct {
-        uint32_t last_gps_lib_fix_ms;
-        uint32_t last_send_status_ms;
-        uint32_t last_lib_yaw_time_ms;
+        uint32_t last_gps_lib_fix_ms = 0;
+        uint32_t last_send_status_ms = 0;
+        uint32_t last_lib_yaw_time_ms = 0;
     } _gnss;
 #endif
 
     // node status send
-    uint32_t _node_status_last_send_ms;
+    uint32_t _node_status_last_send_ms = 0;
 
     // safety status send state
-    uint32_t _last_safety_state_ms;
+    uint32_t _last_safety_state_ms = 0;
 
     // notify vehicle state
-    uint32_t _last_notify_state_ms;
-    uavcan_protocol_NodeStatus node_status_msg;
+    uint32_t _last_notify_state_ms = 0;
+    uavcan_protocol_NodeStatus node_status_msg {};
 
 #if AP_RELAY_DRONECAN_ENABLED
     void relay_hardpoint_send();
     struct {
         AP_Int16 rate_hz;
-        uint32_t last_send_ms;
-        uint8_t last_index;
+        uint32_t last_send_ms = 0;
+        uint8_t last_index = 0;
     } _relay;
 #endif
 
@@ -370,13 +370,13 @@ private:
     Canard::ObjCallback<AP_DroneCAN, uavcan_protocol_RestartNodeResponse> restart_node_res_cb{this, &AP_DroneCAN::handle_restart_node_response};
     Canard::Client<uavcan_protocol_RestartNodeResponse> restart_node_client{canard_iface, restart_node_res_cb};
 
-    uavcan_protocol_param_ExecuteOpcodeRequest param_save_req;
-    uavcan_protocol_param_GetSetRequest param_getset_req;
+    uavcan_protocol_param_ExecuteOpcodeRequest param_save_req {};
+    uavcan_protocol_param_GetSetRequest param_getset_req {};
 
     // Node Info Server
     Canard::ObjCallback<AP_DroneCAN, uavcan_protocol_GetNodeInfoRequest> node_info_req_cb{this, &AP_DroneCAN::handle_node_info_request};
     Canard::Server<uavcan_protocol_GetNodeInfoRequest> node_info_server{canard_iface, node_info_req_cb};
-    uavcan_protocol_GetNodeInfoResponse node_info_rsp;
+    uavcan_protocol_GetNodeInfoResponse node_info_rsp {};
 
 #if AP_SCRIPTING_ENABLED
     Canard::ObjCallback<AP_DroneCAN, dronecan_protocol_FlexDebug> FlexDebug_cb{this, &AP_DroneCAN::handle_FlexDebug};
@@ -391,8 +391,8 @@ private:
     */
     #define HOBBYWING_MAX_ESC 8
     struct {
-        uint32_t last_GetId_send_ms;
-        uint8_t thr_chan[HOBBYWING_MAX_ESC];
+        uint32_t last_GetId_send_ms = 0;
+        uint8_t thr_chan[HOBBYWING_MAX_ESC] {};
     } hobbywing;
     void hobbywing_ESC_update();
 
@@ -441,7 +441,7 @@ private:
         uint32_t timestamp_us;
         uint8_t node_id;
         dronecan_protocol_FlexDebug msg;
-    } *flexDebug_list;
+    } *flexDebug_list = nullptr;
 #endif
 };
 

@@ -138,17 +138,17 @@ protected:
 private:
     // sweep_info contains information about a specific test's sweep results
     struct sweep_info {
-        float freq;
-        float gain;
-        float phase;
+        float freq = 0.0f;
+        float gain = 0.0f;
+        float phase = 0.0f;
     };
 
     // max_gain_data type stores information from the max gain test
     struct max_gain_data {
-        float freq;
-        float phase;
-        float gain;
-        float max_allowed;
+        float freq = 0.0f;
+        float phase = 0.0f;
+        float gain = 0.0f;
+        float max_allowed = 0.0f;
     };
 
     // FreqRespCalcType is the type of calculation done for the frequency response 
