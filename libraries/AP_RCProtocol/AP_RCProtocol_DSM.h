@@ -25,7 +25,7 @@
 
 #include "SoftSerial.h"
 
-#define AP_DSM_MAX_CHANNELS 12
+#define AP_DSM_MAX_CHANNELS MAX_RCIN_CHANNELS
 
 class AP_RCProtocol_DSM : public AP_RCProtocol_Backend {
 public:

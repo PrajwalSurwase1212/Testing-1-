@@ -27,6 +27,7 @@ class SerialDevice {
 public:
 
     SerialDevice(uint16_t tx_bufsize=512, uint16_t rx_bufsize=512);
+    virtual ~SerialDevice();
 
 
     // methods for autopilot to use to talk to device:

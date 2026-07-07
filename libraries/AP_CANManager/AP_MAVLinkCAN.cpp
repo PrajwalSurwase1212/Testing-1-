@@ -242,6 +242,9 @@ void AP_MAVLinkCAN::_handle_can_filter_modify(const mavlink_message_t &msg)
         break;
     }
     case CAN_FILTER_ADD: {
+        if ((uint32_t)can_forward.num_filter_ids + p.num_ids > 0xFFFF) {
+            return;
+        }
         if (common_list_uint16(can_forward.filter_ids, can_forward.num_filter_ids,
                                p.ids, p.num_ids) == p.num_ids) {
             // nothing changing

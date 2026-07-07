@@ -2786,6 +2786,7 @@ void AP_InertialSensor::send_uart_data(void)
     get_delta_velocity(get_first_usable_accel(), data.delta_velocity, data.delta_velocity_dt);
 
     data.counter = uart.counter++;
+    data.crc = 0;
     data.crc = crc_xmodem((const uint8_t *)&data, sizeof(data)-sizeof(uint16_t));
 
     uart.imu_out_uart->write((const uint8_t *)&data, sizeof(data));

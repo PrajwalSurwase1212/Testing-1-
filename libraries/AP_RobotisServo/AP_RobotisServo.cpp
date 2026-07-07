@@ -317,11 +317,12 @@ void AP_RobotisServo::read_bytes(void)
         return;
     }
 
-    const uint16_t total_packet_length = DXL_MAKEWORD(pktbuf[PKT_LENGTH_L], pktbuf[PKT_LENGTH_H]) + PKT_INSTRUCTION;
-    if (total_packet_length > sizeof(pktbuf)) {
+    const uint32_t total_length = (uint32_t)DXL_MAKEWORD(pktbuf[PKT_LENGTH_L], pktbuf[PKT_LENGTH_H]) + PKT_INSTRUCTION;
+    if (total_length > sizeof(pktbuf) || total_length < 10) {
         pktbuf_ofs = 0;
         return;
     }
+    const uint16_t total_packet_length = total_length;
     if (pktbuf_ofs < total_packet_length) {
         // more data needed
         return;

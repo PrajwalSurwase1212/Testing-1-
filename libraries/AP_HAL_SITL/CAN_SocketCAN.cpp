@@ -66,7 +66,10 @@ bool CAN_SocketCAN::send(const AP_HAL::CANFrame &frame)
     transmit_frame.can_id = frame.id;
     transmit_frame.can_dlc = frame.dlc;
 
-    const uint8_t data_length = AP_HAL::CANFrame::dlcToDataLength(frame.dlc);
+    uint8_t data_length = AP_HAL::CANFrame::dlcToDataLength(frame.dlc);
+    if (data_length > sizeof(transmit_frame.data)) {
+        data_length = sizeof(transmit_frame.data);
+    }
     memcpy(transmit_frame.data, frame.data, data_length);
 
     return ::write(fd, &transmit_frame, sizeof(transmit_frame)) == sizeof(transmit_frame);

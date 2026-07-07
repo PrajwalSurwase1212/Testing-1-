@@ -315,9 +315,9 @@ bool AP_Filesystem_Param::token_seek(const struct rfile &r, const uint32_t data_
             break;
         }
         uint8_t n = MIN(MIN(len, available), (uint8_t)sizeof(tbuf));
-        if (len > available) {
+        if (len > available && n < sizeof(tbuf)) {
             c.trailer_len = MIN(len - available, (uint8_t)sizeof(c.trailer));
-            memcpy(c.trailer, &tbuf[MIN(n, (uint8_t)sizeof(tbuf))], c.trailer_len);
+            memcpy(c.trailer, &tbuf[n], c.trailer_len);
         }
         c.token_ofs += n;
     }
@@ -440,9 +440,9 @@ int32_t AP_Filesystem_Param::read(int fd, void *buf, uint32_t count)
             break;
         }
         uint8_t n = MIN(MIN(len, count), (uint8_t)sizeof(tbuf));
-        if (len > count) {
+        if (len > count && count < sizeof(tbuf)) {
             c.trailer_len = MIN(len - count, (uint8_t)sizeof(c.trailer));
-            memcpy(c.trailer, &tbuf[MIN(count, (uint32_t)sizeof(tbuf))], c.trailer_len);
+            memcpy(c.trailer, &tbuf[count], c.trailer_len);
         }
         memcpy(ubuf, tbuf, n);
         count -= n;

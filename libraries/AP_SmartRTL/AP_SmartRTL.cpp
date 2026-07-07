@@ -702,14 +702,15 @@ void AP_SmartRTL::remove_points_by_simplify_bitmask()
 // returns false if it failed to remove points (because it could not take semaphore)
 bool AP_SmartRTL::remove_points_by_loops(uint16_t num_points_to_remove)
 {
-    // exit immediately if no loops to prune
-    if (_prune.loops_count == 0) {
-        return true;
-    }
-
     // get semaphore before modifying path
     if (!_path_sem.take_nonblocking()) {
         return false;
+    }
+
+    // exit immediately if no loops to prune
+    if (_prune.loops_count == 0) {
+        _path_sem.give();
+        return true;
     }
 
     uint16_t removed_points = 0;

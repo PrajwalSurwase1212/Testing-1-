@@ -33,6 +33,12 @@ SerialDevice::SerialDevice(uint16_t tx_bufsize, uint16_t rx_bufsize)
     from_autopilot = NEW_NOTHROW ByteBuffer{rx_bufsize};
 }
 
+SerialDevice::~SerialDevice()
+{
+    delete to_autopilot;
+    delete from_autopilot;
+}
+
 bool SerialDevice::init_sitl_pointer()
 {
     if (_sitl == nullptr) {

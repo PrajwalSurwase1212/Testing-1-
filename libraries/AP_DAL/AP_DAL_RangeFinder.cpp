@@ -21,6 +21,9 @@ AP_DAL_RangeFinder::AP_DAL_RangeFinder()
         goto failed;
     }
     for (uint8_t i=0; i<_RRNH.num_sensors; i++) {
+        _backend[i] = nullptr;
+    }
+    for (uint8_t i=0; i<_RRNH.num_sensors; i++) {
         _RRNI[i].instance = i;
     }
     for (uint8_t i=0; i<_RRNH.num_sensors; i++) {
@@ -32,6 +35,15 @@ AP_DAL_RangeFinder::AP_DAL_RangeFinder()
     }
     return;
 failed:
+    if (_backend != nullptr) {
+        for (uint8_t i = 0; i < _RRNH.num_sensors; i++) {
+            delete _backend[i];
+        }
+        delete[] _backend;
+        _backend = nullptr;
+    }
+    delete[] _RRNI;
+    _RRNI = nullptr;
     AP_BoardConfig::allocation_error("DAL backends");
 #endif
 }
@@ -148,6 +160,11 @@ void AP_DAL_RangeFinder::handle_message(const log_RRNH &msg)
     if (_RRNH.num_sensors > 0 && _RRNI == nullptr) {
         _RRNI = NEW_NOTHROW log_RRNI[_RRNH.num_sensors];
         _backend = NEW_NOTHROW AP_DAL_RangeFinder_Backend *[_RRNH.num_sensors];
+        if (_backend != nullptr) {
+            for (uint8_t i = 0; i < _RRNH.num_sensors; i++) {
+                _backend[i] = nullptr;
+            }
+        }
     }
 }
 
