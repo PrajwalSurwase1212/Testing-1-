@@ -1930,8 +1930,10 @@ void AP_OSD_Screen::draw_compass(uint8_t x, uint8_t y)
     int32_t interval = 36000 / total_sectors;
     int8_t center_sector = ((yaw + interval / 2) / interval) % total_sectors;
     for (int8_t i = -4; i <= 4; i++) {
-        int8_t sector = center_sector + i;
-        sector = (sector + total_sectors) % total_sectors;
+        int8_t sector = (center_sector + i) % total_sectors;
+        if (sector < 0) {
+            sector += total_sectors;
+        }
         backend->write(x + i, y, false,  "%c", SYMBOL(compass_circle[sector]));
     }
 }

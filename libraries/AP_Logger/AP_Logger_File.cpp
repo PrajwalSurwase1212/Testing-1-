@@ -923,7 +923,7 @@ void AP_Logger_File::io_timer(void)
         return;
     }
 
-    if (_write_fd == -1 || !_initialised || recent_open_error()) {
+    if (!_initialised || recent_open_error()) {
         return;
     }
 

@@ -750,6 +750,7 @@ void handle_userdata_field(struct userdata *data) {
     }
     char *rename = next_token();
     string_copy(&(field->rename), rename);
+    free(field_name);
     return;
   }
 
@@ -772,6 +773,7 @@ void handle_userdata_field(struct userdata *data) {
 
   parse_type(&(field->type), TYPE_RESTRICTION_NOT_NULLABLE, RANGE_CHECK_NONE);
   field->access_flags = parse_access_flags(&(field->type));
+  free(field_name);
 }
 
 void handle_method(struct userdata *node) {

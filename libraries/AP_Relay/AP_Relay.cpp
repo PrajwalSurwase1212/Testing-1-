@@ -441,7 +441,7 @@ void AP_Relay::toggle(uint8_t instance)
 // check settings are valid
 bool AP_Relay::arming_checks(size_t buflen, char *buffer) const
 {
-    for (uint8_t i=0; i<ARRAY_SIZE(_params); i++) {
+    for (size_t i=0; i<ARRAY_SIZE(_params); i++) {
         if (!function_valid(_params[i].function)) {
             // Relay disabled
             continue;
@@ -474,7 +474,7 @@ bool AP_Relay::arming_checks(size_t buflen, char *buffer) const
         }
 
         // Each pin can only be used by a single relay
-        for (uint8_t j=i+1; j<ARRAY_SIZE(_params); j++) {
+        for (size_t j=i+1; j<ARRAY_SIZE(_params); j++) {
             if (!function_valid((AP_Relay_Params::FUNCTION)_params[j].function.get())) {
                 // Relay disabled
                 continue;
