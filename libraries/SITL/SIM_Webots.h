@@ -34,6 +34,7 @@ namespace SITL {
 class Webots : public Aircraft {
 public:
     Webots(const char *frame_str);
+    ~Webots();
 
     /* update model by one time step */
     void update(const struct sitl_input &input) override;
@@ -50,7 +51,7 @@ public:
 
 private:
 
-    const char *webots_ip = "127.0.0.1";
+    char *webots_ip = nullptr;
 
     // assume sensors are streamed on port 5599
     uint16_t webots_sensors_port = 5599; 

@@ -128,7 +128,18 @@ const AP_Param::GroupInfo AP_RobotisServo::var_info[] = {
 };
 
 // constructor
-AP_RobotisServo::AP_RobotisServo(void)
+AP_RobotisServo::AP_RobotisServo(void) :
+    port(nullptr),
+    baudrate(0),
+    us_per_byte(0),
+    us_gap(0),
+    servo_mask(0),
+    detection_count(0),
+    configured_servos(0),
+    initialised(false),
+    pktbuf_ofs(0),
+    last_send_us(0),
+    delay_time_us(0)
 {
     // set defaults from the parameter table
     AP_Param::setup_object_defaults(this, var_info);
@@ -320,7 +331,9 @@ void AP_RobotisServo::read_bytes(void)
     const uint16_t crc = DXL_MAKEWORD(pktbuf[total_packet_length-2], pktbuf[total_packet_length-1]);
     const uint16_t calc_crc = crc_crc16_ibm(0, pktbuf, total_packet_length - 2);
     if (calc_crc != crc) {
-        memmove(pktbuf, &pktbuf[total_packet_length], pktbuf_ofs - total_packet_length);
+        if (pktbuf_ofs > total_packet_length) {
+            memmove(pktbuf, &pktbuf[total_packet_length], pktbuf_ofs - total_packet_length);
+        }
         pktbuf_ofs -= total_packet_length;
         return;
     }
@@ -328,7 +341,9 @@ void AP_RobotisServo::read_bytes(void)
     // process full packet
     process_packet(pktbuf, total_packet_length);
 
-    memmove(pktbuf, &pktbuf[total_packet_length], pktbuf_ofs - total_packet_length);
+    if (pktbuf_ofs > total_packet_length) {
+        memmove(pktbuf, &pktbuf[total_packet_length], pktbuf_ofs - total_packet_length);
+    }
     pktbuf_ofs -= total_packet_length;
 }
 

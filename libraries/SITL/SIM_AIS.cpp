@@ -65,7 +65,9 @@ const AP_Param::GroupInfo AIS::var_info[] = {
     AP_GROUPEND
 };
 
-AIS_Replay::AIS_Replay() : SerialDevice::SerialDevice()
+AIS_Replay::AIS_Replay() : SerialDevice::SerialDevice(),
+    file(nullptr),
+    last_sent_ms(0)
 {
     char* file_path;
     IGNORE_RETURN(asprintf(&file_path, AP_BUILD_ROOT "/libraries/SITL/SIM_AIS_data.txt"));
@@ -80,6 +82,13 @@ AIS_Replay::AIS_Replay() : SerialDevice::SerialDevice()
     // seek past the header line
     char line[100];
     IGNORE_RETURN(fgets(line, sizeof(line), file));
+}
+
+AIS_Replay::~AIS_Replay()
+{
+    if (file != nullptr) {
+        fclose(file);
+    }
 }
 
 void AIS_Replay::update()

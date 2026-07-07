@@ -325,6 +325,9 @@ bool AP_RCProtocol_GHST::decode_ghost_packet()
         case GHST_UL_RC_CHANS_HS4_9TO12:
         case GHST_UL_RC_CHANS_HS4_13TO16: {
             uint8_t offset = (_frame.type - GHST_UL_RC_CHANS_HS4_5TO8 + 1) * 4;
+            if (offset + 3 >= (int)ARRAY_SIZE(_channels)) {
+                break;
+            }
             _channels[offset++] = CHANNEL_LR_SCALE_LEGACY(lowres_channels[0]);
             _channels[offset++] = CHANNEL_LR_SCALE_LEGACY(lowres_channels[1]);
             _channels[offset++] = CHANNEL_LR_SCALE_LEGACY(lowres_channels[2]);
@@ -336,6 +339,9 @@ bool AP_RCProtocol_GHST::decode_ghost_packet()
         case GHST_UL_RC_CHANS_HS4_12_9TO12:
         case GHST_UL_RC_CHANS_HS4_12_13TO16: {
             uint8_t offset = (_frame.type - GHST_UL_RC_CHANS_HS4_12_5TO8 + 1) * 4;
+            if (offset + 3 >= (int)ARRAY_SIZE(_channels)) {
+                break;
+            }
             _channels[offset++] = CHANNEL_LR_SCALE(lowres_channels[0]);
             _channels[offset++] = CHANNEL_LR_SCALE(lowres_channels[1]);
             _channels[offset++] = CHANNEL_LR_SCALE(lowres_channels[2]);

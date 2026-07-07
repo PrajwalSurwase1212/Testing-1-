@@ -38,6 +38,7 @@ class AIS_Replay : public SerialDevice {
 public:
 
     AIS_Replay();
+    ~AIS_Replay();
 
     void update();
 

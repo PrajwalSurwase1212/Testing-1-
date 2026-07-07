@@ -99,8 +99,10 @@ Webots::Webots(const char *frame_str) :
       format morse:IPADDRESS:SENSORS_PORT:CONTROL_PORT
      */
     if (args1) {
-        webots_ip = args1;
+        webots_ip = strdup(args1);
         printf("Simulation Port %s\n",args1);
+    } else {
+        webots_ip = strdup("127.0.0.1");
     }
     if (args2) {
         webots_sensors_port = atoi(args2);
@@ -133,6 +135,12 @@ Webots::Webots(const char *frame_str) :
     printf("Started Webots with %s:%u type %u\n",
            webots_ip, webots_sensors_port,
            (unsigned)output_type);
+    free(s);
+}
+
+Webots::~Webots()
+{
+    free(webots_ip);
 }
 
 /*
