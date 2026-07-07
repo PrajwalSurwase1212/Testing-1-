@@ -95,7 +95,9 @@ Morse::Morse(const char *frame_str) :
       format morse:IPADDRESS:SENSORS_PORT:CONTROL_PORT
      */
     if (args1) {
-        morse_ip = args1;
+        morse_ip = strdup(args1);
+    } else {
+        morse_ip = strdup("127.0.0.1");
     }
     if (args2) {
         morse_sensors_port = atoi(args2);
@@ -128,9 +130,15 @@ Morse::Morse(const char *frame_str) :
             }
         }
     }
+    free(s);
     printf("Started Morse with %s:%u:%u type %u\n",
            morse_ip, morse_sensors_port, morse_control_port,
            (unsigned)output_type);
+}
+
+Morse::~Morse()
+{
+    free(morse_ip);
 }
 
 /*

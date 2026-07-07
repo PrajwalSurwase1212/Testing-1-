@@ -474,6 +474,7 @@ void SITL_State::_parse_command_line(int argc, char * const argv[])
             _use_fg_view = true;
             break;
         case CMDLINE_AUTOTESTDIR:
+            free(autotest_dir);
             autotest_dir = strdup(gopt.optarg);
             break;
         case CMDLINE_DEFAULTS:

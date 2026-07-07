@@ -148,7 +148,7 @@ void AP_CANManager::init()
         if (drv_num == 0 || drv_num > HAL_MAX_CAN_PROTOCOL_DRIVERS) {
             continue;
         }
-        drv_num--;
+        const uint8_t drv_idx = drv_num - 1;
 
         if (hal_mutable.can[i] == nullptr) {
             // So if this interface is not allocated allocate it here,
@@ -163,7 +163,7 @@ void AP_CANManager::init()
         AP_HAL::CANIface* iface = hal_mutable.can[i];
 
         // Find the driver type that we need to allocate and register this interface with
-        drv_type[drv_num] = (AP_CAN::Protocol) _drv_param[drv_num]._driver_type.get();
+        drv_type[drv_idx] = (AP_CAN::Protocol) _drv_param[drv_idx]._driver_type.get();
         bool can_initialised = false;
         // Check if this interface need hooking up to slcan passthrough
         // instead of a driver
@@ -186,10 +186,10 @@ void AP_CANManager::init()
 
         log_text(AP_CANManager::LOG_INFO, LOG_TAG, "CAN Interface %d initialized well", i + 1);
 
-        if (_drivers[drv_num] != nullptr) {
+        if (_drivers[drv_idx] != nullptr) {
             //We already initialised the driver just add interface and move on
-            log_text(AP_CANManager::LOG_INFO, LOG_TAG, "Adding Interface %d to Driver %d", i + 1, drv_num + 1);
-            _drivers[drv_num]->add_interface(iface);
+            log_text(AP_CANManager::LOG_INFO, LOG_TAG, "Adding Interface %d to Driver %d", i + 1, drv_idx + 1);
+            _drivers[drv_idx]->add_interface(iface);
             continue;
         }
 
@@ -200,29 +200,29 @@ void AP_CANManager::init()
         }
 
         // Allocate the set type of Driver
-        switch (drv_type[drv_num]) {
+        switch (drv_type[drv_idx]) {
 #if HAL_ENABLE_DRONECAN_DRIVERS
         case AP_CAN::Protocol::DroneCAN:
-            _drivers[drv_num] = _drv_param[drv_num]._uavcan = NEW_NOTHROW AP_DroneCAN(drv_num);
+            _drivers[drv_idx] = _drv_param[drv_idx]._uavcan = NEW_NOTHROW AP_DroneCAN(drv_idx);
 
-            if (_drivers[drv_num] == nullptr) {
-                AP_BoardConfig::allocation_error("uavcan %d", drv_num + 1);
+            if (_drivers[drv_idx] == nullptr) {
+                AP_BoardConfig::allocation_error("uavcan %d", drv_idx + 1);
                 continue;
             }
 
-            AP_Param::load_object_from_eeprom((AP_DroneCAN*)_drivers[drv_num], AP_DroneCAN::var_info);
+            AP_Param::load_object_from_eeprom((AP_DroneCAN*)_drivers[drv_idx], AP_DroneCAN::var_info);
             break;
 #endif
 #if HAL_PICCOLO_CAN_ENABLE
         case AP_CAN::Protocol::PiccoloCAN:
-            _drivers[drv_num] = _drv_param[drv_num]._piccolocan = NEW_NOTHROW AP_PiccoloCAN;
+            _drivers[drv_idx] = _drv_param[drv_idx]._piccolocan = NEW_NOTHROW AP_PiccoloCAN;
 
-            if (_drivers[drv_num] == nullptr) {
-                AP_BoardConfig::allocation_error("PiccoloCAN %d", drv_num + 1);
+            if (_drivers[drv_idx] == nullptr) {
+                AP_BoardConfig::allocation_error("PiccoloCAN %d", drv_idx + 1);
                 continue;
             }
 
-            AP_Param::load_object_from_eeprom((AP_PiccoloCAN*)_drivers[drv_num], AP_PiccoloCAN::var_info);
+            AP_Param::load_object_from_eeprom((AP_PiccoloCAN*)_drivers[drv_idx], AP_PiccoloCAN::var_info);
             break;
 #endif
         default:
@@ -232,8 +232,8 @@ void AP_CANManager::init()
         _num_drivers++;
 
         // Hook this interface to the selected Driver Type
-        _drivers[drv_num]->add_interface(iface);
-        log_text(AP_CANManager::LOG_INFO, LOG_TAG, "Adding Interface %d to Driver %d", i + 1, drv_num + 1);
+        _drivers[drv_idx]->add_interface(iface);
+        log_text(AP_CANManager::LOG_INFO, LOG_TAG, "Adding Interface %d to Driver %d", i + 1, drv_idx + 1);
 
     }
 

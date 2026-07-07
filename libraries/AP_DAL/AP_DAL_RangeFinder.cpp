@@ -36,6 +36,17 @@ failed:
 #endif
 }
 
+AP_DAL_RangeFinder::~AP_DAL_RangeFinder()
+{
+    if (_backend != nullptr) {
+        for (uint8_t i = 0; i < _RRNH.num_sensors; i++) {
+            delete _backend[i];
+        }
+        delete[] _backend;
+    }
+    delete[] _RRNI;
+}
+
 float AP_DAL_RangeFinder::ground_clearance_orient(enum Rotation orientation) const
 {
 #if !APM_BUILD_TYPE(APM_BUILD_AP_DAL_Standalone)

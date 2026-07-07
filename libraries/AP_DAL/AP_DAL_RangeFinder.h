@@ -28,6 +28,7 @@ public:
 
     // DAL methods:
     AP_DAL_RangeFinder();
+    ~AP_DAL_RangeFinder();
 
     void start_frame();
 

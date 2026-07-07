@@ -33,6 +33,7 @@ namespace SITL {
 class Morse : public Aircraft {
 public:
     Morse(const char *frame_str);
+    ~Morse();
 
     /* update model by one time step */
     void update(const struct sitl_input &input) override;
@@ -59,7 +60,7 @@ private:
     void send_report(void);
     uint32_t send_report_last_ms;
 
-    const char *morse_ip = "127.0.0.1";
+    char *morse_ip = nullptr;
 
     // assume sensors are streamed on port 60000
     uint16_t morse_sensors_port = 60000;
