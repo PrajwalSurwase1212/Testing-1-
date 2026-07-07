@@ -1159,9 +1159,10 @@ AP_Logger::log_write_fmt *AP_Logger::msg_fmt_for_name(const char *name, const ch
     }
     f->msg_type = msg_type;
 
+    struct log_write_fmt_strings *ls_copy = nullptr;
     if (copy_strings) {
         // cannot use pointers to memory that might move, must allocate and copy
-        struct log_write_fmt_strings *ls_copy = (struct log_write_fmt_strings*)malloc(sizeof(log_write_fmt_strings));
+        ls_copy = (struct log_write_fmt_strings*)malloc(sizeof(log_write_fmt_strings));
         if (ls_copy == nullptr) {
             free(f);
             return nullptr;
@@ -1195,6 +1196,7 @@ AP_Logger::log_write_fmt *AP_Logger::msg_fmt_for_name(const char *name, const ch
 
     int16_t tmp = Write_calc_msg_len(fmt);
     if (tmp == -1) {
+        free(ls_copy);
         free(f);
         return nullptr;
     }

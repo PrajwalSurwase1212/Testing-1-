@@ -318,7 +318,7 @@ void AP_RobotisServo::read_bytes(void)
     }
 
     const uint32_t total_length = (uint32_t)DXL_MAKEWORD(pktbuf[PKT_LENGTH_L], pktbuf[PKT_LENGTH_H]) + PKT_INSTRUCTION;
-    if (total_length > sizeof(pktbuf) || total_length < 10) {
+    if (total_length >= sizeof(pktbuf) || total_length < 10) {
         pktbuf_ofs = 0;
         return;
     }

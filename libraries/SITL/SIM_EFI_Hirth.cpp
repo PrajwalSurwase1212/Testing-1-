@@ -45,7 +45,7 @@ void EFI_Hirth::update_receive()
         AP_HAL::panic("zero bytes expected is unexpected");
     }
 
-    if (expected_bytes_in_message > ARRAY_SIZE(receive_buf)) {
+    if (expected_bytes_in_message >= ARRAY_SIZE(receive_buf)) {
         AP_HAL::panic("Unexpectedly large byte count");
     }
 

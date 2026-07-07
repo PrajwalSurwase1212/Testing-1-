@@ -23,7 +23,7 @@
 #include <RC_Channel/RC_Channel.h>
 #include "SoftSerial.h"
 
-#define GHST_MAX_CHANNELS   16U      // Maximum number of channels from GHST datastream
+#define GHST_MAX_CHANNELS   MAX_RCIN_CHANNELS      // Maximum number of channels from GHST datastream
 #define GHST_FRAMELEN_MAX   14U      // maximum possible framelength
 #define GHST_HEADER_LEN     2U       // header length
 #define GHST_FRAME_PAYLOAD_MAX (GHST_FRAMELEN_MAX - GHST_HEADER_LEN)     // maximum size of the frame length field in a packet
