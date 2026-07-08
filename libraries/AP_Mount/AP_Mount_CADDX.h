@@ -47,6 +47,6 @@ private:
     void send_target_angles(const MountTarget& angle_target_rad);
 
     // internal variables
-    uint32_t _last_send_ms;     // system time of last do_mount_control sent to gimbal
+    uint32_t _last_send_ms{0};     // system time of last do_mount_control sent to gimbal
 };
 #endif // HAL_MOUNT_CADDX_ENABLED

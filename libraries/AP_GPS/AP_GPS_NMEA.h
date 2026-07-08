@@ -147,42 +147,42 @@ private:
 #endif
 
 
-    uint8_t _parity;                                                    ///< NMEA message checksum accumulator
-    uint32_t _crc32;                                            ///< CRC for unicore messages
-    bool _is_checksum_term;                                     ///< current term is the checksum
-    char _term[30];                                                     ///< buffer for the current term within the current sentence
-    uint16_t _sentence_type;                                     ///< the sentence type currently being processed
-    bool _is_unicore;                                           ///< true if in a unicore '#' sentence
-    uint16_t _term_number;                                       ///< term index within the current sentence
-    uint8_t _term_offset;                                       ///< character offset with the term being received
-    uint16_t _sentence_length;
-    bool _sentence_done;                                        ///< set when a sentence has been fully decoded
+    uint8_t _parity = 0;                                                    ///< NMEA message checksum accumulator
+    uint32_t _crc32 = 0;                                            ///< CRC for unicore messages
+    bool _is_checksum_term = false;                                     ///< current term is the checksum
+    char _term[30] {};                                                     ///< buffer for the current term within the current sentence
+    uint16_t _sentence_type = 0;                                     ///< the sentence type currently being processed
+    bool _is_unicore = false;                                           ///< true if in a unicore '#' sentence
+    uint16_t _term_number = 0;                                       ///< term index within the current sentence
+    uint8_t _term_offset = 0;                                       ///< character offset with the term being received
+    uint16_t _sentence_length = 0;
+    bool _sentence_done = false;                                        ///< set when a sentence has been fully decoded
 
     // The result of parsing terms within a message is stored temporarily until
     // the message is completely processed and the checksum validated.
     // This avoids the need to buffer the entire message.
-    int32_t _new_time;                                                  ///< time parsed from a term
-    int32_t _new_date;                                                  ///< date parsed from a term
-    int32_t _new_latitude;                                      ///< latitude parsed from a term
-    int32_t _new_longitude;                                     ///< longitude parsed from a term
-    int32_t _new_altitude;                                      ///< altitude parsed from a term
-    int32_t _new_speed;                                                 ///< speed parsed from a term
-    int32_t _new_course;                                        ///< course parsed from a term
-    float   _new_gps_yaw;                                        ///< yaw parsed from a term
-    uint16_t _new_hdop;                                                 ///< HDOP parsed from a term
-    uint8_t _new_satellite_count;                       ///< satellite count parsed from a term
-    uint8_t _new_quality_indicator;                                     ///< GPS quality indicator parsed from a term
+    int32_t _new_time = 0;                                                  ///< time parsed from a term
+    int32_t _new_date = 0;                                                  ///< date parsed from a term
+    int32_t _new_latitude = 0;                                      ///< latitude parsed from a term
+    int32_t _new_longitude = 0;                                     ///< longitude parsed from a term
+    int32_t _new_altitude = 0;                                      ///< altitude parsed from a term
+    int32_t _new_speed = 0;                                                 ///< speed parsed from a term
+    int32_t _new_course = 0;                                        ///< course parsed from a term
+    float   _new_gps_yaw = 0.0f;                                        ///< yaw parsed from a term
+    uint16_t _new_hdop = 9999;                                                 ///< HDOP parsed from a term
+    uint8_t _new_satellite_count = 0;                       ///< satellite count parsed from a term
+    uint8_t _new_quality_indicator = 0;                                     ///< GPS quality indicator parsed from a term
 
-    uint32_t _last_RMC_ms;
-    uint32_t _last_GGA_ms;
-    uint32_t _last_VTG_ms;
-    uint32_t _last_yaw_ms;
-    uint32_t _last_vvelocity_ms;
-    uint32_t _last_vaccuracy_ms;
-    uint32_t _last_3D_velocity_ms;
-    uint32_t _last_KSXT_pos_ms;
-    uint32_t _last_AGRICA_ms;
-    uint32_t _last_fix_ms;
+    uint32_t _last_RMC_ms = 0;
+    uint32_t _last_GGA_ms = 0;
+    uint32_t _last_VTG_ms = 0;
+    uint32_t _last_yaw_ms = 0;
+    uint32_t _last_vvelocity_ms = 0;
+    uint32_t _last_vaccuracy_ms = 0;
+    uint32_t _last_3D_velocity_ms = 0;
+    uint32_t _last_KSXT_pos_ms = 0;
+    uint32_t _last_AGRICA_ms = 0;
+    uint32_t _last_fix_ms = 0;
 
     /// @name	Init strings
     ///			In ::init, an attempt is made to configure the GPS
@@ -208,59 +208,59 @@ private:
         $PHD,01,26,TTTTTTT,,245808000,877,864,1451,11,11,17*17
      */
     struct {
-        uint8_t msg_class;
-        uint8_t msg_id;
-        uint32_t itow;
-        int32_t fields[8];
-    } _phd;
+        uint8_t msg_class = 0;
+        uint8_t msg_id = 0;
+        uint32_t itow = 0;
+        int32_t fields[8] {};
+    } _phd {};
 
     /*
       The KSXT message is an extension from Unicore that gives 3D velocity and yaw
       example: $KSXT,20211016083433.00,116.31296102,39.95817066,49.4911,223.57,-11.32,330.19,0.024,,1,3,28,27,,,,-0.012,0.021,0.020,,*2D
      */
     struct {
-        double fields[21];
-    } _ksxt;
+        double fields[21] {};
+    } _ksxt {};
 
 #if AP_GPS_NMEA_UNICORE_ENABLED
     /*
       unicore AGRICA message parsing
      */
     struct {
-        uint32_t start_byte;
-        uint8_t rtk_status;
-        uint8_t heading_status;
-        Vector3f vel_NED;
-        Vector3f vel_stddev;
-        double lat, lng;
-        float alt;
-        uint32_t itow;
-        float undulation;
-        Vector3f pos_stddev;
-    } _agrica;
+        uint32_t start_byte = 0;
+        uint8_t rtk_status = 0;
+        uint8_t heading_status = 0;
+        Vector3f vel_NED {};
+        Vector3f vel_stddev {};
+        double lat = 0.0, lng = 0.0;
+        float alt = 0.0f;
+        uint32_t itow = 0;
+        float undulation = 0.0f;
+        Vector3f pos_stddev {};
+    } _agrica {};
 
     // unicore VERSIONA parsing
     struct {
-        char type[10];
-        char version[20];
-        char build_date[13];
-    } _versiona;
-    bool _have_unicore_versiona;
+        char type[10] {};
+        char version[20] {};
+        char build_date[13] {};
+    } _versiona {};
+    bool _have_unicore_versiona = false;
 
 #if GPS_MOVING_BASELINE
     // unicore UNIHEADINGA parsing
     struct {
-        float baseline_length;
-        float heading;
-        float pitch;
-        float heading_sd;
-    } _uniheadinga;
+        float baseline_length = 0.0f;
+        float heading = 0.0f;
+        float pitch = 0.0f;
+        float heading_sd = 0.0f;
+    } _uniheadinga {};
 #endif
 #endif // AP_GPS_NMEA_UNICORE_ENABLED
-    bool _expect_agrica;
+    bool _expect_agrica = false;
 
     // last time we sent type specific config strings
-    uint32_t last_config_ms;
+    uint32_t last_config_ms = 0;
 
     // send type specific config strings
     void send_config(void);

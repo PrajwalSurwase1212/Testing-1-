@@ -377,12 +377,12 @@ public:
 private:
     class AP_DAL &dal;
 
-    uint8_t num_cores; // number of allocated cores
-    uint8_t primary;   // current primary core
+    uint8_t num_cores{0}; // number of allocated cores
+    uint8_t primary{0};   // current primary core
     NavEKF3_core *core = nullptr;
 
-    uint32_t _frameTimeUsec;        // time per IMU frame
-    uint8_t  _framesPerPrediction;  // expected number of IMU frames per prediction
+    uint32_t _frameTimeUsec{0};        // time per IMU frame
+    uint8_t  _framesPerPrediction{0};  // expected number of IMU frames per prediction
   
     // values for EK3_LOG_LEVEL
     enum class LogLevel {
@@ -512,48 +512,48 @@ private:
     const uint16_t gpsNoFixTimeout_ms = 2000;      // Time without a fix required to reset GPS alignment checks when EK3_OPTIONS bit 0 is set (msec)
 
     // time at start of current filter update
-    uint64_t imuSampleTime_us;
+    uint64_t imuSampleTime_us{0};
 
     // time of last lane switch
-    uint32_t lastLaneSwitch_ms;
+    uint32_t lastLaneSwitch_ms{0};
 
     // last time of Log_Write
-    uint64_t lastLogWrite_us;
+    uint64_t lastLogWrite_us{0};
 
     struct {
         uint32_t last_function_call;  // last time getLastYawResetAngle was called
         bool core_changed;            // true when a core change happened and hasn't been consumed, false otherwise
         uint32_t last_primary_change; // last time a primary has changed
         float core_delta;             // the amount of yaw change between cores when a change happened
-    } yaw_reset_data;
+    } yaw_reset_data{};
 
     struct {
         uint32_t last_function_call;  // last time getLastPosNorthEastReset was called
         bool core_changed;            // true when a core change happened and hasn't been consumed, false otherwise
         uint32_t last_primary_change; // last time a primary has changed
         Vector2f core_delta;          // the amount of NE position change between cores when a change happened
-    } pos_reset_data;
+    } pos_reset_data{};
 
     struct {
         uint32_t last_function_call;  // last time getLastPosDownReset was called
         bool core_changed;            // true when a core change happened and hasn't been consumed, false otherwise
         uint32_t last_primary_change; // last time a primary has changed
         float core_delta;             // the amount of D position change between cores when a change happened
-    } pos_down_reset_data;
+    } pos_down_reset_data{};
 
 #define CORE_ERR_LIM      1 // -LIM to LIM relative error range for a core
 #define BETTER_THRESH   0.5 // a lane should have this much relative error difference to be considered for overriding a healthy primary core
     
-    bool runCoreSelection;                          // true when the primary core has stabilised and the core selection logic can be started
-    bool coreSetupRequired[MAX_EKF_CORES];          // true when this core index needs to be setup
-    uint8_t coreImuIndex[MAX_EKF_CORES];            // IMU index used by this core
-    float coreRelativeErrors[MAX_EKF_CORES];        // relative errors of cores with respect to primary
-    float coreErrorScores[MAX_EKF_CORES];           // the instance error values used to update relative core error
-    uint64_t coreLastTimePrimary_us[MAX_EKF_CORES]; // last time we were using this core as primary
+    bool runCoreSelection{false};                          // true when the primary core has stabilised and the core selection logic can be started
+    bool coreSetupRequired[MAX_EKF_CORES]{};          // true when this core index needs to be setup
+    uint8_t coreImuIndex[MAX_EKF_CORES]{};            // IMU index used by this core
+    float coreRelativeErrors[MAX_EKF_CORES]{};        // relative errors of cores with respect to primary
+    float coreErrorScores[MAX_EKF_CORES]{};           // the instance error values used to update relative core error
+    uint64_t coreLastTimePrimary_us[MAX_EKF_CORES]{}; // last time we were using this core as primary
 
     // origin set by one of the cores
     Location common_EKF_origin;
-    bool common_origin_valid;
+    bool common_origin_valid{false};
     
     // update the yaw reset data to capture changes due to a lane switch
     // new_primary - index of the ekf instance that we are about to switch to as the primary

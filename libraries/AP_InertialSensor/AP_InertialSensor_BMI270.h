@@ -113,7 +113,7 @@ private:
 
     enum Rotation _rotation;
 
-    uint8_t temperature_counter;
+    uint8_t temperature_counter = 0;
 
     static const uint8_t maximum_fifo_config_file[];
 };

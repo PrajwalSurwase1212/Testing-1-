@@ -33,9 +33,9 @@ protected:
         PAYLOAD,
         CRC_L,
         CRC_H
-    } _parse_state; // state of incoming message processing
-    uint16_t _payload_recv;     // number of message's payload bytes received so far
-    uint16_t _crc_expected;     // latest message's expected crc
+    } _parse_state{ParseState::HEADER}; // state of incoming message processing
+    uint16_t _payload_recv{0};     // number of message's payload bytes received so far
+    uint16_t _crc_expected{0};     // latest message's expected crc
 
     // structure holding latest message contents
     struct {
@@ -46,7 +46,7 @@ protected:
         uint8_t msgid;          // latest message's message id
         uint8_t crc_low;        // crc low byte
         uint8_t crc_high;       // crc high byte
-    } _msg;
+    } _msg{};
 };
 
 #endif // HAL_PROXIMITY_ENABLED

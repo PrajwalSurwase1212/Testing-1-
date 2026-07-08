@@ -310,8 +310,6 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
             alarm(2);
         }
     }
-
-    actually_reboot();
 }
 
 void HAL_SITL::actually_reboot()

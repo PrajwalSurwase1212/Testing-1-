@@ -96,9 +96,9 @@ private:
         uint16_t crc;                               // latest message's crc
         uint16_t payload_recv;                      // number of message's payload bytes received so far
         ParseState state;                           // state of incoming message processing
-    } parsed_msg;
-    uint32_t last_distance_ms;                      // system time of last successful distance sensor read
-    uint32_t last_distance_request_ms;              // system time of last request to sensor to send distances
+    } parsed_msg{};
+    uint32_t last_distance_ms{0};                      // system time of last successful distance sensor read
+    uint32_t last_distance_request_ms{0};              // system time of last request to sensor to send distances
 };
 
 #endif  // AP_RANGEFINDER_LEDDARVU8_ENABLED

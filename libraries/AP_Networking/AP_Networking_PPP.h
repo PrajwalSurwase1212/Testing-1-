@@ -31,13 +31,13 @@ private:
     void ppp_loop(void);
 
     struct PPP_Instance {
-        uint8_t idx;
-        AP_Networking_PPP *backend;
-        AP_HAL::UARTDriver *uart;
-        struct netif *pppif;
-        struct ppp_pcb_s *ppp;
-        bool need_restart;
-        uint32_t last_read_ms;
+        uint8_t idx{};
+        AP_Networking_PPP *backend{nullptr};
+        AP_HAL::UARTDriver *uart{nullptr};
+        struct netif *pppif{nullptr};
+        struct ppp_pcb_s *ppp{nullptr};
+        bool need_restart{false};
+        uint32_t last_read_ms{};
 #if AP_NETWORKING_CAPTURE_ENABLED
         struct {
             HAL_Semaphore sem;
@@ -46,7 +46,7 @@ private:
         void capture_data(const uint8_t *ptr, uint32_t len);
         void capture_hook(const struct pbuf *pb);
 #endif
-    } iface[AP_NETWORKING_PPP_NUM_INTERFACES];
+    } iface[AP_NETWORKING_PPP_NUM_INTERFACES]{};
 
     void restart_instance(const uint8_t idx);
     bool update_instance(const uint8_t idx);

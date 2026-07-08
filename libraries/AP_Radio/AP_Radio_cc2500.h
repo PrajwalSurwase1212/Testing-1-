@@ -98,39 +98,39 @@ private:
     // semaphore between ISR and main thread
     HAL_Semaphore sem;
 
-    AP_Radio::stats stats;
-    AP_Radio::stats last_stats;
+    AP_Radio::stats stats{};
+    AP_Radio::stats last_stats{};
 
-    uint16_t pwm_channels[CC2500_MAX_PWM_CHANNELS];
+    uint16_t pwm_channels[CC2500_MAX_PWM_CHANNELS]{};
 
     Radio_CC2500 cc2500;
 
-    uint8_t bindTxId[2];
-    int8_t  bindOffset;
-    uint8_t bindHopData[47];
-    uint8_t rxNum;
-    uint8_t listLength;
-    uint8_t channr;
-    uint8_t chanskip;
-    int8_t fcc_chan;
-    uint32_t packet_timer;
+    uint8_t bindTxId[2]{};
+    int8_t  bindOffset{0};
+    uint8_t bindHopData[47]{};
+    uint8_t rxNum{0};
+    uint8_t listLength{0};
+    uint8_t channr{0};
+    uint8_t chanskip{0};
+    int8_t fcc_chan{0};
+    uint32_t packet_timer{0};
     static uint32_t irq_time_us;
-    uint8_t chan_count;
-    uint32_t lost;
-    uint32_t timeouts;
-    bool have_bind_info;
-    uint8_t packet3;
-    bool telem_send_rssi;
-    float rssi_filtered;
-    uint64_t bind_mask;
-    uint8_t best_lqi;
-    int8_t best_bindOffset;
-    int8_t auto_bindOffset;
-    uint8_t search_count;
-    uint8_t last_wifi_channel;
+    uint8_t chan_count{0};
+    uint32_t lost{0};
+    uint32_t timeouts{0};
+    bool have_bind_info{false};
+    uint8_t packet3{0};
+    bool telem_send_rssi{false};
+    float rssi_filtered{0.0f};
+    uint64_t bind_mask{0};
+    uint8_t best_lqi{0};
+    int8_t best_bindOffset{0};
+    int8_t auto_bindOffset{0};
+    uint8_t search_count{0};
+    uint8_t last_wifi_channel{0};
 
-    uint32_t timeTunedMs;
-    uint32_t autobind_start_recv_ms;
+    uint32_t timeTunedMs{0};
+    uint32_t autobind_start_recv_ms{0};
 
     void initTuneRx(void);
     void initialiseData(uint8_t adr);
@@ -177,7 +177,7 @@ private:
         STATE_RESUME,
         STATE_FCCTEST,
         STATE_SEARCH,
-    } protocolState;
+    } protocolState{STATE_INIT};
 
     struct config {
         uint8_t reg;
@@ -197,21 +197,21 @@ private:
         uint8_t len;
         enum telem_type fw_type;
         uint8_t pending_data[92];
-    } fwupload;
+    } fwupload{};
 
     struct {
         uint8_t firmware_year;
         uint8_t firmware_month;
         uint8_t firmware_day;
-    } tx_date;
+    } tx_date{};
 
-    struct telem_status_cc2500 t_status;
-    uint32_t last_pps_ms;
-    uint8_t tx_rssi;
-    uint8_t tx_pps;
-    bool have_tx_pps;
-    uint8_t last_fcc_chan;
-    uint32_t telem_send_count;
+    struct telem_status_cc2500 t_status{};
+    uint32_t last_pps_ms{0};
+    uint8_t tx_rssi{0};
+    uint8_t tx_pps{0};
+    bool have_tx_pps{false};
+    uint8_t last_fcc_chan{0};
+    uint32_t telem_send_count{0};
 
     bool handle_D16_packet(const uint8_t *packet);
     bool handle_SRT_packet(const uint8_t *packet);

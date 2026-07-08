@@ -264,45 +264,45 @@ private:
     };
 
     // Shared FFT engine state local to the FFT thread
-    EngineState _thread_state;
+    EngineState _thread_state {};
     // Shared FFT engine state accessible by the main thread
-    EngineState _global_state;
+    EngineState _global_state {};
 
     // number of samples needed before a new frame can be processed
-    uint16_t _samples_per_frame;
+    uint16_t _samples_per_frame = 0;
     // number of ms that a frame should take to process to sustain output rate
-    uint16_t _frame_time_ms;
+    uint16_t _frame_time_ms = 0;
     // last cycle time
-    uint32_t _output_cycle_micros;
+    uint32_t _output_cycle_micros = 0;
     // downsampled gyro data circular buffer for frequency analysis
     FloatBuffer _downsampled_gyro_data[XYZ_AXIS_COUNT];
     // accumulator for sampled gyro data
     Vector3f _oversampled_gyro_accum;
     // count of oversamples
-    uint16_t _oversampled_gyro_count;
+    uint16_t _oversampled_gyro_count = 0;
 
     // state of the FFT engine
-    AP_HAL::DSP::FFTWindowState* _state;
+    AP_HAL::DSP::FFTWindowState* _state = nullptr;
     // update state machine step information
-    uint8_t _update_axis;
+    uint8_t _update_axis = 0;
     // noise base of the gyros
-    Vector3f* _ref_energy;
+    Vector3f* _ref_energy = nullptr;
     // the number of cycles required to have a proper noise reference
-    uint16_t _noise_cycles;
+    uint16_t _noise_cycles = 0;
     // number of cycles over which to generate noise ensemble averages
-    uint16_t _noise_calibration_cycles[XYZ_AXIS_COUNT];
+    uint16_t _noise_calibration_cycles[XYZ_AXIS_COUNT] {};
     // current _sample_mode
-    uint8_t _current_sample_mode : 3;
+    uint8_t _current_sample_mode = 0;
     // harmonic multiplier for two highest peaks
-    float _harmonic_multiplier;
+    float _harmonic_multiplier = 0.0f;
     // number of tracked peaks
-    uint8_t _tracked_peaks;
+    uint8_t _tracked_peaks = 0;
     // engine health in tracked peaks per axis
-    Vector3<uint8_t> _health;
+    Vector3<uint8_t> _health {};
     // engine health on roll/pitch/yaw
-    Vector3<uint8_t> _rpy_health;
+    Vector3<uint8_t> _rpy_health {};
     // averaged throttle output over averaging period
-    float _avg_throttle_out;
+    float _avg_throttle_out = 0.0f;
 
     // smoothing filter on the output
     MedianLowPassFilter3dFloat _center_freq_filter[FrequencyPeak::MAX_TRACKED_PEAKS];
@@ -314,20 +314,20 @@ private:
     LowPassFilterConstDtFloat _harmonic_fit_filter[XYZ_AXIS_COUNT];
 
     // configured sampling rate
-    uint16_t _fft_sampling_rate_hz;
+    uint16_t _fft_sampling_rate_hz = 0;
     // number of cycles without a detected signal
-    uint8_t _missed_cycles[XYZ_AXIS_COUNT][FrequencyPeak::MAX_TRACKED_PEAKS];
+    uint8_t _missed_cycles[XYZ_AXIS_COUNT][FrequencyPeak::MAX_TRACKED_PEAKS] {};
     // number of cycles where peaks have swapped places
-    uint8_t _distorted_cycles[XYZ_AXIS_COUNT];
+    uint8_t _distorted_cycles[XYZ_AXIS_COUNT] {};
     // whether the analyzer initialized correctly
-    bool _initialized;
+    bool _initialized = false;
 
     // whether the analyzer should be run
-    bool _analysis_enabled ;
+    bool _analysis_enabled = false;
     // whether the update thread was created
-    bool _thread_created ;
+    bool _thread_created = false;
     // whether the pre-arm check has successfully completed
-    bool _calibrated;
+    bool _calibrated = false;
     // minimum frequency of the detection window
     AP_Int16 _fft_min_hz;
     // maximum frequency of the detection window
@@ -358,14 +358,14 @@ private:
     AP_Int8 _num_frames;
     // mask of IMUs to record gyro frames after the filter bank
     AP_Int32 _options;
-    AP_InertialSensor* _ins;
+    AP_InertialSensor* _ins = nullptr;
 #if DEBUG_FFT
-    uint32_t _last_output_ms;
-    EngineState _debug_state;
-    float _debug_max_bin_freq;
-    float _debug_max_freq_bin;
-    uint16_t _debug_max_bin;
-    float _debug_snr;
+    uint32_t _last_output_ms = 0;
+    EngineState _debug_state {};
+    float _debug_max_bin_freq = 0.0f;
+    float _debug_max_freq_bin = 0.0f;
+    uint16_t _debug_max_bin = 0;
+    float _debug_snr = 0.0f;
 #endif
 
     static AP_GyroFFT *_singleton;

@@ -160,7 +160,7 @@ private:
     float mass;
     float last_param_voltage;
 #if AP_SIM_ENABLED
-    Battery *battery;
+    Battery *battery{nullptr};
 #endif
 
     // json parsing helpers

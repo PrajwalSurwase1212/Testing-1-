@@ -41,16 +41,16 @@ public:
 
 private:
     const uint8_t elsize;
-    void *buffer;
+    void *buffer = nullptr;
 
     // size of allocated buffer in elsize units
-    uint8_t size;
+    uint8_t size = 0;
 
     // index of the oldest element in the buffer
-    uint8_t oldest;
+    uint8_t oldest = 0;
 
     // total number of elements in the buffer
-    uint8_t count;
+    uint8_t count = 0;
 
     uint32_t time_ms(uint8_t idx) const;
     void *get_offset(uint8_t idx) const;
@@ -135,9 +135,11 @@ public:
 
 protected:
     const uint8_t elsize;
-    void *buffer;
-    uint8_t _size,_oldest,_youngest;
-    bool _filled;
+    void *buffer = nullptr;
+    uint8_t _size = 0;
+    uint8_t _oldest = 0;
+    uint8_t _youngest = 0;
+    bool _filled = false;
 
     void *get_offset(uint8_t idx) const;
 };

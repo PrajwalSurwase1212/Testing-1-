@@ -37,13 +37,13 @@ protected:
     bool hw_set_rgb(uint8_t r, uint8_t g, uint8_t b) override;
 
 private:
-    AP_HAL::I2CDevice *_dev;
+    AP_HAL::I2CDevice *_dev{nullptr};
     uint8_t _bus;
     uint8_t _addr;
 
     void _timer(void);
-    bool _need_update;
-    uint8_t rgb[3];
+    bool _need_update{false};
+    uint8_t rgb[3]{};
 };
 
 #endif  // AP_NOTIFY_IS31FL3195_ENABLED

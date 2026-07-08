@@ -58,7 +58,7 @@ private:
     } mavlink {};
 
     void send_report(void);
-    uint32_t send_report_last_ms;
+    uint32_t send_report_last_ms{0};
 
     char *morse_ip = nullptr;
 
@@ -73,7 +73,7 @@ private:
         OUTPUT_ROVER_SKID=2,
         OUTPUT_QUAD=3,
         OUTPUT_PWM=4
-    } output_type;
+    } output_type{OUTPUT_ROVER_REGULAR};
 
     bool connect_sockets(void);
     bool parse_sensors(const char *json);
@@ -86,23 +86,23 @@ private:
 
     // buffer for parsing pose data in JSON format
     uint8_t sensor_buffer[50000];
-    uint32_t sensor_buffer_len;
+    uint32_t sensor_buffer_len{0};
 
-    SocketAPM_native *sensors_sock;
-    SocketAPM_native *control_sock;
+    SocketAPM_native *sensors_sock{nullptr};
+    SocketAPM_native *control_sock{nullptr};
 
-    uint32_t no_data_counter;
-    uint32_t connect_counter;
+    uint32_t no_data_counter{0};
+    uint32_t connect_counter{0};
 
-    double initial_time_s;
-    double last_time_s;
-    double extrapolated_s;
-    double average_frame_time_s;
+    double initial_time_s{0.0};
+    double last_time_s{0.0};
+    double extrapolated_s{0.0};
+    double average_frame_time_s{0.0};
 
-    uint64_t socket_frame_counter;
-    uint64_t last_socket_frame_counter;
-    uint64_t frame_counter;
-    double last_frame_count_s;
+    uint64_t socket_frame_counter{0};
+    uint64_t last_socket_frame_counter{0};
+    uint64_t frame_counter{0};
+    double last_frame_count_s{0.0};
 
     enum data_type {
         DATA_FLOAT,

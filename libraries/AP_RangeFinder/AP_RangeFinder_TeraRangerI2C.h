@@ -43,7 +43,7 @@ private:
     struct {
         uint32_t sum;
         uint32_t count;
-    } accum;
+    } accum{};
 };
 
 #endif  // AP_RANGEFINDER_TRI2C_ENABLED

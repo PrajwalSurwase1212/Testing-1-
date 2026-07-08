@@ -68,8 +68,8 @@ private:
     static const uint8_t SBF_PREAMBLE1 = '$';
     static const uint8_t SBF_PREAMBLE2 = '@';
 
-    uint8_t _init_blob_index;
-    uint32_t _init_blob_time;
+    uint8_t _init_blob_index = 0;
+    uint32_t _init_blob_time = 0;
     enum class Config_State {
         Baud_Rate,
         SSO,
@@ -79,8 +79,8 @@ private:
         Constellation,
         Complete
     };
-    Config_State config_step;
-    char *config_string;
+    Config_State config_step = Config_State::Baud_Rate;
+    char *config_string = nullptr;
     static constexpr const char* _initialisation_blob[] = {
     "srd,Moderate,UAV",
     "sem,PVT,5",
@@ -101,12 +101,12 @@ private:
     const char* _port_enable = "\nSSSSSSSSSS\n";
    
     uint32_t crc_error_counter = 0;
-    uint32_t RxState;
-    uint32_t RxError;
+    uint32_t RxState = 0;
+    uint32_t RxError = 0;
 
     void mount_disk(void) const;
     void unmount_disk(void) const;
-    bool _has_been_armed;
+    bool _has_been_armed = false;
 
     enum sbf_ids {
         DOP = 4001,
@@ -285,14 +285,14 @@ private:
             LENGTH2,
             DATA,
             COMMAND_LINE // used to parse command responses
-        } sbf_state;
-        uint16_t preamble;
-        uint16_t crc;
-        uint16_t blockid;
-        uint16_t length;
-        msgbuffer data;
-        uint16_t read;
-    } sbf_msg;
+        } sbf_state = PREAMBLE1;
+        uint16_t preamble = 0;
+        uint16_t crc = 0;
+        uint16_t blockid = 0;
+        uint16_t length = 0;
+        msgbuffer data {};
+        uint16_t read = 0;
+    } sbf_msg {};
 
     enum {
         SOFTWARE      = (1 << 3),   // set upon detection of a software warning or  error. This bit is reset by the command lif, error
@@ -305,8 +305,8 @@ private:
     };
 
     static constexpr const char *portIdentifiers[] = { "COM", "USB", "IP1", "NTR", "IPS", "IPR" };
-    char portIdentifier[5];
-    uint8_t portLength;
-    bool readyForCommand;
+    char portIdentifier[5] {};
+    uint8_t portLength = 0;
+    bool readyForCommand = false;
 };
 #endif

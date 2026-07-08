@@ -50,7 +50,7 @@ private:
         CONVERTED = 27,
     } state = State::RESET;
 
-    uint32_t state_start_time_ms;
+    uint32_t state_start_time_ms{0};
 
     void set_state(State new_state) {
         state = new_state;
@@ -64,7 +64,7 @@ private:
 
     float temperature_for_adc(uint16_t adc) const;
     uint16_t calculate_adc(float temperature) const;
-    uint32_t adc;
+    uint32_t adc{0};
 
     enum class Command {
         RESET       = 0x1E,

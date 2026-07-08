@@ -102,7 +102,7 @@ public:
 
 private:
     static AP_FETtecOneWire *_singleton;
-    AP_HAL::UARTDriver *_uart;
+    AP_HAL::UARTDriver *_uart = nullptr;
 
     AP_Int32 _motor_mask_parameter;
     AP_Int32 _reverse_mask_parameter;
@@ -167,16 +167,16 @@ private:
     public:
 
 #if HAL_WITH_ESC_TELEM
-        uint32_t last_telem_us;              ///< last time we got telemetry from this ESC
-        uint16_t unexpected_telem;
-        uint16_t error_count_at_throttle_count_overflow;            ///< overflow counter for error counter from the ESCs.
-        bool telem_expected;                 ///< this ESC is fully configured and is now expected to send us telemetry
-        bool telem_requested;                ///< this ESC is fully configured and at some point was requested to send us telemetry
+        uint32_t last_telem_us = 0;              ///< last time we got telemetry from this ESC
+        uint16_t unexpected_telem = 0;
+        uint16_t error_count_at_throttle_count_overflow = 0;            ///< overflow counter for error counter from the ESCs.
+        bool telem_expected = false;                 ///< this ESC is fully configured and is now expected to send us telemetry
+        bool telem_requested = false;                ///< this ESC is fully configured and at some point was requested to send us telemetry
 #endif
 
-        uint8_t id;         ///< FETtec ESC ID
-        uint8_t servo_ofs;  ///< offset into ArduPilot servo array
-        bool is_awake;
+        uint8_t id = 0;         ///< FETtec ESC ID
+        uint8_t servo_ofs = 0;  ///< offset into ArduPilot servo array
+        bool is_awake = false;
         void set_state(ESCState _state) {
             fet_debug("Moving ESC.id=%u from state=%u to state=%u", (unsigned)id, (unsigned)state, (unsigned)_state);
             state = _state;
@@ -184,30 +184,30 @@ private:
         ESCState state = ESCState::UNINITIALISED;
 
 #if HAL_AP_FETTEC_ONEWIRE_GET_STATIC_INFO
-        uint8_t serial_number[SERIAL_NUMBER_LENGTH];
-        uint8_t firmware_version;
-        uint8_t firmware_subversion;
-        uint8_t type;
+        uint8_t serial_number[SERIAL_NUMBER_LENGTH] {};
+        uint8_t firmware_version = 0;
+        uint8_t firmware_subversion = 0;
+        uint8_t type = 0;
 #endif
     };
 
-    uint32_t _min_fast_throttle_period_us;  ///< minimum allowed fast-throttle command transmit period
-    uint32_t _motor_mask;                    ///< an un-mutable copy of the _motor_mask_parameter taken before _init_done goes true
-    uint32_t _reverse_mask;                  ///< a copy of the _reverse_mask_parameter taken while not armed
-    uint32_t _running_mask;                  ///< a bitmask of the actively running ESCs
-    uint32_t _last_transmit_us;             ///< last time the transmit() function sent data
-    ESC *_escs;
-    uint8_t _esc_count;                ///< number of allocated ESCs
-    uint8_t _fast_throttle_byte_count; ///< pre-calculated number of bytes required to send an entire packed throttle message
+    uint32_t _min_fast_throttle_period_us = 0;  ///< minimum allowed fast-throttle command transmit period
+    uint32_t _motor_mask = 0;                    ///< an un-mutable copy of the _motor_mask_parameter taken before _init_done goes true
+    uint32_t _reverse_mask = 0;                  ///< a copy of the _reverse_mask_parameter taken while not armed
+    uint32_t _running_mask = 0;                  ///< a bitmask of the actively running ESCs
+    uint32_t _last_transmit_us = 0;             ///< last time the transmit() function sent data
+    ESC *_escs = nullptr;
+    uint8_t _esc_count = 0;                ///< number of allocated ESCs
+    uint8_t _fast_throttle_byte_count = 0; ///< pre-calculated number of bytes required to send an entire packed throttle message
 
 #if HAL_AP_FETTEC_HALF_DUPLEX
-    uint8_t _ignore_own_bytes; ///< bytes to ignore while receiving, because we have transmitted them ourselves
-    uint8_t _last_crc;         ///< the CRC from the last sent fast-throttle command
-    bool _use_hdplex;          ///< use asynchronous half-duplex serial communication
+    uint8_t _ignore_own_bytes = 0; ///< bytes to ignore while receiving, because we have transmitted them ourselves
+    uint8_t _last_crc = 0;         ///< the CRC from the last sent fast-throttle command
+    bool _use_hdplex = false;          ///< use asynchronous half-duplex serial communication
 #endif
 
-    bool _init_done;     ///< device driver is initialized; ESCs may still need to be configured
-    bool _invalid_mask;  ///< true if the mask parameter is invalid
+    bool _init_done = false;     ///< device driver is initialized; ESCs may still need to be configured
+    bool _invalid_mask = false;  ///< true if the mask parameter is invalid
 
     enum class FrameSource : uint8_t {
         MASTER     = 0x01,  ///< master is always 0x01
@@ -341,11 +341,11 @@ private:
 #if HAL_WITH_ESC_TELEM
     void handle_message_telem(ESC &esc);
 
-    uint16_t _fast_throttle_cmd_count;     ///< number of fast-throttle commands sent by the flight controller
+    uint16_t _fast_throttle_cmd_count = 0;     ///< number of fast-throttle commands sent by the flight controller
 
     /// the ESC at this offset into _escs should be the next to send a
     /// telemetry request for:
-    uint8_t _esc_ofs_to_request_telem_from;
+    uint8_t _esc_ofs_to_request_telem_from = 0;
 
     class PACKED SET_TLM_TYPE {
     public:
@@ -484,11 +484,11 @@ private:
     static_assert(sizeof(u.packed_tlm) <= sizeof(u.receive_buf),"packed_tlm does not fit in receive_buf. MAX_RECEIVE_LENGTH too small?");
 #endif
 
-    uint16_t _unknown_esc_message;
-    uint16_t _message_invalid_in_state_count;
-    uint16_t _period_too_short;
-    uint16_t crc_rec_err_cnt;
-    uint8_t _receive_buf_used;
+    uint16_t _unknown_esc_message = 0;
+    uint16_t _message_invalid_in_state_count = 0;
+    uint16_t _period_too_short = 0;
+    uint16_t crc_rec_err_cnt = 0;
+    uint8_t _receive_buf_used = 0;
 
     /// shifts data to start of buffer based on magic header bytes
     void move_frame_source_in_receive_buffer(const uint8_t search_start_pos = 0);

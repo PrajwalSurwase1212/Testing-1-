@@ -45,7 +45,7 @@ public:
 private:
 
     bool check_synced();
-    bool synced;
+    bool synced{false};
 };
 
 }

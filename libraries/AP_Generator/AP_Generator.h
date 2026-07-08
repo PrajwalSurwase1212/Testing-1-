@@ -91,7 +91,7 @@ public:
 private:
 
     // Pointer to chosen driver
-    AP_Generator_Backend* _driver_ptr;
+    AP_Generator_Backend* _driver_ptr = nullptr;
 
     // Parameters
     AP_Int8 _type; // Select which generator to use
@@ -117,17 +117,17 @@ private:
     Type type(void) const;
 
     // Front end variables
-    float _voltage;
-    float _current;
-    float _fuel_remaining;  // 0-1
-    float _fuel_remaining_l;
-    bool _has_fuel_remaining;
-    bool _has_fuel_remaining_l;
-    float _consumed_mah;
-    uint16_t _rpm;
-    bool _healthy;
-    bool _has_current;
-    bool _has_consumed_energy;
+    float _voltage = 0.0f;
+    float _current = 0.0f;
+    float _fuel_remaining = 0.0f;  // 0-1
+    float _fuel_remaining_l = 0.0f;
+    bool _has_fuel_remaining = false;
+    bool _has_fuel_remaining_l = false;
+    float _consumed_mah = 0.0f;
+    uint16_t _rpm = 0;
+    bool _healthy = false;
+    bool _has_current = false;
+    bool _has_consumed_energy = false;
 
     static AP_Generator *_singleton;
 

@@ -40,7 +40,7 @@ public:
 private:
     // private methods
     uint8_t         _return_element;
-    T               _output;
+    T               _output{};
     void            isort(T sample, bool drop_high_sample);
     bool            drop_high_sample; // switch to determine whether to drop the highest or lowest sample when new value arrives
 };

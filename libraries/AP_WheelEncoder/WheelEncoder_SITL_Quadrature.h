@@ -30,8 +30,8 @@ public:
     void update(void) override;
 
 private:
-    int32_t  _distance_count; // distance count as number of encoder ticks
-    uint32_t _total_count; // total number of encoder ticks
+    int32_t  _distance_count{0}; // distance count as number of encoder ticks
+    uint32_t _total_count{0}; // total number of encoder ticks
 };
 
 #endif // CONFIG_HAL_BOARD

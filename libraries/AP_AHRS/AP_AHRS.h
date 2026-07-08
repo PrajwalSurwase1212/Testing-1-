@@ -613,12 +613,12 @@ public:
     }
 
     // floating point Euler angles (Degrees)
-    float rpy_deg[3];
+    float rpy_deg[3]{};
 
     // integer Euler angles (Degrees * 100)
-    int32_t roll_sensor;
-    int32_t pitch_sensor;
-    int32_t yaw_sensor;
+    int32_t roll_sensor{0};
+    int32_t pitch_sensor{0};
+    int32_t yaw_sensor{0};
 
     const Matrix3f &get_rotation_body_to_ned(void) const { return state.dcm_matrix; }
 
@@ -721,12 +721,12 @@ public:
 private:
 
     // roll/pitch/yaw euler angles, all in radians
-    float roll;
-    float pitch;
-    float yaw;
+    float roll{0.0f};
+    float pitch{0.0f};
+    float yaw{0.0f};
 
     // optional view class
-    AP_AHRS_View *_view;
+    AP_AHRS_View *_view{nullptr};
 
     static AP_AHRS *_singleton;
 

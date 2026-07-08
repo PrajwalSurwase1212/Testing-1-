@@ -186,21 +186,21 @@ private:
     AP_Int32 _options;
 
     // SmartRTL State Variables
-    bool _active;       // true if SmartRTL is usable.  may become unusable if the path becomes too long to keep in memory, and too convoluted to be cleaned up, SmartRTL will be permanently deactivated (for the remainder of the flight)
-    bool _example_mode; // true when being called from the example sketch, logging and background tasks are disabled
-    bool _home_saved;   // true once home has been saved successfully by the set_home or update methods
-    uint32_t _last_good_position_ms;    // the last system time a last good position was reported. If no position is available for a while, SmartRTL will be disabled.
-    uint32_t _last_position_save_ms;    // the system time a position was saved to the path (used for timeout)
-    uint32_t _thorough_clean_request_ms;// the last system time the thorough cleanup was requested (set by thorough_cleanup method, used by background cleanup)
-    uint32_t _thorough_clean_complete_ms; // set to _thorough_clean_request_ms when the background thread completes the thorough cleanup
-    uint32_t _last_low_space_notify_ms; //last time low on SmartRTL space was notified on Mavlink. Minimum time is required before re-notification to avoid nagging.
-    ThoroughCleanupType _thorough_clean_type;   // used by example sketch to test simplify and prune separately
+    bool _active{false};       // true if SmartRTL is usable.  may become unusable if the path becomes too long to keep in memory, and too convoluted to be cleaned up, SmartRTL will be permanently deactivated (for the remainder of the flight)
+    bool _example_mode{false}; // true when being called from the example sketch, logging and background tasks are disabled
+    bool _home_saved{false};   // true once home has been saved successfully by the set_home or update methods
+    uint32_t _last_good_position_ms{0};    // the last system time a last good position was reported. If no position is available for a while, SmartRTL will be disabled.
+    uint32_t _last_position_save_ms{0};    // the system time a position was saved to the path (used for timeout)
+    uint32_t _thorough_clean_request_ms{0};// the last system time the thorough cleanup was requested (set by thorough_cleanup method, used by background cleanup)
+    uint32_t _thorough_clean_complete_ms{0}; // set to _thorough_clean_request_ms when the background thread completes the thorough cleanup
+    uint32_t _last_low_space_notify_ms{0}; //last time low on SmartRTL space was notified on Mavlink. Minimum time is required before re-notification to avoid nagging.
+    ThoroughCleanupType _thorough_clean_type{THOROUGH_CLEAN_DEFAULT};   // used by example sketch to test simplify and prune separately
 
     // path variables
-    Vector3f* _path;    // points are stored in meters from EKF origin in NED
-    uint16_t _path_points_max;  // after the array has been allocated, we will need to know how big it is. We can't use the parameter, because a user could change the parameter in-flight
-    uint16_t _path_points_count;// number of points in the path array
-    uint16_t _path_points_completed_limit;  // set by main thread to the path_point_count when a point is popped.  used by simplify and prune algorithms to detect path shrinking
+    Vector3f* _path{nullptr};    // points are stored in meters from EKF origin in NED
+    uint16_t _path_points_max{0};  // after the array has been allocated, we will need to know how big it is. We can't use the parameter, because a user could change the parameter in-flight
+    uint16_t _path_points_count{0};// number of points in the path array
+    uint16_t _path_points_completed_limit{0};  // set by main thread to the path_point_count when a point is popped.  used by simplify and prune algorithms to detect path shrinking
     HAL_Semaphore _path_sem;   // semaphore for updating path
 
     // Simplify
@@ -210,13 +210,13 @@ private:
         uint16_t finish;
     } simplify_start_finish_t;
     struct {
-        bool complete;          // true after simplify_detection has completed
-        bool removal_required;  // true if some simplify-able points have been found on the path, set true by detect_simplifications, set false by remove_points_by_simplify_bitmask
-        uint16_t path_points_count; // copy of _path_points_count taken when the simply algorithm started
+        bool complete{false};          // true after simplify_detection has completed
+        bool removal_required{false};  // true if some simplify-able points have been found on the path, set true by detect_simplifications, set false by remove_points_by_simplify_bitmask
+        uint16_t path_points_count{0}; // copy of _path_points_count taken when the simply algorithm started
         uint16_t path_points_completed = SMARTRTL_POINTS_MAX; // number of points in that path that have already been simplified and should be ignored
-        simplify_start_finish_t* stack;
-        uint16_t stack_max;     // maximum number of elements in the _simplify_stack array
-        uint16_t stack_count;   // number of elements in _simplify_stack array
+        simplify_start_finish_t* stack{nullptr};
+        uint16_t stack_max{0};     // maximum number of elements in the _simplify_stack array
+        uint16_t stack_count{0};   // number of elements in _simplify_stack array
         Bitmask<SMARTRTL_POINTS_MAX> bitmask;  // simplify algorithm clears bits for each point that can be removed
     } _simplify;
 
@@ -228,14 +228,14 @@ private:
         float length_squared;   // length squared (in meters) of the loop (used so we can remove the longest loops)
     } prune_loop_t;
     struct {
-        bool complete;
-        uint16_t path_points_count;  // copy of _path_points_count taken when the prune algorithm started
-        uint16_t path_points_completed; // number of points in that path that have already been checked for loops and should be ignored
-        uint16_t i;     // loop search's outer loop index
-        uint16_t j;     // loop search's inner loop index
-        prune_loop_t* loops;// the result of the pruning algorithm
-        uint16_t loops_max; // maximum number of elements in the _prunable_loops array
-        uint16_t loops_count;   // number of elements in the _prunable_loops array
+        bool complete{false};
+        uint16_t path_points_count{0};  // copy of _path_points_count taken when the prune algorithm started
+        uint16_t path_points_completed{0}; // number of points in that path that have already been checked for loops and should be ignored
+        uint16_t i{0};     // loop search's outer loop index
+        uint16_t j{0};     // loop search's inner loop index
+        prune_loop_t* loops{nullptr};// the result of the pruning algorithm
+        uint16_t loops_max{0}; // maximum number of elements in the _prunable_loops array
+        uint16_t loops_count{0};   // number of elements in the _prunable_loops array
     } _prune;
 
     // returns true if the two loops overlap (used within add_loop to determine which loops to keep or throw away)

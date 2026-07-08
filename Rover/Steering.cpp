@@ -11,7 +11,7 @@ void Rover::set_servos(void)
     } else {
         // get ground speed
         float speed = 0.0f;
-        g2.attitude_control.get_forward_speed(speed);
+        (void)g2.attitude_control.get_forward_speed(speed);
 
         g2.motors.output(arming.is_armed(), speed, G_Dt);
     }

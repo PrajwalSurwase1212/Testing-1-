@@ -46,8 +46,8 @@ private:
     // update pwm outputs to control winch
     void control_winch();
 
-    uint32_t control_update_ms; // last time control_winch was called
-    float line_length;          // estimated length of line in meters
+    uint32_t control_update_ms{0}; // last time control_winch was called
+    float line_length{0.0f};          // estimated length of line in meters
 };
 
 #endif  // AP_WINCH_PWM_ENABLED

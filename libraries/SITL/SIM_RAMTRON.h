@@ -29,8 +29,8 @@ private:
         WRITING,
     } state = State::WAITING;
 
-    bool write_enabled;
-    uint32_t xfr_addr;
+    bool write_enabled{false};
+    uint32_t xfr_addr{0};
 
     void open_storage_fd();
     int storage_fd = -1;

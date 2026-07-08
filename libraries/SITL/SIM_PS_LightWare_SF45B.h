@@ -77,7 +77,7 @@ private:
         uint8_t preamble { PREAMBLE };
         uint16_t flags;
         T msg;
-        uint16_t checksum;
+        uint16_t checksum{0};
 
         uint16_t calculate_checksum(uint16_t len) const WARN_IF_UNUSED {
             uint16_t ret = 0;

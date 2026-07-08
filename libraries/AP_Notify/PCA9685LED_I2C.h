@@ -34,8 +34,8 @@ private:
     void _timer(void);
     struct {
         uint8_t r, g, b;
-    } rgb;
-    bool _need_update;
+    } rgb{};
+    bool _need_update{false};
 };
 
 #endif  // AP_NOTIFY_PCA9685_ENABLED

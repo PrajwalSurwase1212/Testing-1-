@@ -170,15 +170,15 @@ private:
     Vector3f _sector_edge_vector[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];
     Vector3f _boundary_points[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];
 
-    float _angle[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];          // yaw angle in degrees to closest object within each sector and layer
-    float _pitch[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];          // pitch angle in degrees to the closest object within each sector and layer
-    float _distance[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];       // distance to closest object within each sector and layer
-    bool _distance_valid[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];  // true if a valid distance received for each sector and layer
-    uint32_t _last_update_ms[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]; // time when distance was last updated
-    uint8_t _prx_instance[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]; // proximity sensor backend instance that provided the distance
+    float _angle[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{};          // yaw angle in degrees to closest object within each sector and layer
+    float _pitch[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{};          // pitch angle in degrees to the closest object within each sector and layer
+    float _distance[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{};       // distance to closest object within each sector and layer
+    bool _distance_valid[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{};  // true if a valid distance received for each sector and layer
+    uint32_t _last_update_ms[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{}; // time when distance was last updated
+    uint8_t _prx_instance[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{}; // proximity sensor backend instance that provided the distance
     LowPassFilterFloat _filtered_distance[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]; // low pass filter
-    float _filter_freq;                                                 // cutoff freq of low pass filter
-    uint32_t _last_check_face_timeout_ms;                               // system time to throttle check_face_timeout method
+    float _filter_freq{0.0f};                                                 // cutoff freq of low pass filter
+    uint32_t _last_check_face_timeout_ms{0};                               // system time to throttle check_face_timeout method
 };
 
 // This class gives an easy way of making a temporary boundary, used for "sorting" distances.
@@ -205,6 +205,6 @@ public:
 private:
 
     float _distances[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];      // distance to closest object within each sector and layer. Will start with FLT_MAX, and then be changed to a valid distance if needed
-    float _angle[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];          // yaw angle in degrees to closest object within each sector and layer
-    float _pitch[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS];          // pitch angle in degrees to the closest object within each sector and layer
+    float _angle[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{};          // yaw angle in degrees to closest object within each sector and layer
+    float _pitch[PROXIMITY_NUM_LAYERS][PROXIMITY_NUM_SECTORS]{};          // pitch angle in degrees to the closest object within each sector and layer
 };

@@ -63,7 +63,7 @@ private:
         Subscriber(DroneCAN_Handle &_handle, CanardTransferType transfer_type);
         virtual ~Subscriber(void);
 
-        uint8_t node_id;
+        uint8_t node_id{0};
         struct Payload {
             uint8_t *data;
             uint16_t length;

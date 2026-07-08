@@ -38,10 +38,10 @@ public:
     void init();
 
 private:
-    AP_HAL::UARTDriver *_port;              // UART
+    AP_HAL::UARTDriver *_port = nullptr;              // UART
 
-    uint8_t _ltm_scheduler;
-    uint32_t _last_frame_ms;
+    uint8_t _ltm_scheduler = 0;
+    uint32_t _last_frame_ms = 0;
 
     void send_Gframe(void);
     void send_Sframe(void);

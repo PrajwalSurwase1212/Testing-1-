@@ -190,58 +190,58 @@ public:
       parses each message from the GPS.
      */
     struct GPS_State {
-        uint8_t instance; // the instance number of this GPS
+        uint8_t instance = 0; // the instance number of this GPS
 
         // all the following fields must all be filled by the backend driver
-        GPS_Status status;                  ///< driver fix status
-        uint32_t time_week_ms;              ///< GPS time (milliseconds from start of GPS week)
-        uint16_t time_week;                 ///< GPS week number
-        Location location;                  ///< last fix location
-        float ground_speed;                 ///< ground speed in m/s
-        float ground_course;                ///< ground course in degrees, wrapped 0-360
-        float gps_yaw;                      ///< GPS derived yaw information, if available (degrees)
-        uint32_t gps_yaw_time_ms;           ///< timestamp of last GPS yaw reading
-        bool  gps_yaw_configured;           ///< GPS is configured to provide yaw
-        uint16_t hdop;                      ///< horizontal dilution of precision, scaled by a factor of 100 (155 means the HDOP value is 1.55)
-        uint16_t vdop;                      ///< vertical dilution of precision, scaled by a factor of 100 (155 means the VDOP value is 1.55)
-        uint8_t num_sats;                   ///< Number of visible satellites
-        Vector3f velocity;                  ///< 3D velocity in m/s, in NED format
-        float speed_accuracy;               ///< 3D velocity RMS accuracy estimate in m/s
-        float horizontal_accuracy;          ///< horizontal RMS accuracy estimate in m
-        float vertical_accuracy;            ///< vertical RMS accuracy estimate in m
-        float gps_yaw_accuracy;           ///< heading accuracy of the GPS in degrees
-        bool have_vertical_velocity;      ///< does GPS give vertical velocity? Set to true only once available.
-        bool have_speed_accuracy;         ///< does GPS give speed accuracy? Set to true only once available.
-        bool have_horizontal_accuracy;    ///< does GPS give horizontal position accuracy? Set to true only once available.
-        bool have_vertical_accuracy;      ///< does GPS give vertical position accuracy? Set to true only once available.
-        bool have_gps_yaw;                ///< does GPS give yaw? Set to true only once available.
-        bool have_gps_yaw_accuracy;       ///< does the GPS give a heading accuracy estimate? Set to true only once available
-        float undulation;                   //<height that WGS84 is above AMSL at the current location
-        bool have_undulation;               ///<do we have a value for the undulation
-        uint32_t last_gps_time_ms;          ///< the system time we got the last GPS timestamp, milliseconds
-        bool announced_detection;           ///< true once we have announced GPS has been seen to the user
-        uint64_t last_corrected_gps_time_us;///< the system time we got the last corrected GPS timestamp, microseconds
-        bool corrected_timestamp_updated;  ///< true if the corrected timestamp has been updated
-        uint32_t lagged_sample_count;       ///< number of samples with 50ms more lag than expected
+        GPS_Status status = NO_GPS;                  ///< driver fix status
+        uint32_t time_week_ms = 0;              ///< GPS time (milliseconds from start of GPS week)
+        uint16_t time_week = 0;                 ///< GPS week number
+        Location location {};                  ///< last fix location
+        float ground_speed = 0.0f;                 ///< ground speed in m/s
+        float ground_course = 0.0f;                ///< ground course in degrees, wrapped 0-360
+        float gps_yaw = 0.0f;                      ///< GPS derived yaw information, if available (degrees)
+        uint32_t gps_yaw_time_ms = 0;           ///< timestamp of last GPS yaw reading
+        bool  gps_yaw_configured = false;           ///< GPS is configured to provide yaw
+        uint16_t hdop = 9999;                      ///< horizontal dilution of precision, scaled by a factor of 100 (155 means the HDOP value is 1.55)
+        uint16_t vdop = 9999;                      ///< vertical dilution of precision, scaled by a factor of 100 (155 means the VDOP value is 1.55)
+        uint8_t num_sats = 0;                   ///< Number of visible satellites
+        Vector3f velocity {};                  ///< 3D velocity in m/s, in NED format
+        float speed_accuracy = 0.0f;               ///< 3D velocity RMS accuracy estimate in m/s
+        float horizontal_accuracy = 0.0f;          ///< horizontal RMS accuracy estimate in m
+        float vertical_accuracy = 0.0f;            ///< vertical RMS accuracy estimate in m
+        float gps_yaw_accuracy = 0.0f;           ///< heading accuracy of the GPS in degrees
+        bool have_vertical_velocity = false;      ///< does GPS give vertical velocity? Set to true only once available.
+        bool have_speed_accuracy = false;         ///< does GPS give speed accuracy? Set to true only once available.
+        bool have_horizontal_accuracy = false;    ///< does GPS give horizontal position accuracy? Set to true only once available.
+        bool have_vertical_accuracy = false;      ///< does GPS give vertical position accuracy? Set to true only once available.
+        bool have_gps_yaw = false;                ///< does GPS give yaw? Set to true only once available.
+        bool have_gps_yaw_accuracy = false;       ///< does the GPS give a heading accuracy estimate? Set to true only once available
+        float undulation = 0.0f;                   //<height that WGS84 is above AMSL at the current location
+        bool have_undulation = false;               ///<do we have a value for the undulation
+        uint32_t last_gps_time_ms = 0;          ///< the system time we got the last GPS timestamp, milliseconds
+        bool announced_detection = false;           ///< true once we have announced GPS has been seen to the user
+        uint64_t last_corrected_gps_time_us = 0;///< the system time we got the last corrected GPS timestamp, microseconds
+        bool corrected_timestamp_updated = false;  ///< true if the corrected timestamp has been updated
+        uint32_t lagged_sample_count = 0;       ///< number of samples with 50ms more lag than expected
 
         // all the following fields must only all be filled by RTK capable backend drivers
-        uint32_t rtk_time_week_ms;         ///< GPS Time of Week of last baseline in milliseconds
-        uint16_t rtk_week_number;          ///< GPS Week Number of last baseline
-        uint32_t rtk_age_ms;               ///< GPS age of last baseline correction in milliseconds  (0 when no corrections, 0xFFFFFFFF indicates overflow)
-        uint8_t  rtk_num_sats;             ///< Current number of satellites used for RTK calculation
-        uint8_t  rtk_baseline_coords_type; ///< Coordinate system of baseline. 0 == ECEF, 1 == NED
-        int32_t  rtk_baseline_x_mm;        ///< Current baseline in ECEF x or NED north component in mm
-        int32_t  rtk_baseline_y_mm;        ///< Current baseline in ECEF y or NED east component in mm
-        int32_t  rtk_baseline_z_mm;        ///< Current baseline in ECEF z or NED down component in mm
-        uint32_t rtk_accuracy;             ///< Current estimate of 3D baseline accuracy (receiver dependent, typical 0 to 9999)
-        int32_t  rtk_iar_num_hypotheses;   ///< Current number of integer ambiguity hypotheses
+        uint32_t rtk_time_week_ms = 0;         ///< GPS Time of Week of last baseline in milliseconds
+        uint16_t rtk_week_number = 0;          ///< GPS Week Number of last baseline
+        uint32_t rtk_age_ms = 0xFFFFFFFF;               ///< GPS age of last baseline correction in milliseconds  (0 when no corrections, 0xFFFFFFFF indicates overflow)
+        uint8_t  rtk_num_sats = 0;             ///< Current number of satellites used for RTK calculation
+        uint8_t  rtk_baseline_coords_type = 0; ///< Coordinate system of baseline. 0 == ECEF, 1 == NED
+        int32_t  rtk_baseline_x_mm = 0;        ///< Current baseline in ECEF x or NED north component in mm
+        int32_t  rtk_baseline_y_mm = 0;        ///< Current baseline in ECEF y or NED east component in mm
+        int32_t  rtk_baseline_z_mm = 0;        ///< Current baseline in ECEF z or NED down component in mm
+        uint32_t rtk_accuracy = 0;             ///< Current estimate of 3D baseline accuracy (receiver dependent, typical 0 to 9999)
+        int32_t  rtk_iar_num_hypotheses = 0;   ///< Current number of integer ambiguity hypotheses
         
         // UBX Relative Position and Heading message information
-        float relPosHeading;               ///< Reported Heading in degrees
-        float relPosLength;                ///< Reported Position horizontal distance in meters
-        float relPosD;                     ///< Reported Vertical distance in meters
-        float accHeading;                  ///< Reported Heading Accuracy in degrees
-        uint32_t relposheading_ts;        ///< True if new data has been received since last time it was false
+        float relPosHeading = 0.0f;               ///< Reported Heading in degrees
+        float relPosLength = 0.0f;                ///< Reported Position horizontal distance in meters
+        float relPosD = 0.0f;                     ///< Reported Vertical distance in meters
+        float accHeading = 0.0f;                  ///< Reported Heading Accuracy in degrees
+        uint32_t relposheading_ts = 0;        ///< True if new data has been received since last time it was false
     };
 
     /// Startup initialisation.

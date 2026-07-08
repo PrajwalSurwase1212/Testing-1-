@@ -165,10 +165,10 @@ protected:
     float _clip_limit = (16.0f - 0.5f) * GRAVITY_MSS;
 
     // instance numbers of accel and gyro data
-    uint8_t gyro_instance;
-    uint8_t accel_instance;
+    uint8_t gyro_instance = 0;
+    uint8_t accel_instance = 0;
     bool is_primary = true;
-    uint32_t last_primary_update_us;
+    uint32_t last_primary_update_us = 0;
 
     void _rotate_and_correct_accel(uint8_t instance, Vector3f &accel) __RAMFUNC__;
     void _rotate_and_correct_gyro(uint8_t instance, Vector3f &gyro) __RAMFUNC__;
@@ -302,8 +302,8 @@ protected:
     virtual void set_primary(bool _is_primary) {}
 
     // support for updating filter at runtime
-    uint16_t _last_accel_filter_hz;
-    uint16_t _last_gyro_filter_hz;
+    uint16_t _last_accel_filter_hz = 0;
+    uint16_t _last_gyro_filter_hz = 0;
 
     void set_gyro_orientation(uint8_t instance, enum Rotation rotation) {
         _imu._gyro_orientation[instance] = rotation;

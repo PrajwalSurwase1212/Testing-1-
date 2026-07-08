@@ -108,22 +108,22 @@ private:
     void process_message();
 
     // internal variables
-    uint32_t _last_request_ms;              // system time of last request
-    uint32_t _last_reply_ms;                // system time of last valid reply
-    uint32_t _last_restart_ms;              // system time we restarted the sensor
-    uint32_t _last_distance_received_ms;    // system time of last distance measurement received from sensor
+    uint32_t _last_request_ms{0};              // system time of last request
+    uint32_t _last_reply_ms{0};                // system time of last valid reply
+    uint32_t _last_restart_ms{0};              // system time we restarted the sensor
+    uint32_t _last_distance_received_ms{0};    // system time of last distance measurement received from sensor
     AP_Proximity_Boundary_3D::Face _face;   // face of _face_distance
-    float _face_distance;                   // shortest distance (in meters) on face
-    float _face_yaw_deg;                    // yaw angle (in degrees) of shortest distance on face
-    bool _face_distance_valid;              // true if face has at least one valid distance
+    float _face_distance{0.0f};                   // shortest distance (in meters) on face
+    float _face_yaw_deg{0.0f};                    // yaw angle (in degrees) of shortest distance on face
+    bool _face_distance_valid{false};              // true if face has at least one valid distance
 
     // state of sensor
     struct {
-        MotorState motor_state; // motor state (1=starting-up,2=waiting for first 5 revs, 3=normal, 4=comm failure)
-        uint8_t output_rate;    // output rate number (0 = 20010, 1 = 10005, 2 = 6670, 3 = 2001)
-        bool streaming;         // true if distance messages are being streamed
-        uint8_t token[2];       // token (supplied by sensor) required for reset
-    } _sensor_state;
+        MotorState motor_state{MotorState::UNKNOWN}; // motor state (1=starting-up,2=waiting for first 5 revs, 3=normal, 4=comm failure)
+        uint8_t output_rate{0};    // output rate number (0 = 20010, 1 = 10005, 2 = 6670, 3 = 2001)
+        bool streaming{false};         // true if distance messages are being streamed
+        uint8_t token[2]{};       // token (supplied by sensor) required for reset
+    } _sensor_state{};
 
     enum class ParseState {
         HEADER = 0,
@@ -137,17 +137,17 @@ private:
 
     // structure holding latest message contents
     struct {
-        ParseState state;       // state of incoming message processing
-        uint8_t flags_low;      // flags low byte
-        uint8_t flags_high;     // flags high byte
-        uint16_t payload_len;   // latest message payload length (1+ bytes in payload)
-        uint8_t payload[PROXIMITY_SF40C_PAYLOAD_LEN_MAX];   // payload
-        MessageID msgid;        // latest message's message id
-        uint16_t payload_recv;  // number of message's payload bytes received so far
-        uint8_t crc_low;        // crc low byte
-        uint8_t crc_high;       // crc high byte
-        uint16_t crc_expected;  // latest message's expected crc
-    } _msg;
+        ParseState state{ParseState::HEADER};       // state of incoming message processing
+        uint8_t flags_low{0};      // flags low byte
+        uint8_t flags_high{0};     // flags high byte
+        uint16_t payload_len{0};   // latest message payload length (1+ bytes in payload)
+        uint8_t payload[PROXIMITY_SF40C_PAYLOAD_LEN_MAX]{};   // payload
+        MessageID msgid{MessageID::PRODUCT_NAME};        // latest message's message id
+        uint16_t payload_recv{0};  // number of message's payload bytes received so far
+        uint8_t crc_low{0};        // crc low byte
+        uint8_t crc_high{0};       // crc high byte
+        uint16_t crc_expected{0};  // latest message's expected crc
+    } _msg{};
 
     // convert buffer to uint32, uint16
     uint32_t buff_to_uint32(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3) const;

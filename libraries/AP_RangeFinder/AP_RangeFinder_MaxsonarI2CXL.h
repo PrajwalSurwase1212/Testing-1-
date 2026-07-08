@@ -38,8 +38,8 @@ private:
     bool _init(void);
     void _timer(void);
 
-    uint16_t distance;
-    bool new_distance;
+    uint16_t distance{0};
+    bool new_distance{false};
     
     // start a reading
     bool start_reading(void);

@@ -62,19 +62,19 @@ public:
         // size of the FFT sliding window
         const uint8_t _sliding_window_size;
         // FFT data
-        float* _freq_bins;
+        float* _freq_bins = nullptr;
         // derivative real data scratch space
-        float* _derivative_freq_bins;
+        float* _derivative_freq_bins = nullptr;
         // intermediate real FFT data
-        float* _rfft_data;
+        float* _rfft_data = nullptr;
         // averaged frequency data via Welch's method
         float* _avg_freq_bins = nullptr;
         // sliding window of _bin_count frames
         float* _sliding_window = nullptr;
         // three highest peaks
-        FrequencyPeakData _peak_data[MAX_TRACKED_PEAKS];
+        FrequencyPeakData _peak_data[MAX_TRACKED_PEAKS] {};
         // Hanning window for incoming samples, see https://en.wikipedia.org/wiki/Window_function#Hann_.28Hanning.29_window
-        float* _hanning_window;
+        float* _hanning_window = nullptr;
         // Use in calculating the PS of the signal [Heinz] equations (20) & (21)
         float _window_scale = 0.0f;
         // averaging is ongoing

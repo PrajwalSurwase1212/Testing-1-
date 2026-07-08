@@ -272,7 +272,9 @@ void SoloGimbal::send_report(void)
         uint8_t msgbuf[len];
         len = mavlink_msg_to_send_buffer(msgbuf, &msg);
         if (len > 0) {
-            mav_socket.send(msgbuf, len);
+            if (mav_socket.send(msgbuf, len) < 0) {
+                // safe to ignore: telemetry drop should not interrupt execution
+            }
         }
 
         delta_velocity.zero();

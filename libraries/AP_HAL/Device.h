@@ -70,6 +70,7 @@ public:
 
     Device(enum BusType type)
     {
+        _bus_id.devid = 0;
         _bus_id.devid_s.bus_type = type;
     }
 
@@ -228,9 +229,9 @@ public:
 
     // checked registers
     struct checkreg {
-        uint8_t bank;
-        uint8_t regnum;
-        uint8_t value;
+        uint8_t bank = 0;
+        uint8_t regnum = 0;
+        uint8_t value = 0;
     };
     
     /**
@@ -393,15 +394,15 @@ protected:
     }
 
 private:
-    BankSelectCb _bank_select;
-    RegisterRWCb _register_rw_callback;
+    BankSelectCb _bank_select = nullptr;
+    RegisterRWCb _register_rw_callback = nullptr;
     struct {
-        uint8_t n_allocated;
-        uint8_t n_set;
-        uint8_t next;
-        uint8_t frequency;
-        uint8_t counter;
-        struct checkreg last_reg_fail;
-        struct checkreg *regs;
+        uint8_t n_allocated = 0;
+        uint8_t n_set = 0;
+        uint8_t next = 0;
+        uint8_t frequency = 0;
+        uint8_t counter = 0;
+        struct checkreg last_reg_fail {};
+        struct checkreg *regs = nullptr;
     } _checked;
 };

@@ -235,7 +235,7 @@ void AP_Terrain::send_terrain_report(mavlink_channel_t chan, const Location &loc
     get_statistics(pending, loaded);
 
     float current_height = 0.0f;
-    height_above_terrain(current_height, extrapolate);
+    (void)height_above_terrain(current_height, extrapolate);
 
     if (HAVE_PAYLOAD_SPACE(chan, TERRAIN_REPORT)) {
         mavlink_msg_terrain_report_send(chan, loc.lat, loc.lng, spacing, 

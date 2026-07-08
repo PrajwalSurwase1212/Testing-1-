@@ -99,7 +99,7 @@ public:
     }
 private:
     static AP_OpenDroneID *_singleton;
-    bool _initialised;
+    bool _initialised{false};
     // parameters
     AP_Int8  _enable;
     AP_Float _baro_accuracy;    // Vertical accuracy of the barometer when installed
@@ -107,11 +107,11 @@ private:
     AP_Int8  _mav_port;
     AP_Int8  _can_driver;
 
-    char ua_type[3];
-    char id_type[3];
-    size_t id_len;
-    char id_str[21];
-    bool bootloader_flashed;
+    char ua_type[3]{};
+    char id_type[3]{};
+    size_t id_len{0};
+    char id_str[21]{};
+    bool bootloader_flashed{false};
     enum Options : int16_t {
         EnforceArming     = (1U << 0U),
         AllowNonGPSPosition = (1U << 1U),
@@ -124,41 +124,41 @@ private:
         return (uint8_t(_options.get()) & uint8_t(option)) != 0;
     }
 
-    mavlink_channel_t _chan; // MAVLink channel that communicates with the Remote ID Transceiver
+    mavlink_channel_t _chan{MAV_CHAN_INVALID}; // MAVLink channel that communicates with the Remote ID Transceiver
     const mavlink_channel_t MAV_CHAN_INVALID = mavlink_channel_t(255U);
-    uint32_t _last_send_location_ms;
-    uint32_t _last_send_system_update_ms;
-    uint32_t _last_send_static_messages_ms;
+    uint32_t _last_send_location_ms{0};
+    uint32_t _last_send_system_update_ms{0};
+    uint32_t _last_send_static_messages_ms{0};
     const uint32_t _mavlink_dynamic_period_ms = 1000; //how often are mavlink dynamic messages sent in ms. E.g. 1000 = 1 Hz
     const uint32_t _mavlink_static_period_ms = 3000; //how often are mavlink static messages sent in ms
 
-    bool     _have_height_above_takeoff;
+    bool     _have_height_above_takeoff{false};
     Location _takeoff_location;
-    bool _was_armed;
+    bool _was_armed{false};
 
     // packets ready to be sent, updated with semaphore held
     HAL_Semaphore _sem;
-    mavlink_open_drone_id_location_t pkt_location;
-    mavlink_open_drone_id_basic_id_t pkt_basic_id;
-    mavlink_open_drone_id_system_t pkt_system;
-    mavlink_open_drone_id_self_id_t pkt_self_id;
-    mavlink_open_drone_id_operator_id_t pkt_operator_id;
+    mavlink_open_drone_id_location_t pkt_location{};
+    mavlink_open_drone_id_basic_id_t pkt_basic_id{};
+    mavlink_open_drone_id_system_t pkt_system{};
+    mavlink_open_drone_id_self_id_t pkt_self_id{};
+    mavlink_open_drone_id_operator_id_t pkt_operator_id{};
 
     // last time we got a SYSTEM message
-    uint32_t last_system_ms;
+    uint32_t last_system_ms{0};
 
     // last time we got a SYSTEM_UPDATE message
-    uint32_t last_system_update_ms;
+    uint32_t last_system_update_ms{0};
 
     // arm status from the transmitter
-    mavlink_open_drone_id_arm_status_t arm_status;
-    uint32_t last_arm_status_ms;
+    mavlink_open_drone_id_arm_status_t arm_status{};
+    uint32_t last_arm_status_ms{0};
 
     // last time we sent a lost transmitter message
-    uint32_t last_lost_tx_ms;
+    uint32_t last_lost_tx_ms{0};
 
     // last time we sent a lost operator location notice
-    uint32_t last_lost_operator_msg_ms;
+    uint32_t last_lost_operator_msg_ms{0};
     
     // transmit functions to manually send a static MAVLink message
     void send_dynamic_out();
@@ -175,8 +175,8 @@ private:
         NEXT_MSG_SELF_ID,
         NEXT_MSG_OPERATOR_ID,
         NEXT_MSG_ENUM_END
-    } next_msg_to_send;
-    uint32_t last_msg_send_ms;
+    } next_msg_to_send{NEXT_MSG_BASIC_ID};
+    uint32_t last_msg_send_ms{0};
 
     // helper functions
     MAV_ODID_HOR_ACC create_enum_horizontal_accuracy(float Accuracy) const;
@@ -191,15 +191,15 @@ private:
 
     // mask of what UAVCAN drivers need to send each packet
     const uint8_t dronecan_send_all = (1U<<HAL_MAX_CAN_PROTOCOL_DRIVERS)-1;
-    uint8_t driver_mask;
-    uint8_t need_send_location;
-    uint8_t need_send_basic_id;
-    uint8_t need_send_system;
-    uint8_t need_send_self_id;
-    uint8_t need_send_operator_id;
+    uint8_t driver_mask{0};
+    uint8_t need_send_location{0};
+    uint8_t need_send_basic_id{0};
+    uint8_t need_send_system{0};
+    uint8_t need_send_self_id{0};
+    uint8_t need_send_operator_id{0};
 
-    uint8_t dronecan_done_init;
-    uint8_t dronecan_init_failed;
+    uint8_t dronecan_done_init{0};
+    uint8_t dronecan_init_failed{0};
     void dronecan_init(AP_DroneCAN *uavcan);
     void dronecan_send_location(AP_DroneCAN *uavcan);
     void dronecan_send_basic_id(AP_DroneCAN *uavcan);

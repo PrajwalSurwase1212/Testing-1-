@@ -27,10 +27,10 @@ public:
 
     void set_flow_control(enum AP_HAL::UARTDriver::flow_control fcs);
 
-    AP_HAL::UARTDriver *stream;
+    AP_HAL::UARTDriver *stream{nullptr};
 #if AP_SCRIPTING_ENABLED
 #if AP_SCRIPTING_SERIALDEVICE_ENABLED
-    bool is_device_port;
+    bool is_device_port{false};
 #endif
 #endif
 };

@@ -22,7 +22,7 @@ public:
 
 private:
     const uint8_t serial_port;
-    bool started;
+    bool started = false;
 };
 #endif // AP_EXTERNAL_AHRS_ENABLED
 

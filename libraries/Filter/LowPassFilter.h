@@ -93,8 +93,8 @@ public:
     T apply(const T &sample);
 
 private:
-    float cutoff_freq;
-    float alpha;
+    float cutoff_freq = 0.0f;
+    float alpha = 0.0f;
 };
 
 typedef LowPassFilterConstDt<float>    LowPassFilterConstDtFloat;
@@ -122,7 +122,7 @@ public:
     T apply(const T &sample, const float &dt);
 
 private:
-    float cutoff_freq;
+    float cutoff_freq = 0.0f;
 };
 
 // typedefs for compatibility

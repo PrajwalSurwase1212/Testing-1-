@@ -10,7 +10,11 @@
 
 class AP_HAL::Scheduler {
 public:
-    Scheduler() {}
+    Scheduler() :
+        _min_delay_cb_ms(0),
+        _delay_cb(nullptr),
+        _in_delay_callback(false)
+    {}
     virtual void     init() = 0;
     virtual void     delay(uint16_t ms) = 0;
 
@@ -129,7 +133,7 @@ public:
 private:
 
     AP_HAL::Proc _delay_cb;
-    bool _in_delay_callback : 1;
+    bool _in_delay_callback;
 
 };
 

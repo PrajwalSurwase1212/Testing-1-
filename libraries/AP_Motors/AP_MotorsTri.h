@@ -78,14 +78,14 @@ protected:
 
     // parameters
 
-    float           _pivot_angle;                       // Angle of yaw pivot
-    float           _thrust_right;
-    float           _thrust_rear;
-    float           _thrust_left;
+    float           _pivot_angle{0.0f};                       // Angle of yaw pivot
+    float           _thrust_right{0.0f};
+    float           _thrust_rear{0.0f};
+    float           _thrust_left{0.0f};
 
     // reverse pitch
-    bool _pitch_reversed;
-    bool _have_tail_servo;
+    bool _pitch_reversed{false};
+    bool _have_tail_servo{false};
 };
 
 #endif  // AP_MOTORS_TRI_ENABLED

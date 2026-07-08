@@ -28,13 +28,13 @@ public:
 private:
 
     // horizontal distance support
-    uint32_t _last_update_ms;   // system time of last RangeFinder reading
-    float _distance_max;        // max range of sensor in meters
-    float _distance_min;        // min range of sensor in meters
+    uint32_t _last_update_ms{0};   // system time of last RangeFinder reading
+    float _distance_max{0.0f};        // max range of sensor in meters
+    float _distance_min{0.0f};        // min range of sensor in meters
 
     // upward distance support
-    uint32_t _last_upward_update_ms;    // system time of last update distance
-    float _distance_upward = -1;        // upward distance in meters, negative if the last reading was out of range
+    uint32_t _last_upward_update_ms{0};    // system time of last update distance
+    float _distance_upward{-1.0f};        // upward distance in meters, negative if the last reading was out of range
 };
 
 #endif // AP_PROXIMITY_RANGEFINDER_ENABLED

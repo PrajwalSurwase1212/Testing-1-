@@ -40,7 +40,7 @@ public:
     bool get_lag(float &lag_sec) const override;
 
 private:
-    bool new_data;
+    bool new_data = false;
 };
 
 #endif // HAL_MSP_GPS_ENABLED

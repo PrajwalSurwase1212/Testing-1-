@@ -42,29 +42,29 @@ private:
 
     void _process_byte(uint32_t timestamp_us, uint8_t byte);
     SoftSerial ss{115200, SoftSerial::SERIAL_CONFIG_8N1};
-    uint32_t saved_width;
+    uint32_t saved_width{0};
 
     struct {
         uint8_t buf[FPORT_CONTROL_FRAME_SIZE];
         uint8_t ofs;
         uint32_t last_byte_us;
         bool got_DLE;
-    } byte_input;
+    } byte_input{};
 
     const bool inverted;
 
 #if AP_FRSKY_SPORT_TELEM_ENABLED
     struct {
         bool available = false;
-        AP_Frsky_SPort::sport_packet_t packet;
+        AP_Frsky_SPort::sport_packet_t packet{};
     } telem_data;
 #endif // AP_FRSKY_SPORT_TELEM_ENABLED
 
     // receiver sends 0x10 when ready to receive telemetry frames (R-XSR)
-    bool rx_driven_frame_rate = false;
+    bool rx_driven_frame_rate{false};
 
     // if the receiver is not controlling frame rate apply a constraint on consecutive frames
-    uint8_t consecutive_telemetry_frame_count;
+    uint8_t consecutive_telemetry_frame_count{0};
 };
 
 #endif  // AP_RCPROTOCOL_FPORT_ENABLED

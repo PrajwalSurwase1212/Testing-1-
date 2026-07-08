@@ -40,18 +40,18 @@ private:
     void read_accel_from_file();
     void write_accel_to_file(const Vector3f& accel);
 #endif
-    SITL::SIM *sitl;
+    SITL::SIM *sitl = nullptr;
 
     const uint16_t gyro_sample_hz;
     const uint16_t accel_sample_hz;
 
-    uint64_t next_gyro_sample;
-    uint64_t next_accel_sample;
-    float gyro_time;
-    float accel_time;
-    float gyro_motor_phase[32];
-    float accel_motor_phase[32];
-    uint32_t temp_start_ms;
+    uint64_t next_gyro_sample = 0;
+    uint64_t next_accel_sample = 0;
+    float gyro_time = 0.0f;
+    float accel_time = 0.0f;
+    float gyro_motor_phase[32] = {};
+    float accel_motor_phase[32] = {};
+    uint32_t temp_start_ms = 0;
 #if AP_SIM_INS_FILE_ENABLED
     int gyro_fd = -1;
     int accel_fd = -1;

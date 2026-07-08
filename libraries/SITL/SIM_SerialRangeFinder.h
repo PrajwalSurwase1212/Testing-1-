@@ -45,7 +45,7 @@ public:
 private:
     void send_temperature();
 
-    uint32_t last_sent_ms;
+    uint32_t last_sent_ms{0};
 };
 
 }

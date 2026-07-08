@@ -31,12 +31,12 @@ private:
         uint8_t    	quality;                //0 for not valid, 245 for valid.
         uint8_t    	version;
     };
-    AP_HAL::UARTDriver *uart;               // uart connected to flow sensor
-    struct UpixelsOpticalFlow updata;       // struct for received data
-    uint16_t recv_count;                    // amount of bytes received
-    uint8_t sum;                            //checksum
+    AP_HAL::UARTDriver *uart{nullptr};               // uart connected to flow sensor
+    struct UpixelsOpticalFlow updata{};       // struct for received data
+    uint16_t recv_count{0};                    // amount of bytes received
+    uint8_t sum{0};                            //checksum
     Vector2f gyro_sum;                      // sum of gyro sensor values since last frame from flow sensor
-    uint16_t gyro_sum_count;                // number of gyro sensor values in sum
+    uint16_t gyro_sum_count{0};                // number of gyro sensor values in sum
 };
 
 #endif // AP_OPTICALFLOW_UPFLOW_ENABLED

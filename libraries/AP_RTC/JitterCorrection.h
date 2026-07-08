@@ -22,8 +22,8 @@ public:
 private:
     const uint16_t max_lag_ms;
     const uint16_t convergence_loops;
-    int64_t link_offset_usec;
-    int64_t min_sample_us;
-    bool initialised;
-    uint16_t min_sample_counter;
+    int64_t link_offset_usec{0};
+    int64_t min_sample_us{0};
+    bool initialised{false};
+    uint16_t min_sample_counter{0};
 };

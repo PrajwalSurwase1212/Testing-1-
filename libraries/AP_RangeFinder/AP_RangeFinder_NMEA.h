@@ -70,17 +70,17 @@ private:
     bool decode_latest_term();
 
     // message decoding related members
-    char _term[15];                         // buffer for the current term within the current sentence
-    uint8_t _term_offset;                   // offset within the _term buffer where the next character should be placed
-    uint8_t _term_number;                   // term index within the current sentence
+    char _term[15]{};                         // buffer for the current term within the current sentence
+    uint8_t _term_offset{0};                   // offset within the _term buffer where the next character should be placed
+    uint8_t _term_number{0};                   // term index within the current sentence
     float _distance_m = -1.0f;              // distance in meters parsed from a term, -1 if no distance
-    float _temp_unvalidated;                // unvalidated temperature in C (may have failed checksum)
-    float _temp;                            // temperature in C (validated)
-    uint32_t _temp_readtime_ms;             // system time we last read a validated temperature, 0 if never read
-    uint8_t _checksum;                      // checksum accumulator
-    bool _term_is_checksum;                 // current term is the checksum
-    sentence_types _sentence_type;          // the sentence type currently being processed
-    bool _sentence_done;                    // true if this sentence has already been decoded
+    float _temp_unvalidated{0.0f};                // unvalidated temperature in C (may have failed checksum)
+    float _temp{0.0f};                            // temperature in C (validated)
+    uint32_t _temp_readtime_ms{0};             // system time we last read a validated temperature, 0 if never read
+    uint8_t _checksum{0};                      // checksum accumulator
+    bool _term_is_checksum{false};                 // current term is the checksum
+    sentence_types _sentence_type{SONAR_UNKNOWN};          // the sentence type currently being processed
+    bool _sentence_done{false};                    // true if this sentence has already been decoded
 };
 
 #endif  // AP_RANGEFINDER_NMEA_ENABLED

@@ -106,46 +106,46 @@ private:
 
     bool _check_raw_temp(int16_t t2);
 
-    int16_t _raw_temp;
+    int16_t _raw_temp = 0;
     
     float temp_sensitivity = 1.0f/333.87f; // degC/LSB
     float temp_zero = 21; // degC
     
-    float _temp_filtered;
-    float _accel_scale;
-    float _fifo_accel_scale;
-    float _fifo_gyro_scale;
+    float _temp_filtered = 0.0f;
+    float _accel_scale = 0.0f;
+    float _fifo_accel_scale = 0.0f;
+    float _fifo_gyro_scale = 0.0f;
     LowPassFilter2pFloat _temp_filter;
 
     enum Rotation _rotation;
 
-    AP_HAL::DigitalSource *_drdy_pin;
+    AP_HAL::DigitalSource *_drdy_pin = nullptr;
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
-    AP_Invensensev2_AuxiliaryBus *_auxiliary_bus;
+    AP_Invensensev2_AuxiliaryBus *_auxiliary_bus = nullptr;
 
     // which sensor type this is
-    enum Invensensev2_Type _inv2_type;
+    enum Invensensev2_Type _inv2_type = Invensensev2_ICM20948;
 
     // are we doing more than 1kHz sampling?
-    bool _fast_sampling;
+    bool _fast_sampling = false;
 
     // what downsampling rate are we using from the FIFO for gyros?
-    uint8_t _gyro_fifo_downsample_rate;
+    uint8_t _gyro_fifo_downsample_rate = 0;
 
     // what downsampling rate are we using from the FIFO for accels?
-    uint8_t _accel_fifo_downsample_rate;
+    uint8_t _accel_fifo_downsample_rate = 0;
 
     // what rate are we generating samples into the backend for gyros?
-    uint16_t _gyro_backend_rate_hz;
+    uint16_t _gyro_backend_rate_hz = 0;
 
     // what rate are we generating samples into the backend for accels?
-    uint16_t _accel_backend_rate_hz;
+    uint16_t _accel_backend_rate_hz = 0;
 
     // Last status from register user control
-    uint8_t _last_stat_user_ctrl;    
+    uint8_t _last_stat_user_ctrl = 0;    
 
     // buffer for fifo read
-    uint8_t *_fifo_buffer;
+    uint8_t *_fifo_buffer = nullptr;
 
     uint8_t _current_bank = 0xFF;
     /*

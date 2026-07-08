@@ -119,7 +119,7 @@ public:
     const class AP_PIDInfo * get_pid_info(void) const;
 
     // landing altitude offset (meters)
-    float alt_offset;
+    float alt_offset = 0.0f;
 
 private:
     struct {
@@ -128,17 +128,17 @@ private:
 
         // are we in auto and flight_stage is LAND
         bool in_progress:1;
-    } flags;
+    } flags{};
 
     AP_Int16 _options;    // user-configurable bitmask options, via a parameter, for landing
 
     // same as land_slope but sampled once before a rangefinder changes the slope. This should be the original mission planned slope
-    float initial_slope;
+    float initial_slope = 0.0f;
 
     // calculated approach slope during auto-landing: ((prev_WP_loc.alt - next_WP_loc.alt)*0.01f - flare_sec * sink_rate) / prev_WP_loc.get_distance(next_WP_loc)
-    float slope;
+    float slope = 0.0f;
 
-    float height_flare_log;
+    float height_flare_log = 0.0f;
 
     AP_Mission &mission;
     AP_AHRS &ahrs;
@@ -183,14 +183,14 @@ private:
         APPROACH = 1,
         PREFLARE = 2,
         FINAL = 3,
-    } type_slope_stage;
+    } type_slope_stage = SlopeStage::NORMAL;
 
     struct {
         // once landed, post some landing statistics to the GCS
         bool post_stats:1;
 
         bool has_aborted_due_to_slope_recalc:1;
-    } type_slope_flags;
+    } type_slope_flags{};
 
     void type_slope_do_land(const AP_Mission::Mission_Command& cmd, const float relative_altitude);
     void type_slope_verify_abort_landing(const Location &prev_WP_loc, Location &next_WP_loc, bool &throttle_suppressed);

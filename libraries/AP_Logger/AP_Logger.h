@@ -418,8 +418,8 @@ public:
 
 protected:
 
-    const struct LogStructure *_structures;
-    uint8_t _num_types;
+    const struct LogStructure *_structures{nullptr};
+    uint8_t _num_types{0};
     const struct UnitStructure *_units = log_Units;
     const struct MultiplierStructure *_multipliers = log_Multipliers;
     const uint8_t _num_units = (sizeof(log_Units) / sizeof(log_Units[0]));
@@ -433,9 +433,9 @@ protected:
 
 private:
     #define LOGGER_MAX_BACKENDS 2
-    uint8_t _next_backend;
-    AP_Logger_Backend *backends[LOGGER_MAX_BACKENDS];
-    const AP_Int32 *_log_bitmask;
+    uint8_t _next_backend{0};
+    AP_Logger_Backend *backends[LOGGER_MAX_BACKENDS]{};
+    const AP_Int32 *_log_bitmask{nullptr};
 
     enum class Backend_Type : uint8_t {
         NONE       = 0,
@@ -466,10 +466,10 @@ private:
     // fill LogStructure with information about msg_type
     bool fill_logstructure(struct LogStructure &logstruct, const uint8_t msg_type) const;
 
-    bool _armed;
+    bool _armed{false};
 
     // state to help us not log unnecessary RCIN values:
-    bool should_log_rcin2;
+    bool should_log_rcin2{false};
 
     void Write_Compass_instance(uint64_t time_us, uint8_t mag_instance);
 
@@ -510,7 +510,7 @@ private:
     void save_format_Replay(const void *pBuffer);
 
     // io thread support
-    bool _io_thread_started;
+    bool _io_thread_started{false};
 
     void start_io_thread(void);
     void io_thread();
@@ -554,42 +554,42 @@ private:
     } transfer_activity = TransferActivity::IDLE;
 
     // last time we handled a log-transfer-over-mavlink message:
-    uint32_t _last_mavlink_log_transfer_message_handled_ms;
-    bool _warned_log_disarm; // true if we have sent a message warning to disarm for logging
+    uint32_t _last_mavlink_log_transfer_message_handled_ms{0};
+    bool _warned_log_disarm{false}; // true if we have sent a message warning to disarm for logging
 
     // next log list entry to send
-    uint16_t _log_next_list_entry;
+    uint16_t _log_next_list_entry{0};
 
     // last log list entry to send
-    uint16_t _log_last_list_entry;
+    uint16_t _log_last_list_entry{0};
 
     // number of log files
-    uint16_t _log_num_logs;
+    uint16_t _log_num_logs{0};
 
     // log number for data send
-    uint16_t _log_num_data;
+    uint16_t _log_num_data{0};
 
     // offset in log
-    uint32_t _log_data_offset;
+    uint32_t _log_data_offset{0};
 
     // size of log file
-    uint32_t _log_data_size;
+    uint32_t _log_data_size{0};
 
     // number of bytes left to send
-    uint32_t _log_data_remaining;
+    uint32_t _log_data_remaining{0};
 
     // start page of log data
-    uint32_t _log_data_page;
+    uint32_t _log_data_page{0};
 
-    GCS_MAVLINK *_log_sending_link;
+    GCS_MAVLINK *_log_sending_link{nullptr};
     HAL_Semaphore _log_send_sem;
 
     // last time arming failed, for backends
-    uint32_t _last_arming_failure_ms;
+    uint32_t _last_arming_failure_ms{0};
 
     // count of number of times we've started logging
     // can be used by other subsystems to detect if they should log data
-    uint8_t _log_start_count;
+    uint8_t _log_start_count{0};
 
     void handle_log_message(class GCS_MAVLINK &, const mavlink_message_t &msg);
 

@@ -63,5 +63,5 @@ private:
     AP_HAL::OwnPtr<AP_HAL::Device> dev_gyro;
 
     enum Rotation rotation;
-    uint8_t temperature_counter;
+    uint8_t temperature_counter{0};
 };

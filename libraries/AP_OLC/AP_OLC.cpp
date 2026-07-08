@@ -191,7 +191,7 @@ uint32_t AP_OLC::olc_encode(int32_t lat, int32_t lon, uint8_t length, char *buf,
 
     // Adjust latitude and longitude so they fall into positive ranges.
     uint32_t alat = adjust_latitude(lat, length) + LAT_MAX;
-    uint32_t alon = normalize_longitude(lon) + LON_MAX;
+    uint32_t alon = (uint32_t)normalize_longitude(lon) + LON_MAX;
 
     pos += encode_pairs(alat, alon, MIN(length, PAIR_CODE_LEN), buf + pos, bufsize - pos);
     // If the requested length indicates we want grid refined codes.

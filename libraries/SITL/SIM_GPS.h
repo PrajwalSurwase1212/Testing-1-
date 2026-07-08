@@ -172,8 +172,8 @@ private:
     // get delayed data
     GPS_Data interpolate_data(const GPS_Data &d, uint32_t delay_ms);
 
-    uint8_t allocated_type;
-    GPS_Backend *backend;
+    uint8_t allocated_type{0};
+    GPS_Backend *backend{nullptr};
     void check_backend_allocation();
 };
 

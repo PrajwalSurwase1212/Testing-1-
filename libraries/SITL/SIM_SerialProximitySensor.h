@@ -51,7 +51,7 @@ public:
 
 private:
 
-    uint32_t last_sent_ms;
+    uint32_t last_sent_ms{0};
 
 };
 

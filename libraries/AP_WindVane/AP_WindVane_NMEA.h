@@ -47,16 +47,16 @@ private:
     bool decode_latest_term();
 
     // latest values read in
-    float _speed_ms;
-    float _wind_dir_deg;
+    float _speed_ms{0.0f};
+    float _wind_dir_deg{0.0f};
 
-    char _term[15];            // buffer for the current term within the current sentence
-    uint8_t _term_offset;      // offset within the _term buffer where the next character should be placed
-    uint8_t _term_number;      // term index within the current sentence
-    uint8_t _checksum;         // checksum accumulator
-    bool _term_is_checksum;    // current term is the checksum
-    bool _sentence_valid;      // is current sentence valid so far
-    bool _sentence_done;       // true if this sentence has already been decoded
+    char _term[15]{};            // buffer for the current term within the current sentence
+    uint8_t _term_offset{0};      // offset within the _term buffer where the next character should be placed
+    uint8_t _term_number{0};      // term index within the current sentence
+    uint8_t _checksum{0};         // checksum accumulator
+    bool _term_is_checksum{false};    // current term is the checksum
+    bool _sentence_valid{false};      // is current sentence valid so far
+    bool _sentence_done{false};       // true if this sentence has already been decoded
 };
 
 #endif  // AP_WINDVANE_NMEA_ENABLED

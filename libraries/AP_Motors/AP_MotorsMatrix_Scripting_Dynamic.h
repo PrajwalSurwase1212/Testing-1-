@@ -54,7 +54,7 @@ protected:
 private:
 
     // True when received a factors table, will only init having received a table
-    bool had_table;
+    bool had_table{false};
 
     // For loading of new factors, cannot load while in use
     HAL_Semaphore _sem;

@@ -20,7 +20,15 @@ class ByteBuffer;
 /* Pure virtual UARTDriver class */
 class AP_HAL::UARTDriver : public AP_HAL::BetterStream {
 public:
-    UARTDriver() {}
+    UARTDriver() :
+        lock_write_key(0),
+        lock_read_key(0),
+        parity(0),
+        _last_options(0)
+#if AP_UART_MONITOR_ENABLED
+        , _monitor_read_buffer(nullptr)
+#endif
+    {}
     /* Do not allow copies */
     CLASS_NO_COPY(UARTDriver);
 
@@ -172,7 +180,7 @@ public:
             // Take cumulative bytes and return the change since last call
             uint32_t update(uint32_t bytes);
         private:
-            uint32_t last_bytes;
+            uint32_t last_bytes = 0;
         };
         ByteTracker tx;
         ByteTracker rx;

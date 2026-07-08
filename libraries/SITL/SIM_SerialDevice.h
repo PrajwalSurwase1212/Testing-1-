@@ -42,10 +42,10 @@ public:
 
 protected:
 
-    class SIM *_sitl;
+    class SIM *_sitl{nullptr};
 
-    ByteBuffer *to_autopilot;
-    ByteBuffer *from_autopilot;
+    ByteBuffer *to_autopilot{nullptr};
+    ByteBuffer *from_autopilot{nullptr};
 
     bool init_sitl_pointer() WARN_IF_UNUSED;
 
@@ -53,7 +53,7 @@ private:
 
     bool is_match_baud(void) const;
 
-    uint32_t autopilot_baud;
+    uint32_t autopilot_baud{0};
 
     ssize_t corrupt_transfer(char *buffer, const ssize_t ret, const size_t size) const;
 };

@@ -83,7 +83,7 @@ private:
 
     AP_HAL::OwnPtr<AP_HAL::Device> _dev_gyro;
     AP_HAL::OwnPtr<AP_HAL::Device> _dev_accel;
-    AP_HAL::Semaphore *_spi_sem;
+    AP_HAL::Semaphore *_spi_sem = nullptr;
 
     /*
      * If data-ready GPIO pins numbers are not defined (i.e. any negative
@@ -91,18 +91,18 @@ private:
      * by reading the status register. It is *strongly* recommended to use
      * data-ready GPIO pins for performance reasons.
      */
-    AP_HAL::DigitalSource * _drdy_pin_a;
-    AP_HAL::DigitalSource * _drdy_pin_g;
-    float _gyro_scale;
-    float _accel_scale;
+    AP_HAL::DigitalSource * _drdy_pin_a = nullptr;
+    AP_HAL::DigitalSource * _drdy_pin_g = nullptr;
+    float _gyro_scale = 0.0f;
+    float _accel_scale = 0.0f;
     int _drdy_pin_num_a;
     int _drdy_pin_num_g;
-    float _temperature;
-    uint8_t _temp_counter;
+    float _temperature = 0.0f;
+    uint8_t _temp_counter = 0;
     LowPassFilter2pFloat _temp_filter;
 
     // gyro whoami
-    uint8_t whoami_g;
+    uint8_t whoami_g = 0;
     
     /*
       for boards that have a separate LSM303D and L3GD20 there can be

@@ -45,11 +45,11 @@ public:
     AP_Int8  parachute_pin; // pin with pyrotechnics on
 
     const uint32_t report_interval = 1000000; // microseconds
-    uint64_t last_report_us;
+    uint64_t last_report_us{0};
 
-    uint32_t deployed_ms; // time parachute was deployed
+    uint32_t deployed_ms{0}; // time parachute was deployed
 
-    uint64_t last_update_us;
+    uint64_t last_update_us{0};
 
     bool should_report() const;
     bool zero_report_done = false;

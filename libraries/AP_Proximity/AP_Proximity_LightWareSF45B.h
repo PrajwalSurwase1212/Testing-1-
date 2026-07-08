@@ -81,29 +81,29 @@ private:
     uint8_t convert_angle_to_minisector(float angle_deg) const;
 
     // internal variables
-    uint32_t _last_init_ms;                 // system time of last re-initialisation
-    uint32_t _last_distance_received_ms;    // system time of last distance measurement received from sensor
-    bool _init_complete;                    // true once sensor initialisation is complete
+    uint32_t _last_init_ms{0};                 // system time of last re-initialisation
+    uint32_t _last_distance_received_ms{0};    // system time of last distance measurement received from sensor
+    bool _init_complete{false};                    // true once sensor initialisation is complete
     ModeFilterInt16_Size3 _distance_filt{1};// mode filter to reduce glitches
 
     // 3D boundary face and distance for latest readings
     AP_Proximity_Boundary_3D::Face _face;   // face of most recently received distance
-    float _face_distance;                   // shortest distance (in meters) on face
-    float _face_yaw_deg;                    // yaw angle (in degrees) of shortest distance on face
-    bool _face_distance_valid;              // true if face has at least one valid distance
+    float _face_distance{0.0f};                   // shortest distance (in meters) on face
+    float _face_yaw_deg{0.0f};                    // yaw angle (in degrees) of shortest distance on face
+    bool _face_distance_valid{false};              // true if face has at least one valid distance
 
     // mini sector (5 degrees) angles and distances (used to populate obstacle database for path planning)
-    uint8_t _minisector = UINT8_MAX;        // mini sector number (from 0 to 71) of most recently received distance
-    float _minisector_distance;             // shortest distance (in meters) in mini sector
-    float _minisector_angle;                // angle (in degrees) of shortest distance in mini sector
-    bool _minisector_distance_valid;        // true if mini sector has at least one valid distance
+    uint8_t _minisector{UINT8_MAX};        // mini sector number (from 0 to 71) of most recently received distance
+    float _minisector_distance{0.0f};             // shortest distance (in meters) in mini sector
+    float _minisector_angle{0.0f};                // angle (in degrees) of shortest distance in mini sector
+    bool _minisector_distance_valid{false};        // true if mini sector has at least one valid distance
 
     // state of sensor
     struct {
-        uint8_t update_rate;        // sensor reported update rate enum from UPDATE_RATE message
-        uint32_t streaming_fields;  // sensor reported bitmask of fields sent in DISTANCE_DATA_CM message
-        uint32_t stream_data_type;  // sensor reported stream value.  5 if DISTANCE_DATA_CM messages are being streamed
-    } _sensor_state;
+        uint8_t update_rate{0};        // sensor reported update rate enum from UPDATE_RATE message
+        uint32_t streaming_fields{0};  // sensor reported bitmask of fields sent in DISTANCE_DATA_CM message
+        uint32_t stream_data_type{0};  // sensor reported stream value.  5 if DISTANCE_DATA_CM messages are being streamed
+    } _sensor_state{};
 
 };
 

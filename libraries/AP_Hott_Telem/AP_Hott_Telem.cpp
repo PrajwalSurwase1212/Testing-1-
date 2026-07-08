@@ -50,7 +50,10 @@ extern const AP_HAL::HAL& hal;
 
 AP_Hott_Telem *AP_Hott_Telem::singleton;
 
-AP_Hott_Telem::AP_Hott_Telem(void)
+AP_Hott_Telem::AP_Hott_Telem(void) :
+    uart(nullptr),
+    min_alt(0.0f),
+    max_alt(0.0f)
 {
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     if (singleton != nullptr) {

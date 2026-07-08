@@ -22,9 +22,9 @@ public:
 private:
 
     Vector2f flow_integral, rate_gyro_integral;
-    uint8_t surface_quality;
-    float integral_time;
-    bool new_data;
+    uint8_t surface_quality{0};
+    float integral_time{0.0f};
+    bool new_data{false};
     static uint8_t _node_id;
 
     static AP_OpticalFlow_HereFlow* _driver;

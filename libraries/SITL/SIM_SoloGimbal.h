@@ -55,24 +55,24 @@ private:
     // reporting period in ms
     const float reporting_period_ms = 10;
 
-    uint32_t last_report_us;
-    uint32_t last_heartbeat_ms;
-    bool seen_heartbeat;
-    bool seen_gimbal_control;
-    uint8_t vehicle_system_id;
-    uint8_t vehicle_component_id;
+    uint32_t last_report_us{0};
+    uint32_t last_heartbeat_ms{0};
+    bool seen_heartbeat{false};
+    bool seen_gimbal_control{false};
+    uint8_t vehicle_system_id{0};
+    uint8_t vehicle_component_id{0};
 
     SocketAPM_native mav_socket{false};
     struct {
         // socket to telem2 on aircraft
-        bool connected;
+        bool connected{false};
         mavlink_message_t rxmsg;
         mavlink_status_t status;
-        uint8_t seq;
+        uint8_t seq{0};
     } mavlink;
 
-    uint32_t param_send_last_ms;
-    uint8_t param_send_idx;
+    uint32_t param_send_last_ms{0};
+    uint8_t param_send_idx{0};
 
     // component ID we send from:
     const uint8_t gimbal_component_id = 154;  // MAV_COMP_ID_GIMBAL

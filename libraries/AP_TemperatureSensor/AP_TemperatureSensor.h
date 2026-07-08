@@ -86,10 +86,10 @@ private:
         const struct AP_Param::GroupInfo *var_info; 
     };
 
-    TemperatureSensor_State _state[AP_TEMPERATURE_SENSOR_MAX_INSTANCES];
-    AP_TemperatureSensor_Backend *drivers[AP_TEMPERATURE_SENSOR_MAX_INSTANCES];
+    TemperatureSensor_State _state[AP_TEMPERATURE_SENSOR_MAX_INSTANCES]{};
+    AP_TemperatureSensor_Backend *drivers[AP_TEMPERATURE_SENSOR_MAX_INSTANCES]{};
 
-    uint8_t     _num_instances;         // number of temperature sensors
+    uint8_t     _num_instances{0};         // number of temperature sensors
 
 #if HAL_LOGGING_ENABLED
     enum class LoggingType : uint8_t {

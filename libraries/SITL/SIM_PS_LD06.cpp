@@ -42,7 +42,7 @@ void PS_LD06::update_input()
     // just discard any input
     char buffer[256];
     uint8_t buflen = 0;
-    read_from_autopilot(&buffer[buflen], ARRAY_SIZE(buffer) - buflen - 1);
+    (void)read_from_autopilot(&buffer[buflen], ARRAY_SIZE(buffer) - buflen - 1);
 }
 
 void PS_LD06::update_output(const Location &location)

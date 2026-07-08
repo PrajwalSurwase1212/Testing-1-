@@ -61,7 +61,7 @@ private:
     } routes[MAVLINK_MAX_ROUTES];
     
     // a channel mask to block routing as required
-    uint8_t no_route_mask;
+    uint8_t no_route_mask{0};
     
     // learn new routes
     void learn_route(GCS_MAVLINK &link, const mavlink_message_t &msg);
@@ -75,5 +75,5 @@ private:
     void send_to_components(const char *pkt, const mavlink_msg_entry_t *entry, uint8_t pkt_len);
 
     // check for Gopro in Solo gimbal status
-    bool gopro_status_check; // default is none
+    bool gopro_status_check{false}; // default is none
 };

@@ -21,6 +21,6 @@ class DataRateLimit {
 public:
     uint32_t max_bytes(const float bytes_per_sec);
 private:
-    uint32_t last_us;
-    float remainder;
+    uint32_t last_us = 0;
+    float remainder = 0.0f;
 };

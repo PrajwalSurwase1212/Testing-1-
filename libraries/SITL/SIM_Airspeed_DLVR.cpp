@@ -40,7 +40,7 @@ int SITL::Airspeed_DLVR::rdwr(I2C::i2c_rdwr_ioctl_data *&data)
         const uint32_t temp_raw = (temperature + 50.0f)  * (2047.0f/200.0f);
 
         const uint32_t packed =
-            (status << 30) |
+            ((uint32_t)status << 30) |
             ((pressure_raw & 0x3fff) << 16) |
             ((temp_raw & 0x7ff) << 5);
 

@@ -36,9 +36,9 @@ public:
 
 private:
     // vehicle frame x velocity
-    float velocity_vf_x;
+    float velocity_vf_x{0.0f};
 
-    float skid_turn_rate;
+    float skid_turn_rate{0.15708f};
 
     float calc_yaw_rate(float steering) const;
 };

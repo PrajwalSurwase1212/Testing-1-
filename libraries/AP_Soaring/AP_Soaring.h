@@ -151,13 +151,13 @@ public:
 
 private:
 
-    ActiveStatus _last_update_status;
+    ActiveStatus _last_update_status{ActiveStatus::SOARING_DISABLED};
 
     ActiveStatus _pilot_desired_state = ActiveStatus::AUTO_MODE_CHANGE;
 
     ActiveStatus active_state(bool override_disable) const;
 
-    bool _exit_commanded;
+    bool _exit_commanded{false};
 };
 
 #endif // HAL_SOARING_ENABLED

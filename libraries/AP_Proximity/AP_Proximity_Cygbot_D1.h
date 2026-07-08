@@ -63,7 +63,7 @@ private:
         Payload_Header,
         Payload_Data,
         CheckSum
-    } _parse_state;
+    } _parse_state{Header1};
 
     struct {
         uint8_t payload_len_flags_low;          // low byte for payload size
@@ -71,11 +71,11 @@ private:
         uint16_t payload_len;                   // latest message expected payload length
         uint16_t payload_counter;              // counter of the number of payload bytes received
         uint8_t payload[CYGBOT_MAX_MSG_SIZE];   // payload
-    } _msg;
+    } _msg{};
 
-    bool _initialized;
-    uint32_t _last_init_ms;                 // system time of last sensor init
-    uint32_t _last_distance_received_ms;    // system time of last distance measurement received from sensor
+    bool _initialized{false};
+    uint32_t _last_init_ms{0};                 // system time of last sensor init
+    uint32_t _last_distance_received_ms{0};    // system time of last distance measurement received from sensor
 
     AP_Proximity_Temp_Boundary _temp_boundary; // temporary boundary to store incoming payload
 

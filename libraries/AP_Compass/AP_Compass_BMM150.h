@@ -68,9 +68,9 @@ private:
         uint8_t xy1;
         int8_t xy2;
         uint16_t xyz1;
-    } _dig;
+    } _dig{};
 
-    uint32_t _last_read_ms;
+    uint32_t _last_read_ms{0};
     enum Rotation _rotation = ROTATION_NONE;
     bool _force_external = false;
 };

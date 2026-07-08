@@ -91,12 +91,12 @@ private:
 
 
     // State machine state
-    uint8_t         _step;
-    uint16_t        _checksum;
-    bool            _gather;
-    uint16_t        _payload_length;
-    uint16_t        _payload_counter;
-    uint8_t         _msg_id;
+    uint8_t         _step = 0;
+    uint16_t        _checksum = 0;
+    bool            _gather = false;
+    uint16_t        _payload_length = 0;
+    uint16_t        _payload_counter = 0;
+    uint8_t         _msg_id = 0;
 
     // Message buffer
     union {

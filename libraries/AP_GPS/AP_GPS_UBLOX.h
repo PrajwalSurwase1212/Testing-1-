@@ -759,46 +759,46 @@ private:
     };
 
     // Packet checksum accumulators
-    uint8_t         _ck_a;
-    uint8_t         _ck_b;
+    uint8_t         _ck_a = 0;
+    uint8_t         _ck_b = 0;
 
     // State machine state
-    uint8_t         _step;
-    uint8_t         _msg_id;
-    uint16_t        _payload_length;
-    uint16_t        _payload_counter;
+    uint8_t         _step = 0;
+    uint8_t         _msg_id = 0;
+    uint16_t        _payload_length = 0;
+    uint16_t        _payload_counter = 0;
 
-    uint8_t         _class;
-    bool            _cfg_saved;
+    uint8_t         _class = 0;
+    bool            _cfg_saved = false;
 
-    uint32_t        _last_vel_time;
-    uint32_t        _last_pos_time;
-    uint32_t        _last_cfg_sent_time;
-    uint8_t         _num_cfg_save_tries;
-    uint32_t        _last_config_time;
-    uint32_t        _f9_config_time;
-    uint16_t        _delay_time;
+    uint32_t        _last_vel_time = 0;
+    uint32_t        _last_pos_time = 0;
+    uint32_t        _last_cfg_sent_time = 0;
+    uint8_t         _num_cfg_save_tries = 0;
+    uint32_t        _last_config_time = 0;
+    uint32_t        _f9_config_time = 0;
+    uint16_t        _delay_time = 0;
     uint8_t         _next_message { STEP_PVT };
     uint8_t         _ublox_port { 255 };
-    bool            _have_version;
-    struct ubx_mon_ver _version;
-    char            _module[UBLOX_MODULE_LEN];
+    bool            _have_version = false;
+    struct ubx_mon_ver _version {};
+    char            _module[UBLOX_MODULE_LEN] {};
     uint32_t        _unconfigured_messages {CONFIG_ALL};
     uint8_t         _hardware_generation { UBLOX_UNKNOWN_HARDWARE_GENERATION };
-    uint8_t         _hardware_variant;
-    uint32_t        _last_pvt_itow;
-    uint32_t        _last_relposned_itow;
-    uint32_t        _last_relposned_ms;
+    uint8_t         _hardware_variant = 0;
+    uint32_t        _last_pvt_itow = 0;
+    uint32_t        _last_relposned_itow = 0;
+    uint32_t        _last_relposned_ms = 0;
 
     // the role set from GPS_TYPE
     AP_GPS::GPS_Role role;
 
     // do we have new position information?
-    bool            _new_position:1;
+    bool            _new_position = false;
     // do we have new speed information?
-    bool            _new_speed:1;
+    bool            _new_speed = false;
 
-    uint8_t         _disable_counter;
+    uint8_t         _disable_counter = 0;
 
     // Buffer parse & GPS state update
     bool        _parse_gps();
@@ -806,11 +806,11 @@ private:
     // used to update fix between status and position packets
     AP_GPS::GPS_Status next_fix { AP_GPS::NO_FIX };
 
-    bool _cfg_needs_save;
+    bool _cfg_needs_save = false;
 
     bool noReceivedHdop { true };
     
-    bool havePvtMsg;
+    bool havePvtMsg = false;
 
     // structure for list of config key/value pairs for
     // specific configurations
@@ -887,7 +887,7 @@ private:
         int8_t fetch_index;
         int8_t set_index;
     } active_config;
-    bool use_single_valget;
+    bool use_single_valget = false;
 
 #if GPS_MOVING_BASELINE
     // config for moving baseline base
@@ -899,15 +899,15 @@ private:
     static const config_list config_MB_Rover_uart2[];
 
     // RTCM3 parser for when in moving baseline base mode
-    RTCM3_Parser *rtcm3_parser;
+    RTCM3_Parser *rtcm3_parser = nullptr;
 #endif // GPS_MOVING_BASELINE
 
-    bool supports_l5;
+    bool supports_l5 = false;
     static const config_list config_M10[];
     static const config_list config_L5_ovrd_ena[];
     static const config_list config_L5_ovrd_dis[];
     // scratch space for GNSS config
-    config_list* config_GNSS;
+    config_list* config_GNSS = nullptr;
 };
 
 #endif

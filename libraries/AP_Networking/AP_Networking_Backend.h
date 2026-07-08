@@ -51,14 +51,14 @@ protected:
         uint32_t announce_ms;
         uint8_t macaddr[6];
         uint32_t last_change_ms;
-    } activeSettings;
+    } activeSettings{};
 
     struct {
         bool enabled;
         uint8_t iface_idx;
         uint32_t dest_ip;
         uint32_t netmask;
-    } routes[AP_NETWORKING_MAX_ROUTES];
+    } routes[AP_NETWORKING_MAX_ROUTES]{};
 };
 
 #endif // AP_NETWORKING_ENABLED

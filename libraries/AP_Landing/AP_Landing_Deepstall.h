@@ -60,25 +60,25 @@ private:
     AP_Float time_constant;
     AP_Float min_abort_alt;
     AP_Float aileron_scalar;
-    int32_t loiter_sum_cd;         // used for tracking the progress on loitering
-    DEEPSTALL_STAGE stage;
-    Location landing_point;
-    Location extended_approach;
-    Location breakout_location;
-    Location arc;
-    Location arc_entry;
-    Location arc_exit;
-    float target_heading_deg;      // target heading for the deepstall in degrees
-    uint32_t stall_entry_time;     // time when the aircrafted enter the stall (in millis)
-    uint16_t initial_elevator_pwm; // PWM to start slewing the elevator up from
-    uint32_t last_time;            // last time the controller ran
-    float L1_xtrack_i;             // L1 integrator for navigation
-    PID ds_PID;
-    int32_t last_target_bearing;   // used for tracking the progress on loitering
-    float crosstrack_error; // current crosstrack error
-    float predicted_travel_distance; // distance the aircraft is perdicted to travel during deepstall
-    bool hold_level; // locks the target yaw rate of the aircraft to 0, serves to hold the aircraft level at all times
-    float approach_alt_offset;     // approach altitude offset
+    int32_t loiter_sum_cd{0};         // used for tracking the progress on loitering
+    DEEPSTALL_STAGE stage{};
+    Location landing_point{};
+    Location extended_approach{};
+    Location breakout_location{};
+    Location arc{};
+    Location arc_entry{};
+    Location arc_exit{};
+    float target_heading_deg{0.0f};      // target heading for the deepstall in degrees
+    uint32_t stall_entry_time{0};     // time when the aircrafted enter the stall (in millis)
+    uint16_t initial_elevator_pwm{0}; // PWM to start slewing the elevator up from
+    uint32_t last_time{0};            // last time the controller ran
+    float L1_xtrack_i{0.0f};             // L1 integrator for navigation
+    PID ds_PID{};
+    int32_t last_target_bearing{0};   // used for tracking the progress on loitering
+    float crosstrack_error{0.0f}; // current crosstrack error
+    float predicted_travel_distance{0.0f}; // distance the aircraft is perdicted to travel during deepstall
+    bool hold_level{false}; // locks the target yaw rate of the aircraft to 0, serves to hold the aircraft level at all times
+    float approach_alt_offset{0.0f};     // approach altitude offset
 
     //public AP_Landing interface
     void do_land(const AP_Mission::Mission_Command& cmd, const float relative_altitude);

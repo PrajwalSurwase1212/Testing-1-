@@ -31,7 +31,7 @@ private:
     void _timer(void);
     bool write(uint8_t reg, uint8_t data);
     bool write_pwm(uint8_t rgb[3]);
-    uint8_t rgb[3];
-    bool _need_update;
+    uint8_t rgb[3]{};
+    bool _need_update{false};
     uint8_t _bus;
 };

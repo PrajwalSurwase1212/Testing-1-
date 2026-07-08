@@ -76,13 +76,13 @@ private:
 
     // Analog Inputs
     // a pin for reading the receiver RSSI voltage. 
-    AP_HAL::AnalogSource *rssi_analog_source;
+    AP_HAL::AnalogSource *rssi_analog_source{nullptr};
 
     // PWM input
     struct PWMState {
-        int8_t last_warn_pin; // last pin used for reading pwm (used to recognise change failure in pin assignment)
-        uint32_t last_reading_ms;      // system time of last read (used for health reporting)
-        float rssi_value;              // last calculated RSSI value
+        int8_t last_warn_pin{-1}; // last pin used for reading pwm (used to recognise change failure in pin assignment)
+        uint32_t last_reading_ms{0};      // system time of last read (used for health reporting)
+        float rssi_value{0.0f};              // last calculated RSSI value
         // the following two members are updated by the interrupt handler
         AP_HAL::PWMSource pwm_source;
     } pwm_state;

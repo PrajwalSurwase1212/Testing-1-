@@ -49,7 +49,7 @@ public:
         bool save_calibration(float temperature);
         void reset(float temperature);
         float start_temp;
-        float start_tmax;
+        float start_tmax = 0.0f;
         uint32_t last_save_ms = 0;
 
         AP_InertialSensor_TCal &tcal;

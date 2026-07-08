@@ -79,11 +79,11 @@ private:
 
     // limit flags
     struct AP_MotorsUGV_limit {
-        bool    lower;  // reached this instance's lower limit on last iteration
-        bool    upper;  // reached this instance's upper limit on last iteration
-    } _limit[2];
+        bool    lower{false};  // reached this instance's lower limit on last iteration
+        bool    upper{false};  // reached this instance's upper limit on last iteration
+    } _limit[2]{};
 
     // internal variables
     const AP_WheelEncoder&  _wheel_encoder;     // pointer to accompanying wheel encoder
-    uint32_t                _last_update_ms;    // system time of last call to get_rate_controlled_throttle
+    uint32_t                _last_update_ms{0};    // system time of last call to get_rate_controlled_throttle
 };

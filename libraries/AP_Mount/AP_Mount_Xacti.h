@@ -186,19 +186,19 @@ private:
     bool is_safe_to_send(uint32_t now_ms) const;
 
     // internal variables
-    bool _initialised;                              // true once the driver has been initialised
+    bool _initialised{false};                              // true once the driver has been initialised
 
     // attitude received from gimbal
     Quaternion _current_attitude_quat;              // current attitude as a quaternion
-    uint32_t _last_current_attitude_quat_ms;        // system time _current_angle_rad was updated
-    bool _recording_video;                          // true if recording video
+    uint32_t _last_current_attitude_quat_ms{0};        // system time _current_angle_rad was updated
+    bool _recording_video{false};                          // true if recording video
     uint16_t _last_digital_zoom_param_value = 100;  // last digital zoom parameter value sent to camera.  100 ~ 1000 (interval 100)
     uint16_t _last_optical_zoom_param_value = 100;  // last optical zoom parameter value sent to camera.  100 ~ 250 (interval 10)
     struct {
         bool enabled;                               // true if zoom rate control is enabled
         int8_t dir;                                 // zoom direction (-1 to zoom out, +1 to zoom in)
         uint32_t last_update_ms;                    // system time that zoom rate control last updated zoom
-    } _zoom_rate_control;
+    } _zoom_rate_control{};
 
     // firmware version received from gimbal
     struct {
@@ -206,13 +206,13 @@ private:
         bool received;                              // true once firmware version has been received
         char str[12] {};                            // firmware version string (11 bytes + 1 null byte)
         uint32_t mav_ver;                           // version formatted for reporting to GCS via CAMERA_INFORMATION message
-    } _firmware_version;
+    } _firmware_version{};
 
     // date and time handling
     struct {
         uint32_t last_request_ms;                   // system time that date/time was last requested
         bool set;                                   // true once date/time has been set
-    } _datetime;
+    } _datetime{};
 
     // capability handling
     enum class Capability : uint8_t {
@@ -257,14 +257,14 @@ private:
         uint32_t exposure_time_us;                  // camera's exposure time in us
         uint16_t apeture;                           // cameras' aperture * 100
         uint16_t iso_sensitivity;                   // camera's iso sensitivity
-    } _status;                                      // latest status received
+    } _status{};                                      // latest status received
     static_assert(sizeof(_status) == 48, "status must be 48 bytes");           // status should be 48 bytes
     struct {
         uint32_t last_request_ms;                   // system time that status was last requested
         uint32_t last_error_status;                 // last error status reported to user
-    } _status_report;
-    bool _motor_error;                              // true if status reports motor or control error (used for health reporting)
-    bool _camera_error;                             // true if status reports camera error
+    } _status_report{};
+    bool _motor_error{false};                              // true if status reports motor or control error (used for health reporting)
+    bool _camera_error{false};                             // true if status reports camera error
 
     // DroneCAN related variables
     static struct DetectedModules {
@@ -273,16 +273,16 @@ private:
         uint8_t node_id;                            // DroneCAN node id associated by this backend
     } _detected_modules[AP_MOUNT_MAX_INSTANCES];
     static HAL_Semaphore _sem_registry;             // semaphore protecting access to _detected_modules table
-    uint32_t last_send_gimbal_control_ms;           // system time that send_gimbal_control was last called (used to slow down sends to 5hz)
-    uint32_t last_send_copter_att_status_ms;        // system time that send_copter_att_status was last called (used to slow down sends to 10hz)
-    uint32_t last_send_getset_param_ms;             // system time that a get or set parameter message was sent
+    uint32_t last_send_gimbal_control_ms{0};           // system time that send_gimbal_control was last called (used to slow down sends to 5hz)
+    uint32_t last_send_copter_att_status_ms{0};        // system time that send_copter_att_status was last called (used to slow down sends to 10hz)
+    uint32_t last_send_getset_param_ms{0};             // system time that a get or set parameter message was sent
 
     // queue of set parameter int32 items.  set-parameter requests to camera are throttled to improve reliability
     struct SetParamQueueItem {
         Param param;                                // parameter (name)
         int32_t value;                              // parameter value
     };
-    ObjectArray<SetParamQueueItem> *_set_param_int32_queue; // queue of set-parameter items
+    ObjectArray<SetParamQueueItem> *_set_param_int32_queue{nullptr}; // queue of set-parameter items
 };
 
 #endif // HAL_MOUNT_XACTI_ENABLED

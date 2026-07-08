@@ -341,7 +341,7 @@ public:
     const EKFGSF_yaw *get_yawEstimator(void) const { return yawEstimator; }
     
 private:
-    EKFGSF_yaw *yawEstimator;
+    EKFGSF_yaw *yawEstimator{nullptr};
     class AP_DAL &dal;
 
     // Reference to the global EKF frontend for parameters

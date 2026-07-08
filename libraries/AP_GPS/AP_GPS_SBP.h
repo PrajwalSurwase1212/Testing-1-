@@ -66,7 +66,7 @@ private:
       uint8_t msg_len;
       uint8_t n_read;
       uint8_t msg_buff[256];
-    } parser_state;
+    } parser_state {};
 
     static const uint8_t SBP_PREAMBLE = 0x55;
 
@@ -160,24 +160,24 @@ private:
     // ************************************************************************
     // Internal Received Messages State
     // ************************************************************************
-    uint32_t last_heatbeat_received_ms;
-    uint32_t last_injected_data_ms;
+    uint32_t last_heatbeat_received_ms = 0;
+    uint32_t last_injected_data_ms = 0;
 
-    struct sbp_gps_time_t last_gps_time;
-    struct sbp_dops_t     last_dops;
-    struct sbp_pos_llh_t  last_pos_llh_spp;
-    struct sbp_pos_llh_t  last_pos_llh_rtk;
-    struct sbp_vel_ned_t  last_vel_ned;
-    uint32_t              last_iar_num_hypotheses;
+    struct sbp_gps_time_t last_gps_time {};
+    struct sbp_dops_t     last_dops {};
+    struct sbp_pos_llh_t  last_pos_llh_spp {};
+    struct sbp_pos_llh_t  last_pos_llh_rtk {};
+    struct sbp_vel_ned_t  last_vel_ned {};
+    uint32_t              last_iar_num_hypotheses = 0;
 
-    uint32_t              last_full_update_tow;
-    uint32_t              last_full_update_cpu_ms;
+    uint32_t              last_full_update_tow = 0;
+    uint32_t              last_full_update_cpu_ms = 0;
 
     // ************************************************************************
     // Monitoring and Performance Counting
     // ************************************************************************
 
-    uint32_t crc_error_counter;
+    uint32_t crc_error_counter = 0;
 
     // ************************************************************************
     // Logging to AP_Logger

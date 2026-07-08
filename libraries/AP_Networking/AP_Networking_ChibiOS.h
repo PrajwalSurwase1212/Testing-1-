@@ -35,10 +35,10 @@ private:
     } capture;
 #endif
 
-    struct lwipthread_opts *lwip_options;
-    uint8_t macaddr[6];
+    struct lwipthread_opts *lwip_options{nullptr};
+    uint8_t macaddr[6]{};
 
-    struct netif *thisif;
+    struct netif *thisif{nullptr};
 };
 
 #endif // AP_NETWORKING_BACKEND_CHIBIOS

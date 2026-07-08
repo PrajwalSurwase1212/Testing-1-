@@ -56,14 +56,14 @@ private:
     const uint8_t system_id = 17;
     const uint8_t component_id = 18;
 
-    uint64_t last_observation_usec; // time last observation was sent
-    uint64_t time_offset_us;        // simulated timeoffset between external system and autopilot
+    uint64_t last_observation_usec{0}; // time last observation was sent
+    uint64_t time_offset_us{0};        // simulated timeoffset between external system and autopilot
 
     // buffer of messages to send
     struct {
         uint64_t time_send_us;      // system time this message should be sent or 0 if no message to send
         mavlink_message_t obs_msg;  // message to be sent
-    } msg_buf[3];
+    } msg_buf[3]{};
 
     // SIM_VICON_TYPE parameter bit values
     enum class ViconTypeMask : uint8_t {
@@ -86,7 +86,7 @@ private:
                                         const Quaternion &attitude);
 
     void maybe_send_heartbeat();
-    uint32_t last_heartbeat_ms;
+    uint32_t last_heartbeat_ms{0};
 
     // position delta message 
     Quaternion _attitude_prev; // Rotation to previous MAV_FRAME_BODY_FRD from MAV_FRAME_LOCAL_NED

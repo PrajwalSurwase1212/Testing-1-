@@ -84,28 +84,28 @@ private:
 
     // second init is called after parameters are loaded from eeprom;
     // init() before.
-    bool second_init_done;
+    bool second_init_done = false;
     void check_second_init();
 
     // we store the entirety of the most recent packet for the time being:
-    mavlink_loweheiser_gov_efi_t packet;
-    uint32_t last_packet_received_ms;
+    mavlink_loweheiser_gov_efi_t packet {};
+    uint32_t last_packet_received_ms = 0;
 
-    mavlink_command_ack_t ack_packet;
-    uint32_t last_ack_packet_ms;
+    mavlink_command_ack_t ack_packet {};
+    uint32_t last_ack_packet_ms = 0;
     // record the timestamp of the most recently processed ack:
-    uint32_t last_ack_packet_processed_ms;
+    uint32_t last_ack_packet_processed_ms = 0;
     // good_ack is true if the last ack we received from the generator
     // reported success:
-    bool good_ack;
+    bool good_ack = false;
 
     // state recorded from the first Loweheiser message we see so we
     // only process from one source:
-    bool seen_good_message;
-    const class GCS_MAVLINK *mavlink_channel;
-    uint8_t sysid;
-    uint8_t compid;
-    uint8_t efi_index;
+    bool seen_good_message = false;
+    const class GCS_MAVLINK *mavlink_channel = nullptr;
+    uint8_t sysid = 0;
+    uint8_t compid = 0;
+    uint8_t efi_index = 0;
 
     // methods and state to record pilot desired runstate and actual runstate:
     enum class RunState {
@@ -139,24 +139,24 @@ private:
 
     // timestamp of last time we told the user we're waiting for the
     // generator to change temperature:
-    uint32_t last_waiting_temperature_change_ms;
+    uint32_t last_waiting_temperature_change_ms = 0;
 
     // estop_reported is true if we do not need to tell the user of an
     // estop event if it occurs:
-    bool estop_reported;
+    bool estop_reported = false;
 
     // prepare and send commands to generator:
     void command_generator();
 
     // log data to onboard storage:
     void Log_Write();
-    uint32_t last_logged_reading_ms;
+    uint32_t last_logged_reading_ms = 0;
 
     // state related to loweheuser-specific RC input to the generator:
-    RC_Channel *rc_channel_manual_throttle;
-    RC_Channel *rc_channel_starter_motor;
-    uint32_t last_rc_channel_check;
-    uint32_t last_start_time_ms;
+    RC_Channel *rc_channel_manual_throttle = nullptr;
+    RC_Channel *rc_channel_starter_motor = nullptr;
+    uint32_t last_rc_channel_check = 0;
+    uint32_t last_start_time_ms = 0;
 
     // user-configurable parameters:
     AP_Int32 time_until_maintenance;
@@ -169,17 +169,17 @@ private:
 
     // update runtime and maintenance-required time
     void update_stats();
-    uint32_t run_start_ms;
-    bool was_running;
-    uint32_t last_stats_saved_ms;
-    uint32_t runtime_delta_ms;
+    uint32_t run_start_ms = 0;
+    bool was_running = false;
+    uint32_t last_stats_saved_ms = 0;
+    uint32_t runtime_delta_ms = 0;
 
     // update_common_backend_variables:  These are used by the base class
     // (AP_Generator_Backend) to provide data to the battery monitor
     // library.
     void update_common_backend_variables();
 
-    float accumulated_consumed_fuel_litres;
+    float accumulated_consumed_fuel_litres = 0.0f;
 
     // should_emergency_stop - returns true if the generator must stop
     // immediately

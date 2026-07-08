@@ -105,12 +105,12 @@ private:
         AP_Float    rate_max;           // deploy or retract rate maximum (in m/s).
         AP_Float    pos_p;              // position error P gain
         AP_Int16    options;            // options bitmask
-        ControlMode control_mode;       // state of winch control (using target position or target rate)
-        float       length_desired;     // target desired length (in meters)
-        float       rate_desired;       // target deploy rate (in m/s, +ve = deploying, -ve = retracting)
+        ControlMode control_mode{ControlMode::RELAXED};       // state of winch control (using target position or target rate)
+        float       length_desired{0.0f};     // target desired length (in meters)
+        float       rate_desired{0.0f};       // target deploy rate (in m/s, +ve = deploying, -ve = retracting)
     } config;
 
-    AP_Winch_Backend *backend;
+    AP_Winch_Backend *backend{nullptr};
 
     static AP_Winch *_singleton;
 };

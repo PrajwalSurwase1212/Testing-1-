@@ -29,7 +29,7 @@ private:
     enum {
         PIXART_3900=0,
         PIXART_3901=1
-    } model;
+    } model{PIXART_3900};
     
     struct RegData {
         uint8_t reg;
@@ -47,14 +47,14 @@ private:
         uint8_t min_raw;
         uint8_t shutter_upper;
         uint8_t shutter_lower;
-    } burst;
+    } burst{};
 
     struct {
         Vector2l sum;
         uint32_t last_frame_us;
         uint32_t sum_us;
         Vector2f gyro;
-    } integral;
+    } integral{};
     
     static const uint8_t srom_data[];
     static const uint8_t srom_id;
@@ -77,8 +77,8 @@ private:
     void timer(void);
     void motion_burst(void);
 
-    uint32_t last_burst_us;
-    uint32_t last_update_ms;
+    uint32_t last_burst_us{0};
+    uint32_t last_update_ms{0};
 };
 
 #endif  // AP_OPTICALFLOW_PIXART_ENABLED

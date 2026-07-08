@@ -126,9 +126,9 @@ private:
 
 
     // internal variables
-    uint32_t _last_send;            // system time of last do_mount_control sent to gimbal
-    uint8_t _reply_length;
-    uint8_t _reply_counter;
+    uint32_t _last_send{0};            // system time of last do_mount_control sent to gimbal
+    uint8_t _reply_length{0};
+    uint8_t _reply_counter{0};
     ReplyType _reply_type = ReplyType_UNKNOWN;
 
 

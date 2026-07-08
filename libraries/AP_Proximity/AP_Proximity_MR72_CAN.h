@@ -39,13 +39,13 @@ private:
 
     uint32_t get_radar_id(uint32_t id) const { return ((id & 0xF0U) >> 4U); }
 
-    uint32_t _object_count;             // total number of objects to read
-    uint32_t _current_object_index;     // current object index
-    uint32_t last_update_ms;            // last update time in ms
+    uint32_t _object_count{0};             // total number of objects to read
+    uint32_t _current_object_index{0};     // current object index
+    uint32_t last_update_ms{0};            // last update time in ms
 
     AP_Int32 receive_id;                // ID of the sensor
 
-    MultiCAN* multican_MR72;            // Allows for multiple CAN rangefinders on a single bus
+    MultiCAN* multican_MR72{nullptr};            // Allows for multiple CAN rangefinders on a single bus
 };
 
 #endif  // AP_PROXIMITY_MR72_DRIVER_ENABLED

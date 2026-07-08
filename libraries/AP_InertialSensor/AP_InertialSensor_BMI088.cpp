@@ -202,7 +202,7 @@ bool AP_InertialSensor_BMI088::accel_init()
     uint8_t v;
 
     // dummy ready on accel ChipID to init accel (see section 3 of datasheet)
-    read_accel_registers(REGA_CHIPID, &v, 1);
+    (void)read_accel_registers(REGA_CHIPID, &v, 1);
 
     if (!read_accel_registers(REGA_CHIPID, &v, 1)) {
         return false;

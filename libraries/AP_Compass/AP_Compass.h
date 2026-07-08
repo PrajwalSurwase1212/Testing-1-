@@ -499,17 +499,17 @@ private:
     bool _driver_enabled(enum DriverType driver_type);
     
     // backend objects
-    AP_Compass_Backend *_backends[COMPASS_MAX_BACKEND];
-    uint8_t     _backend_count;
+    AP_Compass_Backend *_backends[COMPASS_MAX_BACKEND]{};
+    uint8_t     _backend_count{0};
 
     // whether to enable the compass drivers at all
     AP_Int8     _enabled;
 
     // number of registered compasses.
-    uint8_t     _compass_count;
+    uint8_t     _compass_count{0};
 
     // number of unregistered compasses.
-    uint8_t     _unreg_compass_count;
+    uint8_t     _unreg_compass_count{0};
 
     // settable parameters
     AP_Enum<LearnType> _learn;
@@ -534,12 +534,12 @@ private:
     AP_Int8     _rotate_auto;
 
     // throttle expressed as a percentage from 0 ~ 1.0, used for motor compensation
-    float       _thr;
+    float       _thr{0.0f};
 
     struct mag_state {
         AP_Int8     external;
-        bool        healthy;
-        bool        registered;
+        bool        healthy{false};
+        bool        registered{false};
         Compass::Priority priority;
         AP_Int8     orientation;
         AP_Vector3f offset;
@@ -554,9 +554,9 @@ private:
         // eeprom values to be compared as consistency check
         AP_Int32    dev_id;
         // Initialised when compass is detected
-        int32_t detected_dev_id;
+        int32_t detected_dev_id{0};
         // Initialised at boot from saved devid
-        int32_t expected_dev_id;
+        int32_t expected_dev_id{0};
 
         // factors multiplied by throttle and added to compass outputs
         AP_Vector3f motor_compensation;
@@ -568,15 +568,15 @@ private:
         Vector3f    field;
 
         // when we last got data
-        uint32_t    last_update_ms;
-        uint32_t    last_update_usec;
+        uint32_t    last_update_ms{0};
+        uint32_t    last_update_usec{0};
 
         // board specific orientation
-        enum Rotation rotation;
+        enum Rotation rotation{ROTATION_NONE};
 
         // accumulated samples, protected by _sem, used by AP_Compass_Backend
         Vector3f accum;
-        uint32_t accum_count;
+        uint32_t accum_count{0};
         // We only copy persistent params
         void copy_from(const mag_state& state);
     };
@@ -643,13 +643,13 @@ private:
 #if COMPASS_MAX_UNREG_DEV
     // Put extra dev ids detected
     AP_Int32 extra_dev_id[COMPASS_MAX_UNREG_DEV];
-    uint32_t _previously_unreg_mag[COMPASS_MAX_UNREG_DEV];
+    uint32_t _previously_unreg_mag[COMPASS_MAX_UNREG_DEV]{};
 #endif
 
     AP_Int8 _filter_range;
 
-    CompassLearn *learn;
-    bool learn_allocated;
+    CompassLearn *learn{nullptr};
+    bool learn_allocated{false};
 
     /// Sets the initial location used to get declination
     ///
@@ -657,18 +657,18 @@ private:
     /// @param  longitude            GPS Longitude.
     ///
     void try_set_initial_location();
-    bool _initial_location_set;
+    bool _initial_location_set{false};
 
-    bool _cal_thread_started;
+    bool _cal_thread_started{false};
 
 #if AP_COMPASS_MSP_ENABLED
-    uint8_t msp_instance_mask;
+    uint8_t msp_instance_mask{0};
 #endif
-    bool init_done;
+    bool init_done{false};
 
-    bool suppress_devid_save;
+    bool suppress_devid_save{false};
 
-    uint8_t _first_usable; // first compass usable based on COMPASSx_USE param
+    uint8_t _first_usable{0}; // first compass usable based on COMPASSx_USE param
 };
 
 namespace AP {

@@ -212,36 +212,36 @@ private:
     AP_Float _reverse_delay; // delay in seconds when reversing motor
 
     // internal variables
-    float   _steering;  // requested steering as a value from -4500 to +4500
-    float   _throttle;  // requested throttle as a value from -100 to 100
-    float   _throttle_prev; // throttle input from previous iteration
+    float   _steering{0.0f};  // requested steering as a value from -4500 to +4500
+    float   _throttle{0.0f};  // requested throttle as a value from -100 to 100
+    float   _throttle_prev{0.0f}; // throttle input from previous iteration
     bool    _scale_steering = true; // true if we should scale steering by speed or angle
-    float   _lateral;  // requested lateral input as a value from -100 to +100
-    float   _roll;      // requested roll as a value from -1 to +1
-    float   _pitch;     // requested pitch as a value from -1 to +1
-    float   _walking_height; // requested height as a value from -1 to +1   
-    float   _mainsail;  // requested mainsail input as a value from 0 to 100
-    float   _wingsail;  // requested wing sail input as a value in the range +- 100
-    float   _mast_rotation;  // requested mast rotation input as a value in the range +- 100
-    uint32_t _motor_mask;   // mask of motors configured with pwm_type
-    frame_type _frame_type; // frame type requested at initialisation
+    float   _lateral{0.0f};  // requested lateral input as a value from -100 to +100
+    float   _roll{0.0f};      // requested roll as a value from -1 to +1
+    float   _pitch{0.0f};     // requested pitch as a value from -1 to +1
+    float   _walking_height{0.0f}; // requested height as a value from -1 to +1   
+    float   _mainsail{0.0f};  // requested mainsail input as a value from 0 to 100
+    float   _wingsail{0.0f};  // requested wing sail input as a value in the range +- 100
+    float   _mast_rotation{0.0f};  // requested mast rotation input as a value in the range +- 100
+    uint32_t _motor_mask{0};   // mask of motors configured with pwm_type
+    frame_type _frame_type{FRAME_TYPE_UNDEFINED}; // frame type requested at initialisation
 
     // omni variables
-    float   _throttle_factor[AP_MOTORS_NUM_MOTORS_MAX];
-    float   _steering_factor[AP_MOTORS_NUM_MOTORS_MAX];
-    float   _lateral_factor[AP_MOTORS_NUM_MOTORS_MAX];
-    uint8_t   _motors_num;
+    float   _throttle_factor[AP_MOTORS_NUM_MOTORS_MAX]{};
+    float   _steering_factor[AP_MOTORS_NUM_MOTORS_MAX]{};
+    float   _lateral_factor[AP_MOTORS_NUM_MOTORS_MAX]{};
+    uint8_t   _motors_num{0};
 
     /*
       3 reversal handling structures, for k_throttle, k_throttleLeft and k_throttleRight
      */
     struct ReverseThrottle {
-        float last_throttle;
-        uint32_t last_output_ms;
+        float last_throttle{0.0f};
+        uint32_t last_output_ms{0};
 
         // output with delay for reversal
         void output(SRV_Channel::Function function, float throttle, float delay);
-    } rev_delay_throttle, rev_delay_throttleLeft, rev_delay_throttleRight;
+    } rev_delay_throttle{}, rev_delay_throttleLeft{}, rev_delay_throttleRight{};
 
     static AP_MotorsUGV *_singleton;
 };

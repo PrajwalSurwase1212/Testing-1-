@@ -140,7 +140,7 @@ public:
     struct LinkStatus {
         int16_t rssi = -1;
         int16_t link_quality = -1;
-        uint8_t rf_mode;
+        uint8_t rf_mode{0};
     };
 
     bool is_telemetry_supported() const;
@@ -158,10 +158,10 @@ public:
     const char* get_protocol_string() const;
 
 private:
-    struct Frame _frame;
-    struct Frame _telemetry_frame;
-    uint8_t _frame_ofs;
-    uint8_t _frame_crc;
+    struct Frame _frame{};
+    struct Frame _telemetry_frame{};
+    uint8_t _frame_ofs{0};
+    uint8_t _frame_crc{0};
 
     const uint8_t MAX_CHANNELS = MIN((uint8_t)GHST_MAX_CHANNELS, (uint8_t)MAX_RCIN_CHANNELS);
 
@@ -174,16 +174,16 @@ private:
     bool write_frame(Frame* frame);
     AP_HAL::UARTDriver* get_current_UART() { return get_available_UART(); }
 
-    uint16_t _channels[GHST_MAX_CHANNELS];    /* buffer for extracted RC channel data as pulsewidth in microseconds */
+    uint16_t _channels[GHST_MAX_CHANNELS]{};    /* buffer for extracted RC channel data as pulsewidth in microseconds */
 
     void add_to_buffer(uint8_t index, uint8_t b) { ((uint8_t*)&_frame)[index] = b; }
 
-    uint32_t _last_frame_time_us;
-    uint32_t _last_tx_frame_time_us;
-    uint32_t _last_rx_frame_time_us;
-    uint32_t _start_frame_time_us;
-    bool telem_available;
-    bool _use_lq_for_rssi;
+    uint32_t _last_frame_time_us{0};
+    uint32_t _last_tx_frame_time_us{0};
+    uint32_t _last_rx_frame_time_us{0};
+    uint32_t _start_frame_time_us{0};
+    bool telem_available{false};
+    bool _use_lq_for_rssi{false};
     int16_t derive_scaled_lq_value(uint8_t uplink_lq);
 
     volatile struct LinkStatus _link_status;

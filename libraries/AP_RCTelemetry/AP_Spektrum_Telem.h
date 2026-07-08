@@ -78,11 +78,11 @@ private:
 
     struct MessageChunk
     {
-        uint8_t chunk[13]; // a "chunk" (13 characters/bytes) at a time of the queued message to be sent
-        uint8_t linenumber;
-        uint8_t char_index; // index of which character to get in the message
-        uint8_t repeats;
-    } _msg_chunk;
+        uint8_t chunk[13]{}; // a "chunk" (13 characters/bytes) at a time of the queued message to be sent
+        uint8_t linenumber{0};
+        uint8_t char_index{0}; // index of which character to get in the message
+        uint8_t repeats{0};
+    } _msg_chunk{};
 
     float _max_speed = 0.0f;
     float _max_alt = 0.0f;
@@ -127,8 +127,8 @@ private:
     bool _get_telem_data(uint8_t* data);
 
     // all Spektrum telemtry packets are big-endian!
-    PACKED UN_TELEMETRY _telem;
-    bool _telem_pending;
+    PACKED UN_TELEMETRY _telem{};
+    bool _telem_pending{false};
 
     static AP_Spektrum_Telem *singleton;
 };

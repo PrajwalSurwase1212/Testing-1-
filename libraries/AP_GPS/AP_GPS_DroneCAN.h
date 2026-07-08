@@ -79,8 +79,8 @@ private:
         STEP_SAVE_AND_REBOOT,
         STEP_FINISHED
     };
-    uint8_t cfg_step;
-    bool requires_save_and_reboot;
+    uint8_t cfg_step = 0;
+    bool requires_save_and_reboot = false;
 
     // returns true once configuration has finished
     bool do_config(void);
@@ -100,23 +100,23 @@ private:
     static void give_registry();
     static AP_GPS_DroneCAN* get_dronecan_backend(AP_DroneCAN* ap_dronecan, uint8_t node_id);
 
-    bool _new_data;
+    bool _new_data = false;
     AP_GPS::GPS_State interim_state;
 
     HAL_Semaphore sem;
 
-    uint8_t _detected_module;
-    bool seen_message;
-    bool seen_fix2;
-    bool seen_aux;
-    bool seen_status;
-    bool seen_relposheading;
-    bool seen_valid_height_ellipsoid;
+    uint8_t _detected_module = 0;
+    bool seen_message = false;
+    bool seen_fix2 = false;
+    bool seen_aux = false;
+    bool seen_status = false;
+    bool seen_relposheading = false;
+    bool seen_valid_height_ellipsoid = false;
 
-    bool healthy;
-    uint32_t status_flags;
-    uint32_t error_code;
-    char _name[16];
+    bool healthy = false;
+    uint32_t status_flags = 0;
+    uint32_t error_code = 0;
+    char _name[16] {};
 
     // Module Detection Registry
     static struct DetectedModules {
@@ -131,8 +131,8 @@ private:
 
 #if GPS_MOVING_BASELINE
     // RTCM3 parser for when in moving baseline base mode
-    RTCM3_Parser *rtcm3_parser;
-    uint32_t last_base_warning_ms;
+    RTCM3_Parser *rtcm3_parser = nullptr;
+    uint32_t last_base_warning_ms = 0;
 #endif
     // the role set from GPS_TYPE
     AP_GPS::GPS_Role role;
@@ -148,9 +148,9 @@ private:
 
     // GNSS RTCM injection
     struct {
-        uint32_t last_send_ms;
-        ByteBuffer *buf;
-    } _rtcm_stream;
+        uint32_t last_send_ms = 0;
+        ByteBuffer *buf = nullptr;
+    } _rtcm_stream {};
 
     // returns true if the supplied GPS_Type is a DroneCAN GPS type
     static bool is_dronecan_gps_type(AP_GPS::GPS_Type type) {

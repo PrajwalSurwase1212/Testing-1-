@@ -46,18 +46,18 @@ protected:
 
     const char* _get_frame_string() const override { return "6DoF scripting"; }
 
-    float _forward_factor[AP_MOTORS_MAX_NUM_MOTORS];      // each motors contribution to forward thrust
-    float _right_factor[AP_MOTORS_MAX_NUM_MOTORS];        // each motors contribution to right thrust
+    float _forward_factor[AP_MOTORS_MAX_NUM_MOTORS]{};      // each motors contribution to forward thrust
+    float _right_factor[AP_MOTORS_MAX_NUM_MOTORS]{};        // each motors contribution to right thrust
 
     // true if motor is revesible, it can go from -Spin max to +Spin max, if false motor is can go from Spin min to Spin max
-    bool _reversible[AP_MOTORS_MAX_NUM_MOTORS];
+    bool _reversible[AP_MOTORS_MAX_NUM_MOTORS]{};
 
     // store last values to allow deadzone
-    float _last_thrust_out[AP_MOTORS_MAX_NUM_MOTORS];
+    float _last_thrust_out[AP_MOTORS_MAX_NUM_MOTORS]{};
 
     // Current offset angles, radians
-    float _roll_offset;
-    float _pitch_offset;
+    float _roll_offset{0.0f};
+    float _pitch_offset{0.0f};
 
 private:
     static AP_MotorsMatrix_6DoF_Scripting *_singleton;

@@ -104,7 +104,7 @@ void Plane::init_ardupilot()
 
     AP_Param::reload_defaults_file(true);
 
-    set_mode(mode_initializing, ModeReason::INITIALISED);
+    (void)set_mode(mode_initializing, ModeReason::INITIALISED);
 
 #if (GROUND_START_DELAY > 0)
     gcs().send_text(MAV_SEVERITY_NOTICE,"Ground start with delay");

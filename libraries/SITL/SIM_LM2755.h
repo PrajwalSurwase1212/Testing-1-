@@ -82,13 +82,13 @@ private:
         uint8_t &high_level;
         uint8_t &low_level;
 
-        uint8_t output_value;
+        uint8_t output_value{0};
     };
 
     // these could come in as rgb or bgr?
-    LEDChannel *d1;
-    LEDChannel *d2;
-    LEDChannel *d3;
+    LEDChannel *d1{nullptr};
+    LEDChannel *d2{nullptr};
+    LEDChannel *d3{nullptr};
 
     SIM_RGBLED rgbled{"LM2755"};
 };

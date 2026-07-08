@@ -302,13 +302,13 @@ public:
     const EKFGSF_yaw *get_yawEstimator(void) const;
     
 private:
-    uint8_t num_cores; // number of allocated cores
-    uint8_t primary;   // current primary core
+    uint8_t num_cores{0}; // number of allocated cores
+    uint8_t primary{0};   // current primary core
     NavEKF2_core *core = nullptr;
-    bool core_malloc_failed;
+    bool core_malloc_failed{false};
 
-    uint32_t _frameTimeUsec;        // time per IMU frame
-    uint8_t  _framesPerPrediction;  // expected number of IMU frames per prediction
+    uint32_t _frameTimeUsec{0};        // time per IMU frame
+    uint8_t  _framesPerPrediction{0};  // expected number of IMU frames per prediction
 
     // EKF Mavlink Tuneable Parameters
     AP_Int8  _enable;               // zero to disable EKF2
@@ -411,39 +411,39 @@ private:
 
     // origin set by one of the cores
     Location common_EKF_origin;
-    bool common_origin_valid;
+    bool common_origin_valid{false};
 
     // time at start of current filter update
-    uint64_t imuSampleTime_us;
+    uint64_t imuSampleTime_us{0};
 
     // last time of Log_Write
-    uint64_t lastLogWrite_us;
+    uint64_t lastLogWrite_us{0};
     
     struct {
         uint32_t last_function_call;  // last time getLastYawResetAngle was called
         bool core_changed;            // true when a core change happened and hasn't been consumed, false otherwise
         uint32_t last_primary_change; // last time a primary has changed
         float core_delta;             // the amount of yaw change between cores when a change happened
-    } yaw_reset_data;
+    } yaw_reset_data{};
 
     struct {
         uint32_t last_function_call;  // last time getLastPosNorthEastReset was called
         bool core_changed;            // true when a core change happened and hasn't been consumed, false otherwise
         uint32_t last_primary_change; // last time a primary has changed
         Vector2f core_delta;          // the amount of NE position change between cores when a change happened
-    } pos_reset_data;
+    } pos_reset_data{};
 
     struct {
         uint32_t last_function_call;  // last time getLastPosDownReset was called
         bool core_changed;            // true when a core change happened and hasn't been consumed, false otherwise
         uint32_t last_primary_change; // last time a primary has changed
         float core_delta;             // the amount of D position change between cores when a change happened
-    } pos_down_reset_data;
+    } pos_down_reset_data{};
 
-    bool runCoreSelection; // true when the primary core has stabilised and the core selection logic can be started
+    bool runCoreSelection{false}; // true when the primary core has stabilised and the core selection logic can be started
 
     // time of last lane switch
-    uint32_t lastLaneSwitch_ms;
+    uint32_t lastLaneSwitch_ms{0};
 
     enum class InitFailures {
         UNKNOWN,
@@ -454,7 +454,7 @@ private:
         NO_SETUP,
         NUM_INIT_FAILURES
     };
-    InitFailures initFailure;
+    InitFailures initFailure{InitFailures::UNKNOWN};
 
     // update the yaw reset data to capture changes due to a lane switch
     // new_primary - index of the ekf instance that we are about to switch to as the primary

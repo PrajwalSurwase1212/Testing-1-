@@ -141,8 +141,8 @@ private:
 
     void print_debug_info(void);
 
-    AP_Radio::stats stats;
-    AP_Radio::stats last_stats;
+    AP_Radio::stats stats{};
+    AP_Radio::stats last_stats{};
 
     enum dsm_protocol {
         DSM_NONE   = 0,      // not bound yet
@@ -163,46 +163,46 @@ private:
 
     // dsm config data and status
     struct {
-        uint8_t channels[23];
-        enum dsm_protocol protocol;
-        uint8_t mfg_id[4];
-        uint8_t current_channel;
-        uint8_t current_rf_channel;
-        uint16_t crc_seed;
-        uint8_t sop_col;
-        uint8_t data_col;
-        uint8_t last_sop_code[8];
-        uint8_t last_data_code[16];
+        uint8_t channels[23]{};
+        enum dsm_protocol protocol{DSM_NONE};
+        uint8_t mfg_id[4]{};
+        uint8_t current_channel{0};
+        uint8_t current_rf_channel{0};
+        uint16_t crc_seed{0};
+        uint8_t sop_col{0};
+        uint8_t data_col{0};
+        uint8_t last_sop_code[8]{};
+        uint8_t last_data_code[16]{};
 
-        uint32_t receive_start_us;
-        uint32_t receive_timeout_msec;
+        uint32_t receive_start_us{0};
+        uint32_t receive_timeout_msec{0};
 
-        uint32_t last_recv_us;
-        uint32_t last_parse_us;
-        uint32_t last_recv_chan;
-        uint32_t last_chan_change_us;
-        uint16_t num_channels;
-        uint16_t pwm_channels[max_channels];
-        bool need_bind_save;
-        enum dsm2_sync sync;
-        uint32_t crc_errors;
-        float rssi;
-        bool last_discrc;
-        uint8_t last_transmit_power;
-        uint32_t send_irq_count;
-        uint32_t send_count;
+        uint32_t last_recv_us{0};
+        uint32_t last_parse_us{0};
+        uint32_t last_recv_chan{0};
+        uint32_t last_chan_change_us{0};
+        uint16_t num_channels{0};
+        uint16_t pwm_channels[max_channels]{};
+        bool need_bind_save{false};
+        enum dsm2_sync sync{DSM2_SYNC_A};
+        uint32_t crc_errors{0};
+        float rssi{0.0f};
+        bool last_discrc{false};
+        uint8_t last_transmit_power{0};
+        uint32_t send_irq_count{0};
+        uint32_t send_count{0};
         uint16_t pkt_time1 = 3000;
         uint16_t pkt_time2 = 7000;
-        uint8_t tx_firmware_year;
-        uint8_t tx_firmware_month;
-        uint8_t tx_firmware_day;
+        uint8_t tx_firmware_year{0};
+        uint8_t tx_firmware_month{0};
+        uint8_t tx_firmware_day{0};
         int8_t forced_channel = -1;
-        uint8_t tx_rssi;
-        uint8_t tx_pps;
-        uint32_t last_autobind_send;
-        bool have_tx_pps;
-        uint32_t telem_send_count;
-        uint8_t tx_bl_version;
+        uint8_t tx_rssi{0};
+        uint8_t tx_pps{0};
+        uint32_t last_autobind_send{0};
+        bool have_tx_pps{false};
+        uint32_t telem_send_count{0};
+        uint8_t tx_bl_version{0};
     } dsm;
 
     struct {
@@ -216,7 +216,7 @@ private:
         uint8_t len;
         enum telem_type fw_type;
         uint8_t pending_data[92];
-    } fwupload;
+    } fwupload{};
 
     // bind structure saved to storage
     static const uint16_t bind_magic = 0x43F6;
@@ -226,7 +226,7 @@ private:
         enum dsm_protocol protocol;
     };
 
-    struct telem_status t_status;
+    struct telem_status t_status{};
 
     // DSM specific functions
     void dsm_set_channel(uint8_t channel, bool is_dsm2, uint8_t sop_col, uint8_t data_col, uint16_t crc_seed);

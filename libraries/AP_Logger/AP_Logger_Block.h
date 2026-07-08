@@ -52,18 +52,18 @@ protected:
     }
 
     // number of bytes in a page
-    uint32_t df_PageSize;
+    uint32_t df_PageSize{0};
     // number of pages in a (generally 64k) block
-    uint16_t df_PagePerBlock;
+    uint16_t df_PagePerBlock{0};
     // number of pages in a (generally 4k) sector
-    uint16_t df_PagePerSector;
+    uint16_t df_PagePerSector{0};
     // number of pages on the chip
-    uint32_t df_NumPages;
-    volatile bool log_write_started;
+    uint32_t df_NumPages{0};
+    volatile bool log_write_started{false};
 
-    uint8_t *buffer;
-    uint32_t last_messagewrite_message_sent;
-    uint32_t df_Read_PageAdr;
+    uint8_t *buffer{nullptr};
+    uint32_t last_messagewrite_message_sent{0};
+    uint32_t df_Read_PageAdr{0};
 
 private:
     /*

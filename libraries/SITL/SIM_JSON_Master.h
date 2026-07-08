@@ -46,14 +46,14 @@ private:
     struct socket_list {
         SocketAPM_native sock_in{true};
         SocketAPM_native sock_out{true};
-        uint8_t instance;
-        bool connected;
-        socket_list *next;
+        uint8_t instance{0};
+        bool connected{false};
+        socket_list *next{nullptr};
     } _list;
 
-    char *json_out;
+    char *json_out{nullptr};
 
-    bool initialized;
+    bool initialized{false};
 
 };
 

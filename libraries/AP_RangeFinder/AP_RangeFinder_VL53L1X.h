@@ -1274,11 +1274,11 @@ private:
     // used in DSS calculations
     static const uint16_t TargetRate = 0x0A00;
 
-    uint16_t fast_osc_frequency;
-    uint16_t osc_calibrate_val;
-    uint32_t sum_mm;
-    uint32_t counter;
-    bool calibrated;
+    uint16_t fast_osc_frequency{0};
+    uint16_t osc_calibrate_val{0};
+    uint32_t sum_mm{0};
+    uint32_t counter{0};
+    bool calibrated{false};
 
     bool read_register(uint16_t reg, uint8_t &value) WARN_IF_UNUSED;
     bool read_register16(uint16_t reg, uint16_t &value) WARN_IF_UNUSED;

@@ -53,7 +53,7 @@ public:
 
 protected:
 
-    uint32_t _last_grab_or_release; // ms; time last grab or release happened
+    uint32_t _last_grab_or_release = 0; // ms; time last grab or release happened
 
     struct AP_Gripper::Backend_Config &config;
 };

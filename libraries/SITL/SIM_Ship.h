@@ -41,10 +41,10 @@ private:
     void update(float delta_t);
     
     Vector2f position;
-    float heading_deg;
-    float yaw_rate;
-    float speed;
-    ShipSim *sim;
+    float heading_deg{0.0f};
+    float yaw_rate{0.0f};
+    float speed{0.0f};
+    ShipSim *sim{nullptr};
 };
         
 class ShipSim {
@@ -76,17 +76,17 @@ private:
     const char *target_address = "127.0.0.1";
     const uint16_t target_port = 5762;
 
-    bool initialised;
+    bool initialised{false};
     Ship ship;
-    uint32_t last_update_us;
+    uint32_t last_update_us{0};
 
     // reporting period in ms
     const float reporting_period_ms = 200;
-    uint32_t last_report_ms;
-    uint32_t last_heartbeat_ms;
+    uint32_t last_report_ms{0};
+    uint32_t last_heartbeat_ms{0};
 
     SocketAPM_native mav_socket { false };
-    bool mavlink_connected;
+    bool mavlink_connected{false};
     mavlink_status_t mav_status;
 
     void send_report(void);

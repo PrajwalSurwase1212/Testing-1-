@@ -42,11 +42,11 @@ private:
     // get a reading
     bool get_reading(float &reading_m) override;
 
-    uint8_t  _linebuf[6];
-    uint8_t  _linebuf_len;
-    bool     _version_known;
-    uint8_t  _header;
-    uint8_t  _version;
+    uint8_t  _linebuf[6]{};
+    uint8_t  _linebuf_len{0};
+    bool     _version_known{false};
+    uint8_t  _header{0};
+    uint8_t  _version{0};
 };
 
 #endif  // AP_RANGEFINDER_USD1_SERIAL_ENABLED

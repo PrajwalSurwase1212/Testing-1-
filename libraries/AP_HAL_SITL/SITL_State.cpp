@@ -509,7 +509,7 @@ void SITL_State::multicast_state_open(void)
 
     // try to setup for broadcast, this may fail if insufficient privileges
     int one = 1;
-    setsockopt(mc_out_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
+    (void)setsockopt(mc_out_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
 
     ret = connect(mc_out_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {

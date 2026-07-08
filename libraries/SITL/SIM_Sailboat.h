@@ -40,9 +40,9 @@ public:
     bool on_ground() const override {return true;};
 
 protected:
-    bool motor_connected;       // true if this frame has a motor
-    bool skid_steering;         // true if this vehicle is a skid-steering vehicle
-    float sail_area; // 1.0 for normal area
+    bool motor_connected{false};       // true if this frame has a motor
+    bool skid_steering{false};         // true if this vehicle is a skid-steering vehicle
+    float sail_area{1.0f}; // 1.0 for normal area
 
 private:
 
@@ -61,8 +61,8 @@ private:
     // simulate waves and swell
     void update_wave(float delta_time);
 
-    float steering_angle_max;   // vehicle steering mechanism's max angle in degrees
-    float turning_circle;       // vehicle minimum turning circle diameter in meters
+    float steering_angle_max{0.0f};   // vehicle steering mechanism's max angle in degrees
+    float turning_circle{0.0f};       // vehicle minimum turning circle diameter in meters
 
     // lift and drag curves.  index is angle/10deg
     // angle-of-attack            0      10     20     30     40     50     60     70     80     90      100     110     120     130     140     150     160     170+
@@ -73,8 +73,8 @@ private:
 
     Vector3f velocity_ef_water; // m/s
     Vector3f wave_gyro;         // rad/s
-    float wave_heave;           // m/s/s
-    float wave_phase;           // rads
+    float wave_heave{0.0f};           // m/s/s
+    float wave_phase{0.0f};           // rads
 };
 
 } // namespace SITL

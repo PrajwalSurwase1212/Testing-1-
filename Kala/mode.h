@@ -1305,10 +1305,10 @@ private:
     void gps_run();
     void nogps_run();
 
-    bool control_position; // true if we are using an external reference to control position
+    bool control_position{false}; // true if we are using an external reference to control position
 
-    uint32_t land_start_time;
-    bool land_pause;
+    uint32_t land_start_time{0};
+    bool land_pause{false};
 };
 
 
@@ -1405,45 +1405,45 @@ private:
         CONTROLLER_TO_PILOT_OVERRIDE // pilot has input controls on this axis and this axis is transitioning to pilot override (other axis will transition to brake if no pilot input)
     };
 
-    RPMode roll_mode;
-    RPMode pitch_mode;
+    RPMode roll_mode{RPMode::PILOT_OVERRIDE};
+    RPMode pitch_mode{RPMode::PILOT_OVERRIDE};
 
     // pilot input related variables
-    float pilot_roll_rad;   // filtered roll lean angle commanded by the pilot. Slowly returns to zero when stick is released
-    float pilot_pitch_rad;  // filtered pitch lean angle commanded by the pilot. Slowly returns to zero when stick is released
+    float pilot_roll_rad{0.0f};   // filtered roll lean angle commanded by the pilot. Slowly returns to zero when stick is released
+    float pilot_pitch_rad{0.0f};  // filtered pitch lean angle commanded by the pilot. Slowly returns to zero when stick is released
 
 
     // braking related variables
     struct {
-        bool  time_updated_roll;                    // true if braking timeout (roll) has been re-estimated
-        bool  time_updated_pitch;                   // true if braking timeout (pitch) has been re-estimated
-        float gain;                                 // braking gain converting velocity (m/s) -> lean angle (rad)
-        float roll_rad;                             // braking roll angle (rad)
-        float pitch_rad;                            // braking pitch angle (rad)
-        uint32_t start_time_roll_ms;                // time (ms) when braking on roll axis begins
-        uint32_t start_time_pitch_ms;               // time (ms) when braking on pitch axis begins
-        float angle_max_roll_rad;                   // peak roll angle (rad) during braking, used to detect vehicle flattening
-        float angle_max_pitch_rad;                  // peak pitch angle (rad) during braking, used to detect vehicle flattening
-        uint32_t loiter_transition_start_time_ms;   // time (ms) when transition from brake to loiter started
+        bool  time_updated_roll{false};                    // true if braking timeout (roll) has been re-estimated
+        bool  time_updated_pitch{false};                   // true if braking timeout (pitch) has been re-estimated
+        float gain{0.0f};                                 // braking gain converting velocity (m/s) -> lean angle (rad)
+        float roll_rad{0.0f};                             // braking roll angle (rad)
+        float pitch_rad{0.0f};                            // braking pitch angle (rad)
+        uint32_t start_time_roll_ms{0};                // time (ms) when braking on roll axis begins
+        uint32_t start_time_pitch_ms{0};               // time (ms) when braking on pitch axis begins
+        float angle_max_roll_rad{0.0f};                   // peak roll angle (rad) during braking, used to detect vehicle flattening
+        float angle_max_pitch_rad{0.0f};                  // peak pitch angle (rad) during braking, used to detect vehicle flattening
+        uint32_t loiter_transition_start_time_ms{0};   // time (ms) when transition from brake to loiter started
     } brake;
 
     // loiter transition timing (ms)
-    uint32_t controller_to_pilot_start_time_roll_ms;    // time (ms) when transition from controller to pilot roll input began
-    uint32_t controller_to_pilot_start_time_pitch_ms;   // time (ms) when transition from controller to pilot pitch input began
+    uint32_t controller_to_pilot_start_time_roll_ms{0};    // time (ms) when transition from controller to pilot roll input began
+    uint32_t controller_to_pilot_start_time_pitch_ms{0};   // time (ms) when transition from controller to pilot pitch input began
 
     // cached controller outputs for mix during transition (radians)
-    float controller_final_roll_rad;    // final roll output (rad) from controller before transition to pilot input
-    float controller_final_pitch_rad;   // final pitch output (rad) from controller before transition to pilot input
+    float controller_final_roll_rad{0.0f};    // final roll output (rad) from controller before transition to pilot input
+    float controller_final_pitch_rad{0.0f};   // final pitch output (rad) from controller before transition to pilot input
 
     // wind compensation related variables
     Vector2f wind_comp_ne_mss;              // earth-frame accel estimate (N,E), m/s^2, low-pass filtered
-    float wind_comp_roll_rad;           // roll angle (rad) to counter wind
-    float wind_comp_pitch_rad;          // pitch angle (rad) to counter wind
-    uint32_t wind_comp_start_time_ms;   // time (ms) when wind compensation updates are started
+    float wind_comp_roll_rad{0.0f};           // roll angle (rad) to counter wind
+    float wind_comp_pitch_rad{0.0f};          // pitch angle (rad) to counter wind
+    uint32_t wind_comp_start_time_ms{0};   // time (ms) when wind compensation updates are started
 
     // final outputs (radians)
-    float roll_rad;     // final roll angle sent to attitude controller
-    float pitch_rad;    // final pitch angle sent to attitude controller
+    float roll_rad{0.0f};     // final roll angle sent to attitude controller
+    float pitch_rad{0.0f};    // final pitch angle sent to attitude controller
 };
 
 
@@ -1955,7 +1955,7 @@ public:
         RIGHT,          // moving right from the yaw direction
         BACKWARD,       // moving backward from the yaw direction
         LEFT,           // moving left from the yaw direction
-    } zigzag_direction;
+    } zigzag_direction{Direction::FORWARD};
 
     bool init(bool ignore_checks) override;
     void exit() override;
@@ -2001,7 +2001,7 @@ private:
     Vector2f dest_A_ne_m;    // in NEU frame in cm relative to ekf origin
     Vector2f dest_B_ne_m;    // in NEU frame in cm relative to ekf origin
     Vector3f current_dest_neu_m; // current target destination (use for resume after suspending)
-    bool current_is_terr_alt;
+    bool current_is_terr_alt{false};
 
     // parameters
     AP_Int8  _auto_enabled;    // top level enable/disable control
@@ -2017,20 +2017,20 @@ private:
         STORING_POINTS, // storing points A and B, pilot has manual control
         AUTO,           // after A and B defined, pilot toggle the switch from one side to the other, vehicle flies autonomously
         MANUAL_REGAIN   // pilot toggle the switch to middle position, has manual control
-    } stage;
+    } stage{STORING_POINTS};
 
     enum AutoState {
         MANUAL,         // not in ZigZag Auto
         AB_MOVING,      // moving from A to B or from B to A
         SIDEWAYS,       // moving to sideways
-    } auto_stage;
+    } auto_stage{AutoState::MANUAL};
 
     uint32_t reach_wp_time_ms = 0;  // time since vehicle reached destination (or zero if not yet reached)
-    Destination ab_dest_stored;     // store the current destination
-    bool is_auto;                   // enable zigzag auto feature which is automate both AB and sideways
+    Destination ab_dest_stored{Destination::A};     // store the current destination
+    bool is_auto{false};                   // enable zigzag auto feature which is automate both AB and sideways
     uint16_t line_count = 0;        // current line number
     int16_t line_num = 0;           // target line number
-    bool is_suspended;              // true if zigzag auto is suspended
+    bool is_suspended{false};              // true if zigzag auto is suspended
 };
 
 #if MODE_AUTOROTATE_ENABLED

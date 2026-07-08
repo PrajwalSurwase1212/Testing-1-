@@ -29,11 +29,11 @@ private:
     void update_sector_data(int16_t angle_deg, uint16_t distance_mm);
 
     // reply related variables
-    uint8_t buffer[20]; // buffer where to store data from serial
-    uint8_t buffer_count;
+    uint8_t buffer[20]{}; // buffer where to store data from serial
+    uint8_t buffer_count{0};
 
     // request related variables
-    uint32_t _last_distance_received_ms;    // system time of last distance measurement received from sensor
+    uint32_t _last_distance_received_ms{0};    // system time of last distance measurement received from sensor
 };
 
 #endif // AP_PROXIMITY_TERARANGERTOWER_ENABLED

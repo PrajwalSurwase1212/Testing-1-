@@ -123,10 +123,10 @@ protected:
     AP_GPS::GPS_State &state;           ///< public state for this instance
     AP_GPS::Params &params;
 
-    uint64_t _last_pps_time_us;
+    uint64_t _last_pps_time_us = 0;
     JitterCorrection jitter_correction;
-    uint32_t _last_itow_ms;
-    bool _have_itow;
+    uint32_t _last_itow_ms = 0;
+    bool _have_itow = false;
 
     /*
       fill in 3D velocity from 2D components
@@ -178,12 +178,12 @@ protected:
 
 private:
     // itow from previous message
-    uint64_t _pseudo_itow;
-    int32_t _pseudo_itow_delta_ms;
-    uint32_t _last_ms;
-    uint32_t _rate_ms;
-    uint32_t _last_rate_ms;
-    uint16_t _rate_counter;
+    uint64_t _pseudo_itow = 0;
+    int32_t _pseudo_itow_delta_ms = 0;
+    uint32_t _last_ms = 0;
+    uint32_t _rate_ms = 0;
+    uint32_t _last_rate_ms = 0;
+    uint16_t _rate_counter = 0;
 
 #if AP_GPS_DEBUG_LOGGING_ENABLED
     // support raw GPS logging

@@ -368,7 +368,7 @@ void AP_Terrain::update(void)
 
     // try to ensure the home location is populated
     float height;
-    height_amsl(ahrs.get_home(), height);
+    (void)height_amsl(ahrs.get_home(), height);
 
     // update the cached current location height
     Location loc;
@@ -467,8 +467,8 @@ void AP_Terrain::log_terrain_data()
     float current_height = 0;
     uint16_t pending, loaded;
 
-    height_amsl(loc, terrain_height);
-    height_above_terrain(current_height, true);
+    (void)height_amsl(loc, terrain_height);
+    (void)height_above_terrain(current_height, true);
     get_statistics(pending, loaded);
 
     struct log_TERRAIN pkt = {

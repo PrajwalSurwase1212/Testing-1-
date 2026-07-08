@@ -33,12 +33,12 @@ protected:
     bool hw_set_rgb(uint8_t r, uint8_t g, uint8_t b) override;
 
 private:
-    AP_HAL::I2CDevice *_dev;
+    AP_HAL::I2CDevice *_dev{nullptr};
     void _timer(void);
-    bool _need_update;
+    bool _need_update{false};
     struct {
         uint8_t r, g, b;
-    } rgb;
+    } rgb{};
     uint8_t _bus;
 };
 

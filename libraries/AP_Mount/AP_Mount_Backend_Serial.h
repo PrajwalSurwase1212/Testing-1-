@@ -40,9 +40,9 @@ public:
 protected:
 
     // internal variables
-    AP_HAL::UARTDriver *_uart;      // uart connected to gimbal
-    uint8_t _serial_instance;       // this instance's serial instance number
-    bool _initialised;              // true if uart has been initialised
+    AP_HAL::UARTDriver *_uart{nullptr};      // uart connected to gimbal
+    uint8_t _serial_instance{0};       // this instance's serial instance number
+    bool _initialised{false};              // true if uart has been initialised
 };
 
 #endif // HAL_MOUNT_ENABLED

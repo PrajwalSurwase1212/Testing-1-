@@ -40,12 +40,12 @@ private:
     };
     
     // reply related variables
-    uint8_t buffer[21]; // buffer where to store data from serial
-    uint8_t buffer_count;
+    uint8_t buffer[21]{}; // buffer where to store data from serial
+    uint8_t buffer_count{0};
 
     // request related variables
-    uint32_t _last_distance_received_ms;    // system time of last distance measurement received from sensor
-    uint32_t _last_request_sent_ms;         // system time of last command set
+    uint32_t _last_distance_received_ms{0};    // system time of last distance measurement received from sensor
+    uint32_t _last_request_sent_ms{0};         // system time of last command set
     const uint16_t _mode_request_delay = 1000;
     enum InitState _current_init_state = InitState_Printout;
 

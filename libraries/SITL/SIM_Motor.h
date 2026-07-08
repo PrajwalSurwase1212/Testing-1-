@@ -35,15 +35,15 @@ public:
 
     // support for tilting motors
     int8_t roll_servo = -1;
-    float roll_min, roll_max;
+    float roll_min = 0.0f, roll_max = 0.0f;
     int8_t pitch_servo = -1;
-    float pitch_min, pitch_max;
+    float pitch_min = 0.0f, pitch_max = 0.0f;
 
     // support for servo slew rate
-    enum {SERVO_NORMAL, SERVO_RETRACT} servo_type;
+    enum {SERVO_NORMAL, SERVO_RETRACT} servo_type = SERVO_NORMAL;
     float servo_rate = 0.24; // seconds per 60 degrees
-    uint64_t last_change_usec;
-    float last_roll_value, last_pitch_value;
+    uint64_t last_change_usec = 0;
+    float last_roll_value = 0.0f, last_pitch_value = 0.0f;
 
     Motor(uint8_t _servo, float _angle, float _yaw_factor, uint8_t _display_order) :
         angle(_angle), // angle in degrees from front
@@ -123,23 +123,23 @@ public:
     float calc_thrust(float command, float air_density, float velocity_in, float voltage_scale) const;
 
 private:
-    float mot_pwm_min;
-    float mot_pwm_max;
-    float mot_spin_min;
-    float mot_spin_max;
-    float mot_expo;
-    float slew_max;
-    float current;
-    float power_factor;
-    float voltage_max;
-    float effective_prop_area;
-    float max_outflow_velocity;
-    float true_prop_area;
-    float momentum_drag_coefficient;
-    float diagonal_size;
+    float mot_pwm_min = 0.0f;
+    float mot_pwm_max = 0.0f;
+    float mot_spin_min = 0.0f;
+    float mot_spin_max = 0.0f;
+    float mot_expo = 0.0f;
+    float slew_max = 0.0f;
+    float current = 0.0f;
+    float power_factor = 0.0f;
+    float voltage_max = 0.0f;
+    float effective_prop_area = 0.0f;
+    float max_outflow_velocity = 0.0f;
+    float true_prop_area = 0.0f;
+    float momentum_drag_coefficient = 0.0f;
+    float diagonal_size = 0.0f;
 
-    float last_command;
-    uint64_t last_calc_us;
+    float last_command = 0.0f;
+    uint64_t last_calc_us = 0;
 
     Vector3f position;
     Vector3f thrust_vector;

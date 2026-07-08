@@ -57,7 +57,7 @@ protected:
     //  pwm value is an actual pwm value that will be output, normally in the range of 1000 ~ 2000
     virtual void        _output_test_seq(uint8_t motor_seq, int16_t pwm) override;
 
-    int16_t             _throttle_radio_output;   // total throttle pwm value, summed onto throttle channel minimum, typically ~1100-1900
-    float               _actuator_out[NUM_ACTUATORS]; // combined roll, pitch, yaw and throttle outputs to motors in 0~1 range
-    float               _thrust_out;
+    int16_t             _throttle_radio_output{0};   // total throttle pwm value, summed onto throttle channel minimum, typically ~1100-1900
+    float               _actuator_out[NUM_ACTUATORS]{}; // combined roll, pitch, yaw and throttle outputs to motors in 0~1 range
+    float               _thrust_out{0.0f};
 };

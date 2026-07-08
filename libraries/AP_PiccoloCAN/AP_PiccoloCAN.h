@@ -107,10 +107,10 @@ private:
     bool handle_ecu_message(AP_HAL::CANFrame &frame);
 #endif
 
-    bool _initialized;
-    char _thread_name[16];
-    uint8_t _driver_index;
-    AP_HAL::CANIface* _can_iface;
+    bool _initialized{false};
+    char _thread_name[16]{};
+    uint8_t _driver_index{0};
+    AP_HAL::CANIface* _can_iface{nullptr};
     HAL_BinarySemaphore sem_handle;
 
     AP_PiccoloCAN_Servo _servos[PICCOLO_CAN_MAX_NUM_SERVO];
@@ -119,7 +119,7 @@ private:
     struct CurrawongECU_Info_t {
         float command;
         bool newCommand;
-    } _ecu_info;
+    } _ecu_info{};
 
     // Piccolo CAN parameters
     AP_Int32 _esc_bm;       //!< ESC selection bitmask

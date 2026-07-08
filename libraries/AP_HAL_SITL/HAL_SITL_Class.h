@@ -52,11 +52,11 @@ private:
     static void exit_signal_handler(int);
 
     bool storage_posix_enabled = true;
-    bool storage_flash_enabled;
-    bool storage_fram_enabled;
+    bool storage_flash_enabled = false;
+    bool storage_fram_enabled = false;
 
     // set to true if simulation is to wipe storage as it is opened:
-    bool wipe_storage;
+    bool wipe_storage = false;
 };
 
 #if HAL_NUM_CAN_IFACES

@@ -9,6 +9,13 @@ Manages the estimation of aircraft total energy, drag and vertical air velocity.
 
 Variometer::Variometer(const AP_FixedWing &parms, const PolarParams &polarParams) :
     _aparm(parms),
+    _prev_update_time(0),
+    _raw_climb_rate(0.0f),
+    _aspd_filt_constrained(0.0f),
+    _expected_thermalling_sink(0.0f),
+    alt(0.0f),
+    reading(0.0f),
+    tau(0.0f),
     _polarParams(polarParams)
 {
 }

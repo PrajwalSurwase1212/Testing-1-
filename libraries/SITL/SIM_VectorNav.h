@@ -41,9 +41,9 @@ public:
     void update(void);
 
 private:
-    uint32_t last_imu_pkt_us;
-    uint32_t last_ekf_pkt_us;
-    uint32_t last_gnss_pkt_us;
+    uint32_t last_imu_pkt_us{0};
+    uint32_t last_ekf_pkt_us{0};
+    uint32_t last_gnss_pkt_us{0};
 
     void send_imu_packet();
     void send_ins_ekf_packet();

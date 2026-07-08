@@ -56,14 +56,14 @@ public:
     struct Status_t {
         Servo_StatusA_t statusA;
         Servo_StatusB_t statusB;
-    } status;
+    } status{};
 
     // Settings information
     struct Settings_t {
         Servo_Firmware_t firmware;
         Servo_Address_t address;
         Servo_SettingsInfo_t settings;
-    } settings;
+    } settings{};
 };
 
 #endif // HAL_PICCOLO_CAN_ENABLE

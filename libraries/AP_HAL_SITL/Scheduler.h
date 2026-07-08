@@ -72,7 +72,7 @@ public:
 
 private:
     SITL_State *_sitlState;
-    uint8_t _nested_atomic_ctr;
+    uint8_t _nested_atomic_ctr = 0;
     static AP_HAL::Proc _failsafe;
 
     static void _run_timer_procs();
@@ -94,10 +94,10 @@ private:
     static void *thread_create_trampoline(void *ctx);
     static void check_thread_stacks(void);
     
-    bool _initialized;
-    uint64_t _stopped_clock_usec;
-    uint64_t _last_io_run;
-    pthread_t _main_ctx;
+    bool _initialized = false;
+    uint64_t _stopped_clock_usec = 0;
+    uint64_t _last_io_run = 0;
+    pthread_t _main_ctx {};
 
     static HAL_Semaphore _thread_sem;
     struct thread_attr {

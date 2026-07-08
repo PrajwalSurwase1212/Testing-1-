@@ -121,8 +121,8 @@ protected:
     char u_icon(enum unit_type unit);
     float u_scale(enum unit_type unit, float value);
 
-    AP_OSD_Backend *backend;
-    AP_OSD *osd;
+    AP_OSD_Backend *backend = nullptr;
+    AP_OSD *osd = nullptr;
 
     static uint8_t symbols_lookup_table[AP_OSD_NUM_SYMBOLS];
 };
@@ -352,7 +352,7 @@ private:
     struct {
         bool load_attempted;
         const char *str;
-    } callsign_data;
+    } callsign_data{};
 };
 #endif // OSD_ENABLED
 
@@ -391,10 +391,10 @@ public:
     AP_Enum<Type> _type;
 
     // parameter number
-    uint8_t _param_number;
-    AP_Param* _param;
-    ap_var_type _param_type;
-    AP_Param::ParamToken _current_token;
+    uint8_t _param_number = 0;
+    AP_Param* _param = nullptr;
+    ap_var_type _param_type = AP_PARAM_NONE;
+    AP_Param::ParamToken _current_token{};
 
     // structure to contain setting constraints for important settings
     struct ParamMetadata {
@@ -441,12 +441,12 @@ public:
     static const struct AP_Param::GroupInfo var_info[];
 
 private:
-    float default_enabled;
-    float default_ypos;
-    float default_param_group;
-    float default_param_idx;
-    float default_param_key;
-    float default_type;
+    float default_enabled = 0.0f;
+    float default_ypos = 0.0f;
+    float default_param_group = 0.0f;
+    float default_param_idx = 0.0f;
+    float default_param_key = 0.0f;
+    float default_type = 0.0f;
 
 };
 
@@ -510,13 +510,13 @@ private:
     Event _last_rc_event = Event::NONE;
 
     // start time of the current button press
-    uint32_t _transition_start_ms;
+    uint32_t _transition_start_ms{0};
     // timeout of the current button press
-    uint32_t _transition_timeout_ms;
+    uint32_t _transition_timeout_ms{0};
     // number of consecutive times the current transition has happened
-    uint32_t _transition_count;
+    uint32_t _transition_count{0};
 #endif
-    uint16_t _requires_save;
+    uint16_t _requires_save{0};
 };
 
 #endif // OSD_PARAM_ENABLED
@@ -715,8 +715,8 @@ private:
 
     StatsInfo _stats;
 #endif
-    AP_OSD_Backend *_backends[OSD_MAX_INSTANCES];
-    uint8_t _backend_count;
+    AP_OSD_Backend *_backends[OSD_MAX_INSTANCES]{};
+    uint8_t _backend_count{0};
 
     static AP_OSD *_singleton;
     // multi-thread access support

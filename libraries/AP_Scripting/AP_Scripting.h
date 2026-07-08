@@ -96,13 +96,13 @@ public:
     uint16_t get_disabled_dir() { return uint16_t(_dir_disable.get());}
 
     // the number of and storage for i2c devices
-    uint8_t num_i2c_devices;
-    AP_HAL::I2CDevice *_i2c_dev[SCRIPTING_MAX_NUM_I2C_DEVICE];
+    uint8_t num_i2c_devices{0};
+    AP_HAL::I2CDevice *_i2c_dev[SCRIPTING_MAX_NUM_I2C_DEVICE]{};
 
 #if AP_SCRIPTING_CAN_SENSOR_ENABLED
     // Scripting CAN sensor
-    ScriptingCANSensor *_CAN_dev;
-    ScriptingCANSensor *_CAN_dev2;
+    ScriptingCANSensor *_CAN_dev{nullptr};
+    ScriptingCANSensor *_CAN_dev2{nullptr};
 #endif
 
 #if AP_MISSION_ENABLED
@@ -115,18 +115,18 @@ public:
         float content_p3;
         uint32_t time_ms;
     };
-    ObjectBuffer<struct scripting_mission_cmd> * mission_data;
+    ObjectBuffer<struct scripting_mission_cmd> * mission_data{nullptr};
 #endif
 
     // PWMSource storage
-    uint8_t num_pwm_source;
-    AP_HAL::PWMSource *_pwm_source[SCRIPTING_MAX_NUM_PWM_SOURCE];
+    uint8_t num_pwm_source{0};
+    AP_HAL::PWMSource *_pwm_source[SCRIPTING_MAX_NUM_PWM_SOURCE]{};
     int get_current_env_ref() { return current_env_ref; }
     void set_current_env_ref(int ref) { current_env_ref = ref; }
 
 #if AP_NETWORKING_ENABLED
     // SocketAPM storage
-    SocketAPM *_net_sockets[SCRIPTING_MAX_NUM_NET_SOCKET];
+    SocketAPM *_net_sockets[SCRIPTING_MAX_NUM_NET_SOCKET]{};
 #endif
 
     struct mavlink_msg {
@@ -136,9 +136,9 @@ public:
     };
 
     struct mavlink {
-        ObjectBuffer<struct mavlink_msg> *rx_buffer;
-        uint32_t *accept_msg_ids;
-        uint16_t accept_msg_ids_size;
+        ObjectBuffer<struct mavlink_msg> *rx_buffer{nullptr};
+        uint32_t *accept_msg_ids{nullptr};
+        uint16_t accept_msg_ids_size{0};
         HAL_Semaphore sem;
     } mavlink_data;
 
@@ -146,7 +146,7 @@ public:
         uint16_t id;
         command_block_list *next;
     };
-    command_block_list *mavlink_command_block_list;
+    command_block_list *mavlink_command_block_list{nullptr};
     HAL_Semaphore mavlink_command_block_list_sem;
 
     #if AP_SCRIPTING_SERIALDEVICE_ENABLED
@@ -204,13 +204,13 @@ private:
         _debug_options.set_and_save(_debug_options.get() & ~uint8_t(option));
     }
 
-    bool _thread_failed; // thread allocation failed
-    bool _init_failed;  // true if memory allocation failed
-    bool _restart; // true if scripts should be restarted
-    bool _stop; // true if scripts should be stopped
+    bool _thread_failed{false}; // thread allocation failed
+    bool _init_failed{false};  // true if memory allocation failed
+    bool _restart{false}; // true if scripts should be restarted
+    bool _stop{false}; // true if scripts should be stopped
 
     static AP_Scripting *_singleton;
-    int current_env_ref;
+    int current_env_ref{0};
 };
 
 namespace AP {

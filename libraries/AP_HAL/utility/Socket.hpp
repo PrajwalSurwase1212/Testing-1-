@@ -98,7 +98,7 @@ private:
     bool datagram;
     // we avoid using struct sockaddr_in here to keep support for
     // mixing native sockets and lwip sockets in SITL
-    uint32_t last_in_addr[4];
+    uint32_t last_in_addr[4] {};
     bool is_multicast_address(struct sockaddr_in &addr) const;
 
     int fd = -1;
@@ -106,9 +106,9 @@ private:
     // fd_in is used for multicast UDP
     int fd_in = -1;
 
-    bool connected;
+    bool connected = false;
 
-    bool pending_connect;
+    bool pending_connect = false;
 
     void make_sockaddr(const char *address, uint16_t port, struct sockaddr_in &sockaddr);
 };

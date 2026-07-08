@@ -111,11 +111,11 @@ private:
     gimbal_state_t _state;
 
     struct {
-        float delta_time;
+        float delta_time{};
         Vector3f delta_angles;
         Vector3f delta_velocity;
         Vector3f joint_angles;
-    } _measurement;
+    } _measurement{};
 
     float _vehicle_yaw_rate_ef_filt;
 

@@ -84,7 +84,7 @@ public:
 
 private:
 
-    AP_Gripper_Backend *backend;
+    AP_Gripper_Backend *backend = nullptr;
 };
 
 namespace AP {

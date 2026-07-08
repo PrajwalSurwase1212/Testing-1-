@@ -29,6 +29,18 @@ public:
     AP_Tuning(const struct tuning_set *sets, const struct tuning_name *names) :
         tuning_sets(sets),
         tuning_names(names) {
+        selector_start_ms = 0;
+        mid_point_wait = false;
+        last_channel_value = 0.0f;
+        center_value = 0.0f;
+        last_check_ms = 0;
+        old_value = 0.0f;
+        current_parm = 0;
+        current_parm_index = 0;
+        current_set = 0;
+        changed = false;
+        need_revert = 0;
+        last_flightmode = 0;
         AP_Param::setup_object_defaults(this, var_info);
     }
     

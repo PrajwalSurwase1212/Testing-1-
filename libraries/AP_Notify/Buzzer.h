@@ -58,11 +58,11 @@ private:
         uint8_t ekf_bad             : 1;    // 1 if ekf position has gone bad
         uint8_t gyro_calibrated     : 1;    // 1 if calibrating gyro
         uint8_t pre_arm_check       : 1;    // 1 if pre-arm check has passed
-    } _flags;
+    } _flags{};
 
-    uint32_t _pattern;           // current pattern
-    int8_t _pin;
-    uint32_t _pattern_start_time;
+    uint32_t _pattern{};           // current pattern
+    int8_t _pin{-1};
+    uint32_t _pattern_start_time{};
 
     // enforce minumum 100ms interval between patterns:
     const uint16_t _pattern_start_interval_time_ms = 32*100 + 100;

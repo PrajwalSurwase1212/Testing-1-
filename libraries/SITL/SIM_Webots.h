@@ -74,17 +74,17 @@ private:
 
     // buffer for parsing pose data in JSON format
     uint8_t sensor_buffer[50000];
-    uint32_t sensor_buffer_len;
+    uint32_t sensor_buffer_len{0};
 
-    SocketAPM_native *sim_sock;
+    SocketAPM_native *sim_sock{nullptr};
 
-    uint32_t connect_counter;
+    uint32_t connect_counter{0};
 
-    uint64_t socket_frame_counter;
-    uint64_t last_socket_frame_counter;
-    uint64_t frame_counter;
+    uint64_t socket_frame_counter{0};
+    uint64_t last_socket_frame_counter{0};
+    uint64_t frame_counter{0};
     
-    double last_frame_count_s;
+    double last_frame_count_s{0.0};
 
     enum data_type {
         DATA_FLOAT,

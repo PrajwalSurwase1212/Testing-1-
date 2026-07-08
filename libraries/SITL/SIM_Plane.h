@@ -42,8 +42,8 @@ public:
 
 protected:
     const float hover_throttle = 0.7f;
-    float angle_of_attack;
-    float beta;
+    float angle_of_attack{0.0f};
+    float beta{0.0f};
 
     const struct Coefficients {
         // from last_letter skywalker_2013/aerodynamics.yaml
@@ -93,22 +93,22 @@ protected:
 
     struct Coefficients coefficient;
 
-    float thrust_scale;
-    bool reverse_thrust;
-    bool elevons;
-    bool vtail;
-    bool dspoilers;
-    bool redundant;
-    bool reverse_elevator_rudder;
-    bool ice_engine;
-    bool tailsitter;
-    bool aerobatic;
-    bool copter_tailsitter;
-    bool have_launcher;
-    bool have_steering;
-    float launch_accel;
-    float launch_time;
-    uint64_t launch_start_ms;
+    float thrust_scale{0.0f};
+    bool reverse_thrust{false};
+    bool elevons{false};
+    bool vtail{false};
+    bool dspoilers{false};
+    bool redundant{false};
+    bool reverse_elevator_rudder{false};
+    bool ice_engine{false};
+    bool tailsitter{false};
+    bool aerobatic{false};
+    bool copter_tailsitter{false};
+    bool have_launcher{false};
+    bool have_steering{false};
+    float launch_accel{0.0f};
+    float launch_time{0.0f};
+    uint64_t launch_start_ms{0};
 
     const uint8_t throttle_servo = 2;
     const int8_t choke_servo = 14;

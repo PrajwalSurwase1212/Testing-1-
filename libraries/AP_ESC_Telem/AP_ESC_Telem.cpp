@@ -686,9 +686,9 @@ void AP_ESC_Telem::update()
                 _last_rpm_log_us[i] = rpmdata.last_update_us;
 
                 float rpm = AP::logger().quiet_nanf();
-                get_rpm(i, rpm);
+                (void)get_rpm(i, rpm);
                 float raw_rpm = AP::logger().quiet_nanf();
-                get_raw_rpm(i, raw_rpm);
+                (void)get_raw_rpm(i, raw_rpm);
 
                 // Write ESC status messages
                 //   id starts from 0

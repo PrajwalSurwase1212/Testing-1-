@@ -57,12 +57,12 @@ private:
     
     Vector3f last_accels;
 
-    float learn_temp_start;
-    float learn_temp_step;
-    uint16_t learn_count;
-    uint16_t learn_i;
-    float *learn_values;
-    uint32_t last_learn_ms;
+    float learn_temp_start{0.0f};
+    float learn_temp_step{0.0f};
+    uint16_t learn_count{0};
+    uint16_t learn_i{0};
+    float *learn_values{nullptr};
+    uint32_t last_learn_ms{0};
 
     // temperature at which baro correction starts
     const float Tzero = 25;

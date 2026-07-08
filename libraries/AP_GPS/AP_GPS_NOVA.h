@@ -45,11 +45,11 @@ private:
     static const uint8_t NOVA_PREAMBLE3 = 0x12;
 
     // do we have new position information?
-    bool            _new_position:1;
+    bool            _new_position = false;
     // do we have new speed information?
-    bool            _new_speed:1;
+    bool            _new_speed = false;
     
-    uint32_t        _last_vel_time;
+    uint32_t        _last_vel_time = 0;
     
     uint8_t _init_blob_index = 0;
     uint32_t _init_blob_time = 0;
@@ -169,12 +169,12 @@ private:
             CRC2,
             CRC3,
             CRC4,
-        } nova_state;
+        } nova_state = PREAMBLE1;
         
-        msgbuffer data;
-        uint32_t crc;
-        msgheader header;
-        uint16_t read;
-    } nova_msg;
+        msgbuffer data {};
+        uint32_t crc = 0;
+        msgheader header {};
+        uint16_t read = 0;
+    } nova_msg {};
 };
 #endif

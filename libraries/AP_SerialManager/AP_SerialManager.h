@@ -159,7 +159,7 @@ public:
         AP_Int8 protocol;
 
         // serial index number
-        uint8_t idx;
+        uint8_t idx{0};
 
 #if HAL_LOGGING_ENABLED && HAL_UART_STATS_ENABLED
         AP_HAL::UARTDriver::StatsTracker stats;
@@ -197,7 +197,7 @@ public:
         RegisteredPort *next;
         UARTState state;
     };
-    RegisteredPort *registered_ports;
+    RegisteredPort *registered_ports{nullptr};
     HAL_Semaphore port_sem;
 
     // register an externally managed port
@@ -206,7 +206,7 @@ public:
 #if HAL_LOGGING_ENABLED && HAL_UART_STATS_ENABLED
     // Log UART message for each registered serial port
     void registered_ports_log();
-    uint32_t registered_ports_last_log_ms;
+    uint32_t registered_ports_last_log_ms{0};
 #endif
 
 #endif // AP_SERIALMANAGER_REGISTER_ENABLED
@@ -230,7 +230,7 @@ private:
     // setup any special options
     void set_options(uint16_t i);
 
-    bool init_console_done;
+    bool init_console_done{false};
 
     void convert_parameters();
 };

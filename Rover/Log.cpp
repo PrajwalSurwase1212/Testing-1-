@@ -216,7 +216,7 @@ void Rover::Log_Write_Throttle()
 {
     const Vector3f accel = ins.get_accel();
     float speed = logger.quiet_nanf();
-    g2.attitude_control.get_forward_speed(speed);
+    (void)g2.attitude_control.get_forward_speed(speed);
     struct log_Throttle pkt = {
         LOG_PACKET_HEADER_INIT(LOG_THR_MSG),
         time_us         : AP_HAL::micros64(),

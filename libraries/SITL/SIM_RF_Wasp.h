@@ -61,7 +61,7 @@ private:
         int medf;
         int avg;
         int auv;
-    } config;
+    } config{};
 
     const struct {
         const char *name;
@@ -84,7 +84,7 @@ private:
     };
 
     char _buffer[256]; // from-autopilot
-    uint8_t _buflen;
+    uint8_t _buflen{0};
 
 };
 

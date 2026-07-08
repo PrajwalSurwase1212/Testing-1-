@@ -315,9 +315,9 @@ protected:
     AP_Mount_Params _params[AP_MOUNT_MAX_INSTANCES];
 
     // front end members
-    uint8_t             _num_instances;     // number of mounts instantiated
-    uint8_t             _primary;           // primary mount
-    AP_Mount_Backend    *_backends[AP_MOUNT_MAX_INSTANCES];         // pointers to instantiated mounts
+    uint8_t             _num_instances{0};     // number of mounts instantiated
+    uint8_t             _primary{0};           // primary mount
+    AP_Mount_Backend    *_backends[AP_MOUNT_MAX_INSTANCES]{};         // pointers to instantiated mounts
 
 private:
     // Check if instance backend is ok

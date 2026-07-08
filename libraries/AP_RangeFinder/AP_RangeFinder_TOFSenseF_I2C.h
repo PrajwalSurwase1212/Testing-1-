@@ -37,8 +37,8 @@ private:
     bool init(void);
     void timer(void);
 
-    uint32_t distance_mm;
-    bool new_distance; // true if we have a new distance
+    uint32_t distance_mm{0};
+    bool new_distance{false}; // true if we have a new distance
 
     // get a reading
     bool start_reading(void);

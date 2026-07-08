@@ -41,7 +41,7 @@ public:
     // logging functions
     void Log_Write_TEMP() const;
 
-    AP_HAL::Device *_dev;
+    AP_HAL::Device *_dev{nullptr};
 
 
 protected:

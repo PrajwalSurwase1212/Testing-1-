@@ -217,10 +217,10 @@ private:
 #endif
     } param;
 
-    AP_Networking_Backend *backend;
+    AP_Networking_Backend *backend{nullptr};
 
 #if AP_NETWORKING_PPP_GATEWAY_ENABLED
-    AP_Networking_Backend *backend_PPP;
+    AP_Networking_Backend *backend_PPP{nullptr};
 #endif
 
     HAL_Semaphore sem;
@@ -244,11 +244,11 @@ private:
 
         static const struct AP_Param::GroupInfo var_info[];
         AP_Enum<NetworkPortType> type_param;
-        NetworkPortType type;
+        NetworkPortType type{NetworkPortType::NONE};
         AP_Networking_IPV4 ip {"0.0.0.0"};
         AP_Int32 port;
-        SocketAPM *sock;
-        SocketAPM *listen_sock;
+        SocketAPM *sock{nullptr};
+        SocketAPM *listen_sock{nullptr};
 
         bool is_initialized() override {
             return true;
@@ -288,22 +288,22 @@ private:
             return 1000000UL;
         }
 
-        ByteBuffer *readbuffer;
-        ByteBuffer *writebuffer;
-        char thread_name[10];
-        uint32_t last_size_tx;
-        uint32_t last_size_rx;
-        bool packetise;
-        bool connected;
-        uint32_t last_udp_connect_address;
-        uint16_t last_udp_connect_port;
-        bool have_received;
-        bool close_on_recv_error;
-        uint32_t last_udp_srv_recv_time_ms;
+        ByteBuffer *readbuffer{nullptr};
+        ByteBuffer *writebuffer{nullptr};
+        char thread_name[10]{};
+        uint32_t last_size_tx{0};
+        uint32_t last_size_rx{0};
+        bool packetise{false};
+        bool connected{false};
+        uint32_t last_udp_connect_address{0};
+        uint16_t last_udp_connect_port{0};
+        bool have_received{false};
+        bool close_on_recv_error{false};
+        uint32_t last_udp_srv_recv_time_ms{0};
 
         // statistics
-        uint32_t tx_stats_bytes;
-        uint32_t rx_stats_bytes;
+        uint32_t tx_stats_bytes{0};
+        uint32_t rx_stats_bytes{0};
 
         HAL_Semaphore sem;
 
@@ -317,7 +317,7 @@ private:
 #endif // AP_NETWORKING_REGISTER_PORT_ENABLED
 
 private:
-    uint32_t announce_ms;
+    uint32_t announce_ms{0};
 
 #if AP_NETWORKING_TESTS_ENABLED
     enum {
@@ -346,15 +346,15 @@ private:
 
     // support for sendfile()
     struct SendFile {
-        SocketAPM *sock;
-        int fd;
+        SocketAPM *sock{nullptr};
+        int fd{-1};
         void close(void);
-    } sendfiles[AP_NETWORKING_NUM_SENDFILES];
+    } sendfiles[AP_NETWORKING_NUM_SENDFILES]{};
 
-    uint8_t *sendfile_buf;
-    uint32_t sendfile_bufsize;
+    uint8_t *sendfile_buf{nullptr};
+    uint32_t sendfile_bufsize{0};
     void sendfile_check(void);
-    bool sendfile_thread_started;
+    bool sendfile_thread_started{false};
 
     void ports_init(void);
 };

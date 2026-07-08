@@ -78,9 +78,9 @@ private:
     } pkt;
 
     struct {
-        uint32_t last_report_ms;
-        uint32_t data_count;
-        uint32_t frame_count;
+        uint32_t last_report_ms{0};
+        uint32_t data_count{0};
+        uint32_t frame_count{0};
     } report;
 
     bool recv_fdm(void);

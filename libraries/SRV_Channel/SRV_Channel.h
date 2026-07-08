@@ -322,7 +322,7 @@ private:
     AP_Enum16<Function> function;
 
     // a pending output value as PWM
-    uint16_t output_pwm;
+    uint16_t output_pwm{0};
 
     // true for angle output type
     bool type_angle:1;
@@ -331,10 +331,10 @@ private:
     bool type_setup:1;
 
     // the hal channel number
-    uint8_t ch_num;
+    uint8_t ch_num{0};
 
     // high point of angle or range output
-    uint16_t high_out;
+    uint16_t high_out{0};
 
     // convert a 0..range_max to a pwm
     uint16_t pwm_from_range(float scaled_value) const;
@@ -365,14 +365,14 @@ private:
     static servo_mask_t have_pwm_mask;
 
     // previous radio_in during pass-thru
-    int16_t previous_radio_in;
+    int16_t previous_radio_in{0};
 
     // specify that small rcinput changes should be ignored during passthrough
     // used by DO_SET_SERVO commands
-    bool ign_small_rcin_changes;
+    bool ign_small_rcin_changes{false};
 
     // if true we should ignore all imputs on this channel
-    bool override_active;
+    bool override_active{false};
 
     void set_override(bool b) {override_active = b;};
 };
@@ -711,9 +711,9 @@ private:
     struct slew_list {
         slew_list(SRV_Channel::Function _func) : func(_func) {};
         const SRV_Channel::Function func;
-        float last_scaled_output;
-        float max_change;
-        slew_list * next;
+        float last_scaled_output{0.0f};
+        float max_change{0.0f};
+        slew_list * next{nullptr};
     };
     static slew_list *_slew;
 

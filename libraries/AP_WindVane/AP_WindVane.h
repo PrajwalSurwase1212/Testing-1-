@@ -122,8 +122,8 @@ private:
     AP_Float _speed_filt_hz;                        // speed sensor low pass filter frequency
     AP_Float _true_filt_hz;                         // true wind speed and direction low pass filter frequency
 
-    AP_WindVane_Backend *_direction_driver;
-    AP_WindVane_Backend *_speed_driver;
+    AP_WindVane_Backend *_direction_driver{nullptr};
+    AP_WindVane_Backend *_speed_driver{nullptr};
 
     // update wind speed sensor
     void update_apparent_wind_speed();
@@ -138,11 +138,11 @@ private:
     void update_apparent_wind_dir_from_true();
 
     // wind direction variables
-    float _direction_apparent_raw;                  // wind's apparent direction in radians (0 = ahead of vehicle) in body frame
-    float _direction_apparent;                      // wind's apparent direction in radians (0 = ahead of vehicle) in body frame - filtered
-    float _direction_true_raw;                      // wind's true direction in radians (0 = North)
-    float _direction_true;                          // wind's true direction in radians (0 = North) - filtered
-    float _direction_tack;                          // filtered apparent wind used to determin the current tack
+    float _direction_apparent_raw{0.0f};                  // wind's apparent direction in radians (0 = ahead of vehicle) in body frame
+    float _direction_apparent{0.0f};                      // wind's apparent direction in radians (0 = ahead of vehicle) in body frame - filtered
+    float _direction_true_raw{0.0f};                      // wind's true direction in radians (0 = North)
+    float _direction_true{0.0f};                          // wind's true direction in radians (0 = North) - filtered
+    float _direction_tack{0.0f};                          // filtered apparent wind used to determin the current tack
     LowPassFilterFloat _direction_apparent_sin_filt{2.0f};
     LowPassFilterFloat _direction_apparent_cos_filt{2.0f};
     LowPassFilterFloat _direction_true_sin_filt{2.0f};
@@ -151,18 +151,18 @@ private:
     LowPassFilterFloat _tack_cos_filt{0.1f};
 
     // wind speed variables
-    float _speed_apparent_raw;                      // wind's apparent speed in m/s
-    float _speed_apparent;                          // wind's apparent speed in m/s - filtered
-    float _speed_true_raw;                          // wind's true estimated speed in m/s
-    float _speed_true;                              // wind's true estimated speed in m/s - filtered
+    float _speed_apparent_raw{0.0f};                      // wind's apparent speed in m/s
+    float _speed_apparent{0.0f};                          // wind's apparent speed in m/s - filtered
+    float _speed_true_raw{0.0f};                          // wind's true estimated speed in m/s
+    float _speed_true{0.0f};                              // wind's true estimated speed in m/s - filtered
     LowPassFilterFloat _speed_apparent_filt{2.0f};
     LowPassFilterFloat _speed_true_filt{2.0f};
 
     // current tack
-    Sailboat_Tack _current_tack;
+    Sailboat_Tack _current_tack{Sailboat_Tack::TACK_PORT};
 
     // heading in radians recorded when vehicle was armed
-    float _home_heading;
+    float _home_heading{0.0f};
 
     enum WindVaneType {
         WINDVANE_NONE           = 0,

@@ -17,11 +17,11 @@ public:
 
 private:
 
-    uint32_t last_flow_ms;
+    uint32_t last_flow_ms{0};
 
-    uint8_t next_optflow_index;
-    uint8_t optflow_delay;
-    AP_OpticalFlow::OpticalFlow_state optflow_data[20];
+    uint8_t next_optflow_index{0};
+    uint8_t optflow_delay{0};
+    AP_OpticalFlow::OpticalFlow_state optflow_data[20]{};
 };
 
 #endif  // AP_OPTICALFLOW_SITL_ENABLED

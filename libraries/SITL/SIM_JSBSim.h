@@ -56,7 +56,7 @@ private:
     uint16_t fdm_port;
     char *jsbsim_script;
     char *jsbsim_fgout;
-    int jsbsim_stdout;
+    int jsbsim_stdout{-1};
 
     // default JSBSim model
     const char *jsbsim_model = "Rascal";

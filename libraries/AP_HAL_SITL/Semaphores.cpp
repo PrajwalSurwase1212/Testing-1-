@@ -10,7 +10,9 @@ extern const AP_HAL::HAL& hal;
 using namespace HALSITL;
 
 // construct a semaphore
-Semaphore::Semaphore()
+Semaphore::Semaphore() :
+    owner((pthread_t)-1),
+    take_count(0)
 {
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);

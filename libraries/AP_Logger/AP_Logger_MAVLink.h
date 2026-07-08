@@ -90,37 +90,37 @@ private:
     uint8_t stack_size(struct dm_block *stack);
     uint8_t queue_size(dm_block_queue_t queue);
     
-    struct dm_block *_blocks_free;
-    dm_block_queue_t _blocks_sent;
-    dm_block_queue_t _blocks_pending;
-    dm_block_queue_t _blocks_retry;
+    struct dm_block *_blocks_free{nullptr};
+    dm_block_queue_t _blocks_sent{};
+    dm_block_queue_t _blocks_pending{};
+    dm_block_queue_t _blocks_retry{};
 
     struct _stats {
         // the following are reset any time we log stats (see "reset_stats")
-        uint32_t resends;
-        uint8_t collection_count;
-        uint16_t state_free; // cumulative across collection period
-        uint8_t state_free_min;
-        uint8_t state_free_max;
-        uint16_t state_pending; // cumulative across collection period
-        uint8_t state_pending_min;
-        uint8_t state_pending_max;
-        uint16_t state_retry; // cumulative across collection period
-        uint8_t state_retry_min;
-        uint8_t state_retry_max;
-        uint16_t state_sent; // cumulative across collection period
-        uint8_t state_sent_min;
-        uint8_t state_sent_max;
-    } stats;
+        uint32_t resends{0};
+        uint8_t collection_count{0};
+        uint16_t state_free{0}; // cumulative across collection period
+        uint8_t state_free_min{0};
+        uint8_t state_free_max{0};
+        uint16_t state_pending{0}; // cumulative across collection period
+        uint8_t state_pending_min{0};
+        uint8_t state_pending_max{0};
+        uint16_t state_retry{0}; // cumulative across collection period
+        uint8_t state_retry_min{0};
+        uint8_t state_retry_max{0};
+        uint16_t state_sent{0}; // cumulative across collection period
+        uint8_t state_sent_min{0};
+        uint8_t state_sent_max{0};
+    } stats{};
 
     // this method is used when reporting system status over mavlink
     bool logging_enabled() const override { return true; }
     bool logging_failed() const override;
 
-    const GCS_MAVLINK *_link;
+    const GCS_MAVLINK *_link{nullptr};
 
-    uint8_t _target_system_id;
-    uint8_t _target_component_id;
+    uint8_t _target_system_id{0};
+    uint8_t _target_component_id{0};
 
     // this controls the maximum number of blocks we will push from
     // the pending and send queues in any call to push_log_blocks.
@@ -132,22 +132,22 @@ private:
     // time packing messages in any one loop
     const uint8_t _max_blocks_per_send_blocks;
     
-    uint32_t _next_seq_num;
-    uint16_t _latest_block_len;
-    uint32_t _last_response_time;
-    uint32_t _last_send_time;
-    uint8_t _next_block_number_to_resend;
-    bool _sending_to_client;
+    uint32_t _next_seq_num{0};
+    uint16_t _latest_block_len{0};
+    uint32_t _last_response_time{0};
+    uint32_t _last_send_time{0};
+    uint8_t _next_block_number_to_resend{0};
+    bool _sending_to_client{false};
 
     void Write_DMS(AP_Logger_MAVLink &logger);
 
     uint32_t bufferspace_available() override; // in bytes
     uint8_t remaining_space_in_current_block() const;
     // write buffer
-    uint8_t _blockcount_free;
-    uint8_t _blockcount;
-    struct dm_block *_blocks;
-    struct dm_block *_current_block;
+    uint8_t _blockcount_free{0};
+    uint8_t _blockcount{0};
+    struct dm_block *_blocks{nullptr};
+    struct dm_block *_current_block{nullptr};
     struct dm_block *next_block();
 
     void periodic_10Hz(uint32_t now) override;
@@ -157,9 +157,9 @@ private:
     void stats_reset();
     void stats_collect();
     void stats_log();
-    uint32_t _stats_last_collected_time;
-    uint32_t _stats_last_logged_time;
-    uint8_t mavlink_seq;
+    uint32_t _stats_last_collected_time{0};
+    uint32_t _stats_last_logged_time{0};
+    uint8_t mavlink_seq{0};
 
     /* we currently ignore requests to start a new log.  Notionally we
      * could close the currently logging session and hope the client

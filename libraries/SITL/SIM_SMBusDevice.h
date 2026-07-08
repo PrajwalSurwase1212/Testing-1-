@@ -49,8 +49,8 @@ private:
     Bitmask<256> readable_blocks;
 
     // 256 pointers-to-malloced-values:
-    char *values[256];
-    uint8_t value_lengths[256];
+    char *values[256]{};
+    uint8_t value_lengths[256]{};
 };
 
 } // namespace SITL

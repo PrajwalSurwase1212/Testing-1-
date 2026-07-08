@@ -166,7 +166,7 @@ private:
 
     // This is the state of the flight control system
     // There are multiple states defined such as STABILIZE, ACRO,
-    Mode::Number control_mode;
+    Mode::Number control_mode{Mode::Number::MANUAL};
     ModeReason control_mode_reason = ModeReason::UNKNOWN;
 
     RCMapper rcmap;

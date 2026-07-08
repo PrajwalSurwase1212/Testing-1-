@@ -63,20 +63,20 @@ public:
     }
 
 private:
-    uint16_t loop_rate_hz;
-    uint16_t overtime_threshold_micros;
-    uint16_t loop_count;
-    uint32_t max_time; // in microseconds
-    uint32_t min_time; // in microseconds
-    uint64_t sigma_time;
-    uint64_t sigmasquared_time;
-    uint16_t long_running;
-    uint32_t last_check_us;
-    float filtered_loop_time;
-    bool ignore_loop;
+    uint16_t loop_rate_hz{0};
+    uint16_t overtime_threshold_micros{0};
+    uint16_t loop_count{0};
+    uint32_t max_time{0}; // in microseconds
+    uint32_t min_time{0}; // in microseconds
+    uint64_t sigma_time{0};
+    uint64_t sigmasquared_time{0};
+    uint16_t long_running{0};
+    uint32_t last_check_us{0};
+    float filtered_loop_time{0.0f};
+    bool ignore_loop{false};
     // performance monitoring
-    uint8_t _num_tasks;
-    TaskInfo* _task_info;
+    uint8_t _num_tasks{0};
+    TaskInfo* _task_info{nullptr};
 };
 
 };

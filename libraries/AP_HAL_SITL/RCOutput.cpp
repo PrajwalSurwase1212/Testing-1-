@@ -131,6 +131,9 @@ bool RCOutput::set_serial_led_rgb_data(const uint16_t chan, int8_t led, uint8_t 
         return false;
     }
     SITL::SIM *sitl = AP::sitl();
+    if (sitl == nullptr) {
+        return false;
+    }
     if (led == -1) {
         for (uint8_t i=0; i < sitl->led.num_leds[chan]; i++) {
             set_serial_led_rgb_data(chan, i, red, green, blue);
@@ -140,11 +143,9 @@ bool RCOutput::set_serial_led_rgb_data(const uint16_t chan, int8_t led, uint8_t 
     if (led < -1 || led >= sitl->led.num_leds[chan]) {
         return false;
     }
-    if (sitl) {
-        sitl->led.rgb[chan][led].rgb[0] = red;
-        sitl->led.rgb[chan][led].rgb[1] = green;
-        sitl->led.rgb[chan][led].rgb[2] = blue;
-    }
+    sitl->led.rgb[chan][led].rgb[0] = red;
+    sitl->led.rgb[chan][led].rgb[1] = green;
+    sitl->led.rgb[chan][led].rgb[2] = blue;
     return true;
 }
 

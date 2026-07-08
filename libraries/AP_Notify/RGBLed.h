@@ -51,7 +51,7 @@ protected:
     void update_override();
     
     // meta-data common to all hw devices
-    uint8_t _red_curr, _green_curr, _blue_curr;  // current colours displayed by the led
+    uint8_t _red_curr{0}, _green_curr{0}, _blue_curr{0};  // current colours displayed by the led
     uint8_t _led_off;
     uint8_t _led_bright;
     uint8_t _led_medium;
@@ -61,7 +61,7 @@ protected:
         uint8_t r, g, b;
         uint8_t rate_hz;
         uint32_t start_ms;
-    } _led_override;
+    } _led_override{};
     
 private:
     void update_colours();
@@ -104,7 +104,7 @@ private:
     const uint32_t sequence_disarmed_good_gps_and_location = DEFINE_COLOUR_SEQUENCE_SLOW(GREEN);
     const uint32_t sequence_disarmed_bad_gps_or_no_location = DEFINE_COLOUR_SEQUENCE_SLOW(BLUE);
 
-    uint8_t last_step;
+    uint8_t last_step{0};
     enum class Source {
         standard = 0,
         mavlink = 1,

@@ -164,7 +164,7 @@ public:
     struct sitl_fdm state;
 
     // throttle when motors are active
-    float throttle;
+    float throttle{0.0f};
 
     static const struct AP_Param::GroupInfo var_info[];
     static const struct AP_Param::GroupInfo var_info2[];
@@ -394,9 +394,9 @@ public:
         WIND_TYPE_COEF = 2,
     };
     
-    float wind_speed_active;
-    float wind_direction_active;
-    float wind_dir_z_active;
+    float wind_speed_active{0.0f};
+    float wind_direction_active{0.0f};
+    float wind_dir_z_active{0.0f};
     AP_Float wind_speed;
     AP_Float wind_direction;
     AP_Float wind_turbulance;
@@ -462,7 +462,7 @@ public:
         AP_Float z;
         AP_Int32 t;
 
-        uint32_t start_ms;
+        uint32_t start_ms{0};
     } shove;
 
     struct {
@@ -471,7 +471,7 @@ public:
         AP_Float z;
         AP_Int32 t;
 
-        uint32_t start_ms;
+        uint32_t start_ms{0};
     } twist;
 
     AP_Int8 gnd_behav;
@@ -499,10 +499,10 @@ public:
         AP_Float hdg; // 0 to 360
     } opos;
 
-    uint16_t irlock_port;
-    uint16_t rcin_port;
+    uint16_t irlock_port{0};
+    uint16_t rcin_port{0};
 
-    time_t start_time_UTC;
+    time_t start_time_UTC{0};
 
     void simstate_send(mavlink_channel_t chan) const;
     void sim_state_send(mavlink_channel_t chan) const;
@@ -624,7 +624,7 @@ public:
     // Allow inhibiting of SITL only sim state messages over MAVLink
     // This gives more realistic data rates for testing links
     void set_stop_MAVLink_sim_state() { stop_MAVLink_sim_state = true; }
-    bool stop_MAVLink_sim_state;
+    bool stop_MAVLink_sim_state{false};
 
     /*
       used by scripting to control simulated aircraft position

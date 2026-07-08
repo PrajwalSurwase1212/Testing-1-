@@ -71,7 +71,7 @@ private:
     HAL_Semaphore rsem;
 
     source_type rtc_source_type = SOURCE_NONE;
-    int64_t rtc_shift;
+    int64_t rtc_shift{0};
 
     void clock_ms_to_hms_fields(const uint64_t time_ms, uint8_t &hour, uint8_t &min, uint8_t &sec, uint16_t &ms) const;
 

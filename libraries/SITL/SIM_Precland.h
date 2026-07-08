@@ -59,7 +59,7 @@ public:
     AP_Int8 _ship;
     AP_Enum<Option> _options;
 
-    bool _over_precland_base;
+    bool _over_precland_base{false};
 
     enum PreclandType {
         PRECLAND_TYPE_CYLINDER = 0,
@@ -71,12 +71,12 @@ public:
         return (_options & uint8_t(option)) != 0;
     }
 private:
-    uint32_t _last_update_ms;
-    bool _healthy;
+    uint32_t _last_update_ms{0};
+    bool _healthy{false};
     Vector3d _target_pos;
 
     // last time we warned user about needed to et lat/lng/alt:
-    uint32_t last_set_parameters_warning_ms;
+    uint32_t last_set_parameters_warning_ms{0};
 };
 
 }

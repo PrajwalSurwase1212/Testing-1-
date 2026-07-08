@@ -24,8 +24,7 @@ extern const AP_HAL::HAL& hal;
 namespace SITL {
 
 BalanceBot::BalanceBot(const char *frame_str) :
-    Aircraft(frame_str),
-    skid_turn_rate(0.15708) // meters/sec
+    Aircraft(frame_str)
 {
     dcm.from_euler(0,0,0); // initial yaw, pitch and roll in radians
     lock_step_scheduled = true;

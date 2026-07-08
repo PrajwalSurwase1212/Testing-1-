@@ -53,6 +53,10 @@ void GPS_FILE::publish(const GPS_Data *d)
             }
             return;
         }
+        if (header.n > 0xFFFF) {
+            // corrupt/truncated log data, resync
+            goto rewind_file;
+        }
         buf = NEW_NOTHROW uint8_t[header.n];
         if (buf != nullptr && ::read(fd[instance], buf, header.n) == ssize_t(header.n)) {
             write_to_autopilot((const char *)buf, header.n);

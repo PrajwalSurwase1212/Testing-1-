@@ -95,8 +95,8 @@ private:
     void move_preamble_in_buffer(uint8_t search_start_pos);
 
     uint8_t data_buff[48 * 3];  // 48 is longest possible packet
-    uint8_t data_buff_ofs;      // index where next item will be added in data_buff
+    uint8_t data_buff_ofs{0};      // index where next item will be added in data_buff
 
-    bool no_signal;     // true if the latest read attempt found no valid distances
+    bool no_signal{false};     // true if the latest read attempt found no valid distances
 };
 #endif  // AP_RANGEFINDER_JRE_SERIAL_ENABLED

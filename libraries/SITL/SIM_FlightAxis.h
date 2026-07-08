@@ -207,7 +207,7 @@ private:
 
     // a list of sockets used to reduce inter-packet latency
     ObjectBuffer_TS<SocketAPM_native*> socks{2};
-    SocketAPM_native *sock;
+    SocketAPM_native *sock{nullptr};
 
     char replybuf[10000];
     pid_t socket_pid;

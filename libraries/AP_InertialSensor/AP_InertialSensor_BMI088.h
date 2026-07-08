@@ -75,9 +75,9 @@ private:
     bool setup_accel_config(void);
 
     AP_HAL::OwnPtr<AP_HAL::Device> dev_accel;
-    AP_HAL::Device::PeriodicHandle accel_periodic_handle;
+    AP_HAL::Device::PeriodicHandle accel_periodic_handle = nullptr;
     AP_HAL::OwnPtr<AP_HAL::Device> dev_gyro;
-    AP_HAL::Device::PeriodicHandle gyro_periodic_handle;
+    AP_HAL::Device::PeriodicHandle gyro_periodic_handle = nullptr;
 
     enum Rotation rotation;
     uint8_t temperature_counter = 0;

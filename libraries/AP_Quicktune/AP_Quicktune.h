@@ -117,24 +117,24 @@ private:
     };
 
     // Time keeping
-    uint32_t last_stage_change_ms;
-    uint32_t last_gain_report_ms;
-    uint32_t last_pilot_input_ms;
-    uint32_t last_warning_ms;
-    uint32_t tune_done_time_ms;
+    uint32_t last_stage_change_ms{0};
+    uint32_t last_gain_report_ms{0};
+    uint32_t last_pilot_input_ms{0};
+    uint32_t last_warning_ms{0};
+    uint32_t tune_done_time_ms{0};
 
     // Bitmasks
-    uint32_t axes_done;
-    uint32_t filters_done;
-    uint32_t param_changed; //Bitmask of changed parameters
+    uint32_t axes_done{0};
+    uint32_t filters_done{0};
+    uint32_t param_changed{0}; //Bitmask of changed parameters
 
     Stage current_stage = Stage::D;
     Param slew_parm = Param::END;
-    uint8_t slew_steps;
-    float slew_delta;
-    SwitchPos sw_pos; //Switch pos to be set by aux func
-    bool need_restore;
-    float param_saved[uint8_t(Param::END)]; //Saved values of the parameters
+    uint8_t slew_steps{0};
+    float slew_delta{0.0f};
+    SwitchPos sw_pos{SwitchPos::NONE}; //Switch pos to be set by aux func
+    bool need_restore{false};
+    float param_saved[uint8_t(Param::END)]{}; //Saved values of the parameters
 
     void reset_axes_done();
     void setup_filters(AxisName axis);

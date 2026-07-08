@@ -31,11 +31,11 @@ public:
     void calibrate() override;
 
 private:
-    float _current_analog_voltage;
+    float _current_analog_voltage{0.0f};
 
     // pin for reading analog voltage
-    AP_HAL::AnalogSource *_speed_analog_source;
-    AP_HAL::AnalogSource *_temp_analog_source;
+    AP_HAL::AnalogSource *_speed_analog_source{nullptr};
+    AP_HAL::AnalogSource *_temp_analog_source{nullptr};
 };
 
 #endif  // AP_WINDVANE_MODERNDEVICE_ENABLED

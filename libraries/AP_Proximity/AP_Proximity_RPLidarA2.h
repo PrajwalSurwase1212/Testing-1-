@@ -88,18 +88,18 @@ private:
     // remove bytes from read buffer:
     void consume_bytes(uint16_t count);
 
-    uint8_t _sync_error;
-    uint16_t _byte_count;
+    uint8_t _sync_error{0};
+    uint16_t _byte_count{0};
 
     // request related variables
-    uint32_t  _last_distance_received_ms;     ///< system time of last distance measurement received from sensor
-    uint32_t  _last_reset_ms;
+    uint32_t  _last_distance_received_ms{0};     ///< system time of last distance measurement received from sensor
+    uint32_t  _last_reset_ms{0};
 
     // face related variables
     AP_Proximity_Boundary_3D::Face _last_face;///< last face requested
-    float _last_angle_deg;                    ///< yaw angle (in degrees) of _last_distance_m
-    float _last_distance_m;                   ///< shortest distance for _last_face
-    bool _last_distance_valid;                ///< true if _last_distance_m is valid
+    float _last_angle_deg{0.0f};                    ///< yaw angle (in degrees) of _last_distance_m
+    float _last_distance_m{0.0f};                   ///< shortest distance for _last_face
+    bool _last_distance_valid{false};                ///< true if _last_distance_m is valid
 
     struct PACKED _device_info {
         uint8_t model;
@@ -144,7 +144,7 @@ private:
         _rpi_information information;
         _device_info device_info;
         uint8_t forced_buffer_size[256]; // just so we read(...) efficiently
-    } _payload;
+    } _payload{};
     static_assert(sizeof(_payload) >= 63, "Needed for parsing out reboot data");
 
     enum class Model {

@@ -53,7 +53,7 @@ private:
 
     HAL_Semaphore sem;
 
-    ScriptingCANBuffer *buffer_list;
+    ScriptingCANBuffer *buffer_list = nullptr;
 
 };
 
@@ -86,7 +86,7 @@ private:
 
     ScriptingCANSensor &sensor;
 
-    ScriptingCANBuffer *next;
+    ScriptingCANBuffer *next = nullptr;
 
     HAL_Semaphore sem;
 
@@ -94,7 +94,7 @@ private:
         uint32_t mask;
         uint32_t value;
     } filter[8];
-    uint8_t num_filters;
+    uint8_t num_filters = 0;
 
 };
 

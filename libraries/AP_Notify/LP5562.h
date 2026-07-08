@@ -40,9 +40,9 @@ private:
     uint8_t _addr;
 
     void _timer(void);
-    bool _need_update;
-    uint8_t bgr[3];
-    uint8_t last_sent_bgr[3];
+    bool _need_update{false};
+    uint8_t bgr[3]{};
+    uint8_t last_sent_bgr[3]{};
 };
 
 #endif  // AP_NOTIFY_LP5562_ENABLED

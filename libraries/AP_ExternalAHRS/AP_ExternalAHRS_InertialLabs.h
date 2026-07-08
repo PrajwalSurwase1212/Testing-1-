@@ -202,7 +202,7 @@ public:
     AP_ExternalAHRS::ins_data_message_t ins_data;
     AP_ExternalAHRS::airspeed_data_message_t airspeed_data;
 
-    uint16_t buffer_ofs;
+    uint16_t buffer_ofs = 0;
     uint8_t buffer[256]; // max for normal message set is 167+8
 
 protected:
@@ -212,10 +212,10 @@ protected:
     }
 
 private:
-    AP_HAL::UARTDriver *uart;
-    int8_t port_num;
-    uint32_t baudrate;
-    bool setup_complete;
+    AP_HAL::UARTDriver *uart = nullptr;
+    int8_t port_num = -1;
+    uint32_t baudrate = 0;
+    bool setup_complete = false;
 
     void update_thread();
     bool check_uart();
@@ -241,7 +241,7 @@ private:
         uint16_t air_data_status;
         float supply_voltage;
         uint8_t ins_sol_status;
-    } state2;
+    } state2 {};
 
     struct {
         float lat;
@@ -262,20 +262,20 @@ private:
         float gdop;
         float pdop;
         float tdop;
-    } gnss_data;
+    } gnss_data {};
 
-    uint16_t last_unit_status;
-    uint16_t last_unit_status2;
-    uint16_t last_air_data_status;
-    uint8_t last_spoof_status;
-    uint8_t last_jam_status;
+    uint16_t last_unit_status = 0;
+    uint16_t last_unit_status2 = 0;
+    uint16_t last_air_data_status = 0;
+    uint8_t last_spoof_status = 0;
+    uint8_t last_jam_status = 0;
 
-    uint32_t last_critical_msg_ms;
+    uint32_t last_critical_msg_ms = 0;
 
-    uint32_t last_att_ms;
-    uint32_t last_vel_ms;
-    uint32_t last_pos_ms;
-    uint32_t last_gps_ms;
+    uint32_t last_att_ms = 0;
+    uint32_t last_vel_ms = 0;
+    uint32_t last_pos_ms = 0;
+    uint32_t last_gps_ms = 0;
 };
 
 #endif  // AP_EXTERNAL_AHRS_INERTIALLABS_ENABLED

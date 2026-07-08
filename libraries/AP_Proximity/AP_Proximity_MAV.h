@@ -38,14 +38,14 @@ private:
    AP_Proximity_Temp_Boundary temp_boundary;
 
     // horizontal distance support
-    uint32_t _last_update_ms;   // system time of last mavlink message received
-    uint32_t _last_msg_update_timestamp_ms;   // last stored mavlink message timestamp
-    float _distance_max;        // max range of sensor in meters
-    float _distance_min;        // min range of sensor in meters
+    uint32_t _last_update_ms{0};   // system time of last mavlink message received
+    uint32_t _last_msg_update_timestamp_ms{0};   // last stored mavlink message timestamp
+    float _distance_max{0.0f};        // max range of sensor in meters
+    float _distance_min{0.0f};        // min range of sensor in meters
 
     // upward distance support
-    uint32_t _last_upward_update_ms;    // system time of last update of upward distance
-    float _distance_upward;             // upward distance in meters
+    uint32_t _last_upward_update_ms{0};    // system time of last update of upward distance
+    float _distance_upward{0.0f};             // upward distance in meters
 };
 
 #endif // AP_PROXIMITY_MAV_ENABLED

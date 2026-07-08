@@ -78,45 +78,45 @@ private:
     };
 
     // These measurements are only available on this unit
-    int16_t _pwr_out;  // Output power (Watts)
-    uint16_t _spm_pwr; // Stack Power Module (SPM) power draw (Watts)
-    float _fuel_rem; // fuel remaining 0 to 1
-    int16_t _battery_pwr; // Battery charging power
+    int16_t _pwr_out = 0;  // Output power (Watts)
+    uint16_t _spm_pwr = 0; // Stack Power Module (SPM) power draw (Watts)
+    float _fuel_rem = 0.0f; // fuel remaining 0 to 1
+    int16_t _battery_pwr = 0; // Battery charging power
 
     // Extra data in the V2 packet
     struct V2_data {
-        float inlet_press;
-        uint8_t unit_fault; // Unit number with issue
-        char info_str[33];
+        float inlet_press = 0.0f;
+        uint8_t unit_fault = 0; // Unit number with issue
+        char info_str[33] {};
     };
-    V2_data _parsed_V2;
-    V2_data _valid_V2;
+    V2_data _parsed_V2 {};
+    V2_data _valid_V2 {};
 
     // Info packet
     struct {
-        char PCM_number[TERM_BUFFER];
-        char Software_version[TERM_BUFFER];
-        char Protocol_version[TERM_BUFFER];
-        char Serial_number[TERM_BUFFER];
-    } _info;
-    bool _had_info;
+        char PCM_number[TERM_BUFFER] {};
+        char Software_version[TERM_BUFFER] {};
+        char Protocol_version[TERM_BUFFER] {};
+        char Serial_number[TERM_BUFFER] {};
+    } _info {};
+    bool _had_info = false;
 
     enum class ProtocolVersion {
         DETECTING = 0,
         LEGACY = 1,
         V2 = 2,
         UNKNOWN = 3,
-    } _version;
+    } _version = ProtocolVersion::DETECTING;
 
-    ProtocolVersion _last_version;
-    uint8_t _last_version_packet_count;
+    ProtocolVersion _last_version = ProtocolVersion::DETECTING;
+    uint8_t _last_version_packet_count = 0;
 
     enum class PacketType {
         NONE = 0,
         LEGACY_DATA = 1,
         V2_DATA = 2,
         V2_INFO = 3,
-    } _type;
+    } _type = PacketType::NONE;
 
     enum class V2_State {
         FCPM_Off = 0,
@@ -124,8 +124,8 @@ private:
         Running = 2,
         Stopping = 3,
         Go_to_Sleep = 4,
-    } _v2_state;
-    V2_State _last_v2_state;
+    } _v2_state = V2_State::FCPM_Off;
+    V2_State _last_v2_state = V2_State::FCPM_Off;
 
     // State enum to string lookup
     struct Lookup_State_V2 {
@@ -134,7 +134,7 @@ private:
     };
     static const Lookup_State_V2 lookup_state_V2[];
 
-    uint32_t _last_low_power_warning_ms;
+    uint32_t _last_low_power_warning_ms = 0;
 
 };
 #endif  // AP_GENERATOR_IE_2400_ENABLED

@@ -118,8 +118,8 @@ private:
     AP_HAL::OwnPtr<AP_HAL::Device> _dev;
     enum Rotation _rotation;
 
-    float _accel_scale;
-    float _gyro_scale;
+    float _accel_scale = 0.0f;
+    float _gyro_scale = 0.0f;
 
-    AP_HAL::DigitalSource *_int1_pin;
+    AP_HAL::DigitalSource *_int1_pin = nullptr;
 };

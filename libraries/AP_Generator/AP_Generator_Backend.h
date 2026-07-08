@@ -50,12 +50,12 @@ protected:
     void update_frontend(void);
 
     // Measurements readings to write to front end
-    float _voltage;
-    float _current;
-    float _fuel_remaining; // Decimal from 0 to 1
+    float _voltage = 0.0f;
+    float _current = 0.0f;
+    float _fuel_remaining = 0.0f; // Decimal from 0 to 1
     float _fuel_remaining_l = -1; // -1 means unused
-    float _consumed_mah;
-    uint16_t _rpm;
+    float _consumed_mah = 0.0f;
+    uint16_t _rpm = 0;
 
     AP_Generator& _frontend;
 

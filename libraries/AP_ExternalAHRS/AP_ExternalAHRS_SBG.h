@@ -73,14 +73,14 @@ private:
             AP_ExternalAHRS::ins_data_message_t ins_data;
             AP_ExternalAHRS::airspeed_data_message_t airspeed_data;
 
-            float baro_height;
+            float baro_height = 0;
             
-            uint32_t gps_ms;
-            uint32_t mag_ms;
-            uint32_t baro_ms;
-            uint32_t ins_ms;
-            uint32_t airspeed_ms;
-        } sensors;
+            uint32_t gps_ms = 0;
+            uint32_t mag_ms = 0;
+            uint32_t baro_ms = 0;
+            uint32_t ins_ms = 0;
+            uint32_t airspeed_ms = 0;
+        } sensors {};
     
         struct {
             SbgLogUtcData sbgLogUtcData;
@@ -95,8 +95,8 @@ private:
             SbgLogAirData sbgLogAirData;
             SbgLogMag sbgLogMag;
             SbgEComDeviceInfo sbgEComDeviceInfo;
-       } sbg;
-    } cached;
+       } sbg {};
+    } cached {};
 
     struct PACKED sbgMessage {
 
@@ -139,12 +139,12 @@ private:
 
 
     struct SBG_PACKET_INBOUND_STATE {
-        SBG_PACKET_PARSE_STATE parser;
-        uint16_t data_count;
-        uint16_t crc;
+        SBG_PACKET_PARSE_STATE parser = SBG_PACKET_PARSE_STATE::SYNC1;
+        uint16_t data_count = 0;
+        uint16_t crc = 0;
         sbgMessage msg;
-        uint16_t data_count_skip; // if we are parsing for a packet larger than we can accept, just stop parsing and wait for this many bytes to pass on by
-    } _inbound_state;
+        uint16_t data_count_skip = 0; // if we are parsing for a packet larger than we can accept, just stop parsing and wait for this many bytes to pass on by
+    } _inbound_state {};
 
     void handle_msg(const sbgMessage &msg);
     static bool parse_byte(const uint8_t data, sbgMessage &msg, SBG_PACKET_INBOUND_STATE &inbound_state);
@@ -155,19 +155,19 @@ private:
     static void safe_copy_msg_to_object(uint8_t* dest, const uint16_t dest_len, const uint8_t* src, const uint16_t src_len);
     static AP_GPS_FixType SbgGpsPosStatus_to_GpsFixType(const uint32_t gpsPosStatus);
 
-    uint32_t send_MagData_ms;
-    uint32_t send_AirData_ms;
-    uint32_t send_mag_error_last_ms;
-    uint32_t send_air_error_last_ms;
+    uint32_t send_MagData_ms = 0;
+    uint32_t send_AirData_ms = 0;
+    uint32_t send_mag_error_last_ms = 0;
+    uint32_t send_air_error_last_ms = 0;
     static bool send_MagData(AP_HAL::UARTDriver *_uart);
     static bool send_AirData(AP_HAL::UARTDriver *_uart);
 
-    AP_HAL::UARTDriver *uart;
-    int8_t port_num;
-    uint32_t baudrate;
-    bool setup_complete;
-    uint32_t version_check_ms;
-    uint32_t last_received_ms;
+    AP_HAL::UARTDriver *uart = nullptr;
+    int8_t port_num = -1;
+    uint32_t baudrate = 0;
+    bool setup_complete = false;
+    uint32_t version_check_ms = 0;
+    uint32_t last_received_ms = 0;
 };
 
 #endif  // AP_EXTERNAL_AHRS_SBG_ENABLED

@@ -38,7 +38,7 @@ private:
             uint8_t REG_ID;
             uint8_t unused2[242];
         } byname;
-    } registers;
+    } registers{};
 
     // 256 1-byte registers:
     assert_storage_size<Registers::ByName, 256> assert_storage_size_registers_reg UNUSED_PRIVATE_MEMBER;

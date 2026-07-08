@@ -714,9 +714,9 @@ private:
 
     // peak hold detector state for primary accel
     struct PeakHoldState {
-        float accel_peak_hold_neg_x;
-        uint32_t accel_peak_hold_neg_x_age;
-    } _peak_hold_state;
+        float accel_peak_hold_neg_x = 0.0f;
+        uint32_t accel_peak_hold_neg_x_age = 0;
+    } _peak_hold_state {};
 
     // threshold for detecting stillness
     AP_Float _still_threshold;
@@ -726,9 +726,9 @@ private:
     AP_Int8 _trim_option;
 
     static AP_InertialSensor *_singleton;
-    AP_AccelCal* _acal;
+    AP_AccelCal* _acal = nullptr;
 
-    AccelCalibrator *_accel_calibrator;
+    AccelCalibrator *_accel_calibrator = nullptr;
 
     //save accelerometer bias and scale factors
     void _acal_save_calibrations() override;
@@ -738,18 +738,18 @@ private:
     AccelCalibrator* _acal_get_calibrator(uint8_t i) override { return i<get_accel_count()?&(_accel_calibrator[i]):nullptr; }
 
     Vector3f _trim_rad;
-    bool _new_trim;
+    bool _new_trim = false;
 
-    bool _accel_cal_requires_reboot;
+    bool _accel_cal_requires_reboot = false;
 
     // sensor error count at startup (used to ignore errors within 2 seconds of startup)
-    uint32_t _accel_startup_error_count[INS_MAX_INSTANCES];
-    uint32_t _gyro_startup_error_count[INS_MAX_INSTANCES];
-    bool _startup_error_counts_set;
-    uint32_t _startup_ms;
+    uint32_t _accel_startup_error_count[INS_MAX_INSTANCES] {};
+    uint32_t _gyro_startup_error_count[INS_MAX_INSTANCES] {};
+    bool _startup_error_counts_set = false;
+    uint32_t _startup_ms = 0;
 
 #if AP_INERTIALSENSOR_KILL_IMU_ENABLED
-    uint8_t imu_kill_mask;
+    uint8_t imu_kill_mask = 0;
 #endif
 
 #if HAL_INS_TEMPERATURE_CAL_ENABLE
@@ -791,7 +791,7 @@ private:
     INS_PARAM_WRAPPER(tcal);
 
     AP_Int32 tcal_options;
-    bool tcal_learning;
+    bool tcal_learning = false;
 #endif
 
     // Raw logging options bitmask and parameter
@@ -807,8 +807,8 @@ private:
     }
     // if AP_INERTIALSENSOR_FAST_SAMPLE_WINDOW_ENABLED
     // Support for the fast rate thread in copter
-    FastRateBuffer* fast_rate_buffer;
-    bool fast_rate_buffer_enabled;
+    FastRateBuffer* fast_rate_buffer = nullptr;
+    bool fast_rate_buffer_enabled = false;
 
 public:
     // enable the fast rate buffer and start pushing samples to it

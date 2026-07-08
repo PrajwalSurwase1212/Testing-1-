@@ -33,7 +33,7 @@ public:
 
 private:
 
-    uint32_t last_update_ms;
+    uint32_t last_update_ms{0};
 };
 
 } // namespace SITL

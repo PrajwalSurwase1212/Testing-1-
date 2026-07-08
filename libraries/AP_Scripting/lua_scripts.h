@@ -74,7 +74,7 @@ private:
     // reschedule the script for execution. It is assumed the script is not in the list already
     void reschedule_script(script_info *script);
 
-    script_info *scripts; // linked list of scripts to be run, sorted by next run time (soonest first)
+    script_info *scripts{nullptr}; // linked list of scripts to be run, sorted by next run time (soonest first)
 
     // hook will be run when CPU time for a script is exceeded
     // it must be static to be passed to the C API
@@ -84,7 +84,7 @@ private:
     static int atpanic(lua_State *L);
     static jmp_buf panic_jmp;
 
-    lua_State *lua_state;
+    lua_State *lua_state{nullptr};
 
     const AP_Int32 & _vm_steps;
     AP_Int8 & _debug_options;

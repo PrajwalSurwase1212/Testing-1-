@@ -126,7 +126,7 @@ private:
         struct {
             bool value;
             bool enabled;
-        } state[num_pins];
+        } state[num_pins]{};
 
     } dronecan;
 #endif // AP_RELAY_DRONECAN_ENABLED

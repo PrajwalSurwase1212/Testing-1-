@@ -221,9 +221,9 @@ protected:
 
 private:
     static AP_Proximity *_singleton;
-    Proximity_State state[AP_PROXIMITY_MAX_INSTANCES];
-    AP_Proximity_Backend *drivers[AP_PROXIMITY_MAX_INSTANCES];
-    uint8_t num_instances;
+    Proximity_State state[AP_PROXIMITY_MAX_INSTANCES]{};
+    AP_Proximity_Backend *drivers[AP_PROXIMITY_MAX_INSTANCES]{};
+    uint8_t num_instances{0};
 
     // return true if the given instance exists
     bool valid_instance(uint8_t i) const;
@@ -242,7 +242,7 @@ private:
         bool healthy;                      // true if we can trust the altitude from the rangefinder
         int16_t alt_cm;                    // tilt compensated altitude (in cm) from rangefinder
         uint32_t last_downward_update_ms;  // last update ms
-    } _rangefinder_state;
+    } _rangefinder_state{};
 
     HAL_Semaphore detect_sem;
 };

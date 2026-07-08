@@ -60,7 +60,7 @@ private:
     void setup_defaults(void);
     char displayport_write_buffer[DISPLAYPORT_WRITE_BUFFER_MAX_LEN]; // terminator
 
-    AP_MSP_Telem_Backend* _displayport;
+    AP_MSP_Telem_Backend* _displayport{nullptr};
 
     // MSP DisplayPort symbols
     static const uint8_t SYM_M = 0x0C;
@@ -262,6 +262,6 @@ private:
 #if AP_MSP_INAV_FONTS_ENABLED
     static const uint8_t ap_to_inav_symbols_map[256][2];
 #endif //AP_MSP_INAV_FONTS_ENABLED
-    bool _blink_on;
+    bool _blink_on{false};
 };
 #endif

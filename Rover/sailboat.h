@@ -108,12 +108,12 @@ private:
     AP_Float xtrack_max;
     AP_Float loit_radius;
 
-    RC_Channel *channel_mainsail;   // rc input channel for controlling mainsail
-    bool currently_tacking;         // true when sailboat is in the process of tacking to a new heading
-    float tack_heading_rad;         // target heading in radians while tacking in either acro or autonomous modes
-    uint32_t tack_request_ms;       // system time user requested tack
-    uint32_t auto_tack_start_ms;    // system time when tack was started in autonomous mode
-    uint32_t tack_clear_ms;         // system time when tack was cleared
-    bool tack_assist;               // true if we should use some throttle to assist tack
-    UseMotor motor_state;           // current state of motor output
+    RC_Channel *channel_mainsail{nullptr};   // rc input channel for controlling mainsail
+    bool currently_tacking{false};         // true when sailboat is in the process of tacking to a new heading
+    float tack_heading_rad{0.0f};         // target heading in radians while tacking in either acro or autonomous modes
+    uint32_t tack_request_ms{0};       // system time user requested tack
+    uint32_t auto_tack_start_ms{0};    // system time when tack was started in autonomous mode
+    uint32_t tack_clear_ms{0};         // system time when tack was cleared
+    bool tack_assist{false};               // true if we should use some throttle to assist tack
+    UseMotor motor_state{UseMotor::USE_MOTOR_NEVER};           // current state of motor output
 };

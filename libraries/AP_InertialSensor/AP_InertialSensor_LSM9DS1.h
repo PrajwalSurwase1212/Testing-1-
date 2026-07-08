@@ -63,10 +63,10 @@ private:
     #endif
 
     AP_HAL::OwnPtr<AP_HAL::SPIDevice> _dev;
-    AP_HAL::Semaphore *_spi_sem;
-    AP_HAL::DigitalSource * _drdy_pin_xg;
-    float _gyro_scale;
-    float _accel_scale;
+    AP_HAL::Semaphore *_spi_sem = nullptr;
+    AP_HAL::DigitalSource * _drdy_pin_xg = nullptr;
+    float _gyro_scale = 0.0f;
+    float _accel_scale = 0.0f;
     int _drdy_pin_num_xg;
     enum Rotation _rotation;
 };

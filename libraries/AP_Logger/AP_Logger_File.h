@@ -73,25 +73,25 @@ protected:
     void PrepForArming_start_logging() override;
 
 private:
-    int _write_fd = -1;
-    char *_write_filename;
-    bool last_log_is_marked_discard;
-    uint32_t _last_write_ms;
+    int _write_fd{-1};
+    char *_write_filename{nullptr};
+    bool last_log_is_marked_discard{false};
+    uint32_t _last_write_ms{0};
 #if AP_RTC_ENABLED && CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
-    bool _need_rtc_update;
+    bool _need_rtc_update{false};
 #endif
     
-    int _read_fd = -1;
-    uint16_t _read_fd_log_num;
-    uint32_t _read_offset;
-    uint32_t _write_offset;
-    volatile uint32_t _open_error_ms;
+    int _read_fd{-1};
+    uint16_t _read_fd_log_num{0};
+    uint32_t _read_offset{0};
+    uint32_t _write_offset{0};
+    volatile uint32_t _open_error_ms{0};
     const char *_log_directory;
-    bool _last_write_failed;
+    bool _last_write_failed{false};
 
-    uint32_t _io_timer_heartbeat;
+    uint32_t _io_timer_heartbeat{0};
     bool io_thread_alive() const;
-    uint8_t io_thread_warning_decimation_counter;
+    uint8_t io_thread_warning_decimation_counter{0};
 
     // do we have a recent open error?
     bool recent_open_error(void) const;

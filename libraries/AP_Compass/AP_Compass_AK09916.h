@@ -101,11 +101,11 @@ private:
     AP_AK09916_BusDriver *_bus;
 
     bool _force_external;
-    uint8_t _compass_instance;
-    bool _initialized;
+    uint8_t _compass_instance = 0;
+    bool _initialized = false;
     enum Rotation _rotation;
-    enum AP_Compass_Backend::DevTypes _devtype;
-    uint8_t no_data;
+    enum AP_Compass_Backend::DevTypes _devtype = AP_Compass_Backend::DEVTYPE_AK09916;
+    uint8_t no_data = 0;
 };
 
 
@@ -202,9 +202,9 @@ public:
     uint32_t get_bus_id(void) const override;
     
 private:
-    AuxiliaryBus *_bus;
-    AuxiliaryBusSlave *_slave;
-    bool _started;
+    AuxiliaryBus *_bus = nullptr;
+    AuxiliaryBusSlave *_slave = nullptr;
+    bool _started = false;
 };
 
 #endif  // AP_COMPASS_AK09916_ENABLED

@@ -40,10 +40,10 @@ protected:
 private:
 
     // stored data from packet:
-    float distance;
-    float _max_distance;
-    float _min_distance;
-    int8_t signal_quality;
+    float distance{0.0f};
+    float _max_distance{0.0f};
+    float _min_distance{0.0f};
+    int8_t signal_quality{RangeFinder::SIGNAL_QUALITY_UNKNOWN};
 
     // start a reading
     static bool start_reading(void);

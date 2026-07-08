@@ -30,14 +30,14 @@ public:
 
 private:
 
-    AP_HAL::UARTDriver *sbus1_uart;
+    AP_HAL::UARTDriver *sbus1_uart{nullptr};
 
     void init(void);
 
-    uint16_t sbus_frame_interval;   // microseconds
+    uint16_t sbus_frame_interval{0};   // microseconds
 
     AP_Int16 sbus_rate;
-    bool initialised;
+    bool initialised{false};
 };
 
 #endif  // AP_SBUSOUTPUT_ENABLED

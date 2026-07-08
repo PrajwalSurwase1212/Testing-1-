@@ -2135,7 +2135,7 @@ void GCS_MAVLINK::send_system_time() const
 {
     uint64_t time_unix = 0;
 #if AP_RTC_ENABLED
-    AP::rtc().get_utc_usec(time_unix); // may fail, leaving time_unix at 0
+    (void)AP::rtc().get_utc_usec(time_unix); // may fail, leaving time_unix at 0
 #endif
 
     mavlink_msg_system_time_send(
@@ -5914,8 +5914,8 @@ void GCS_MAVLINK::send_rpm() const
 
     float rpm1 = -1, rpm2 = -1;
 
-    rpm->get_rpm(0, rpm1);
-    rpm->get_rpm(1, rpm2);
+    (void)rpm->get_rpm(0, rpm1);
+    (void)rpm->get_rpm(1, rpm2);
 
     mavlink_msg_rpm_send(
         chan,

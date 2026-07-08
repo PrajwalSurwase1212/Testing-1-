@@ -23,12 +23,12 @@ public:
 
 private:
 
-    AP_HAL::UARTDriver *uart;           // uart connected to flow sensor
-    uint64_t last_frame_us;             // system time of last message from flow sensor
-    uint8_t buf[10];                    // buff of characters received from flow sensor
-    uint8_t buf_len;                    // number of characters in buffer
+    AP_HAL::UARTDriver *uart{nullptr};           // uart connected to flow sensor
+    uint64_t last_frame_us{0};             // system time of last message from flow sensor
+    uint8_t buf[10]{};                    // buff of characters received from flow sensor
+    uint8_t buf_len{0};                    // number of characters in buffer
     Vector2f gyro_sum;                  // sum of gyro sensor values since last frame from flow sensor
-    uint16_t gyro_sum_count;            // number of gyro sensor values in sum
+    uint16_t gyro_sum_count{0};            // number of gyro sensor values in sum
 };
 
 #endif  // AP_OPTICALFLOW_CXOF_ENABLED

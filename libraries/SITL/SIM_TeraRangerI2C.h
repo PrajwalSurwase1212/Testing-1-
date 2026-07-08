@@ -52,9 +52,9 @@ public:
 
 private:
 
-    float rangefinder_range;
+    float rangefinder_range{0.0f};
 
-    uint32_t reading_start_us;
+    uint32_t reading_start_us{0};
 };
 
 } // namespace SITL

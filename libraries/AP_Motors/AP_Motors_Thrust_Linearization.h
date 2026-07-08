@@ -57,7 +57,7 @@ protected:
 
 private:
     float               lift_max;          // maximum lift ratio from battery voltage
-    float               throttle_limit;    // ratio of throttle limit between hover and maximum
+    float               throttle_limit{0.0f};    // ratio of throttle limit between hover and maximum
     LowPassFilterFloat  batt_voltage_filt; // filtered battery voltage expressed as a percentage (0 ~ 1.0) of batt_voltage_max
 
     AP_Motors& motors;

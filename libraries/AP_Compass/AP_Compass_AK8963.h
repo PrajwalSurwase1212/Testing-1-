@@ -64,8 +64,8 @@ private:
 
     float _magnetometer_ASA[3] {0, 0, 0};
 
-    uint8_t _compass_instance;
-    bool _initialized;
+    uint8_t _compass_instance = 0;
+    bool _initialized = false;
     enum Rotation _rotation;
 };
 
@@ -142,9 +142,9 @@ public:
     uint32_t get_bus_id(void) const override;
     
 private:
-    AuxiliaryBus *_bus;
-    AuxiliaryBusSlave *_slave;
-    bool _started;
+    AuxiliaryBus *_bus = nullptr;
+    AuxiliaryBusSlave *_slave = nullptr;
+    bool _started = false;
 };
 
 #endif  // AP_COMPASS_AK8963_ENABLED

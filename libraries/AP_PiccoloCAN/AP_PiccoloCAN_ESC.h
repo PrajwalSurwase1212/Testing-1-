@@ -51,9 +51,9 @@ public:
     float temperature() { return MAX(status.statusB.escTemperature, status.statusC.fetTemperature); }
     float motorTemperature() { return status.statusB.motorTemperature; }
 
-    int16_t command;    //! Raw command to send to each ESC
-    bool newCommand;    //! Is the command "new"?
-    bool newTelemetry;  //! Is there new telemetry data available?
+    int16_t command{0};    //! Raw command to send to each ESC
+    bool newCommand{false};    //! Is the command "new"?
+    bool newTelemetry{false};  //! Is there new telemetry data available?
 
     // Status / telemetry data
     struct Status_t {
@@ -63,14 +63,14 @@ public:
 
         ESC_WarningBits_t warnings;
         ESC_ErrorBits_t errors;
-    } status;
+    } status{};
 
     // Settings information
     struct Settings_t {
         ESC_Firmware_t firmware;
         ESC_Address_t address;
         ESC_EEPROMSettings_t eeprom;
-    } settings;
+    } settings{};
 };
 
 #endif // HAL_PICCOLO_CAN_ENABLE

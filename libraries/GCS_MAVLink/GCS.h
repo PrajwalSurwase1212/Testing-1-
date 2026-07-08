@@ -511,7 +511,7 @@ protected:
     // return a MAVLink parameter type given a AP_Param type
     static MAV_PARAM_TYPE mav_param_type(enum ap_var_type t);
 
-    AP_Param *                  _queued_parameter;      ///< next parameter to
+    AP_Param *                  _queued_parameter{nullptr};      ///< next parameter to
                                                         // be sent in queue
     mavlink_channel_t           chan;
     uint8_t packet_overhead(void) const { return packet_overhead_chan(chan); }
@@ -790,7 +790,7 @@ private:
     mavlink_message_t _channel_buffer;
     mavlink_status_t _channel_status;
 
-    const AP_SerialManager::UARTState *uartstate;
+    const AP_SerialManager::UARTState *uartstate{nullptr};
 
     // last time we got a non-zero RSSI from RADIO_STATUS
     static struct LastRadioStatus {
@@ -814,7 +814,7 @@ private:
     // send a (textual) message to the GCS that a received message has
     // been deprecated
     uint32_t last_deprecation_warning_send_time_ms;
-    const char *last_deprecation_message;
+    const char *last_deprecation_message{nullptr};
 
     // time we last saw traffic from our GCS.  Note that there is an
     // identically named field in GCS:: which is the most recent of
@@ -1023,7 +1023,7 @@ private:
 #if HAL_MAVLINK_INTERVALS_FROM_FILES_ENABLED
     // structure containing default intervals read from files for this
     // link:
-    DefaultIntervalsFromFiles *default_intervals_from_files;
+    DefaultIntervalsFromFiles *default_intervals_from_files{nullptr};
 #endif
 
     // alternative protocol handler support
@@ -1130,7 +1130,7 @@ public:
         // from multiple threads
         HAL_Semaphore _sem;
 
-        uint32_t last_prune_ms;
+        uint32_t last_prune_ms = 0;
     };
 
     StatusTextQueue &statustext_queue() {
@@ -1219,7 +1219,7 @@ public:
 
 #if AP_FRSKY_TELEM_ENABLED
     // frsky backend
-    class AP_Frsky_Telem *frsky;
+    class AP_Frsky_Telem *frsky = nullptr;
 #endif
 
 #if AP_LTM_TELEM_ENABLED

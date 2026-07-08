@@ -57,7 +57,7 @@ private:
 
     // read - read serial port, return true if a new reading has been found
     bool get_reading();
-    AP_HAL::UARTDriver *uart;
+    AP_HAL::UARTDriver *uart = nullptr;
 
     // methods and state to record pilot desired runstate and actual runstate:
     enum class RunState {
@@ -74,7 +74,7 @@ private:
     void update_runstate();
 
     // boolean so we can emit the RichenPower protocol version once
-    bool protocol_information_anounced;
+    bool protocol_information_anounced = false;
 
     // reported mode from the generator:
     enum class Mode {
@@ -87,23 +87,23 @@ private:
 
     // un-packed data from the generator:
     struct Reading {
-        uint32_t    runtime; //seconds
-        uint32_t    seconds_until_maintenance;
-        uint16_t    errors;
-        uint16_t    rpm;
-        float       output_voltage;
-        float       output_current;
-        Mode        mode;
+        uint32_t    runtime = 0; //seconds
+        uint32_t    seconds_until_maintenance = 0;
+        uint16_t    errors = 0;
+        uint16_t    rpm = 0;
+        float       output_voltage = 0.0f;
+        float       output_current = 0.0f;
+        Mode        mode = Mode::OFF;
     };
 
 #if HAL_LOGGING_ENABLED
     // method and state to write and entry to the onboard log:
     void Log_Write();
-    uint32_t last_logged_reading_ms;
+    uint32_t last_logged_reading_ms = 0;
 #endif
 
-    struct Reading last_reading;
-    uint32_t last_reading_ms;
+    struct Reading last_reading {};
+    uint32_t last_reading_ms = 0;
 
     const uint8_t HEADER_MAGIC1 = 0xAA;
     const uint8_t HEADER_MAGIC2 = 0x55;
@@ -160,10 +160,10 @@ private:
         uint8_t parse_buffer[70];
         struct RichenPacket packet;
     };
-    RichenUnion u;
+    RichenUnion u {};
 
     // number of bytes currently in the buffer
-    uint8_t body_length;
+    uint8_t body_length = 0;
 
     // move the expected header bytes into &buffer[0], adjusting
     // body_length as appropriate.
@@ -173,8 +173,8 @@ private:
     // or being stopped before cooldown.  The generator itself does
     // not supply temperature via telemetry, so we fake one based on
     // RPM.
-    uint32_t last_heat_update_ms;
-    float heat;
+    uint32_t last_heat_update_ms = 0;
+    float heat = 0.0f;
     void update_heat();
 
     // returns true if the generator should be allowed to move into
@@ -196,10 +196,10 @@ private:
 
     // boolean so we can announce we've stopped the generator due to a
     // crash just once:
-    bool vehicle_was_crashed;
+    bool vehicle_was_crashed = false;
 
     // data and methods to handle time-in-idle-state:
-    uint32_t idle_state_start_ms;
+    uint32_t idle_state_start_ms = 0;
 
     uint32_t time_in_idle_state_ms() const {
         if (idle_state_start_ms == 0) {
@@ -212,6 +212,6 @@ private:
     void check_maintenance_required();
     // if we are emitting warnings about the generator requiring
     // maintenamce, this is the last time we sent the warning:
-    uint32_t last_maintenance_warning_ms;
+    uint32_t last_maintenance_warning_ms = 0;
 };
 #endif  // AP_GENERATOR_RICHENPOWER_ENABLED

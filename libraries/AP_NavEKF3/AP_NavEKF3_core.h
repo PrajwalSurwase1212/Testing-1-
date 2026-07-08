@@ -479,7 +479,7 @@ public:
     bool pre_arm_check(bool requires_position, char *failure_msg, uint8_t failure_msg_len) const;
     
 private:
-    EKFGSF_yaw *yawEstimator;
+    EKFGSF_yaw *yawEstimator{nullptr};
     AP_DAL &dal;
 
     // Reference to the global EKF frontend for parameters

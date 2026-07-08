@@ -95,7 +95,6 @@ uint8_t AP_WheelEncoder_Quadrature::pin_ab_to_phase(bool pin_a, bool pin_b)
             return 2;
         }
     }
-    return (uint8_t)pin_a << 1 | (uint8_t)pin_b;
 }
 
 void AP_WheelEncoder_Quadrature::update_phase_and_error_count()

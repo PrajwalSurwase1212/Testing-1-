@@ -49,9 +49,9 @@ public:
     void set_interface_ports(const char* address, const int port_in, const int port_out) override;
 
 private:
-    uint16_t fdm_port_in;
-    uint16_t fdm_port_out;
-    const char* fdm_address;
+    uint16_t fdm_port_in{0};
+    uint16_t fdm_port_out{0};
+    const char* fdm_address{nullptr};
 
     /*
       packet sent to Scrimmage from ArduPilot

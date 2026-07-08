@@ -75,14 +75,14 @@ private:
     const char *target_address = "127.0.0.1"; // Address for MAVLink socket communication
     const uint16_t target_port = 5763;        // Port for MAVLink socket communication
     SocketAPM_native mav_socket { false };   // Socket for MAVLink communication
-    bool initialised;                        // True if the simulation class is initialized
-    uint32_t last_update_us;                 // Timestamp of the last update in microseconds
+    bool initialised{false};                        // True if the simulation class is initialized
+    uint32_t last_update_us{0};                 // Timestamp of the last update in microseconds
 
     // MAVLink reporting variables
     const float reporting_period_ms = 100;   // Reporting period in milliseconds
-    uint32_t last_report_ms;                // Timestamp of the last MAVLink report sent to GCS
-    uint32_t last_heartbeat_ms;             // Timestamp of the last MAVLink heartbeat sent to GCS
-    bool mavlink_connected;                 // True if MAVLink connection is established
+    uint32_t last_report_ms{0};                // Timestamp of the last MAVLink report sent to GCS
+    uint32_t last_heartbeat_ms{0};             // Timestamp of the last MAVLink heartbeat sent to GCS
+    bool mavlink_connected{false};                 // True if MAVLink connection is established
     mavlink_status_t mav_status;            // Status of MAVLink communication
 
     // Tether simulation variables

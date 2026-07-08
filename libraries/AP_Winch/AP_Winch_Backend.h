@@ -67,7 +67,7 @@ protected:
     struct AP_Winch::Backend_Config &config;
 
     int16_t previous_radio_in = -1; // previous RC input from pilot, used to ignore small changes
-    float previous_rate;            // previous rate used for acceleration limiting
+    float previous_rate{0.0f};            // previous rate used for acceleration limiting
 };
 
 #endif  // AP_WINCH_ENABLED

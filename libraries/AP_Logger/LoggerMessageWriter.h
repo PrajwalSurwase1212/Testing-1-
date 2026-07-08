@@ -38,7 +38,7 @@ private:
         RC_PROTOCOL,
         RC_OUTPUT,
     };
-    Stage stage;
+    Stage stage = Stage::FIRMWARE_STRING;
 };
 
 class LoggerMessageWriter_WriteEntireMission : public LoggerMessageWriter {
@@ -54,8 +54,8 @@ private:
         DONE
     };
 
-    uint16_t _mission_number_to_send;
-    Stage stage;
+    uint16_t _mission_number_to_send = 0;
+    Stage stage = Stage::WRITE_NEW_MISSION_MESSAGE;
 };
 
 class LoggerMessageWriter_WriteAllRallyPoints : public LoggerMessageWriter {
@@ -71,7 +71,7 @@ private:
         DONE
     };
 
-    uint16_t _rally_number_to_send;
+    uint16_t _rally_number_to_send = 0;
     Stage stage = Stage::WRITE_NEW_RALLY_MESSAGE;
 };
 
@@ -89,8 +89,8 @@ private:
         DONE
     };
 
-    uint16_t _fence_number_to_send;
-    Stage stage;
+    uint16_t _fence_number_to_send = 0;
+    Stage stage = Stage::WRITE_NEW_FENCE_MESSAGE;
 };
 #endif // HAL_LOGGER_FENCE_ENABLED
 
@@ -159,21 +159,21 @@ private:
         DONE,
     };
 
-    bool _fmt_done;
-    bool _params_done;
+    bool _fmt_done = false;
+    bool _params_done = false;
 
-    Stage stage;
+    Stage stage = Stage::FORMATS;
 
-    uint16_t next_format_to_send;
+    uint16_t next_format_to_send = 0;
 
-    uint8_t _next_unit_to_send;
-    uint8_t _next_format_unit_to_send;
-    uint8_t _next_multiplier_to_send;
+    uint8_t _next_unit_to_send = 0;
+    uint8_t _next_format_unit_to_send = 0;
+    uint8_t _next_multiplier_to_send = 0;
 
-    AP_Param::ParamToken token;
-    AP_Param *ap;
-    float param_default;
-    enum ap_var_type type;
+    AP_Param::ParamToken token{};
+    AP_Param *ap = nullptr;
+    float param_default = 0.0f;
+    enum ap_var_type type = AP_PARAM_NONE;
 
 
     LoggerMessageWriter_WriteSysInfo _writesysinfo;

@@ -62,8 +62,8 @@ private:
 
     SocketAPM_native sock;
 
-    uint32_t frame_counter;
-    double last_timestamp_s;
+    uint32_t frame_counter{0};
+    double last_timestamp_s{0.0};
 
     void output_servos(const struct sitl_input &input);
     void recv_fdm(const struct sitl_input &input);
@@ -72,7 +72,7 @@ private:
 
     // buffer for parsing pose data in JSON format
     uint8_t sensor_buffer[65000];
-    uint32_t sensor_buffer_len;
+    uint32_t sensor_buffer_len{0};
 
     enum data_type {
         DATA_UINT64,
@@ -184,9 +184,9 @@ private:
         BAT_VOLT    = 1U << 30,
         BAT_AMP     = 1U << 31,
     };
-    uint32_t last_received_bitmask;
+    uint32_t last_received_bitmask{0};
 
-    uint32_t last_debug_ms;
+    uint32_t last_debug_ms{0};
 };
 
 }

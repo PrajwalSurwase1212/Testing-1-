@@ -26,16 +26,16 @@ namespace SITL {
 
 struct Fins
 {
-  float angle;
-  float last_angle;
-  float servo_angle;
-  bool dir;
-  float vel; // velocity, in m/s
-  float T; //Tangential (thrust) force, in Neutons
-  float N; //Normal force, in Newtons
-  float Fx; //Fx,y,z = Force in bodyframe orientation at servo position, in Newtons
-  float Fy;
-  float Fz;
+  float angle{0.0f};
+  float last_angle{0.0f};
+  float servo_angle{0.0f};
+  bool dir{false};
+  float vel{0.0f}; // velocity, in m/s
+  float T{0.0f}; //Tangential (thrust) force, in Neutons
+  float N{0.0f}; //Normal force, in Newtons
+  float Fx{0.0f}; //Fx,y,z = Force in bodyframe orientation at servo position, in Newtons
+  float Fy{0.0f};
+  float Fz{0.0f};
 };
 
 /*

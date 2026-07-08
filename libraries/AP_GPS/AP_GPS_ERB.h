@@ -27,7 +27,20 @@ class AP_GPS_ERB : public AP_GPS_Backend
 {
 public:
 
-    using AP_GPS_Backend::AP_GPS_Backend;
+    AP_GPS_ERB(AP_GPS &_gps, AP_GPS::Params &_params, AP_GPS::GPS_State &_state, AP_HAL::UARTDriver *_port) :
+        AP_GPS_Backend(_gps, _params, _state, _port),
+        _ck_a(0),
+        _ck_b(0),
+        _step(0),
+        _msg_id(0),
+        _payload_length(0),
+        _payload_counter(0),
+        _fix_count(0),
+        _last_pos_time(0),
+        _last_vel_time(0),
+        _new_position(false),
+        _new_speed(false)
+    {}
 
     // Methods
     bool read() override;

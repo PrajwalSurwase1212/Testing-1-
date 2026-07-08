@@ -460,7 +460,7 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
     }
 
     if (ret == -1) {
-        close(_fd);
+        // _fd was already closed above on the final failed attempt
         fprintf(stderr, "connect failed on port %u - %s\n",
                 (unsigned)ntohs(sockaddr.sin_port),
                 strerror(errno));
@@ -521,7 +521,7 @@ void UARTDriver::_udp_start_client(const char *address, uint16_t port)
 
     // try to setup for broadcast, this may fail if insufficient privileges
     int one = 1;
-    setsockopt(_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
+    (void)setsockopt(_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
 
     ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {
@@ -577,7 +577,7 @@ void UARTDriver::_udp_start_multicast(const char *address, uint16_t port)
     }
 
     // close on exec, to allow reboot
-    fcntl(_mc_fd, F_SETFD, FD_CLOEXEC);
+    (void)fcntl(_mc_fd, F_SETFD, FD_CLOEXEC);
 
 #if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(CYGWIN_BUILD)
     /*
@@ -733,11 +733,11 @@ bool UARTDriver::set_unbuffered_writes(bool on) {
     unsigned v = fcntl(_fd, F_GETFL, 0);
     v &= ~O_NONBLOCK;
 #if defined(__APPLE__) && defined(__MACH__)
-    fcntl(_fd, F_SETFL | F_NOCACHE, v | O_SYNC);
+    (void)fcntl(_fd, F_SETFL | F_NOCACHE, v | O_SYNC);
 #elif defined(__OpenBSD__)
-    fcntl(_fd, F_SETFL, v | O_SYNC);
+    (void)fcntl(_fd, F_SETFL, v | O_SYNC);
 #else
-    fcntl(_fd, F_SETFL, v | O_DIRECT | O_SYNC);
+    (void)fcntl(_fd, F_SETFL, v | O_DIRECT | O_SYNC);
 #endif
     return _unbuffered_writes;
 }

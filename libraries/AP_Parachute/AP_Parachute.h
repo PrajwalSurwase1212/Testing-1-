@@ -32,7 +32,13 @@ class AP_Parachute {
 
 public:
     /// Constructor
-    AP_Parachute()
+    AP_Parachute() :
+        _release_time(0),
+        _release_initiated(false),
+        _release_in_progress(false),
+        _released(false),
+        _is_flying(false),
+        _sink_time_ms(0)
     {
         // setup parameter defaults
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL

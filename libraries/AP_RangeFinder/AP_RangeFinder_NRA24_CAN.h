@@ -27,7 +27,7 @@ protected:
 private:
 
     uint32_t get_radar_id(uint32_t id) const { return ((id & 0xF0U) >> 4U); }
-    uint32_t last_heartbeat_ms; // last status message received from the sensor
+    uint32_t last_heartbeat_ms{0}; // last status message received from the sensor
 };
 
 #endif  // AP_RANGEFINDER_NRA24_CAN_DRIVER_ENABLED

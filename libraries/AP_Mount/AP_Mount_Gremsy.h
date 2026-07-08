@@ -64,13 +64,13 @@ private:
     void send_gimbal_device_set_attitude(float roll_rad, float pitch_rad, float yaw_rad, bool earth_frame) const;
 
     // internal variables
-    bool _got_device_info;          // true once gimbal has provided device info
-    bool _initialised;              // true once the gimbal has provided a GIMBAL_DEVICE_INFORMATION
-    uint32_t _last_devinfo_req_ms;  // system time that GIMBAL_DEVICE_INFORMATION was last requested (used to throttle requests)
-    class GCS_MAVLINK *_link;       // link we have found gimbal on; nullptr if not seen yet
-    uint8_t _sysid;                 // sysid of gimbal
-    uint8_t _compid;                // component id of gimbal
+    bool _got_device_info{false};          // true once gimbal has provided device info
+    bool _initialised{false};              // true once the gimbal has provided a GIMBAL_DEVICE_INFORMATION
+    uint32_t _last_devinfo_req_ms{0};  // system time that GIMBAL_DEVICE_INFORMATION was last requested (used to throttle requests)
+    class GCS_MAVLINK *_link{nullptr};       // link we have found gimbal on; nullptr if not seen yet
+    uint8_t _sysid{0};                 // sysid of gimbal
+    uint8_t _compid{0};                // component id of gimbal
     mavlink_gimbal_device_attitude_status_t _gimbal_device_attitude_status;  // copy of most recently received gimbal status
-    uint32_t _last_attitude_status_ms;  // system time last attitude status was received (used for health reporting)
+    uint32_t _last_attitude_status_ms{0};  // system time last attitude status was received (used for health reporting)
 };
 #endif // HAL_MOUNT_GREMSY_ENABLED

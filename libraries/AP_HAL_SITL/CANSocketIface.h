@@ -117,22 +117,22 @@ private:
 
     void _updateDownStatusFromPollResult(const pollfd& pfd);
 
-    CAN_Transport *transport;
+    CAN_Transport *transport = nullptr;
 
     const uint8_t _self_index;
 
-    unsigned _frames_in_socket_tx_queue;
-    uint32_t _tx_frame_counter;
-    AP_HAL::BinarySemaphore *sem_handle;
+    unsigned _frames_in_socket_tx_queue = 0;
+    uint32_t _tx_frame_counter = 0;
+    AP_HAL::BinarySemaphore *sem_handle = nullptr;
 
-    pollfd _pollfd;
+    pollfd _pollfd {};
     ObjectArray<CanTxItem> _tx_queue{100};
     ObjectArray<CanRxItem> _rx_queue{100};
 
     /*
       bus statistics
      */
-    AP_HAL::CANIface::bus_stats_t stats;
+    AP_HAL::CANIface::bus_stats_t stats {};
 
     HAL_Semaphore sem;
 

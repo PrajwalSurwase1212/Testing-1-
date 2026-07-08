@@ -72,25 +72,25 @@ public:
     }
 
 private:
-    AP_MSP_Telem_Backend *_backends[MSP_MAX_INSTANCES];
+    AP_MSP_Telem_Backend *_backends[MSP_MAX_INSTANCES]{};
 
     AP_Int8 _options;
     AP_Int8 _cellcount;
 
     // these are the osd items we support for MSP OSD
-    AP_OSD_Setting* _osd_item_settings[MSP::OSD_ITEM_COUNT];
-    MSP::osd_config_t _osd_config;
+    AP_OSD_Setting* _osd_item_settings[MSP::OSD_ITEM_COUNT]{};
+    MSP::osd_config_t _osd_config{};
 
     struct {
-        bool flashing_on;                                       // OSD item flashing support @1.4Hz
-        bool slow_flashing_on;                                  // OSD item flashing support @0.5H
-        uint8_t last_flight_mode = 255;
-        uint32_t last_flight_mode_change_ms;
-        bool flight_mode_focus;                                 // do we need to steal focus from text messages
-        bool osd_initialized;                                   // for one time osd initialization
-        uint8_t backend_count;                                  // actual count of active bacends
-        uint8_t current_screen;                                 // defaults to screen 0
-    } _msp_status;
+        bool flashing_on{false};                                       // OSD item flashing support @1.4Hz
+        bool slow_flashing_on{false};                                  // OSD item flashing support @0.5H
+        uint8_t last_flight_mode{255};
+        uint32_t last_flight_mode_change_ms{0};
+        bool flight_mode_focus{false};                                 // do we need to steal focus from text messages
+        bool osd_initialized{false};                                   // for one time osd initialization
+        uint8_t backend_count{0};                                  // actual count of active bacends
+        uint8_t current_screen{0};                                 // defaults to screen 0
+    } _msp_status{};
 
     bool init_backend(uint8_t backend_idx, AP_HAL::UARTDriver *uart, AP_SerialManager::SerialProtocol protocol);
     void update_osd_item_settings();

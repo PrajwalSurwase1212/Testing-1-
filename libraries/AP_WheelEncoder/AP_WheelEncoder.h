@@ -120,9 +120,9 @@ protected:
     AP_Int8  _pina[WHEELENCODER_MAX_INSTANCES];
     AP_Int8  _pinb[WHEELENCODER_MAX_INSTANCES];
 
-    WheelEncoder_State state[WHEELENCODER_MAX_INSTANCES];
-    AP_WheelEncoder_Backend *drivers[WHEELENCODER_MAX_INSTANCES];
-    uint8_t num_instances;
+    WheelEncoder_State state[WHEELENCODER_MAX_INSTANCES]{};
+    AP_WheelEncoder_Backend *drivers[WHEELENCODER_MAX_INSTANCES]{};
+    uint8_t num_instances{0};
     Vector3f pos_offset_zero;   // allows returning position offsets of zero for invalid requests
 
 private:

@@ -71,23 +71,23 @@ private:
     static const uint8_t _max_num_servos {4};
 
     // Currently configured setup
-    SwashPlateType       _swash_type;                 // Swashplate type
-    CollectiveDirection  _collective_direction;       // Collective control direction, normal or reversed
-    bool                 _make_servo_linear;          // Sets servo output to be linearized
+    SwashPlateType       _swash_type{SWASHPLATE_TYPE_H3_120};                 // Swashplate type
+    CollectiveDirection  _collective_direction{COLLECTIVE_DIRECTION_NORMAL};       // Collective control direction, normal or reversed
+    bool                 _make_servo_linear{false};          // Sets servo output to be linearized
 
     // Internal variables
-    bool                 _enabled[_max_num_servos];                 // True if this output servo is enabled
-    float                _rollFactor[_max_num_servos];              // Roll axis scaling of servo output based on servo position
-    float                _pitchFactor[_max_num_servos];             // Pitch axis scaling of servo output based on servo position
-    float                _collectiveFactor[_max_num_servos];        // Collective axis scaling of servo output based on servo position
-    float                _output[_max_num_servos];                  // Servo output value
+    bool                 _enabled[_max_num_servos]{};                 // True if this output servo is enabled
+    float                _rollFactor[_max_num_servos]{};              // Roll axis scaling of servo output based on servo position
+    float                _pitchFactor[_max_num_servos]{};             // Pitch axis scaling of servo output based on servo position
+    float                _collectiveFactor[_max_num_servos]{};        // Collective axis scaling of servo output based on servo position
+    float                _output[_max_num_servos]{};                  // Servo output value
     const uint8_t        _motor_num[_max_num_servos];               // Motor function to use for output
     const uint8_t        _instance;                                 // Swashplate instance. Used for logging.
 
     // Variables stored for logging
-    float _roll_input;
-    float _pitch_input;
-    float _collective_input_scaled;
+    float _roll_input{0.0f};
+    float _pitch_input{0.0f};
+    float _collective_input_scaled{0.0f};
 
     // parameters
     AP_Int8  _swashplate_type;                   // Swash Type Setting

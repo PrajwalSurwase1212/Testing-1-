@@ -57,23 +57,23 @@ private:
     void get_readings();
 
     // Store and keep track of the bytes being read from the sensor
-    uint8_t _response[MESSAGE_LENGTH_LD06];
-    uint16_t _byte_count;
+    uint8_t _response[MESSAGE_LENGTH_LD06]{};
+    uint16_t _byte_count{0};
 
     // Store for error-tracking purposes
-    uint32_t  _last_distance_received_ms;
+    uint32_t  _last_distance_received_ms{0};
 
     // distance filter applies to raw measurements
     ModeFilterUInt16_Size3 _dist_filt_mm {1};
 
     // face related variables
     AP_Proximity_Boundary_3D::Face _last_face;///< last face requested
-    float _last_angle_deg;                    ///< yaw angle (in degrees) of _last_distance_m
-    float _last_distance_m;                   ///< shortest distance for _last_face
-    bool _last_distance_valid;                ///< true if _last_distance_m is valid
+    float _last_angle_deg{0.0f};                    ///< yaw angle (in degrees) of _last_distance_m
+    float _last_distance_m{0.0f};                   ///< shortest distance for _last_face
+    bool _last_distance_valid{false};                ///< true if _last_distance_m is valid
 
     // angle and distance for the latest 2 degree sector
-    uint16_t _angle_2deg;
-    float _dist_2deg_m;
+    uint16_t _angle_2deg{0};
+    float _dist_2deg_m{0.0f};
 };
 #endif // AP_PROXIMITY_LD06_ENABLED

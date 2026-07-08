@@ -131,11 +131,11 @@ private:
 
     static AP_OpticalFlow *_singleton;
 
-    OpticalFlow_backend *backend;
+    OpticalFlow_backend *backend{nullptr};
 
     struct AP_OpticalFlow_Flags {
         uint8_t healthy     : 1;    // true if sensor is healthy
-    } _flags;
+    } _flags{};
 
     // parameters
     AP_Enum<Type>  _type;           // user configurable sensor type
@@ -151,16 +151,16 @@ private:
     void update_state(const OpticalFlow_state &state);
 
     // state filled in by backend
-    struct OpticalFlow_state _state;
+    struct OpticalFlow_state _state{};
 
-    uint32_t _last_update_ms;        // millis() time of last update
+    uint32_t _last_update_ms{0};        // millis() time of last update
 
     void Log_Write_Optflow();
-    uint32_t _log_bit = -1;     // bitmask bit which indicates if we should log.  -1 means we always log
+    uint32_t _log_bit{uint32_t(-1)};     // bitmask bit which indicates if we should log.  -1 means we always log
 
 #if AP_OPTICALFLOW_CALIBRATOR_ENABLED
     // calibrator
-    AP_OpticalFlow_Calibrator *_calibrator;
+    AP_OpticalFlow_Calibrator *_calibrator{nullptr};
 #endif
 };
 

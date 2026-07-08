@@ -77,12 +77,12 @@ private:
     bool performSingleRefCalibration(uint8_t vhv_init_byte);
     void start_continuous(void);
     
-    uint8_t stop_variable;
-    uint32_t measurement_timing_budget_us;
-    uint32_t start_ms;
+    uint8_t stop_variable{0};
+    uint32_t measurement_timing_budget_us{0};
+    uint32_t start_ms{0};
 
-    uint32_t sum_mm;
-    uint32_t counter;
+    uint32_t sum_mm{0};
+    uint32_t counter{0};
 };
 
 #endif  // AP_RANGEFINDER_VL53L0X_ENABLED

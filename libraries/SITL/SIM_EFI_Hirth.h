@@ -69,7 +69,7 @@ private:
             const uint8_t length { sizeof(T) + 3 };  // 1 each of length, code and checksum
         const uint8_t code;
         T record;
-        uint8_t checksum;
+        uint8_t checksum{0};
 
         void update() {
             record.update();

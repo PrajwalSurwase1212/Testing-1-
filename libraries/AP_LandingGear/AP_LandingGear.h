@@ -105,17 +105,17 @@ private:
     };
 
     // internal variables
-    bool        _deployed;              // true if the landing gear has been deployed, initialized false
-    bool        _have_changed;          // have we changed the servo state?
+    bool        _deployed{false};              // true if the landing gear has been deployed, initialized false
+    bool        _have_changed{false};          // have we changed the servo state?
 
-    float       _last_height_above_ground_m;
+    float       _last_height_above_ground_m{0.0f};
     
     // debounce
-    LG_WOW_State wow_state_current = LG_WOW_UNKNOWN;
-    uint32_t last_wow_event_ms;
+    LG_WOW_State wow_state_current{LG_WOW_UNKNOWN};
+    uint32_t last_wow_event_ms{0};
     
-    LG_LandingGear_State gear_state_current = LG_UNKNOWN;
-    uint32_t last_gear_event_ms;
+    LG_LandingGear_State gear_state_current{LG_UNKNOWN};
+    uint32_t last_gear_event_ms{0};
 
     /// retract - retract landing gear
     void retract();

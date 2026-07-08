@@ -71,14 +71,14 @@ private:
     // parse a response message from ModBus
     LeddarOne_Status parse_response(uint8_t &number_detections);
 
-    uint32_t last_sending_request_ms;
-    uint32_t last_available_ms;
+    uint32_t last_sending_request_ms{0};
+    uint32_t last_available_ms{0};
 
-    uint32_t sum_distance_mm;
+    uint32_t sum_distance_mm{0};
 
     LeddarOne_ModbusStatus modbus_status = LEDDARONE_MODBUS_STATE_INIT;
-    uint8_t read_buffer[LEDDARONE_READ_BUFFER_SIZE];
-    uint32_t read_len;
+    uint8_t read_buffer[LEDDARONE_READ_BUFFER_SIZE]{};
+    uint32_t read_len{0};
 
     // Modbus send request buffer
     // read input register (function code 0x04)

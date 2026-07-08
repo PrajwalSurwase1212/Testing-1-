@@ -45,7 +45,7 @@ public:
         virtual ~FFTWindowStateSITL();
 
     private:
-        complexf* buf;
+        complexf* buf = nullptr;
     };
 
 private:

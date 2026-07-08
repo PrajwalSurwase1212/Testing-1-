@@ -72,7 +72,7 @@ private:
 // So we set batt fs high 46s
 // Gennie keeps batts charged to 49v + typically
 
-    uint32_t last_sent_ms;
+    uint32_t last_sent_ms{0};
 
     void update_control_pin(const struct sitl_input &input);
     void update_send();
@@ -89,11 +89,11 @@ private:
     AP_Int8  _enabled;  // enable richenpower sim
     AP_Int8  _ctrl_pin;
 
-    float _current_rpm;
-    uint32_t _runtime_ms;
-    uint32_t _last_runtime_ms;
+    float _current_rpm{0.0f};
+    uint32_t _runtime_ms{0};
+    uint32_t _last_runtime_ms{0};
 
-    float _current_current;
+    float _current_current{0.0f};
 
     enum class Errors {
         MaintenanceRequired = 0,
@@ -134,7 +134,7 @@ private:
     RichenUnion u;
 
     // time we were asked to stop; 
-    uint32_t stop_start_ms;
+    uint32_t stop_start_ms{0};
 
     SIM_GeneratorEngine generatorengine;
 };

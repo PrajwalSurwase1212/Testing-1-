@@ -28,16 +28,16 @@ private:
 
     const char *name;
 
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
+    uint8_t red{0};
+    uint8_t green{0};
+    uint8_t blue{0};
 
     static constexpr uint8_t height = 50;
     static constexpr uint8_t width = height;
 
-    pthread_t thread;
+    pthread_t thread{};
     static void *update_thread_start(void *obj);
     void update_thread(void);
 
-    uint32_t last_colour;
+    uint32_t last_colour{0};
 };

@@ -37,15 +37,15 @@ private:
     AP_Proximity_Temp_Boundary temp_boundary;
 
     // horizontal distance support
-    uint32_t _last_update_ms;   // system time of last script message received
+    uint32_t _last_update_ms{0};   // system time of last script message received
 
     // upward distance support
-    uint32_t _last_upward_update_ms;    // system time of last update of upward distance
-    float _distance_upward;             // upward distance in meters
+    uint32_t _last_upward_update_ms{0};    // system time of last update of upward distance
+    float _distance_upward{0.0f};             // upward distance in meters
 
     // min and max distance of sensor
-    float _distance_min;
-    float _distance_max;
+    float _distance_min{0.0f};
+    float _distance_max{0.0f};
 };
 
 #endif // HAL_PROXIMITY_ENABLED && AP_SCRIPTING_ENABLED

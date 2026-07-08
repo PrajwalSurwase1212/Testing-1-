@@ -30,9 +30,9 @@ protected:
         size_t payload_size = 0;
     };
 
-    uint32_t last_imu_pkt_ms;
-    uint32_t last_gnss_pkt_ms;
-    uint32_t last_filter_pkt_ms;
+    uint32_t last_imu_pkt_ms{0};
+    uint32_t last_gnss_pkt_ms{0};
+    uint32_t last_filter_pkt_ms{0};
 
     void generate_checksum(MicroStrain_Packet&);
 
@@ -48,7 +48,7 @@ protected:
     // get timeval using simulation time
     static void simulation_timeval(struct timeval *tv);
 
-    uint64_t start_us;
+    uint64_t start_us{0};
 };
 
 class MicroStrain5 : public MicroStrain

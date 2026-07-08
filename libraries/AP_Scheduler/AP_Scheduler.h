@@ -209,53 +209,53 @@ private:
     AP_Int8 _options;
     
     // calculated loop period in usec
-    uint16_t _loop_period_us;
+    uint16_t _loop_period_us{0};
 
     // calculated loop period in seconds
-    float _loop_period_s;
+    float _loop_period_s{0.0f};
     
     // list of tasks to run
-    const struct Task *_vehicle_tasks;
-    uint8_t _num_vehicle_tasks;
+    const struct Task *_vehicle_tasks{nullptr};
+    uint8_t _num_vehicle_tasks{0};
 
     // list of common tasks to run
-    const struct Task *_common_tasks;
-    uint8_t _num_common_tasks;
+    const struct Task *_common_tasks{nullptr};
+    uint8_t _num_common_tasks{0};
 
     // total number of tasks in _tasks and _common_tasks list
-    uint8_t _num_tasks;
+    uint8_t _num_tasks{0};
 
     // number of 'ticks' that have passed (number of times that
     // tick() has been called
-    uint16_t _tick_counter;
-    uint32_t _tick_counter32;
+    uint16_t _tick_counter{0};
+    uint32_t _tick_counter32{0};
 
     // tick counter at the time we last ran each task
-    uint16_t *_last_run;
+    uint16_t *_last_run{nullptr};
 
     // number of microseconds allowed for the current task
-    uint32_t _task_time_allowed;
+    uint32_t _task_time_allowed{0};
 
     // the time in microseconds when the task started
-    uint32_t _task_time_started;
+    uint32_t _task_time_started{0};
 
     // number of spare microseconds accumulated
-    uint32_t _spare_micros;
+    uint32_t _spare_micros{0};
 
     // number of ticks that _spare_micros is counted over
-    uint8_t _spare_ticks;
+    uint8_t _spare_ticks{0};
 
     // start of previous loop
-    uint32_t _loop_timer_start_us;
+    uint32_t _loop_timer_start_us{0};
 
     // time of last loop in seconds
-    float _last_loop_time_s;
+    float _last_loop_time_s{0.0f};
 
     // start of current loop
-    uint64_t _loop_sample_time_us;
+    uint64_t _loop_sample_time_us{0};
 
     // bitmask bit which indicates if we should log PERF message
-    uint32_t _log_performance_bit;
+    uint32_t _log_performance_bit{0};
 
     // maximum task slowdown compared to desired task rate before we
     // start giving extra time per loop
@@ -263,12 +263,12 @@ private:
 
     // counters to handle dynamically adjusting extra loop time to
     // cope with low CPU conditions
-    uint32_t task_not_achieved;
-    uint32_t task_all_achieved;
+    uint32_t task_not_achieved{0};
+    uint32_t task_all_achieved{0};
     
     // extra time available for each loop - used to dynamically adjust
     // the loop rate in case we are well over budget
-    uint32_t extra_loop_us;
+    uint32_t extra_loop_us{0};
 
 
     // semaphore that is held while not waiting for ins samples

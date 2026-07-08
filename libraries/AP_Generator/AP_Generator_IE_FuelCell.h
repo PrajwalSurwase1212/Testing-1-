@@ -48,43 +48,43 @@ protected:
 
     static const Lookup_State lookup_state[];
 
-    uint32_t _err_code;       // The error code from fuel cell
-    uint32_t _last_err_code;  // The previous error code from fuel cell
-    uint32_t _sub_err_code;       // The sub error code from fuel cell
-    uint32_t _last_sub_err_code;  // The previous sub error code from fuel cell
-    State _state;          // The PSU state
-    State _last_state;     // The previous PSU state
-    uint32_t _last_time_ms;   // Time we got a reading
-    bool _healthy;        // Is the driver working
-    uint32_t _health_warn_last_ms; // Time to persist warning message without spamming
+    uint32_t _err_code = 0;       // The error code from fuel cell
+    uint32_t _last_err_code = 0;  // The previous error code from fuel cell
+    uint32_t _sub_err_code = 0;       // The sub error code from fuel cell
+    uint32_t _last_sub_err_code = 0;  // The previous sub error code from fuel cell
+    State _state = State::STARTING;          // The PSU state
+    State _last_state = State::STARTING;     // The previous PSU state
+    uint32_t _last_time_ms = 0;   // Time we got a reading
+    bool _healthy = false;        // Is the driver working
+    uint32_t _health_warn_last_ms = 0; // Time to persist warning message without spamming
 
     // Temporary state params
     struct ParsedValue {
-        float tank_pct;
-        uint16_t tank_bar;
-        float battery_pct;
-        float battery_volt;
-        int16_t pwr_out;
-        uint16_t spm_pwr;
-        int16_t battery_pwr;
-        uint8_t state;
-        uint32_t err_code;
-        uint32_t sub_err_code;
-    } _parsed;
+        float tank_pct = 0.0f;
+        uint16_t tank_bar = 0;
+        float battery_pct = 0.0f;
+        float battery_volt = 0.0f;
+        int16_t pwr_out = 0;
+        uint16_t spm_pwr = 0;
+        int16_t battery_pwr = 0;
+        uint8_t state = 0;
+        uint32_t err_code = 0;
+        uint32_t sub_err_code = 0;
+    } _parsed {};
 
     // Constants
     static const uint8_t TERM_BUFFER = 33; // Max length of term we expect
     static const uint16_t HEALTHY_TIMEOUT_MS = 5000; // Time for driver to be marked un-healthy
 
     // Decoding vars
-    char _start_char;           // inital sentence character giving sentence type
-    char _term[TERM_BUFFER];    // Term buffer
-    bool _sentence_valid;       // Is current sentence valid
-    bool _data_valid;           // Is data within expected limits
-    uint8_t _term_number;       // Term index within the current sentence
-    uint8_t _term_offset;       // Offset within the _term buffer where the next character should be placed
-    bool _in_string;            // True if we should be decoding
-    uint8_t _checksum;          // Basic checksum used by V2 protocol
+    char _start_char = '\0';           // inital sentence character giving sentence type
+    char _term[TERM_BUFFER] {};    // Term buffer
+    bool _sentence_valid = false;       // Is current sentence valid
+    bool _data_valid = false;           // Is data within expected limits
+    uint8_t _term_number = 0;       // Term index within the current sentence
+    uint8_t _term_offset = 0;       // Offset within the _term buffer where the next character should be placed
+    bool _in_string = false;            // True if we should be decoding
+    uint8_t _checksum = 0;          // Basic checksum used by V2 protocol
 
     // Assigns the unit specific measurements once a valid sentence is obtained
     virtual void assign_measurements(const uint32_t now) = 0;

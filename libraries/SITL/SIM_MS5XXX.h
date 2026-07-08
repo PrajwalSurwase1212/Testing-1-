@@ -65,12 +65,12 @@ private:
 
     State state = State::COLD;
 
-    uint32_t command_start_us;
+    uint32_t command_start_us{0};
 
-    uint8_t convert_out[3];
+    uint8_t convert_out[3]{};
 
     bool prom_loaded = false;
-    uint16_t loaded_prom[128/16];
+    uint16_t loaded_prom[128/16]{};
     virtual void load_prom(uint16_t *loaded_prom, uint8_t len) const = 0;
 
     uint16_t conversion_time_osr_1024_us = 2280;

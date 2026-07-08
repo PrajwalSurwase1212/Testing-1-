@@ -87,13 +87,13 @@ protected:
     // load a font from sdcard or ROMFS
     FileData *load_font_data(uint8_t font_num);
 
-    int8_t blink_phase;
+    int8_t blink_phase{0};
 
     enum vid_format {
         FORMAT_UNKNOWN = 0,
         FORMAT_NTSC = 1,
         FORMAT_PAL = 2,
-    } _format;
+    } _format{FORMAT_UNKNOWN};
 
     // default OSD symbols
     static const uint8_t SYM_M = 0xB9;

@@ -40,7 +40,7 @@ private:
         MEASURED = 27,
      } state = State::RESET;
 
-    uint32_t state_start_time_ms;
+    uint32_t state_start_time_ms{0};
 
     void set_state(State new_state) {
         state = new_state;
@@ -54,7 +54,7 @@ private:
 
     float temperature_for_adc(uint32_t adc) const;
     uint32_t calculate_adc(float temperature) const;
-    uint32_t adc;
+    uint32_t adc{0};
 
     void pack_reading(SITL::I2C::i2c_msg &msg);
 
@@ -81,12 +81,12 @@ private:
             uint8_t alert_pending : 1;
         };
         uint16_t value;
-    } status;
+    } status{};
 
     struct {
         float temperature;
         float humidity;
-    } measurement;
+    } measurement{};
 
     void reset();
 };

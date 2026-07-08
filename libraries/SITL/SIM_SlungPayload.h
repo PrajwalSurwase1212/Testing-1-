@@ -78,19 +78,19 @@ private:
     const char *target_address = "127.0.0.1";
     const uint16_t target_port = 5763;
     SocketAPM_native mav_socket { false };
-    bool initialised;           // true if this class has been initialised
-    uint32_t last_update_us;    // system time of last update
+    bool initialised{false};           // true if this class has been initialised
+    uint32_t last_update_us{0};    // system time of last update
 
     // mavlink reporting variables
     const float reporting_period_ms = 100;  // reporting period in ms
-    uint32_t last_report_ms;                // system time of last MAVLink report sent to GCS
-    uint32_t last_heartbeat_ms;             // system time of last MAVLink heartbeat sent to GCS
-    bool mavlink_connected;                 // true if a mavlink connection has been established
+    uint32_t last_report_ms{0};                // system time of last MAVLink report sent to GCS
+    uint32_t last_heartbeat_ms{0};             // system time of last MAVLink heartbeat sent to GCS
+    bool mavlink_connected{false};                 // true if a mavlink connection has been established
     mavlink_status_t mav_status;            // reported mavlink status
 
     // payload variables
     bool landed = true;     // true if the payload is on the ground
-    float tension_ratio;    // 0 if line is loose, 1 if completely taut
+    float tension_ratio{0.0f};    // 0 if line is loose, 1 if completely taut
     Vector3p payload_to_veh;// distance vector (in meters in NED frame) from payload to vehicle (used for reporting purposes)
     Vector3p position_NED;  // payload's position (as an offset from EKF origin? offset from vehicle?) in meters
     Vector3f velocity_NED;  // payload velocity

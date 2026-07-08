@@ -42,12 +42,12 @@ public:
     virtual void        reset() override;
 
 private:
-    bool            _new_data;
-    float           _last_slope;
+    bool            _new_data{false};
+    float           _last_slope{0.0f};
 
     // microsecond timestamps for samples. This is needed
     // to cope with non-uniform time spacing of the data
-    uint32_t        _timestamps[FILTER_SIZE];
+    uint32_t        _timestamps[FILTER_SIZE]{};
 };
 
 typedef DerivativeFilter<float,5> DerivativeFilterFloat_Size5;

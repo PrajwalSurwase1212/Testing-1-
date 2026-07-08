@@ -98,12 +98,12 @@ public:
         Vector3f velocity;
         Location origin;
 
-        bool have_quaternion;
-        bool have_origin;
-        bool have_location;
-        bool have_velocity;
+        bool have_quaternion = false;
+        bool have_origin = false;
+        bool have_location = false;
+        bool have_velocity = false;
 
-        uint32_t last_location_update_us;
+        uint32_t last_location_update_us = 0;
     } state;
 
     // accessors for AP_AHRS
@@ -202,10 +202,10 @@ private:
         sensors.set_default(_sensors);
     }
 
-    uint32_t last_log_ms;
+    uint32_t last_log_ms = 0;
 
     // true when user has disabled the GNSS
-    bool gnss_is_disabled;
+    bool gnss_is_disabled = false;
 };
 
 namespace AP {

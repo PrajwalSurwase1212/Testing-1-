@@ -25,8 +25,8 @@ public:
     AP_CRSF_Telem::ScriptedParameter* get_parameter() { return menu->find_parameter(param); }
 
 private:
-    AP_CRSF_Telem::ScriptedMenu* menu;
-    uint8_t param;
+    AP_CRSF_Telem::ScriptedMenu* menu = nullptr;
+    uint8_t param = 0;
 };
 
 class CRSFMenu {
@@ -40,7 +40,7 @@ public:
     AP_CRSF_Telem::ScriptedParameter* add_parameter(uint8_t length, const char* data);
     AP_CRSF_Telem::ScriptedMenu* add_menu(const char* menu_name);
 
-    AP_CRSF_Telem::ScriptedMenu* menu;
+    AP_CRSF_Telem::ScriptedMenu* menu = nullptr;
 };
 
 #endif // AP_CRSF_SCRIPTING_ENABLED

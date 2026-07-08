@@ -191,6 +191,9 @@ bool JSBSim::start_JSBSim(void)
 
     int p[2];
     int devnull = open("/dev/null", O_RDWR|O_CLOEXEC);
+    if (devnull == -1) {
+        AP_HAL::panic("Unable to open /dev/null");
+    }
     if (pipe(p) != 0) {
         AP_HAL::panic("Unable to create pipe");
     }
@@ -209,10 +212,12 @@ bool JSBSim::start_JSBSim(void)
         char *nice;
         char *rate;
 
-        asprintf(&logdirective, "--logdirectivefile=%s", jsbsim_fgout);
-        asprintf(&script, "--script=%s", jsbsim_script);
-        asprintf(&nice, "--nice=%.8f", 10*1e-9);
-        asprintf(&rate, "--simulation-rate=%f", rate_hz);
+        if (asprintf(&logdirective, "--logdirectivefile=%s", jsbsim_fgout) == -1 ||
+            asprintf(&script, "--script=%s", jsbsim_script) == -1 ||
+            asprintf(&nice, "--nice=%.8f", 10*1e-9) == -1 ||
+            asprintf(&rate, "--simulation-rate=%f", rate_hz) == -1) {
+            exit(1);
+        }
 
         if (chdir(autotest_dir) != 0) {
             perror(autotest_dir);

@@ -57,8 +57,8 @@ protected:
 
     char _buffer[64];
     uint16_t _buflen = 0;
-    uint8_t _id;
-    uint32_t _last_update_ms;
+    uint8_t _id{0};
+    uint32_t _last_update_ms{0};
 };
 
 }

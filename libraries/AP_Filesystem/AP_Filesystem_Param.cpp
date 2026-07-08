@@ -210,7 +210,8 @@ uint8_t AP_Filesystem_Param::pack_param(const struct rfile &r, struct cursor &c,
         last_name++;
     }
     uint8_t name_len = strlen(pname);
-    if (name_len == 0) {
+
+    if (name_len == 0 && common_len > 0 ) {
         name_len = 1;
         common_len--;
         pname--;

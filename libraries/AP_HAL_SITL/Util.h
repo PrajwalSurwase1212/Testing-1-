@@ -102,11 +102,11 @@ private:
     // UART stats tracking helper
     struct uart_stats {
         AP_HAL::UARTDriver::StatsTracker serial[AP_HAL::HAL::num_serial];
-        uint32_t last_ms;
+        uint32_t last_ms = 0;
     };
-    uart_stats sys_uart_stats;
+    uart_stats sys_uart_stats {};
 #if HAL_LOGGING_ENABLED
-    uart_stats log_uart_stats;
+    uart_stats log_uart_stats {};
 #endif
 #endif // HAL_UART_STATS_ENABLED
 };

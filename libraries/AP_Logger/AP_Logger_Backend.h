@@ -187,6 +187,14 @@ public:
 protected:
 
     AP_Logger &_front;
+    uint32_t _dropped{0};
+    bool _rotate_pending{false};
+    uint32_t _last_periodic_1Hz{0};
+    uint32_t _last_periodic_10Hz{0};
+    bool _writing_startup_messages{false};
+    Bitmask<256> _formats_written{};
+    bool _initialised{false};
+    bool have_logged_armed{false};
 
     virtual void periodic_10Hz(const uint32_t now);
     virtual void periodic_1Hz();
@@ -207,14 +215,9 @@ protected:
     virtual void WriteMoreStartupMessages();
     virtual void push_log_blocks();
 
-    LoggerMessageWriter_DFLogStart *_startup_messagewriter;
-    bool _writing_startup_messages;
+    LoggerMessageWriter_DFLogStart *_startup_messagewriter{nullptr};
 
-    uint16_t _cached_oldest_log;
-
-    uint32_t _dropped;
-    // should we rotate when we next stop logging
-    bool _rotate_pending;
+    uint16_t _cached_oldest_log{0};
 
     // must be called when a new log is being started:
     virtual void start_new_log_reset_variables();
@@ -244,8 +247,6 @@ protected:
 
     virtual bool _WritePrioritisedBlock(const void *pBuffer, uint16_t size, bool is_critical) = 0;
 
-    bool _initialised;
-
     void df_stats_gather(uint16_t bytes_written, uint32_t space_remaining);
     void df_stats_log();
     void df_stats_clear();
@@ -263,17 +264,12 @@ private:
     };
     struct df_stats stats;
 
-    uint32_t _last_periodic_1Hz;
-    uint32_t _last_periodic_10Hz;
-    bool have_logged_armed;
-
     void Write_AP_Logger_Stats_File(const struct df_stats &_stats);
     void validate_WritePrioritisedBlock(const void *pBuffer, uint16_t size);
 
     bool message_type_from_block(const void *pBuffer, uint16_t size, LogMessages &type) const;
     bool ensure_format_emitted(const void *pBuffer, uint16_t size);
     bool emit_format_for_type(LogMessages a_type);
-    Bitmask<256> _formats_written;
 
 };
 

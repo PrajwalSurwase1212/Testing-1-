@@ -29,7 +29,7 @@ void Sub::Log_Write_Control_Tuning()
     float terr_alt = 0.0f;
 #if AP_TERRAIN_AVAILABLE
     if (terrain.enabled()) {
-        terrain.height_above_terrain(terr_alt, true);
+        (void)terrain.height_above_terrain(terr_alt, true);
     } else {
         terr_alt = rangefinder_state.rangefinder_terrain_offset_cm * 0.01f;
     }

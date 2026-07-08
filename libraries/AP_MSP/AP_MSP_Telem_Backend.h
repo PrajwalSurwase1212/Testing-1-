@@ -144,10 +144,10 @@ protected:
     static const uint8_t message_scroll_delay = 5;
 
     // each backend can hide/unhide items dynamically
-    uint64_t osd_hidden_items_bitmask;
+    uint64_t osd_hidden_items_bitmask{0};
 
     // MSP decoder status
-    MSP::msp_port_t _msp_port;
+    MSP::msp_port_t _msp_port{};
 
     // passthrough WFQ scheduler
     bool is_packet_ready(uint8_t idx, bool queue_empty) override;

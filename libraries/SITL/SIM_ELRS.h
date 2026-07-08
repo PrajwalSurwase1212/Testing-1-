@@ -31,7 +31,7 @@ private:
     DataRateLimit input_limit;
     DataRateLimit output_limit;
 
-    uint32_t lastSentFlowCtrl;
+    uint32_t lastSentFlowCtrl{0};
 
     const uint8_t this_system_id;
     const uint8_t this_component_id;

@@ -31,8 +31,8 @@ private:
     // distance returned in reading_m
     bool get_reading(float &reading_m) override;
 
-    uint8_t linebuf[16];
-    uint8_t linebuf_len;
+    uint8_t linebuf[16]{};
+    uint8_t linebuf_len{0};
 };
 
 #endif  // AP_RANGEFINDER_NOOPLOOP_ENABLED

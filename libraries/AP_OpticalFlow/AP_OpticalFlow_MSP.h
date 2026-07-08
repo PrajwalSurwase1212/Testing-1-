@@ -26,13 +26,13 @@ public:
 
 private:
 
-    uint64_t prev_frame_us;             // system time of last message when update was last called
-    uint64_t latest_frame_us;           // system time of most recent messages processed
+    uint64_t prev_frame_us{0};             // system time of last message when update was last called
+    uint64_t latest_frame_us{0};           // system time of most recent messages processed
     Vector2l flow_sum;                  // sum of sensor's flow_x and flow_y values since last call to update
-    uint16_t quality_sum;               // sum of sensor's quality values since last call to update
-    uint16_t count;                     // number of sensor readings since last call to update
+    uint16_t quality_sum{0};               // sum of sensor's quality values since last call to update
+    uint16_t count{0};                     // number of sensor readings since last call to update
     Vector2f gyro_sum;                  // sum of gyro sensor values since last frame from flow sensor
-    uint16_t gyro_sum_count;            // number of gyro sensor values in sum
+    uint16_t gyro_sum_count{0};            // number of gyro sensor values in sum
 };
 
 #endif // HAL_MSP_OPTICALFLOW_ENABLED

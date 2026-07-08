@@ -170,5 +170,5 @@ public:
 
 private:
     AP_HAL::OwnPtr<AP_HAL::SPIDevice> dev;
-    uint8_t last_power;
+    uint8_t last_power{0};
 };

@@ -42,8 +42,8 @@ public:
     const char *name() const override { return "MAV"; }
 
 private:
-    bool _new_data;
-    uint32_t first_week;
+    bool _new_data = false;
+    uint32_t first_week = 0;
     JitterCorrection jitter{2000};
 };
 

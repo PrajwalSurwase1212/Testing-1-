@@ -98,9 +98,9 @@ private:
         uint8_t parse_buffer[21];
         struct RDS02UFPacket packet;
     };
-    RDS02UF_Union u;
+    RDS02UF_Union u{};
 
     // number of bytes currently in the buffer
-    uint8_t body_length;
+    uint8_t body_length{0};
 };
 #endif  // AP_RANGEFINDER_RDS02UF_ENABLED

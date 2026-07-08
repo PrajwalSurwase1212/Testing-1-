@@ -64,19 +64,19 @@ private:
         Basic      =1,
         AG32       =2,
         Delta32    =3
-    } opmode;
+    } opmode = OpMode::Basic;
 
-    enum Rotation rotation;
-    uint8_t drdy_pin;
+    enum Rotation rotation = ROTATION_NONE;
+    uint8_t drdy_pin = 0;
 
-    uint16_t last_counter;
-    bool done_first_read;
-    float temp_sum;
-    uint8_t temp_count;
-    float expected_sample_rate_hz;
+    uint16_t last_counter = 0;
+    bool done_first_read = false;
+    float temp_sum = 0.0f;
+    uint8_t temp_count = 0;
+    float expected_sample_rate_hz = 0.0f;
 
-    float accel_scale;
-    float gyro_scale;
-    double dangle_scale;
-    double dvel_scale;
+    float accel_scale = 0.0f;
+    float gyro_scale = 0.0f;
+    double dangle_scale = 0.0;
+    double dvel_scale = 0.0;
 };

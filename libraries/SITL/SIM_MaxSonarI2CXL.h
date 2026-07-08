@@ -43,7 +43,7 @@ public:
 
 private:
 
-    float rangefinder_range;
+    float rangefinder_range{0.0f};
 };
 
 } // namespace SITL
