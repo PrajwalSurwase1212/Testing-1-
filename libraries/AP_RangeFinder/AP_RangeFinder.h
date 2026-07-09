@@ -321,12 +321,12 @@ protected:
 private:
     static RangeFinder *_singleton;
 
-    RangeFinder_State state[RANGEFINDER_MAX_INSTANCES];
-    AP_RangeFinder_Backend *drivers[RANGEFINDER_MAX_INSTANCES];
-    uint8_t num_instances;
+    RangeFinder_State state[RANGEFINDER_MAX_INSTANCES]{};
+    AP_RangeFinder_Backend *drivers[RANGEFINDER_MAX_INSTANCES]{};
+    uint8_t num_instances{0};
     HAL_Semaphore detect_sem;
-    float estimated_terrain_height;
-    Vector3f pos_offset_zero;   // allows returning position offsets of zero for invalid requests
+    float estimated_terrain_height{0.0f};
+    Vector3f pos_offset_zero{};   // allows returning position offsets of zero for invalid requests
 
     void convert_params(void);
 

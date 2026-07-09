@@ -33,13 +33,13 @@ private:
     void update_oa_distance_and_bearing_to_destination();
 
     // object avoidance variables
-    bool _oa_active;                // true if we should use alternative destination to avoid obstacles
-    Location _origin_oabak;         // backup of _origin so it can be restored when oa completes
-    Location _destination_oabak;    // backup of _desitnation so it can be restored when oa completes
-    Location _next_destination_oabak; // backup of _next_destination so it can be restored when oa completes
-    Location _oa_origin;            // intermediate origin during avoidance
-    Location _oa_destination;       // intermediate destination during avoidance
-    Location _oa_next_destination;  // intermediate next destination during avoidance
-    float _oa_distance_to_destination; // OA (object avoidance) distance from vehicle to _oa_destination in meters
-    float _oa_wp_bearing_cd;        // OA adjusted heading to _oa_destination in centi-degrees
+    bool _oa_active{false};                // true if we should use alternative destination to avoid obstacles
+    Location _origin_oabak{};         // backup of _origin so it can be restored when oa completes
+    Location _destination_oabak{};    // backup of _desitnation so it can be restored when oa completes
+    Location _next_destination_oabak{}; // backup of _next_destination so it can be restored when oa completes
+    Location _oa_origin{};            // intermediate origin during avoidance
+    Location _oa_destination{};       // intermediate destination during avoidance
+    Location _oa_next_destination{};  // intermediate next destination during avoidance
+    float _oa_distance_to_destination{0.0f}; // OA (object avoidance) distance from vehicle to _oa_destination in meters
+    float _oa_wp_bearing_cd{0.0f};        // OA adjusted heading to _oa_destination in centi-degrees
 };

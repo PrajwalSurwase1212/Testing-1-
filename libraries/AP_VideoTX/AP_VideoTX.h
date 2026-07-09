@@ -182,36 +182,36 @@ private:
     uint8_t find_current_power() const;
     // channel frequency
     AP_Int16 _frequency_mhz;
-    uint16_t _current_frequency;
+    uint16_t _current_frequency{0};
 
     // power output in mw
     AP_Int16 _power_mw;
-    uint16_t _current_power;
+    uint16_t _current_power{0};
     AP_Int16 _max_power_mw;
 
     // frequency band
     AP_Int8 _band;
-    uint16_t _current_band;
+    uint16_t _current_band{0};
 
     // frequency channel
     AP_Int8 _channel;
-    uint8_t _current_channel;
+    uint8_t _current_channel{0};
 
     // vtx options
     AP_Int16 _options;
-    uint16_t _current_options;
+    uint16_t _current_options{0};
 
     AP_Int8 _enabled;
-    bool _current_enabled;
+    bool _current_enabled{false};
 
-    bool _initialized;
+    bool _initialized{false};
     // when defaults have been configured
-    bool _defaults_set;
+    bool _defaults_set{false};
     // true when configuration have been applied successfully to the VTX
-    bool _configuration_finished;
+    bool _configuration_finished{false};
 
     // types of VTX providers
-    uint8_t _types;
+    uint8_t _types{0};
 };
 
 namespace AP {

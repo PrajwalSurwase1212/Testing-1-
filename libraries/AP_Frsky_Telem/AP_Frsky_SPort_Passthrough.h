@@ -121,15 +121,15 @@ private:
     bool _use_external_data;
 
     struct {
-        sport_packet_t packet;
-        bool pending;
-    } external_data;
+        sport_packet_t packet{};
+        bool pending{false};
+    } external_data{};
 
     struct {
-        uint32_t chunk; // a "chunk" (four characters/bytes) at a time of the queued message to be sent
-        uint8_t repeats; // send each message "chunk" 3 times to make sure the entire messsage gets through without getting cut
-        uint8_t char_index; // index of which character to get in the message
-    } _msg_chunk;
+        uint32_t chunk{0}; // a "chunk" (four characters/bytes) at a time of the queued message to be sent
+        uint8_t repeats{0}; // send each message "chunk" 3 times to make sure the entire messsage gets through without getting cut
+        uint8_t char_index{0}; // index of which character to get in the message
+    } _msg_chunk{};
 
     // passthrough default sensor id
     uint8_t downlink_sensor_id = 0x1B;
@@ -140,10 +140,10 @@ private:
         uint8_t uplink_sensor_id = 0x0D;
         uint8_t downlink1_sensor_id = 0x34;
         uint8_t downlink2_sensor_id = 0x67;
-        uint8_t tx_packet_duplicates;
+        uint8_t tx_packet_duplicates{0};
         ObjectBuffer_TS<AP_Frsky_SPort::sport_packet_t> rx_packet_queue{SPORT_PACKET_QUEUE_LENGTH};
         ObjectBuffer_TS<AP_Frsky_SPort::sport_packet_t> tx_packet_queue{SPORT_PACKET_QUEUE_LENGTH};
-    } _SPort_bidir;
+    } _SPort_bidir{};
 
     AP_Frsky_SPortParser _sport_handler;
     AP_Frsky_MAVlite_SPortToMAVlite sport_to_mavlite;
@@ -165,7 +165,7 @@ private:
     // true if we need to respond to the last polling byte
     bool is_passthrough_byte(const uint8_t byte) const;
 
-    uint8_t _paramID;
+    uint8_t _paramID{0};
 
     uint32_t calc_gps_status(void);
 

@@ -44,7 +44,7 @@ protected:
 
 private:
 
-    const char *blockname[256];
+    const char *blockname[256] {};
     Bitmask<256> writable_blocks;
     Bitmask<256> readable_blocks;
 

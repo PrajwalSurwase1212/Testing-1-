@@ -209,7 +209,7 @@ public:
     void set_num_types(uint8_t num_types) { _num_types = num_types; }
 
     bool CardInserted(void);
-    bool _log_pause;
+    bool _log_pause{false};
 
     // pause logging if aux switch is active and log rate limit enabled
     void log_pause(bool value) {

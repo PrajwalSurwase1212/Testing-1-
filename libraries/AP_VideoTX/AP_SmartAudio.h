@@ -169,41 +169,41 @@ private:
     static AP_SmartAudio* _singleton;
 
     // response buffer length, permit splitted responses
-    uint8_t _inline_buffer_length;
+    uint8_t _inline_buffer_length{0};
     // expected packet size
-    uint8_t _packet_size;
+    uint8_t _packet_size{0};
 
-    ProtocolVersion _protocol_version;
+    ProtocolVersion _protocol_version{ProtocolVersion::SMARTAUDIO_SPEC_PROTOCOL_v1};
     // statistics
-    uint16_t _packets_sent;
-    uint16_t _packets_rcvd;
+    uint16_t _packets_sent{0};
+    uint16_t _packets_rcvd{0};
 
-    bool _vtx_freq_change_pending; // a vtx command has been issued but not confirmed by a vtx broadcast frame
-    bool _vtx_power_change_pending;
-    bool _vtx_options_change_pending;
-    bool _vtx_changes_pending;
-    bool _vtx_use_set_freq; // should frequency set by band/channel or frequency
+    bool _vtx_freq_change_pending{false}; // a vtx command has been issued but not confirmed by a vtx broadcast frame
+    bool _vtx_power_change_pending{false};
+    bool _vtx_options_change_pending{false};
+    bool _vtx_changes_pending{false};
+    bool _vtx_use_set_freq{false}; // should frequency set by band/channel or frequency
 
     // value for current baud adjust
     int32_t _smartbaud = AP_SMARTAUDIO_UART_BAUD;
     int32_t _smartbaud_direction = 1;
 
     // hw vtx state control with 2 elements array use methods _push _peek
-    uint8_t _vtx_state_idx;
-    Settings _vtx_states_buffer[2];
-    Settings *_vtx_current_state;
+    uint8_t _vtx_state_idx{0};
+    Settings _vtx_states_buffer[2]{};
+    Settings *_vtx_current_state{nullptr};
 
     // ready to go
-    volatile bool _initialised;
+    volatile bool _initialised{false};
 
     // RingBuffer to store outgoing request.
     ObjectBuffer<Packet> requests_queue{SMARTAUDIO_BUFFER_CAPACITY};
 
     // time the last_request is process
-    uint32_t _last_request_sent_ms;
+    uint32_t _last_request_sent_ms{0};
 
     // loops is waiting a response after a request
-    bool _is_waiting_response;
+    bool _is_waiting_response{false};
 
 #ifdef SA_DEBUG
     // utility method for debugging.

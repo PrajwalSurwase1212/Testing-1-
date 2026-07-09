@@ -64,7 +64,7 @@ private:
     AR_AttitudeControl& _atc;       // rover attitude control library
 
     // local variables
-    bool _enabled;                  // true if vehicle can pivot
-    bool _active;                   // true if vehicle is currently pivoting
-    uint32_t _delay_start_ms;       // system time when post-turn delay started
+    bool _enabled{false};                  // true if vehicle can pivot
+    bool _active{false};                   // true if vehicle is currently pivoting
+    uint32_t _delay_start_ms{0};       // system time when post-turn delay started
 };

@@ -33,13 +33,13 @@ private:
     bool check_echo_pin();
     void check_trigger_pin();
 
-    int8_t trigger_pin;
-    float last_distance_m;         // last distance reported (used to prevent glitches in measurement)
-    uint8_t glitch_count;          // glitch counter
+    int8_t trigger_pin = -1;
+    float last_distance_m = 0.0f;         // last distance reported (used to prevent glitches in measurement)
+    uint8_t glitch_count = 0;          // glitch counter
 
     AP_HAL::PWMSource pwm_source;
 
-    uint32_t last_ping_ms;
+    uint32_t last_ping_ms = 0;
 };
 
 #endif  // AP_RANGEFINDER_HC_SR04_ENABLED

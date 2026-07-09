@@ -399,8 +399,8 @@ private:
     bool _start_calibration_mask(uint8_t mask, bool retry=false, bool autosave=false, float delay_sec=0.0f, bool autoreboot=false);
     bool _auto_reboot() const { return _compass_cal_autoreboot; }
 #if HAL_MAVLINK_BINDINGS_ENABLED
-    Priority next_cal_progress_idx[MAVLINK_COMM_NUM_BUFFERS];
-    Priority next_cal_report_idx[MAVLINK_COMM_NUM_BUFFERS];
+    Priority next_cal_progress_idx[MAVLINK_COMM_NUM_BUFFERS] {};
+    Priority next_cal_report_idx[MAVLINK_COMM_NUM_BUFFERS] {};
 #endif
 #endif  // COMPASS_CAL_ENABLED
 
@@ -417,13 +417,13 @@ private:
 
 #if COMPASS_CAL_ENABLED
     //keep track of which calibrators have been saved
-    RestrictIDTypeArray<bool, COMPASS_MAX_INSTANCES, Priority> _cal_saved;
-    bool _cal_autosave;
+    RestrictIDTypeArray<bool, COMPASS_MAX_INSTANCES, Priority> _cal_saved{};
+    bool _cal_autosave{false};
 
     //autoreboot after compass calibration
-    bool _compass_cal_autoreboot;
-    bool _cal_requires_reboot;
-    bool _cal_has_run;
+    bool _compass_cal_autoreboot{false};
+    bool _cal_requires_reboot{false};
+    bool _cal_has_run{false};
 #endif  // COMPASS_CAL_ENABLED
 
     // enum of drivers for COMPASS_DISBLMSK
@@ -582,7 +582,7 @@ private:
     };
 
     //Create an Array of mag_state to be accessible by StateIndex only
-    RestrictIDTypeArray<mag_state, COMPASS_MAX_INSTANCES+1, StateIndex> _state;
+    RestrictIDTypeArray<mag_state, COMPASS_MAX_INSTANCES+1, StateIndex> _state{};
 
     //Convert Priority to StateIndex
     StateIndex _get_state_id(Priority priority) const;
@@ -610,10 +610,10 @@ private:
 
     void _reset_compass_id();
     //Create Arrays to be accessible by Priority only
-    RestrictIDTypeArray<AP_Int8, COMPASS_MAX_INSTANCES, Priority> _use_for_yaw;
+    RestrictIDTypeArray<AP_Int8, COMPASS_MAX_INSTANCES, Priority> _use_for_yaw{};
 #if COMPASS_MAX_INSTANCES > 1
-    RestrictIDTypeArray<AP_Int32, COMPASS_MAX_INSTANCES, Priority> _priority_did_stored_list;
-    RestrictIDTypeArray<int32_t, COMPASS_MAX_INSTANCES, Priority> _priority_did_list;
+    RestrictIDTypeArray<AP_Int32, COMPASS_MAX_INSTANCES, Priority> _priority_did_stored_list{};
+    RestrictIDTypeArray<int32_t, COMPASS_MAX_INSTANCES, Priority> _priority_did_list{};
 #endif
 
     AP_Int16 _offset_max;
@@ -627,7 +627,7 @@ private:
     AP_Int16 _options;
 
 #if COMPASS_CAL_ENABLED
-    RestrictIDTypeArray<CompassCalibrator*, COMPASS_MAX_INSTANCES, Priority> _calibrator;
+    RestrictIDTypeArray<CompassCalibrator*, COMPASS_MAX_INSTANCES, Priority> _calibrator{};
 #endif
 
 #if COMPASS_MOT_ENABLED

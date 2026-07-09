@@ -251,7 +251,7 @@ protected:
     void df_stats_log();
     void df_stats_clear();
 
-    AP_Logger_RateLimiter *rate_limiter;
+    AP_Logger_RateLimiter *rate_limiter{nullptr};
 
 private:
     // statistics support
@@ -262,7 +262,7 @@ private:
         uint32_t buf_space_max;
         uint32_t buf_space_sigma;
     };
-    struct df_stats stats;
+    struct df_stats stats{};
 
     void Write_AP_Logger_Stats_File(const struct df_stats &_stats);
     void validate_WritePrioritisedBlock(const void *pBuffer, uint16_t size);

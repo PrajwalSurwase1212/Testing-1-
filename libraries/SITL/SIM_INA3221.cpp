@@ -26,6 +26,7 @@ SITL::INA3221::INA3221()
 
 void SITL::INA3221::reset()
 {
+    memset(&registers, 0, sizeof(registers));
     // from page 24 of datasheet:
     registers.byname.configuration.word = 0x7127;
     registers.byname.Channel_1_Shunt_Voltage = 0x0;

@@ -25,6 +25,7 @@
 
 SITL::QMC5883L::QMC5883L()
 {
+    memset(&registers, 0, sizeof(registers));
     writable_registers.set(0);
     writable_registers.set(0x0b);
     writable_registers.set(0x20);

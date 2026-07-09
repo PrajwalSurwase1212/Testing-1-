@@ -52,13 +52,13 @@ public:
 private:
     // a simple linear routing table. We don't expect to have a lot of
     // routes, so a scalable structure isn't worthwhile yet.
-    uint8_t num_routes;
+    uint8_t num_routes{0};
     struct route {
         uint8_t sysid;
         uint8_t compid;
         mavlink_channel_t channel;
         uint8_t mavtype;
-    } routes[MAVLINK_MAX_ROUTES];
+    } routes[MAVLINK_MAX_ROUTES] {};
     
     // a channel mask to block routing as required
     uint8_t no_route_mask{0};

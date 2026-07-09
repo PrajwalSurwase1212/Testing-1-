@@ -37,13 +37,13 @@ private:
     bool              getSectorCount(void);
 
     AP_HAL::OwnPtr<AP_HAL::SPIDevice> dev;
-    AP_HAL::Semaphore *dev_sem;
+    AP_HAL::Semaphore *dev_sem{nullptr};
 
-    bool flash_died;
-    uint32_t erase_start_ms;
-    uint8_t erase_cmd;
-    bool use_32bit_address;
-    bool read_cache_valid;
+    bool flash_died{false};
+    uint32_t erase_start_ms{0};
+    uint8_t erase_cmd{0};
+    bool use_32bit_address{false};
+    bool read_cache_valid{false};
 };
 
 #endif // HAL_LOGGING_FLASH_JEDEC_ENABLED

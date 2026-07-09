@@ -161,7 +161,7 @@ public:
         GPS_HEADING_BASE = 4,  // act as an RTK base
     };
 
-    struct sitl_fdm state;
+    struct sitl_fdm state {};
 
     // throttle when motors are active
     float throttle{0.0f};
@@ -354,13 +354,13 @@ public:
     public:
         static const struct AP_Param::GroupInfo var_info[];
 #if AP_SIM_STRATOBLIMP_ENABLED
-        StratoBlimp *stratoblimp_ptr;
+        StratoBlimp *stratoblimp_ptr = nullptr;
 #endif
 #if AP_SIM_SHIP_ENABLED
         ShipSim shipsim;
 #endif
 #if AP_SIM_GLIDER_ENABLED
-        Glider *glider_ptr;
+        Glider *glider_ptr = nullptr;
 #endif
 #if AP_SIM_SLUNGPAYLOAD_ENABLED
         SlungPayloadSim slung_payload_sim;
@@ -369,13 +369,13 @@ public:
         TetherSim tether_sim;
 #endif
 #if AP_SIM_FLIGHTAXIS_ENABLED
-        FlightAxis *flightaxis_ptr;
+        FlightAxis *flightaxis_ptr = nullptr;
 #endif
 #if AP_SIM_AIS_ENABLED
-        class AIS *ais_ptr;
+        class AIS *ais_ptr = nullptr;
 #endif  // AP_SIM_AIS_ENABLED
     };
-    ModelParm models;
+    ModelParm models {};
     
     // EFI type
     enum EFIType {
@@ -561,7 +561,7 @@ public:
         } rgb[16][32];
         uint8_t num_leds[16];
         uint32_t send_counter;
-    } led;
+    } led {};
 
     AP_Int8 led_layout;
 

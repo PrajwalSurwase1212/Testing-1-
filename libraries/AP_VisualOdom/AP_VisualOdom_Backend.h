@@ -85,20 +85,20 @@ protected:
     void rotate_and_correct_position(Vector3f &position) const;
 
     AP_VisualOdom &_frontend;   // reference to frontend
-    uint32_t _last_update_ms;   // system time of last update from sensor (used by health checks)
+    uint32_t _last_update_ms{0};   // system time of last update from sensor (used by health checks)
 
     // reset counter handling
-    uint8_t _last_reset_counter;    // last sensor reset counter received
-    uint32_t _reset_timestamp_ms;   // time reset counter was received
+    uint8_t _last_reset_counter{0};    // last sensor reset counter received
+    uint32_t _reset_timestamp_ms{0};   // time reset counter was received
 
-    bool _align_posxy;              // true if sensor xy position should be aligned to AHRS
-    bool _align_posz;               // true if sensor z position should be aligned to AHRS
-    bool _use_posvel_rotation;      // true if _posvel_rotation should be applied to sensor's position and/or velocity data
-    Matrix3f _posvel_rotation;                  // rotation to align position and/or velocity from sensor to earth frame.  use when _use_posvel_rotation is true
-    Vector3f _pos_correction;                   // position correction that should be added to position reported from sensor
+    bool _align_posxy{false};              // true if sensor xy position should be aligned to AHRS
+    bool _align_posz{false};               // true if sensor z position should be aligned to AHRS
+    bool _use_posvel_rotation{false};      // true if _posvel_rotation should be applied to sensor's position and/or velocity data
+    Matrix3f _posvel_rotation{};                  // rotation to align position and/or velocity from sensor to earth frame.  use when _use_posvel_rotation is true
+    Vector3f _pos_correction{};                   // position correction that should be added to position reported from sensor
 
     // quality
-    int8_t _quality;                // last recorded quality
+    int8_t _quality{0};                // last recorded quality
 };
 
 #endif  // HAL_VISUALODOM_ENABLED

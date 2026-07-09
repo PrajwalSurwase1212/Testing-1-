@@ -117,7 +117,8 @@ const AP_Param::GroupInfo AP_VisualOdom::var_info[] = {
     AP_GROUPEND
 };
 
-AP_VisualOdom::AP_VisualOdom()
+AP_VisualOdom::AP_VisualOdom() :
+    _driver(nullptr)
 {
     AP_Param::setup_object_defaults(this, var_info);
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL

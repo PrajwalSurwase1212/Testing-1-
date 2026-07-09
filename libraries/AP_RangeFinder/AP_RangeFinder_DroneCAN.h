@@ -27,13 +27,13 @@ protected:
         return _sensor_type;
     }
 private:
-    uint8_t _instance;
-    RangeFinder::Status _status;
-    uint16_t _distance_cm;
-    uint32_t _last_reading_ms;
-    AP_DroneCAN* _ap_dronecan;
-    uint8_t _node_id;
-    bool new_data;
-    MAV_DISTANCE_SENSOR _sensor_type;
+    uint8_t _instance{0};
+    RangeFinder::Status _status{RangeFinder::Status::NotConnected};
+    uint16_t _distance_cm{0};
+    uint32_t _last_reading_ms{0};
+    AP_DroneCAN* _ap_dronecan{nullptr};
+    uint8_t _node_id{0};
+    bool new_data{false};
+    MAV_DISTANCE_SENSOR _sensor_type{MAV_DISTANCE_SENSOR_LASER};
 };
 #endif  // AP_RANGEFINDER_DRONECAN_ENABLED

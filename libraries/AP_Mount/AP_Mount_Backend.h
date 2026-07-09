@@ -223,10 +223,10 @@ protected:
     // class for a single angle or rate target
     class MountTarget {
     public:
-        float roll;
-        float pitch;
-        float yaw;
-        bool yaw_is_ef;
+        float roll{0.0f};
+        float pitch{0.0f};
+        float yaw{0.0f};
+        bool yaw_is_ef{false};
 
         // return body-frame yaw angle from a mount target (in radians)
         float get_bf_yaw() const;
@@ -294,14 +294,14 @@ protected:
     AP_Mount_Params &_params; // parameters for this backend
     uint8_t     _instance;  // this instance's number
 
-    MAV_MOUNT_MODE  _mode;          // current mode (see MAV_MOUNT_MODE enum)
+    MAV_MOUNT_MODE  _mode{MAV_MOUNT_MODE_RETRACT};          // current mode (see MAV_MOUNT_MODE enum)
 
     // structure for MAVLink Targeting angle and rate targets
     struct {
-        MountTargetType target_type;// MAVLink targeting mode's current target type (e.g. angle or rate)
-        MountTarget angle_rad;      // angle target in radians
-        MountTarget rate_rads;      // rate target in rad/s
-    } mnt_target;
+        MountTargetType target_type{MountTargetType::ANGLE};// MAVLink targeting mode's current target type (e.g. angle or rate)
+        MountTarget angle_rad{};      // angle target in radians
+        MountTarget rate_rads{};      // rate target in rad/s
+    } mnt_target{};
 
 private:
 
@@ -321,46 +321,46 @@ private:
     void calculate_poi();
 #endif
 
-    bool _yaw_lock;                 // yaw_lock used in RC_TARGETING mode. True if the gimbal's yaw target is maintained in earth-frame, if false (aka "follow") it is maintained in body-frame
+    bool _yaw_lock{false};                 // yaw_lock used in RC_TARGETING mode. True if the gimbal's yaw target is maintained in earth-frame, if false (aka "follow") it is maintained in body-frame
 
 #if AP_MOUNT_POI_TO_LATLONALT_ENABLED
     struct {
         HAL_Semaphore sem;        // semaphore protecting this structure
-        uint32_t poi_request_ms;  // system time POI was last requested
-        uint32_t poi_update_ms;   // system time POI was calculated
-        Location loc;             // gimbal location used for poi calculation
-        Location poi_loc;         // location of the POI
-        Quaternion att_quat;      // attitude quaternion of the gimbal
-    } poi_calculation;
+        uint32_t poi_request_ms{0};  // system time POI was last requested
+        uint32_t poi_update_ms{0};   // system time POI was calculated
+        Location loc{};             // gimbal location used for poi calculation
+        Location poi_loc{};         // location of the POI
+        Quaternion att_quat{};      // attitude quaternion of the gimbal
+    } poi_calculation{};
 #endif
 
-    Location _roi_target;           // roi target location
-    bool _roi_target_set;           // true if the roi target has been set
+    Location _roi_target{};           // roi target location
+    bool _roi_target_set{false};           // true if the roi target has been set
 
-    uint8_t _target_sysid;          // sysid to track
-    Location _target_sysid_location;// sysid target location
-    bool _target_sysid_location_set;// true if _target_sysid has been set
+    uint8_t _target_sysid{0};          // sysid to track
+    Location _target_sysid_location{};// sysid target location
+    bool _target_sysid_location_set{false};// true if _target_sysid has been set
 
-    uint32_t _last_warning_ms;      // system time of last warning sent to GCS
+    uint32_t _last_warning_ms{0};      // system time of last warning sent to GCS
 
     // structure holding the last RC inputs
     struct {
-        bool    initialised;
-        int16_t roll_in;
-        int16_t pitch_in;
-        int16_t yaw_in;
-    } last_rc_input;
+        bool    initialised{false};
+        int16_t roll_in{0};
+        int16_t pitch_in{0};
+        int16_t yaw_in{0};
+    } last_rc_input{};
 
     // structure holding mavlink sysid and compid of controller of this gimbal
     // see MAV_CMD_DO_GIMBAL_MANAGER_CONFIGURE and GIMBAL_MANAGER_STATUS
     struct mavlink_control_id_t {
-        uint8_t sysid;
-        uint8_t compid;
+        uint8_t sysid{0};
+        uint8_t compid{0};
 
         // equality operators
         bool operator==(const mavlink_control_id_t &rhs) const { return (sysid == rhs.sysid && compid == rhs.compid); }
         bool operator!=(const mavlink_control_id_t &rhs) const { return !(*this == rhs); }
-    } mavlink_control_id;
+    } mavlink_control_id{};
 
     // SRV_Channel mount open function index
     SRV_Channel::Function    _open_idx;

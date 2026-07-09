@@ -172,7 +172,7 @@ private:
     uint32_t _stop_last_ms = 0;         // system time the vehicle was at a complete stop
     bool     _throttle_limit_low = false;   // throttle output was limited from going too low (used to reduce i-term buildup)
     bool     _throttle_limit_high = false;  // throttle output was limited from going too high (used to reduce i-term buildup)
-    AP_PIDInfo _throttle_speed_pid_info;   // local copy of throttle_speed controller's PID info to allow reporting of unusual FF
+    AP_PIDInfo _throttle_speed_pid_info{};   // local copy of throttle_speed controller's PID info to allow reporting of unusual FF
 
     // balancebot pitch control
     uint32_t _balance_last_ms = 0;  // system time that get_throttle_out_from_pitch was last called

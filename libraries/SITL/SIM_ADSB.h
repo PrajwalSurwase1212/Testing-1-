@@ -41,9 +41,9 @@ public:
     // return earth-frame vehicle velocity:
     bool velocity(Vector3F &ret) const { ret = velocity_ef; return true; }
 
-    uint32_t ICAO_address;
+    uint32_t ICAO_address = 0;
     Vector3F velocity_ef; // NED
-    char callsign[9];
+    char callsign[9] {};
 
 private:
     void update(const class Aircraft &aircraft, float delta_t);
@@ -51,8 +51,8 @@ private:
     Vector3p position; // NED from origin
     Location location;
 
-    ADSB_EMITTER_TYPE type;
-    uint64_t stationary_object_created_ms; // allows expiring of slow/stationary objects
+    ADSB_EMITTER_TYPE type = (ADSB_EMITTER_TYPE)0;
+    uint64_t stationary_object_created_ms = 0; // allows expiring of slow/stationary objects
 
 };
 
@@ -61,7 +61,7 @@ public:
     ADSB() {};
     void update(const class Aircraft &aircraft);
 
-    uint8_t num_vehicles;
+    uint8_t num_vehicles = 0;
     static const uint8_t num_vehicles_MAX = 200;
     ADSB_Vehicle vehicles[num_vehicles_MAX];
 
@@ -70,14 +70,14 @@ private:
 
     // reporting period in ms
     const float reporting_period_ms = 1000;
-    uint32_t last_report_us;
-    uint32_t last_update_us;
-    uint32_t last_tx_report_ms;
+    uint32_t last_report_us = 0;
+    uint32_t last_update_us = 0;
+    uint32_t last_tx_report_ms = 0;
     
-    uint32_t last_heartbeat_ms;
+    uint32_t last_heartbeat_ms = 0;
     bool seen_heartbeat = false;
-    uint8_t vehicle_system_id;
-    uint8_t vehicle_component_id;
+    uint8_t vehicle_system_id = 0;
+    uint8_t vehicle_component_id = 0;
 
     struct {
         // socket to telem2 on aircraft

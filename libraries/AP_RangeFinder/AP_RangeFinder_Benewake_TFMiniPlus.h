@@ -62,8 +62,8 @@ private:
     AP_HAL::OwnPtr<AP_HAL::I2CDevice> _dev;
 
     struct {
-        uint32_t sum;
-        uint32_t count;
+        uint32_t sum{0};
+        uint32_t count{0};
     } accum;
 };
 

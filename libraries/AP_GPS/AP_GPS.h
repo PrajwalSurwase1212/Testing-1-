@@ -613,7 +613,7 @@ protected:
     AP_Int8 _auto_switch;
     AP_Int16 _sbp_logmask;
     AP_Int8 _inject_to;
-    uint32_t _last_instance_swap_ms;
+    uint32_t _last_instance_swap_ms = 0;
     AP_Enum<SBAS_Mode> _sbas_mode;
     AP_Int8 _min_elevation;
     AP_Int8 _raw_data;
@@ -653,34 +653,34 @@ private:
 
     struct GPS_timing {
         // the time we got our last fix in system milliseconds
-        uint32_t last_fix_time_ms;
+        uint32_t last_fix_time_ms{0};
 
         // the time we got our last message in system milliseconds
-        uint32_t last_message_time_ms;
+        uint32_t last_message_time_ms{0};
 
         // delta time between the last pair of GPS updates in system milliseconds
-        uint16_t delta_time_ms;
+        uint16_t delta_time_ms{0};
 
         // count of delayed frames
-        uint8_t delayed_count;
+        uint8_t delayed_count{0};
 
         // the average time delta
-        float average_delta_ms;
+        float average_delta_ms{0.0f};
     };
     // Note allowance for an additional instance to contain blended data
-    GPS_timing timing[GPS_MAX_INSTANCES];
-    GPS_State state[GPS_MAX_INSTANCES];
-    AP_GPS_Backend *drivers[GPS_MAX_INSTANCES];
-    AP_HAL::UARTDriver *_port[GPS_MAX_RECEIVERS];
+    GPS_timing timing[GPS_MAX_INSTANCES] {};
+    GPS_State state[GPS_MAX_INSTANCES] {};
+    AP_GPS_Backend *drivers[GPS_MAX_INSTANCES] {};
+    AP_HAL::UARTDriver *_port[GPS_MAX_RECEIVERS] {};
 
     /// primary GPS instance
-    uint8_t primary_instance;
+    uint8_t primary_instance = 0;
 
     /// number of GPS instances present
-    uint8_t num_instances;
+    uint8_t num_instances = 0;
 
     // which ports are locked
-    uint8_t locked_ports;
+    uint8_t locked_ports = 0;
 
     // state of auto-detection process, per instance
     struct detect_state {
@@ -706,12 +706,12 @@ private:
 #if AP_GPS_ERB_ENABLED
         struct ERB_detect_state erb_detect_state;
 #endif
-    } detect_state[GPS_MAX_RECEIVERS];
+    } detect_state[GPS_MAX_RECEIVERS] {};
 
     struct {
         const char *blob;
         uint16_t remaining;
-    } initblob_state[GPS_MAX_RECEIVERS];
+    } initblob_state[GPS_MAX_RECEIVERS] {};
 
     static const uint32_t  _baudrates[];
     static const char _initialisation_blob[];
@@ -742,12 +742,12 @@ private:
         uint8_t fragment_count;
         uint16_t total_length;
         uint8_t buffer[MAVLINK_MSG_GPS_RTCM_DATA_FIELD_DATA_LEN*4];
-    } *rtcm_buffer;
+    } *rtcm_buffer = nullptr;
 
     struct {
-        uint16_t fragments_used;
-        uint16_t fragments_discarded;
-    } rtcm_stats;
+        uint16_t fragments_used{0};
+        uint16_t fragments_discarded{0};
+    } rtcm_stats {};
 
     // re-assemble GPS_RTCM_DATA message
     void handle_gps_rtcm_data(mavlink_channel_t chan, const mavlink_message_t &msg);
@@ -757,7 +757,7 @@ private:
     void inject_data(uint8_t instance, const uint8_t *data, uint16_t len);
 
 #if AP_GPS_BLENDED_ENABLED
-    bool _output_is_blended; // true when a blended GPS solution being output
+    bool _output_is_blended = false; // true when a blended GPS solution being output
 #endif
 
     bool should_log() const;
@@ -788,10 +788,10 @@ private:
     };
 
     // used for flight testing with GPS loss
-    bool _force_disable_gps;
+    bool _force_disable_gps = false;
 
     // used for flight testing with GPS yaw loss
-    bool _force_disable_gps_yaw;
+    bool _force_disable_gps_yaw = false;
 
     // logging support
     void Write_GPS(uint8_t instance);
@@ -802,11 +802,11 @@ private:
        option in GPS_DRV_OPTIONS
     */
     struct {
-        RTCM3_Parser *parsers[MAVLINK_COMM_NUM_BUFFERS];
-        uint32_t sent_crc[32];
-        uint8_t sent_idx;
-        uint16_t seen_mav_channels;
-    } rtcm;
+        RTCM3_Parser *parsers[MAVLINK_COMM_NUM_BUFFERS]{};
+        uint32_t sent_crc[32]{};
+        uint8_t sent_idx{0};
+        uint16_t seen_mav_channels{0};
+    } rtcm {};
     bool parse_rtcm_injection(mavlink_channel_t chan, const mavlink_gps_rtcm_data_t &pkt);
 #endif
 

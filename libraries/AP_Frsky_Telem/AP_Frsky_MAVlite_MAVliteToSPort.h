@@ -49,9 +49,9 @@ private:
 
     uint8_t next_seq = 0;
     uint8_t payload_count = 0;
-    uint8_t payload_len;
+    uint8_t payload_len{0};
 
-    int16_t checksum;                       // sent at end of packet
+    int16_t checksum{0};                       // sent at end of packet
     void update_checksum(const uint8_t c);
 };
 

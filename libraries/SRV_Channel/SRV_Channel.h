@@ -631,7 +631,7 @@ private:
 
     static bool disabled_passthrough;
 
-    SRV_Channel::servo_mask_t trimmed_mask;
+    SRV_Channel::servo_mask_t trimmed_mask{0};
 
     static Bitmask<SRV_Channel::k_nr_aux_servo_functions> function_mask;
     static bool initialised;
@@ -707,13 +707,12 @@ private:
 
     static bool emergency_stop;
 
-    // linked list for slew rate handling
     struct slew_list {
-        slew_list(SRV_Channel::Function _func) : func(_func) {};
+        slew_list(SRV_Channel::Function _func) : func(_func), last_scaled_output(0.0f), max_change(0.0f), next(nullptr) {}
         const SRV_Channel::Function func;
-        float last_scaled_output{0.0f};
-        float max_change{0.0f};
-        slew_list * next{nullptr};
+        float last_scaled_output;
+        float max_change;
+        slew_list * next;
     };
     static slew_list *_slew;
 

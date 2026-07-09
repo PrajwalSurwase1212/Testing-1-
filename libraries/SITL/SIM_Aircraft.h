@@ -178,7 +178,7 @@ public:
 
     float ambient_temperature_degC() const;
 
-    ADSB *adsb;
+    ADSB *adsb = nullptr;
 
     // takes a PWM range between 1000 and 2000 and returns a floating
     // point value between -1 and 1
@@ -197,17 +197,17 @@ public:
                          const Vector3f &velocity_ef, const Vector3f &gyro_rads);
 
 protected:
-    SIM *sitl;
+    SIM *sitl = nullptr;
     // origin of position vector
     Location origin;
     // home location
     Location home;
-    bool home_is_set;
+    bool home_is_set = false;
     Location location;
 
-    float ground_level;
-    float home_yaw;
-    float frame_height;
+    float ground_level = 0.0f;
+    float home_yaw = 0.0f;
+    float frame_height = 0.0f;
     Matrix3f dcm;                        // rotation matrix, APM conventions, from body to earth
     Vector3f gyro;                       // rad/s
     Vector3f velocity_ef;                // m/s, earth frame
@@ -215,24 +215,24 @@ protected:
     Vector3f velocity_air_ef;            // velocity relative to airmass, earth frame (true airspeed)
     Vector3f velocity_air_bf;            // velocity relative to airmass, body frame
     Vector3d position;                   // meters, NED from origin
-    float mass;                          // kg
-    float external_payload_mass;         // kg
+    float mass = 0.0f;                          // kg
+    float external_payload_mass = 0.0f;         // kg
     Vector3f accel_body{0.0f, 0.0f, -GRAVITY_MSS}; // m/s/s NED, body frame
-    float airspeed;                      // m/s, EAS airspeed
-    float airspeed_pitot;                // m/s, EAS airspeed, as seen by fwd pitot tube
-    float battery_voltage;
-    float battery_current;
-    float local_ground_level;            // ground level at local position
-    bool lock_step_scheduled;
-    uint32_t last_one_hz_ms;
+    float airspeed = 0.0f;                      // m/s, EAS airspeed
+    float airspeed_pitot = 0.0f;                // m/s, EAS airspeed, as seen by fwd pitot tube
+    float battery_voltage = 0.0f;
+    float battery_current = 0.0f;
+    float local_ground_level = 0.0f;            // ground level at local position
+    bool lock_step_scheduled = false;
+    uint32_t last_one_hz_ms = 0;
 
     // battery model
     Battery battery;
 
-    uint32_t motor_mask;
-    float rpm[32];
-    uint8_t rcin_chan_count;
-    float rcin[12];
+    uint32_t motor_mask = 0;
+    float rpm[32] {};
+    uint8_t rcin_chan_count = 0;
+    float rcin[12] {};
 
     virtual float rangefinder_beam_width() const { return 0; }
     virtual float perpendicular_distance_to_rangefinder_surface() const;
@@ -241,39 +241,39 @@ protected:
         // data from simulated laser scanner, if available
         struct vector3f_array points;
         struct float_array ranges;
-    } scanner;
+    } scanner {};
 
     // Rangefinder
-    float rangefinder_m[SITL_NUM_RANGEFINDERS];
+    float rangefinder_m[SITL_NUM_RANGEFINDERS] {};
 
     // Windvane apparent wind
     struct {
-        float speed;
-        float direction;
-    } wind_vane_apparent;
+        float speed = 0.0f;
+        float direction = 0.0f;
+    } wind_vane_apparent {};
 
     // Wind Turbulence simulated Data
-    float turbulence_azimuth;
-    float turbulence_horizontal_speed;  // m/s
-    float turbulence_vertical_speed;    // m/s
+    float turbulence_azimuth = 0.0f;
+    float turbulence_horizontal_speed = 0.0f;  // m/s
+    float turbulence_vertical_speed = 0.0f;    // m/s
 
     Vector3f mag_bf;  // local earth magnetic field vector in Gauss, earth frame
 
-    uint64_t time_now_us;
+    uint64_t time_now_us = 0;
 
     const float gyro_noise = radians(0.1f);
     const float accel_noise = 0.3f;
     float rate_hz = 1200.0f;
-    float target_speedup;
-    uint64_t frame_time_us;
-    uint64_t last_wall_time_us;
-    uint32_t last_fps_report_ms;
-    float achieved_rate_hz;  // achieved speedup rate
-    int64_t sleep_debt_us;
-    uint32_t last_frame_count;
-    uint8_t instance;
-    const char *autotest_dir;
-    const char *frame;
+    float target_speedup = 0.0f;
+    uint64_t frame_time_us = 0;
+    uint64_t last_wall_time_us = 0;
+    uint32_t last_fps_report_ms = 0;
+    float achieved_rate_hz = 0.0f;  // achieved speedup rate
+    int64_t sleep_debt_us = 0;
+    uint32_t last_frame_count = 0;
+    uint8_t instance = 0;
+    const char *autotest_dir = nullptr;
+    const char *frame = nullptr;
     bool use_time_sync = true;
     float last_speedup = -1.0f;
     const char *config_ = "";
@@ -281,21 +281,21 @@ protected:
     float air_density = SSL_AIR_DENSITY;
 
     // allow for AHRS_ORIENTATION
-    AP_Int8 *ahrs_orientation;
-    enum Rotation last_imu_rotation;
-    AP_Float* custom_roll;
-    AP_Float* custom_pitch;
-    AP_Float* custom_yaw;
+    AP_Int8 *ahrs_orientation = nullptr;
+    enum Rotation last_imu_rotation = ROTATION_NONE;
+    AP_Float* custom_roll = nullptr;
+    AP_Float* custom_pitch = nullptr;
+    AP_Float* custom_yaw = nullptr;
 
     enum GroundBehaviour {
         GROUND_BEHAVIOR_NONE = 0,
         GROUND_BEHAVIOR_NO_MOVEMENT,
         GROUND_BEHAVIOR_FWD_ONLY,
         GROUND_BEHAVIOR_TAILSITTER,
-    } ground_behavior;
+    } ground_behavior = GROUND_BEHAVIOR_NONE;
 
-    bool use_smoothing;
-    bool disable_origin_movement;
+    bool use_smoothing = false;
+    bool disable_origin_movement = false;
 
     float ground_height_difference() const;
 
@@ -363,14 +363,14 @@ protected:
     public:
         bool clamped(class Aircraft&, const struct sitl_input &input);  // true if the vehicle is currently clamped down
     private:
-        bool currently_clamped;
-        bool grab_attempted;  // avoid warning multiple times about missed grab
+        bool currently_clamped = false;
+        bool grab_attempted = false;  // avoid warning multiple times about missed grab
     } clamp;
 
 private:
-    uint64_t last_time_us;
-    uint32_t frame_counter;
-    uint32_t last_ground_contact_ms;
+    uint64_t last_time_us = 0;
+    uint32_t frame_counter = 0;
+    uint32_t last_ground_contact_ms = 0;
 #if defined(__CYGWIN__) || defined(__CYGWIN64__)
     const uint32_t min_sleep_time{20000};
 #else
@@ -383,29 +383,29 @@ private:
         Matrix3f rotation_b2e;
         Vector3d position;
         Vector3f velocity_ef;
-        uint64_t last_update_us;
+        uint64_t last_update_us = 0;
         Location location;
-    } smoothing;
+    } smoothing {};
 
-    Buzzer *buzzer;
-    Sprayer *sprayer;
-    Gripper_Servo *gripper;
-    Gripper_EPM *gripper_epm;
-    Parachute *parachute;
-    RichenPower *richenpower;
+    Buzzer *buzzer = nullptr;
+    Sprayer *sprayer = nullptr;
+    Gripper_Servo *gripper = nullptr;
+    Gripper_EPM *gripper_epm = nullptr;
+    Parachute *parachute = nullptr;
+    RichenPower *richenpower = nullptr;
 #if AP_SIM_LOWEHEISER_ENABLED
-    Loweheiser *loweheiser;
+    Loweheiser *loweheiser = nullptr;
 #endif
-    FETtecOneWireESC *fetteconewireesc;
+    FETtecOneWireESC *fetteconewireesc = nullptr;
 #if AP_SIM_VOLZ_ENABLED
-    Volz *volz;
+    Volz *volz = nullptr;
 #endif  // AP_SIM_VOLZ_ENABLED
 
-    IntelligentEnergy24 *ie24;
-    SIM_Precland *precland;
-    class I2C *i2c;
+    IntelligentEnergy24 *ie24 = nullptr;
+    SIM_Precland *precland = nullptr;
+    class I2C *i2c = nullptr;
 #if AP_TEST_DRONECAN_DRIVERS
-    DroneCANDevice *dronecan;
+    DroneCANDevice *dronecan = nullptr;
 #endif
 
 

@@ -58,9 +58,9 @@ public:
                           bool use_drag=true);
 #endif // AP_SIM_ENABLED
 
-    float terminal_velocity;
-    float terminal_rotation_rate;
-    uint8_t motor_offset;
+    float terminal_velocity{0.0f};
+    float terminal_rotation_rate{0.0f};
+    uint8_t motor_offset{0};
 
     // calculate current and voltage
     void current_and_voltage(float &voltage, float &current);
@@ -156,9 +156,9 @@ protected:
 
 private:
     // exposed area times coefficient of drag
-    float areaCd;
-    float mass;
-    float last_param_voltage;
+    float areaCd{0.0f};
+    float mass{0.0f};
+    float last_param_voltage{0.0f};
 #if AP_SIM_ENABLED
     Battery *battery{nullptr};
 #endif

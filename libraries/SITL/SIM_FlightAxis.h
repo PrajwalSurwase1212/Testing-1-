@@ -94,7 +94,7 @@ public:
         double m_orientationQuaternion_W;
         double m_flightAxisControllerIsActive;
         double m_resetButtonHasBeenPressed;
-    } state;
+    } state {};
 
     static const uint16_t num_keys = sizeof(state)/sizeof(double);
 
@@ -188,17 +188,17 @@ private:
         return (uint32_t(option) & uint32_t(_options)) != 0;
     }
 
-    double average_frame_time_s;
-    double extrapolated_s;
-    double initial_time_s;
-    double last_time_s;
-    bool controller_started;
-    uint32_t glitch_count;
-    uint64_t frame_counter;
-    uint64_t activation_frame_counter;
-    uint64_t socket_frame_counter;
-    uint64_t last_socket_frame_counter;
-    double last_frame_count_s;
+    double average_frame_time_s = 0.0;
+    double extrapolated_s = 0.0;
+    double initial_time_s = 0.0;
+    double last_time_s = 0.0;
+    bool controller_started = false;
+    uint32_t glitch_count = 0;
+    uint64_t frame_counter = 0;
+    uint64_t activation_frame_counter = 0;
+    uint64_t socket_frame_counter = 0;
+    uint64_t last_socket_frame_counter = 0;
+    double last_frame_count_s = 0.0;
     Vector3d position_offset;
     Vector3f last_velocity_ef;
 
@@ -210,9 +210,9 @@ private:
     SocketAPM_native *sock{nullptr};
 
     char replybuf[10000];
-    pid_t socket_pid;
-    uint32_t sock_error_count;
-    double last_recv_sec;
+    pid_t socket_pid = 0;
+    uint32_t sock_error_count = 0;
+    double last_recv_sec = 0.0;
 };
 
 

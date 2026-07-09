@@ -57,8 +57,8 @@ public:
 
 protected:
 
-    uint32_t reg_data[256];  // OK, so not *that* configurable ATM....
-    uint8_t reg_data_len[256];
+    uint32_t reg_data[256] {};  // OK, so not *that* configurable ATM....
+    uint8_t reg_data_len[256] {};
 };
 
 class I2CRegisters_16Bit : public I2CRegisters {
@@ -73,7 +73,7 @@ public:
 
 protected:
 
-    uint16_t word[256];
+    uint16_t word[256] {};
 };
 
 class I2CRegisters_8Bit : public I2CRegisters {
@@ -96,7 +96,7 @@ protected:
         byte[reg] = value;
     }
 
-    uint8_t byte[256];
+    uint8_t byte[256] {};
 };
 
 /*
@@ -115,7 +115,7 @@ protected:
     virtual uint8_t command_take_reading() const = 0;
     virtual uint16_t reading() const = 0;
 
-    uint32_t cmd_take_reading_received_ms;
+    uint32_t cmd_take_reading_received_ms = 0;
 };
 
 class I2CDevice {

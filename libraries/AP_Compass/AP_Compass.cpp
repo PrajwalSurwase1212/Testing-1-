@@ -714,6 +714,9 @@ Compass::Compass(void)
         return;
     }
     _singleton = this;
+#if COMPASS_CAL_ENABLED
+    _cal_autosave = false;
+#endif
     AP_Param::setup_object_defaults(this, var_info);
 }
 

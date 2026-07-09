@@ -180,6 +180,8 @@ SRV_Channel::SRV_Channel(void)
     AP_Param::setup_object_defaults(this, var_info);
     // start with all pwm at zero
     have_pwm_mask = ~uint32_t(0);
+    type_angle = false;
+    type_setup = false;
 }
 
 // convert a 0..range_max to a pwm

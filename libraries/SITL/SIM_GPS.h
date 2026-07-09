@@ -143,13 +143,13 @@ public:
 
 private:
 
-    uint8_t instance;
+    uint8_t instance = 0;
 
     // The last time GPS data was written [mS]
-    uint32_t last_write_update_ms;
+    uint32_t last_write_update_ms = 0;
 
     // last 20 samples, allowing for up to 20 samples of delay
-    GPS_Data _gps_history[20];
+    GPS_Data _gps_history[20] {};
 
     // state of jamming simulation
     struct {
@@ -162,10 +162,10 @@ private:
         uint32_t last_acc_change_ms;
         double latitude;
         double longitude;
-    } jamming[2];
+    } jamming[2] {};
 
-    bool _gps_has_basestation_position;
-    GPS_Data _gps_basestation_data;
+    bool _gps_has_basestation_position = false;
+    GPS_Data _gps_basestation_data {};
 
     void simulate_jamming(GPS_Data &d);
 

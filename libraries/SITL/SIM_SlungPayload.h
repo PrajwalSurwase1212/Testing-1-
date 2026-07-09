@@ -86,7 +86,7 @@ private:
     uint32_t last_report_ms{0};                // system time of last MAVLink report sent to GCS
     uint32_t last_heartbeat_ms{0};             // system time of last MAVLink heartbeat sent to GCS
     bool mavlink_connected{false};                 // true if a mavlink connection has been established
-    mavlink_status_t mav_status;            // reported mavlink status
+    mavlink_status_t mav_status {};            // reported mavlink status
 
     // payload variables
     bool landed = true;     // true if the payload is on the ground

@@ -813,13 +813,13 @@ private:
 
     // send a (textual) message to the GCS that a received message has
     // been deprecated
-    uint32_t last_deprecation_warning_send_time_ms;
+    uint32_t last_deprecation_warning_send_time_ms{0};
     const char *last_deprecation_message{nullptr};
 
     // time we last saw traffic from our GCS.  Note that there is an
     // identically named field in GCS:: which is the most recent of
     // each of the GCS_MAVLINK backends
-    uint32_t _sysid_gcs_last_seen_time_ms;
+    uint32_t _sysid_gcs_last_seen_time_ms{0};
 
     void service_statustext(void);
 
@@ -831,23 +831,23 @@ private:
     bool calibrate_gyros();
 
     /// The stream we are communicating over
-    AP_HAL::UARTDriver *_port;
+    AP_HAL::UARTDriver *_port{nullptr};
 
     /// Perform queued sending operations
     ///
-    enum ap_var_type            _queued_parameter_type; ///< type of the next
+    enum ap_var_type            _queued_parameter_type{AP_PARAM_NONE}; ///< type of the next
                                                         // parameter
     AP_Param::ParamToken        _queued_parameter_token; ///AP_Param token for
                                                          // next() call
-    uint16_t                    _queued_parameter_index; ///< next queued
+    uint16_t                    _queued_parameter_index{0}; ///< next queued
                                                          // parameter's index
-    uint16_t                    _queued_parameter_count; ///< saved count of
+    uint16_t                    _queued_parameter_count{0}; ///< saved count of
                                                          // parameters for
                                                          // queued send
-    uint32_t                    _queued_parameter_send_time_ms;
+    uint32_t                    _queued_parameter_send_time_ms{0};
 
     // number of extra ms to add to slow things down for the radio
-    uint16_t         stream_slowdown_ms;
+    uint16_t         stream_slowdown_ms{0};
 
     // outbound ("deferred message") queue.
 
@@ -921,7 +921,7 @@ private:
     void initialise_message_intervals_from_streamrates();
     // boolean that indicated that message intervals have been set
     // from streamrates:
-    bool deferred_messages_initialised;
+    bool deferred_messages_initialised{false};
 #if HAL_MAVLINK_INTERVALS_FROM_FILES_ENABLED
     // read configuration files from (e.g.) SD and ROMFS, set
     // intervals from same
@@ -1028,11 +1028,11 @@ private:
 
     // alternative protocol handler support
     struct {
-        GCS_MAVLINK::protocol_handler_fn_t handler;
-        uint32_t last_mavlink_ms;
-        uint32_t last_alternate_ms;
-        bool active;
-    } alternative;
+        GCS_MAVLINK::protocol_handler_fn_t handler{nullptr};
+        uint32_t last_mavlink_ms{0};
+        uint32_t last_alternate_ms{0};
+        bool active{false};
+    } alternative{};
 
     JitterCorrection lag_correction;
     
@@ -1040,45 +1040,45 @@ private:
     // no idea where we are:
     Location global_position_current_loc;
 
-    uint8_t last_tx_seq;
-    uint16_t send_packet_count;
-    uint16_t out_of_space_to_send_count; // number of times HAVE_PAYLOAD_SPACE and friends have returned false
+    uint8_t last_tx_seq{0};
+    uint16_t send_packet_count{0};
+    uint16_t out_of_space_to_send_count{0}; // number of times HAVE_PAYLOAD_SPACE and friends have returned false
 
 #if GCS_DEBUG_SEND_MESSAGE_TIMINGS
     struct {
-        uint32_t longest_time_us;
-        ap_message longest_id;
-        uint32_t no_space_for_message;
-        uint16_t statustext_last_sent_ms;
-        uint32_t behind;
-        uint32_t out_of_time;
-        uint16_t fnbts_maxtime;
-        uint32_t max_retry_deferred_body_us;
-        uint8_t max_retry_deferred_body_type;
-    } try_send_message_stats;
-    uint16_t max_slowdown_ms;
+        uint32_t longest_time_us{0};
+        ap_message longest_id{MSG_HEARTBEAT};
+        uint32_t no_space_for_message{0};
+        uint16_t statustext_last_sent_ms{0};
+        uint32_t behind{0};
+        uint32_t out_of_time{0};
+        uint16_t fnbts_maxtime{0};
+        uint32_t max_retry_deferred_body_us{0};
+        uint8_t max_retry_deferred_body_type{0};
+    } try_send_message_stats{};
+    uint16_t max_slowdown_ms{0};
 #endif
 
-    uint32_t last_mavlink_stats_logged;
+    uint32_t last_mavlink_stats_logged{0};
 
-    uint8_t last_battery_status_idx;
+    uint8_t last_battery_status_idx{0};
 
     // if we've ever sent a DISTANCE_SENSOR message out of an
     // orientation we continue to send it out, even if it is not
     // longer valid.
-    uint8_t proximity_ever_valid_bitmask;
+    uint8_t proximity_ever_valid_bitmask{0};
 
     // true if we should NOT do MAVLink on this port (usually because
     // someone's doing SERIAL_CONTROL over mavlink)
-    bool _locked;
+    bool _locked{false};
 
     // Handling of AVAILABLE_MODES
     struct {
-        bool should_send;
+        bool should_send{false};
         // Note these start at 1
-        uint8_t requested_index;
-        uint8_t next_index;
-    } available_modes;
+        uint8_t requested_index{0};
+        uint8_t next_index{0};
+    } available_modes{};
     bool send_available_modes();
     bool send_available_mode_monitor();
 

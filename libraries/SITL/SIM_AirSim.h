@@ -76,10 +76,10 @@ private:
 
     SocketAPM_native sock;
 
-    double average_frame_time;
-    uint64_t frame_counter;
-    uint64_t last_frame_count;
-    uint64_t last_timestamp;
+    double average_frame_time{0.0};
+    uint64_t frame_counter{0};
+    uint64_t last_frame_count{0};
+    uint64_t last_timestamp{0};
 
     void output_copter(const sitl_input& input);
     void output_rover(const sitl_input& input);
@@ -92,8 +92,8 @@ private:
 	bool parse_sensors(const char *json);
 
 	// buffer for parsing pose data in JSON format
-    uint8_t sensor_buffer[65000];
-    uint32_t sensor_buffer_len;
+    uint8_t sensor_buffer[65000]{};
+    uint32_t sensor_buffer_len{0};
 
 	enum data_type {
 		DATA_UINT64,
@@ -128,7 +128,7 @@ private:
         struct {
             struct float_array rng_distances;
         } rng;
-    } state;
+    } state {};
 
     // table to aid parsing of JSON sensor data
     struct keytable {

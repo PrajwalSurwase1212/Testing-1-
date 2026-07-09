@@ -31,17 +31,17 @@ protected:
     void send_sport_frame(uint8_t frame, uint16_t appid, uint32_t data);
 
     struct {
-        bool send_latitude;
-        bool send_airspeed;     // toggles 0x5005 between airspeed and groundspeed
-        uint32_t gps_lng_sample;
-        uint8_t new_byte;
-    } _passthrough;
+        bool send_latitude{false};
+        bool send_airspeed{false};     // toggles 0x5005 between airspeed and groundspeed
+        uint32_t gps_lng_sample{0};
+        uint8_t new_byte{0};
+    } _passthrough{};
 
     uint32_t calc_gps_latlng(bool &send_latitude);
     static uint8_t calc_sensor_id(const uint8_t physical_id);
 
     struct {
-        sport_packet_t packet;
+        sport_packet_t packet{};
         bool pending = false;
         HAL_Semaphore sem;
     } _sport_push_buffer;
@@ -49,15 +49,15 @@ protected:
 private:
 
     struct {
-        bool sport_status;
-        bool gps_refresh;
-        bool vario_refresh;
-        uint8_t fas_call;
-        uint8_t gps_call;
-        uint8_t vario_call;
-        uint8_t various_call;
-        uint8_t rpm_call;
-    } _SPort;
+        bool sport_status{false};
+        bool gps_refresh{false};
+        bool vario_refresh{false};
+        uint8_t fas_call{0};
+        uint8_t gps_call{0};
+        uint8_t vario_call{0};
+        uint8_t various_call{0};
+        uint8_t rpm_call{0};
+    } _SPort{};
 
     static AP_Frsky_SPort *singleton;
 

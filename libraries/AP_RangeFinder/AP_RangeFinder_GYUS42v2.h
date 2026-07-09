@@ -39,8 +39,8 @@ private:
     // byte and following bytes to start of buffer.
     bool find_signature_in_buffer(uint8_t start);
 
-    uint8_t buffer[7];
-    uint8_t buffer_used;
+    uint8_t buffer[7]{};
+    uint8_t buffer_used{0};
 };
 
 #endif  // AP_RANGEFINDER_GYUS42V2_ENABLED

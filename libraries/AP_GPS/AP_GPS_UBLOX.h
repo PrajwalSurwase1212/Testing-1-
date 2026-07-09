@@ -869,7 +869,7 @@ private:
 
     // populate config_GNSS for F9P
     uint8_t populate_F9_gnss(void);
-    uint8_t last_configured_gnss;
+    uint8_t last_configured_gnss{0};
 
     uint8_t _pps_freq = 1;
 #ifdef HAL_GPIO_PPS
@@ -879,14 +879,14 @@ private:
 
     // status of active configuration for a role
     struct {
-        const config_list *list;
-        uint8_t count;
-        uint32_t done_mask;
-        uint32_t unconfig_bit;
-        uint8_t layers;
-        int8_t fetch_index;
-        int8_t set_index;
-    } active_config;
+        const config_list *list{nullptr};
+        uint8_t count{0};
+        uint32_t done_mask{0};
+        uint32_t unconfig_bit{0};
+        uint8_t layers{0};
+        int8_t fetch_index{-1};
+        int8_t set_index{-1};
+    } active_config{};
     bool use_single_valget = false;
 
 #if GPS_MOVING_BASELINE

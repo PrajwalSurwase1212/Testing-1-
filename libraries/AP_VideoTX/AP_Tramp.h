@@ -113,18 +113,18 @@ private:
 
     // Device limits, read from device during init
     struct {
-        uint32_t rf_freq_min;
-        uint32_t rf_freq_max;
-        uint32_t rf_power_max;
-    } device_limits;
+        uint32_t rf_freq_min{0};
+        uint32_t rf_freq_max{0};
+        uint32_t rf_power_max{0};
+    } device_limits{};
 
-    uint16_t cur_act_power; // Actual power
-    int16_t cur_temp;
-    uint8_t cur_control_mode;
+    uint16_t cur_act_power{0}; // Actual power
+    int16_t cur_temp{0};
+    uint8_t cur_control_mode{0};
 
     // statistics
-    uint16_t _packets_sent;
-    uint16_t _packets_rcvd;
+    uint16_t _packets_sent{0};
+    uint16_t _packets_rcvd{0};
 
     // value for current baud adjust
     int32_t _smartbaud = VTX_TRAMP_UART_BAUD;
@@ -146,10 +146,10 @@ private:
     ReceiveState receive_state = ReceiveState::S_WAIT_LEN;
 
     // Receive buffer index
-    int16_t receive_pos;
+    int16_t receive_pos{0};
 
     // Last action time
-    uint32_t last_time_us;
+    uint32_t last_time_us{0};
 };
 
 #endif

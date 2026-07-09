@@ -56,8 +56,8 @@ public:
 
 private:
 
-    AP_Frsky_Backend *_backend;
-    AP_Frsky_Parameters* _frsky_parameters;
+    AP_Frsky_Backend *_backend{nullptr};
+    AP_Frsky_Parameters* _frsky_parameters{nullptr};
 
     // get next telemetry data for external consumers of SPort data (internal function)
     bool _get_telem_data(AP_Frsky_Backend::sport_packet_t* packet_array, uint8_t &packet_count, const uint8_t max_size);

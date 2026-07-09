@@ -65,20 +65,20 @@ protected:
     float format_gps(float dec);
 
     struct {
-        int32_t vario_vspd;
-        char lat_ns, lon_ew;
-        uint16_t latdddmm;
-        uint16_t latmmmm;
-        uint16_t londddmm;
-        uint16_t lonmmmm;
-        uint16_t alt_gps_meters;
-        uint16_t alt_gps_cm;
-        uint16_t alt_nav_meters;
-        uint16_t alt_nav_cm;
-        int16_t speed_in_meter;
-        uint16_t speed_in_centimeter;
-        uint16_t yaw;
-    } _SPort_data;
+        int32_t vario_vspd{0};
+        char lat_ns{'\0'}, lon_ew{'\0'};
+        uint16_t latdddmm{0};
+        uint16_t latmmmm{0};
+        uint16_t londddmm{0};
+        uint16_t lonmmmm{0};
+        uint16_t alt_gps_meters{0};
+        uint16_t alt_gps_cm{0};
+        uint16_t alt_nav_meters{0};
+        uint16_t alt_nav_cm{0};
+        int16_t speed_in_meter{0};
+        uint16_t speed_in_centimeter{0};
+        uint16_t yaw{0};
+    } _SPort_data{};
 
     /*
       for FrSky D protocol (D-receivers)

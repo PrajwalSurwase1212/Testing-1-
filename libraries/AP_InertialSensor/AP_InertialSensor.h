@@ -304,7 +304,7 @@ public:
     // simple accel calibration
     MAV_RESULT simple_accel_cal();
 private:
-    uint32_t last_accel_cal_ms;
+    uint32_t last_accel_cal_ms = 0;
 public:
 #endif
 
@@ -322,8 +322,8 @@ public:
     void send_uart_data(void);
 
     struct {
-        uint16_t counter;
-        AP_HAL::UARTDriver *imu_out_uart;
+        uint16_t counter = 0;
+        AP_HAL::UARTDriver *imu_out_uart = nullptr;
     } uart;
 #endif // AP_SERIALMANAGER_IMUOUT_ENABLED
 
@@ -450,11 +450,11 @@ public:
         HarmonicNotchFilterParams params;
         HarmonicNotchFilterVector3f filter[INS_MAX_INSTANCES];
 
-        uint8_t num_dynamic_notches;
+        uint8_t num_dynamic_notches{0};
 
         // the current center frequency for the notch
-        float calculated_notch_freq_hz[INS_MAX_NOTCHES];
-        uint8_t num_calculated_notch_frequencies;
+        float calculated_notch_freq_hz[INS_MAX_NOTCHES] {};
+        uint8_t num_calculated_notch_frequencies{0};
 
         // runtime update of notch parameters
         void update_params(uint8_t instance, bool converging, float gyro_rate);
@@ -474,10 +474,10 @@ public:
 
     private:
         // support for updating harmonic filter at runtime
-        float last_center_freq_hz[INS_MAX_INSTANCES];
-        float last_bandwidth_hz[INS_MAX_INSTANCES];
-        float last_attenuation_dB[INS_MAX_INSTANCES];
-        bool inactive;
+        float last_center_freq_hz[INS_MAX_INSTANCES] {};
+        float last_bandwidth_hz[INS_MAX_INSTANCES] {};
+        float last_attenuation_dB[INS_MAX_INSTANCES] {};
+        bool inactive{false};
     } harmonic_notches[HAL_INS_NUM_HARMONIC_NOTCH_FILTERS];
 #endif  // AP_INERTIALSENSOR_HARMONICNOTCH_ENABLED
 

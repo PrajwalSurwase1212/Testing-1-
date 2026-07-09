@@ -156,40 +156,40 @@ protected:
     SCurve _scurve_prev_leg;        // previous scurve trajectory used to blend with current scurve trajectory
     SCurve _scurve_this_leg;        // current scurve trajectory
     SCurve _scurve_next_leg;        // next scurve trajectory used to blend with current scurve trajectory
-    bool _fast_waypoint;            // true if vehicle will stop at the next waypoint
-    bool _pivot_at_next_wp;         // true if vehicle should pivot at next waypoint
-    bool _overspeed_enabled;        // if true scurve's position target will speedup to catch vehicles travelling faster than WP_SPEED
-    float _track_scalar_dt;         // time scaler to ensure scurve target doesn't get too far ahead of vehicle
+    bool _fast_waypoint{false};            // true if vehicle will stop at the next waypoint
+    bool _pivot_at_next_wp{false};         // true if vehicle should pivot at next waypoint
+    bool _overspeed_enabled{false};        // if true scurve's position target will speedup to catch vehicles travelling faster than WP_SPEED
+    float _track_scalar_dt{1.0f};         // time scaler to ensure scurve target doesn't get too far ahead of vehicle
 
     // variables held in vehicle code (for now)
-    float _turn_radius;             // vehicle turn radius in meters
+    float _turn_radius{0.0f};             // vehicle turn radius in meters
 
     // variables for navigation
-    uint32_t _last_update_ms;       // system time of last call to update
-    Location _origin;               // origin Location (vehicle will travel from the origin to the destination)
-    Location _destination;          // destination Location when in Guided_WP
-    Location _next_destination;     // next destination Location when in Guided_WP
-    bool _orig_and_dest_valid;      // true if the origin and destination have been set
-    bool _reversed;                 // execute the mission by backing up
+    uint32_t _last_update_ms{0};       // system time of last call to update
+    Location _origin{};               // origin Location (vehicle will travel from the origin to the destination)
+    Location _destination{};          // destination Location when in Guided_WP
+    Location _next_destination{};     // next destination Location when in Guided_WP
+    bool _orig_and_dest_valid{false};      // true if the origin and destination have been set
+    bool _reversed{false};                 // execute the mission by backing up
     enum class NavControllerType {
         NAV_SCURVE = 0,             // scurves used for navigation
         NAV_PSC_INPUT_SHAPING       // position controller input shaping used for navigation
-    } _nav_control_type;            // navigation controller that should be used to travel from _origin to _destination
+    } _nav_control_type{NavControllerType::NAV_SCURVE};            // navigation controller that should be used to travel from _origin to _destination
 
     // speed_max handling
-    float _base_speed_max;          // speed max (in m/s) derived from parameters or passed into init
-    float _nudge_speed_max;         // "nudge" speed max (in m/s) normally from the pilot.  has no effect if less than _base_speed_max.  always positive.
-    uint32_t _last_speed_update_ms; // system time that speed_max was last update.  used to ensure speed_max is not update too quickly
+    float _base_speed_max{0.0f};          // speed max (in m/s) derived from parameters or passed into init
+    float _nudge_speed_max{0.0f};         // "nudge" speed max (in m/s) normally from the pilot.  has no effect if less than _base_speed_max.  always positive.
+    uint32_t _last_speed_update_ms{0}; // system time that speed_max was last update.  used to ensure speed_max is not update too quickly
 
     // main outputs from navigation library
-    float _desired_speed_limited;   // desired speed (above) but accel/decel limited
-    float _desired_turn_rate_rads;  // desired turn-rate in rad/sec (negative is counter clockwise, positive is clockwise)
-    float _desired_lat_accel;       // desired lateral acceleration (for reporting only)
-    float _desired_heading_cd;      // desired heading (back towards line between origin and destination)
-    float _wp_bearing_cd;           // heading to waypoint in centi-degrees
-    float _cross_track_error;       // cross track error (in meters).  distance from current position to closest point on line between origin and destination
+    float _desired_speed_limited{0.0f};   // desired speed (above) but accel/decel limited
+    float _desired_turn_rate_rads{0.0f};  // desired turn-rate in rad/sec (negative is counter clockwise, positive is clockwise)
+    float _desired_lat_accel{0.0f};       // desired lateral acceleration (for reporting only)
+    float _desired_heading_cd{0.0f};      // desired heading (back towards line between origin and destination)
+    float _wp_bearing_cd{0.0f};           // heading to waypoint in centi-degrees
+    float _cross_track_error{0.0f};       // cross track error (in meters).  distance from current position to closest point on line between origin and destination
 
     // variables for reporting
-    float _distance_to_destination; // distance from vehicle to final destination in meters
-    bool _reached_destination;      // true once the vehicle has reached the destination
+    float _distance_to_destination{0.0f}; // distance from vehicle to final destination in meters
+    bool _reached_destination{false};      // true once the vehicle has reached the destination
 };

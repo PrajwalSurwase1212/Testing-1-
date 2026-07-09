@@ -69,11 +69,11 @@ private:
         uint32_t last_static_and_voyage_ms; // last time a static and voyage data message was sent
         bool active; // true if this vessel should be reported
     };
-    ais_vessel vessels[50];
+    ais_vessel vessels[50] {};
 
     // Update a active vessel position and heading
     void update_simulated_vessel(ais_vessel &vessel, const float dt, const Location &vehicle_loc, const float radius, const uint32_t now_ms);
-    uint32_t last_sim_update_ms;
+    uint32_t last_sim_update_ms = 0;
 
     // Generate a new vessel
     void init_vessel(ais_vessel &vessel, const Location &vehicle_loc, const float radius);
@@ -98,7 +98,7 @@ private:
     void send_static_and_voyage(const mavlink_ais_vessel_t &info);
 
     // Used to match multi part messages
-    uint8_t sequence_ID;
+    uint8_t sequence_ID = 0;
 };
 
 

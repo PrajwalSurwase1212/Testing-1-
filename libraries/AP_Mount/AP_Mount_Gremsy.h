@@ -70,7 +70,7 @@ private:
     class GCS_MAVLINK *_link{nullptr};       // link we have found gimbal on; nullptr if not seen yet
     uint8_t _sysid{0};                 // sysid of gimbal
     uint8_t _compid{0};                // component id of gimbal
-    mavlink_gimbal_device_attitude_status_t _gimbal_device_attitude_status;  // copy of most recently received gimbal status
+    mavlink_gimbal_device_attitude_status_t _gimbal_device_attitude_status{};  // copy of most recently received gimbal status
     uint32_t _last_attitude_status_ms{0};  // system time last attitude status was received (used for health reporting)
 };
 #endif // HAL_MOUNT_GREMSY_ENABLED

@@ -75,5 +75,5 @@ private:
     AP_AutoTune *autotune = nullptr;
     bool failed_autotune_alloc = false;
     
-    AP_PIDInfo _pid_info;
+    AP_PIDInfo _pid_info{};
 };

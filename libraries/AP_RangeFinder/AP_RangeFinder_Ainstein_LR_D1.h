@@ -56,8 +56,8 @@ private:
     };
 
     static constexpr uint8_t PACKET_SIZE = 32;
-    uint8_t malfunction_alert_prev;
-    uint32_t malfunction_alert_last_send_ms;
+    uint8_t malfunction_alert_prev{0};
+    uint32_t malfunction_alert_last_send_ms{0};
     int8_t signal_quality_pct = RangeFinder::SIGNAL_QUALITY_UNKNOWN;    
 };
 #endif

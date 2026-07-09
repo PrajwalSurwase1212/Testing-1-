@@ -112,7 +112,7 @@ private:
     // write buffer
     ByteBuffer _writebuf{0};
     const uint16_t _writebuf_chunk = HAL_LOGGER_WRITE_CHUNK_SIZE;
-    uint32_t _last_write_time;
+    uint32_t _last_write_time{0};
 
     /* construct a file name given a log number. Caller must free. */
     char *_log_file_name(const uint16_t log_num) const;
@@ -122,12 +122,12 @@ private:
 
     void stop_logging(void) override;
 
-    uint32_t last_messagewrite_message_sent;
+    uint32_t last_messagewrite_message_sent{0};
 
     // free-space checks; filling up SD cards under NuttX leads to
     // corrupt filesystems which cause loss of data, failure to gather
     // data and failures-to-boot.
-    uint32_t _free_space_last_check_time; // milliseconds
+    uint32_t _free_space_last_check_time{0}; // milliseconds
     const uint32_t _free_space_check_interval = 1000UL; // milliseconds
 #if AP_FILESYSTEM_LITTLEFS_ENABLED
 #if AP_FILESYSTEM_LITTLEFS_FLASH_TYPE == AP_FILESYSTEM_FLASH_W25NXX
@@ -155,7 +155,7 @@ private:
 
     const char *last_io_operation = "";
 
-    bool start_new_log_pending;
+    bool start_new_log_pending{false};
 };
 
 #endif // HAL_LOGGING_FILESYSTEM_ENABLED

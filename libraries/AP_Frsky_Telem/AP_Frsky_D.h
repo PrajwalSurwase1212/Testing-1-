@@ -26,8 +26,8 @@ private:
     void send_uint16(uint16_t id, uint16_t data);
 
     struct {
-        uint32_t last_200ms_frame;
-        uint32_t last_1000ms_frame;
+        uint32_t last_200ms_frame{0};
+        uint32_t last_1000ms_frame{0};
     } _D;
 
 };

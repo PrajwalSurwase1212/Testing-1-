@@ -146,7 +146,7 @@ private:
     void apply_corrections(Vector3f &mag, uint8_t i);
     
     // mean field length for range filter
-    float _mean_field_length;
+    float _mean_field_length{0.0f};
     // number of dropped samples. Not used for now, but can be usable to choose more reliable sensor
-    uint32_t _error_count;
+    uint32_t _error_count{0};
 };

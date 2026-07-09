@@ -87,7 +87,7 @@ private:
 
     SocketAPM_native mav_socket { false };
     bool mavlink_connected{false};
-    mavlink_status_t mav_status;
+    mavlink_status_t mav_status {};
 
     void send_report(void);
 };

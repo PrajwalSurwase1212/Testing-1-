@@ -138,7 +138,7 @@ private:
     AP_Int8 _quality_min;       // positions and velocities will only be sent to EKF if over this value.  if 0 all values sent to EKF
 
     // reference to backends
-    AP_VisualOdom_Backend *_driver;
+    AP_VisualOdom_Backend *_driver{nullptr};
 };
 
 namespace AP {

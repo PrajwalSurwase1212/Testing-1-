@@ -100,14 +100,14 @@ protected:
      *
      */
     struct {
-        ParserState state;      // state of incoming message processing
-        bool done;              // inform if the message is complete or not
-        uint8_t payload[20];    // payload
-        uint16_t payload_len;   // latest message payload length
-        uint16_t id;            // latest message's message id
-        uint16_t payload_recv;  // number of message's payload bytes received so far
-        uint16_t crc;           // latest message's crc
-        uint16_t crc_expected;  // latest message's expected crc
+        ParserState state = ParserState::HEADER1;      // state of incoming message processing
+        bool done = false;              // inform if the message is complete or not
+        uint8_t payload[20]{};    // payload
+        uint16_t payload_len = 0;   // latest message payload length
+        uint16_t id = 0;            // latest message's message id
+        uint16_t payload_recv = 0;  // number of message's payload bytes received so far
+        uint16_t crc = 0;           // latest message's crc
+        uint16_t crc_expected = 0;  // latest message's expected crc
     } msg;
 };
 
@@ -186,7 +186,7 @@ private:
      * @brief system time that sensor was last initialised
      *
      */
-    uint32_t last_init_ms;
+    uint32_t last_init_ms{0};
 };
 
 #endif
