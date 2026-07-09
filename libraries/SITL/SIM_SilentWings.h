@@ -94,23 +94,23 @@ private:
     void send_servos(const struct sitl_input &input);
 
     /* Timestamp of the latest data packet received from Silent Wings. */
-    uint32_t last_data_time_ms;
+    uint32_t last_data_time_ms{};
 
     /* Timestamp of the first data packet received from Silent Wings. */
-    uint32_t first_pkt_timestamp_ms;
+    uint32_t first_pkt_timestamp_ms{};
 
     /* Indicates whether first_pkt_timestamp_ms has been initialized (i.e., any packets have been received from Silent Wings. */
-    bool inited_first_pkt_timestamp;
+    bool inited_first_pkt_timestamp{};
 
     /* ArduPlane's internal time when the first packet from Silent Wings is received. */
-    uint64_t time_base_us;
+    uint64_t time_base_us{};
 
     SocketAPM_native sock;
     const char *_sw_address = "127.0.0.1";
     int _port_in = 6060;
     int _sw_port = 6070;
 
-    bool home_initialized;
+    bool home_initialized{};
 };
 
 } // namespace SITL

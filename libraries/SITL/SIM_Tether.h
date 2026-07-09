@@ -83,7 +83,7 @@ private:
     uint32_t last_report_ms{0};                // Timestamp of the last MAVLink report sent to GCS
     uint32_t last_heartbeat_ms{0};             // Timestamp of the last MAVLink heartbeat sent to GCS
     bool mavlink_connected{false};                 // True if MAVLink connection is established
-    mavlink_status_t mav_status;            // Status of MAVLink communication
+    mavlink_status_t mav_status{};            // Status of MAVLink communication
 
     // Tether simulation variables
     float prev_stretch = 0.0f;                // store stretch beyond maximum in last calculation

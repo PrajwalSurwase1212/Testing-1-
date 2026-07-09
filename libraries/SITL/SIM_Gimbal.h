@@ -42,10 +42,10 @@ private:
 
     // rotation matrix (gimbal body -> earth)
     Matrix3f dcm;
-    bool init_done;
+    bool init_done{};
 
     // time of last update
-    uint32_t last_update_us;
+    uint32_t last_update_us{};
 
     // true angular rate of gimbal in body frame (rad/s)
     Vector3f gimbal_angular_rate;
@@ -71,7 +71,7 @@ private:
     Vector3f true_gyro_bias;
 
     // time since delta angles/velocities returned
-    uint32_t delta_start_us;
+    uint32_t delta_start_us{};
 
     // integral of gyro vector over last time interval. In radians
     Vector3f delta_angle;

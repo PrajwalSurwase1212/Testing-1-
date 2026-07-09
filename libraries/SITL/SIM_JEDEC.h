@@ -36,8 +36,8 @@ private:
         READING_RDSR
     } state = State::WAITING;
 
-    bool write_enabled;
-    uint32_t xfr_addr;
+    bool write_enabled{};
+    uint32_t xfr_addr{};
 
     void sector4k_erase(uint32_t addr);
     void block64k_erase(uint32_t addr);

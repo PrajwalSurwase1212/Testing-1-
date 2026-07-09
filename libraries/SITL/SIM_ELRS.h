@@ -19,9 +19,9 @@ private:
     void sendQueuedData();
 
     struct {
-        mavlink_message_t rxmsg;
-        mavlink_status_t status;
-    } mavlink;
+        mavlink_message_t rxmsg{};
+        mavlink_status_t status{};
+    } mavlink{};
 
     uint8_t mavlink_parse_char_helper(uint8_t c, mavlink_message_t* r_message, mavlink_status_t* r_mavlink_status);
 

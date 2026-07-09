@@ -147,8 +147,8 @@ private:
     };
     StartupState autopilot_desired_startup_state = StartupState::OFF;
 
-    mavlink_message_t rxmsg;
-    mavlink_status_t rxstatus;
+    mavlink_message_t rxmsg{};
+    mavlink_status_t rxstatus{};
 
     SIM_GeneratorEngine generatorengine;
 
@@ -163,7 +163,7 @@ private:
 
     uint32_t last_fuel_update_ms{0};
 
-    mavlink_status_t mav_status;
+    mavlink_status_t mav_status{};
 
     // parameters
     // AP_Int8 _enabled;
