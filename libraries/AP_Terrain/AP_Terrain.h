@@ -407,63 +407,63 @@ private:
     int fd;
 
     // has the timer been setup?
-    bool timer_setup;
+    bool timer_setup{};
 
     // degrees lat and lon of file
-    int8_t file_lat_degrees;
-    int16_t file_lon_degrees;
+    int8_t file_lat_degrees{};
+    int16_t file_lon_degrees{};
 
     // do we have an IO failure
-    volatile bool io_failure;
-    uint32_t last_retry_ms;
+    volatile bool io_failure{};
+    uint32_t last_retry_ms{};
 
     // have we created the terrain directory?
-    bool directory_created;
+    bool directory_created{};
 
     // cache the home altitude, as it is needed so often
-    float home_height;
-    Location home_loc;
-    bool have_home_height;
+    float home_height{};
+    Location home_loc{};
+    bool have_home_height{};
 
     // reference position for terrain adjustment, set at arming
-    bool have_reference_loc;
-    Location reference_loc;
+    bool have_reference_loc{};
+    Location reference_loc{};
 
     // calculated reference offset
-    bool have_reference_offset;
-    float reference_offset;
+    bool have_reference_offset{};
+    float reference_offset{};
 
 
     // cache the last terrain height (AMSL) of the AHRS current
     // location. This is used for extrapolation when terrain data is
     // temporarily unavailable
-    bool have_current_loc_height;
-    float last_current_loc_height;
+    bool have_current_loc_height{};
+    float last_current_loc_height{};
 
     // true if we have all of the data for the squares around the
     // current location:
-    bool have_surrounding_tiles;
+    bool have_surrounding_tiles{};
 
     // next mission command to check
-    uint16_t next_mission_index;
+    uint16_t next_mission_index{};
 
     // next mission position to check
-    uint8_t next_mission_pos;
+    uint8_t next_mission_pos{};
 
     // last time the mission changed
-    uint32_t last_mission_change_ms;
+    uint32_t last_mission_change_ms{};
 
     // grid spacing during mission check
-    uint16_t last_mission_spacing;
+    uint16_t last_mission_spacing{};
 
     // next rally command to check
-    uint16_t next_rally_index;
+    uint16_t next_rally_index{};
 
     // last time the rally points changed
-    uint32_t last_rally_change_ms;
+    uint32_t last_rally_change_ms{};
 
     // grid spacing during rally check
-    uint16_t last_rally_spacing;
+    uint16_t last_rally_spacing{};
 
     char *file_path = nullptr;
 
@@ -471,7 +471,7 @@ private:
     enum TerrainStatus system_status = TerrainStatusDisabled;
 
     // memory allocation status
-    bool memory_alloc_failed;
+    bool memory_alloc_failed{};
 
     static AP_Terrain *singleton;
 };

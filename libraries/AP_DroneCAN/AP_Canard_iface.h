@@ -70,20 +70,20 @@ public:
 
 private:
     CanardInstance canard;
-    AP_HAL::CANIface* ifaces[HAL_NUM_CAN_IFACES];
+    AP_HAL::CANIface* ifaces[HAL_NUM_CAN_IFACES]{};
 #if AP_TEST_DRONECAN_DRIVERS
     static CanardInterface* canard_ifaces[3];
     static CanardInterface test_iface;
 #endif
-    uint8_t num_ifaces;
+    uint8_t num_ifaces{};
     HAL_BinarySemaphore sem_handle;
-    bool initialized;
+    bool initialized{};
     HAL_Semaphore _sem_tx;
     HAL_Semaphore _sem_rx;
     CanardTxTransfer tx_transfer;
     dronecan_protocol_Stats protocol_stats;
 
     // auxillary 11 bit CANSensor
-    CANSensor *aux_11bit_driver;
+    CANSensor *aux_11bit_driver{};
 };
 #endif // HAL_ENABLE_DRONECAN_DRIVERS

@@ -702,16 +702,16 @@ private:
     void next_screen();
 
     //variables for screen switching
-    uint8_t current_screen;
-    uint16_t previous_channel_value;
-    bool switch_debouncer;
-    uint32_t last_switch_ms;
-    struct NavInfo nav_info;
-    int8_t previous_pwm_screen;
-    int8_t pre_fs_screen;
-    bool was_armed;
-    bool was_failsafe;
-    bool _disable;
+    uint8_t current_screen{};
+    uint16_t previous_channel_value{};
+    bool switch_debouncer{};
+    uint32_t last_switch_ms{};
+    struct NavInfo nav_info{};
+    int8_t previous_pwm_screen{-1};
+    int8_t pre_fs_screen{};
+    bool was_armed{};
+    bool was_failsafe{};
+    bool _disable{};
 
     StatsInfo _stats;
 #endif

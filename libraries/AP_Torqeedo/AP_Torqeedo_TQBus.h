@@ -182,37 +182,37 @@ private:
     void update_esc_telem(float rpm, float voltage, float current_amps, float esc_tempC, float motor_tempC);
 
     // members
-    AP_HAL::UARTDriver *_uart;      // serial port to communicate with motor
-    bool _initialised;              // true once driver has been initialised
-    bool _send_motor_speed;         // true if motor speed should be sent at next opportunity
-    int16_t _motor_speed_desired;   // desired motor speed (set from within update method)
-    uint32_t _last_send_motor_ms;   // system time (in millis) last motor speed command was sent (used for health reporting)
-    bool _motor_clear_error;        // true if the motor error should be cleared (sent in "Drive" message)
-    uint32_t _send_start_us;        // system time (in micros) when last message started being sent (used for timing to unset DE pin)
-    uint32_t _send_delay_us;        // delay (in micros) to allow bytes to be sent after which pin can be unset.  0 if not delaying
+    AP_HAL::UARTDriver *_uart{};      // serial port to communicate with motor
+    bool _initialised{};              // true once driver has been initialised
+    bool _send_motor_speed{};         // true if motor speed should be sent at next opportunity
+    int16_t _motor_speed_desired{};   // desired motor speed (set from within update method)
+    uint32_t _last_send_motor_ms{};   // system time (in millis) last motor speed command was sent (used for health reporting)
+    bool _motor_clear_error{};        // true if the motor error should be cleared (sent in "Drive" message)
+    uint32_t _send_start_us{};        // system time (in micros) when last message started being sent (used for timing to unset DE pin)
+    uint32_t _send_delay_us{};        // delay (in micros) to allow bytes to be sent after which pin can be unset.  0 if not delaying
 
     // motor speed limit variables
-    float _motor_speed_limited;     // limited desired motor speed. this value is actually sent to the motor
-    uint32_t _motor_speed_limited_ms; // system time that _motor_speed_limited was last updated
-    int8_t _dir_limit;              // acceptable directions for output to motor (+1 = positive OK, -1 = negative OK, 0 = either positive or negative OK)
-    uint32_t _motor_speed_zero_ms;  // system time that _motor_speed_limited reached zero.  0 if currently not zero
+    float _motor_speed_limited{};     // limited desired motor speed. this value is actually sent to the motor
+    uint32_t _motor_speed_limited_ms{}; // system time that _motor_speed_limited was last updated
+    int8_t _dir_limit{};              // acceptable directions for output to motor (+1 = positive OK, -1 = negative OK, 0 = either positive or negative OK)
+    uint32_t _motor_speed_zero_ms{};  // system time that _motor_speed_limited reached zero.  0 if currently not zero
 
     // health reporting
     HAL_Semaphore _last_healthy_sem;// semaphore protecting reading and updating of _last_send_motor_ms and _last_received_ms
-    uint32_t _last_log_TRQD_ms;     // system time (in millis) that TRQD was last logged
+    uint32_t _last_log_TRQD_ms{};     // system time (in millis) that TRQD was last logged
 
     // message parsing members
-    ParseState _parse_state;        // current state of parsing
-    bool _parse_escape_received;    // true if the escape character has been received so we must XOR the next byte
-    uint32_t _parse_error_count;    // total number of parsing errors (for reporting)
-    uint32_t _parse_success_count;  // number of messages successfully parsed (for reporting)
-    uint8_t _received_buff[TORQEEDO_MESSAGE_LEN_MAX];   // characters received
-    uint8_t _received_buff_len;     // number of characters received
-    uint32_t _last_received_ms;     // system time (in millis) that a message was successfully parsed (for health reporting)
+    ParseState _parse_state{ParseState::WAITING_FOR_HEADER};        // current state of parsing
+    bool _parse_escape_received{};    // true if the escape character has been received so we must XOR the next byte
+    uint32_t _parse_error_count{};    // total number of parsing errors (for reporting)
+    uint32_t _parse_success_count{};  // number of messages successfully parsed (for reporting)
+    uint8_t _received_buff[TORQEEDO_MESSAGE_LEN_MAX]{};   // characters received
+    uint8_t _received_buff_len{};     // number of characters received
+    uint32_t _last_received_ms{};     // system time (in millis) that a message was successfully parsed (for health reporting)
 
     // reply message handling
-    uint8_t _reply_msgid;           // replies expected msgid (reply often does not specify the msgid so we must record it)
-    uint32_t _reply_wait_start_ms;  // system time that we started waiting for a reply message
+    uint8_t _reply_msgid{};           // replies expected msgid (reply often does not specify the msgid so we must record it)
+    uint32_t _reply_wait_start_ms{};  // system time that we started waiting for a reply message
 
     // Display system state flags
     typedef union PACKED {
@@ -303,7 +303,7 @@ private:
             uint16_t error_flags_value;
         };
     } _motor_status;
-    uint32_t _last_send_motor_status_request_ms;    // system time (in milliseconds) that last motor status request was sent
+    uint32_t _last_send_motor_status_request_ms{};    // system time (in milliseconds) that last motor status request was sent
 
     // Motor params
     struct MotorParam {
@@ -315,13 +315,13 @@ private:
         float stator_temp;      // stator temp in C
         uint32_t last_update_ms;// system time that above values were updated
     } _motor_param;
-    uint32_t _last_send_motor_param_request_ms;     // system time (in milliseconds) that last motor param request was sent
+    uint32_t _last_send_motor_param_request_ms{};     // system time (in milliseconds) that last motor param request was sent
 
     // error reporting
-    DisplaySystemStateFlags _display_system_state_flags_prev;   // backup of display system state flags
-    uint8_t _display_system_state_master_error_code_prev;       // backup of display system state master_error_code
-    uint32_t _last_error_report_ms;                             // system time that flag changes were last reported (used to prevent spamming user)
-    MotorStatus _motor_status_prev;                             // backup of motor status
+    DisplaySystemStateFlags _display_system_state_flags_prev{};   // backup of display system state flags
+    uint8_t _display_system_state_master_error_code_prev{};       // backup of display system state master_error_code
+    uint32_t _last_error_report_ms{};                             // system time that flag changes were last reported (used to prevent spamming user)
+    MotorStatus _motor_status_prev{};                             // backup of motor status
 
     // returns a human-readable string corresponding the passed-in
     // master error code (see page 93 of https://media.torqeedo.com/downloads/manuals/torqeedo-Travel-manual-DE-EN.pdf)

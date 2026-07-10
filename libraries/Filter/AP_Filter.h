@@ -78,7 +78,7 @@ public:
     AP_Filter* get_filter(uint8_t filt_num);
 
 private:
-    AP_Filter* filters[AP_FILTER_NUM_FILTERS];
+    AP_Filter* filters[AP_FILTER_NUM_FILTERS]{};
     AP_Filter_params params[AP_FILTER_NUM_FILTERS];
 
     static AP_Filters *singleton;

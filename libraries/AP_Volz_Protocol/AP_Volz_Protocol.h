@@ -84,7 +84,7 @@ private:
         uint8_t data[6];
     };
 
-    AP_HAL::UARTDriver *port;
+    AP_HAL::UARTDriver *port{nullptr};
 
     // Loop in thread to output to uart
     void loop();
@@ -102,11 +102,11 @@ private:
 
     // Send postion commands from PWM, cycle through each servo
     void send_position_cmd();
-    uint8_t last_sent_index;
+    uint8_t last_sent_index{};
 
     AP_Int32 bitmask;
     AP_Int16 range;
-    bool initialised;
+    bool initialised{};
 
 #if AP_SERVO_TELEM_ENABLED
     // Request telem data, cycling through each servo and telem item
@@ -119,7 +119,7 @@ private:
     void read_telem();
     void process_response(const CMD &cmd);
 
-    uint8_t sent_count;
+    uint8_t sent_count{};
 
     struct {
         CMD_ID types[3] {

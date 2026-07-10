@@ -298,7 +298,7 @@ public:
     mavlink_channel_t get_chan() const { return chan; }
     uint32_t get_last_heartbeat_time() const { return last_heartbeat_time; };
 
-    uint32_t        last_heartbeat_time; // milliseconds
+    uint32_t        last_heartbeat_time{}; // milliseconds
 
     // called when valid traffic has been seen from our GCS
     void sysid_mygcs_seen(uint32_t seen_time_ms);
@@ -352,7 +352,7 @@ public:
     // Send per instance airspeed message
     // last index is used to rotate through sensors
     void send_airspeed();
-    uint8_t last_airspeed_idx;
+    uint8_t last_airspeed_idx{};
 #endif
     void send_simstate() const;
     void send_sim_state() const;
@@ -438,7 +438,7 @@ public:
 
 #if HAL_HIGH_LATENCY2_ENABLED
     // true if this is a high latency link
-    bool is_high_latency_link;
+    bool is_high_latency_link{};
 #endif
 
     /*

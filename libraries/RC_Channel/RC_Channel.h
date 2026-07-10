@@ -515,15 +515,15 @@ protected:
     };
 
     // the input channel this corresponds to
-    uint8_t ch_in;
+    uint8_t ch_in{};
 
 private:
 
     // pwm is stored here
-    int16_t     radio_in;
+    int16_t     radio_in{};
 
     // value generated from PWM normalised to configured scale
-    int16_t    control_in;
+    int16_t    control_in{};
 
     AP_Int16    radio_min;
     AP_Int16    radio_trim;
@@ -532,12 +532,12 @@ private:
     AP_Int8     reversed;
     AP_Int16    dead_zone;
 
-    ControlType type_in;
-    int16_t     high_in;
+    ControlType type_in{};
+    int16_t     high_in{};
 
     // overrides
-    uint16_t override_value;
-    uint32_t last_override_time;
+    uint16_t override_value{};
+    uint32_t last_override_time{};
 
     float pwm_to_angle() const;
     float pwm_to_angle_dz(uint16_t dead_zone) const;
@@ -552,8 +552,8 @@ private:
     struct {
         int8_t debounce_position = -1;
         int8_t current_position = -1;
-        uint32_t last_edge_time_ms;
-        bool initialised;
+        uint32_t last_edge_time_ms{};
+        bool initialised{};
     } switch_state;
 
     void reset_mode_switch();
@@ -772,10 +772,10 @@ private:
     // this static arrangement is to avoid static pointers in AP_Param tables
     static RC_Channel *channels;
 
-    uint32_t last_update_ms;
-    bool has_new_overrides;
-    bool _has_had_rc_receiver; // true if we have had a direct detach RC receiver, does not include overrides
-    bool _has_had_override; // true if we have had an override on any channel
+    uint32_t last_update_ms{};
+    bool has_new_overrides{};
+    bool _has_had_rc_receiver{}; // true if we have had a direct detach RC receiver, does not include overrides
+    bool _has_had_override{}; // true if we have had an override on any channel
 
     AP_Float _override_timeout;
     AP_Int32  _options;
@@ -783,7 +783,7 @@ private:
     AP_Float _fs_timeout;
 
     // set to true if we see overrides or other RC input
-    bool _has_ever_seen_rc_input;
+    bool _has_ever_seen_rc_input{};
 
     RC_Channel *flight_mode_channel() const;
 
@@ -791,7 +791,7 @@ private:
     bool _gcs_overrides_enabled = true;
 
     // true if GCS is performing a RC calibration
-    bool gcs_is_calibrating;
+    bool gcs_is_calibrating{};
 
 #if AP_SCRIPTING_ENABLED
     // bitmask of last aux function value, 2 bits per function
@@ -805,10 +805,10 @@ private:
     RC_Channel &get_rcmap_channel_nonnull(uint8_t rcmap_number) const;
 
     // time that rudder arming has been running
-    uint32_t rudder_arm_timer;
+    uint32_t rudder_arm_timer{};
     // true if we have seen a neutral rudder control input after
     // arming via rudder-input:
-    bool have_seen_neutral_rudder;
+    bool have_seen_neutral_rudder{};
     // check for arm/disarm command based on rudder stick position:
     void rudder_arm_disarm_check();
 

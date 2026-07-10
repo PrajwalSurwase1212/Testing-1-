@@ -141,10 +141,10 @@ private:
     FlashErase flash_erase;
     FlashEraseOK flash_erase_ok;
 
-    uint8_t current_sector;
-    uint32_t write_offset;
-    uint32_t reserved_space;
-    bool write_error;
+    uint8_t current_sector{};
+    uint32_t write_offset{};
+    uint32_t reserved_space{};
+    bool write_error{};
 
     // 24 bit signature
 #if AP_FLASHSTORAGE_TYPE == AP_FLASHSTORAGE_TYPE_F4
@@ -240,5 +240,5 @@ private:
     // write() which can call switch_full_sector.  This has been seen
     // in practice.
     bool protected_switch_full_sector(void) WARN_IF_UNUSED;
-    bool in_switch_full_sector;
+    bool in_switch_full_sector{};
 };

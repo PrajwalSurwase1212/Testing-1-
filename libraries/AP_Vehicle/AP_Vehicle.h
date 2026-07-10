@@ -337,7 +337,7 @@ protected:
 
     // IMU variables
     // Integration time; time last loop took to run
-    float G_Dt;
+    float G_Dt{};
 
     // sensor drivers
 #if AP_GPS_ENABLED
@@ -560,11 +560,11 @@ private:
 #endif // AP_INERTIALSENSOR_HARMONICNOTCH_ENABLED
 
     // decimation for 1Hz update
-    uint8_t one_Hz_counter;
+    uint8_t one_Hz_counter{};
     void one_Hz_update();
 
-    bool likely_flying;         // true if vehicle is probably flying
-    uint32_t _last_flying_ms;   // time when likely_flying last went true
+    bool likely_flying{};         // true if vehicle is probably flying
+    uint32_t _last_flying_ms{};   // time when likely_flying last went true
 #if AP_INERTIALSENSOR_HARMONICNOTCH_ENABLED
     uint32_t _last_notch_update_ms[HAL_INS_NUM_HARMONIC_NOTCH_FILTERS]; // last time update_dynamic_notch() was run
 #endif
@@ -572,14 +572,14 @@ private:
     static AP_Vehicle *_singleton;
 
 #if HAL_GYROFFT_ENABLED && HAL_WITH_ESC_TELEM
-    LowPassFilterFloat esc_noise[ESC_TELEM_MAX_ESCS];
-    uint32_t last_motor_noise_ms;
+    LowPassFilterFloat esc_noise[ESC_TELEM_MAX_ESCS]{};
+    uint32_t last_motor_noise_ms{};
 #endif
 
-    bool done_safety_init;
+    bool done_safety_init{};
 
 
-    uint32_t _last_internal_errors;  // backup of AP_InternalError::internal_errors bitmask
+    uint32_t _last_internal_errors{};  // backup of AP_InternalError::internal_errors bitmask
 
 #if AP_CUSTOMROTATIONS_ENABLED
     AP_CustomRotations custom_rotations;

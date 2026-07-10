@@ -95,7 +95,7 @@ private:
     AP_Torqeedo_Backend *get_instance(uint8_t instance) const;
 
     static AP_Torqeedo *_singleton;
-    AP_Torqeedo_Backend *_backends[AP_TORQEEDO_MAX_INSTANCES];  // pointers to instantiated backends
+    AP_Torqeedo_Backend *_backends[AP_TORQEEDO_MAX_INSTANCES]{};  // pointers to instantiated backends
 };
 
 namespace AP {

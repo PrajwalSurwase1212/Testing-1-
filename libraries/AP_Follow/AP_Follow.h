@@ -214,33 +214,33 @@ private:
     // Internal State Variables
     //==========================================================================
 
-    uint32_t    _last_location_update_ms;       // Time of last target position update (ms)
-    uint32_t    _last_estimation_update_ms;     // Time of last estimate update (ms)
+    uint32_t    _last_location_update_ms{};       // Time of last target position update (ms)
+    uint32_t    _last_estimation_update_ms{};     // Time of last estimate update (ms)
 
     Vector3p    _target_pos_ned_m;              // Latest received target position (NED frame, meters)
     Vector3f    _target_vel_ned_ms;             // Latest received target velocity (NED frame, m/s)
     Vector3f    _target_accel_ned_mss;          // Latest received target acceleration (NED frame, m/s²)
-    float       _target_heading_deg;            // Latest received target heading (degrees, 0 = North)
-    float       _target_heading_rate_degs;      // Latest received target yaw rate (deg/s)
+    float       _target_heading_deg{};            // Latest received target heading (degrees, 0 = North)
+    float       _target_heading_rate_degs{};      // Latest received target yaw rate (deg/s)
 
-    bool        _estimate_valid;                // True if internal estimate is valid and in sync with updates
+    bool        _estimate_valid{};                // True if internal estimate is valid and in sync with updates
     Vector3p    _estimate_pos_ned_m;            // Estimated target position (NED frame, meters)
     Vector3f    _estimate_vel_ned_ms;           // Estimated target velocity (NED frame, m/s)
     Vector3f    _estimate_accel_ned_mss;        // Estimated target acceleration (NED frame, m/s²)
-    float       _estimate_heading_rad;          // Estimated heading (radians, range -PI to PI)
-    float       _estimate_heading_rate_rads;    // Estimated heading rate (rad/s)
-    float       _estimate_heading_accel_radss;  // Estimated heading acceleration (rad/s²)
+    float       _estimate_heading_rad{};          // Estimated heading (radians, range -PI to PI)
+    float       _estimate_heading_rate_rads{};    // Estimated heading rate (rad/s)
+    float       _estimate_heading_accel_radss{};  // Estimated heading acceleration (rad/s²)
 
     Vector3p    _ofs_estimate_pos_ned_m;        // Estimated position with offsets applied (NED frame)
     Vector3f    _ofs_estimate_vel_ned_ms;       // Estimated velocity with offsets applied (NED frame)
     Vector3f    _ofs_estimate_accel_ned_mss;    // Estimated acceleration with offsets applied (NED frame)
 
-    bool        _automatic_sysid;               // True if target sysid was automatically selected
-    int16_t     _sysid_used;                    // Currently active sysid used for updates
-    float       _dist_to_target_m;              // Horizontal distance to target, for reporting (meters)
-    float       _bearing_to_target_deg;         // Bearing to target from vehicle (degrees, 0 = North)
-    bool        _offsets_were_zero;             // True if initial offset was zero before being initialized
-    bool        _using_follow_target;           // True if FOLLOW_TARGET messages are being used instead of GLOBAL_POSITION_INT
+    bool        _automatic_sysid{};               // True if target sysid was automatically selected
+    int16_t     _sysid_used{};                    // Currently active sysid used for updates
+    float       _dist_to_target_m{};              // Horizontal distance to target, for reporting (meters)
+    float       _bearing_to_target_deg{};         // Bearing to target from vehicle (degrees, 0 = North)
+    bool        _offsets_were_zero{};             // True if initial offset was zero before being initialized
+    bool        _using_follow_target{};           // True if FOLLOW_TARGET messages are being used instead of GLOBAL_POSITION_INT
 
     HAL_Semaphore   _follow_sem;                // semaphore for multi-thread use of update_estimates and LUA calls
 

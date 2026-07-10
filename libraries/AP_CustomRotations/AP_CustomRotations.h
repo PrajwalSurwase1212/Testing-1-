@@ -73,7 +73,7 @@ private:
 
     AP_CustomRotation* get_rotation(Rotation r);
 
-    AP_CustomRotation* rotations[NUM_CUST_ROT];
+    AP_CustomRotation* rotations[NUM_CUST_ROT]{};
 
     AP_CustomRotation_params params[NUM_CUST_ROT];
 

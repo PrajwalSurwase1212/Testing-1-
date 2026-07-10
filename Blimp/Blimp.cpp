@@ -295,6 +295,24 @@ Blimp::Blimp(void)
       param_loader(var_info),
       flightmode(&mode_manual)
 {
+    channel_right = nullptr;
+    channel_front = nullptr;
+    channel_up = nullptr;
+    channel_yaw = nullptr;
+    ekfYawReset_ms = 0;
+    ekf_primary_core = 0;
+    arming_altitude_m = 0.0f;
+    motors = nullptr;
+    loiter = nullptr;
+    _home_bearing = 0;
+    _home_distance = 0;
+    initial_armed_bearing = 0;
+    baro_alt = 0;
+    vel_yaw = 0.0f;
+    vel_yaw_filtd = 0.0f;
+    arm_time_ms = 0;
+    last_radio_update_ms = 0;
+    standby_active = false;
 }
 
 Blimp blimp;

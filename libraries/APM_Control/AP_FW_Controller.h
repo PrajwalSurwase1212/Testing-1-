@@ -53,7 +53,7 @@ protected:
     float angle_err_deg = 0.0f;
     float ff_scale = 1.0;
 
-    AP_PIDInfo _pid_info;
+    AP_PIDInfo _pid_info{};
 
     float _get_rate_out(float desired_rate, float scaler, bool disable_integrator, float aspeed, bool ground_mode);
 

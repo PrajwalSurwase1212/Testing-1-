@@ -163,10 +163,10 @@ public:
 
 private:
     // Last time update_50Hz was called
-    uint64_t _update_50hz_last_usec;
+    uint64_t _update_50hz_last_usec{};
 
     // Last time update_pitch_throttle was called
-    uint64_t _update_pitch_throttle_last_usec;
+    uint64_t _update_pitch_throttle_last_usec{};
 
     // reference to the AHRS object
     AP_AHRS &_ahrs;
@@ -226,98 +226,98 @@ private:
     AP_Int8 _thr_min_pct_ext_rate_lim;
 
     // current height estimate (above field elevation)
-    float _height;
+    float _height{};
 
     // throttle demand in the range from -1.0 to 1.0, usually positive unless reverse thrust is enabled via _THRminf < 0
-    float _throttle_dem;
+    float _throttle_dem{};
 
     // pitch angle demand in radians
-    float _pitch_dem;
+    float _pitch_dem{};
 
     // estimated climb rate (m/s)
-    float _climb_rate;
+    float _climb_rate{};
 
     // climb and sink rate limits
-    float _climb_rate_limit;
-    float _sink_rate_limit;
+    float _climb_rate_limit{};
+    float _sink_rate_limit{};
 
     /*
       a filter to estimate climb rate if we don't have it from the EKF
      */
     struct {
         // height filter second derivative
-        float dd_height;
+        float dd_height{};
 
         // height integration
-        float height;
-    } _height_filter;
+        float height{};
+    } _height_filter{};
 
     // Integrator state 4 - airspeed filter first derivative
-    float _integDTAS_state;
+    float _integDTAS_state{};
 
     // Integrator state 5 - true airspeed
-    float _TAS_state;
+    float _TAS_state{};
 
     // Integrator state 6 - throttle integrator
-    float _integTHR_state;
+    float _integTHR_state{};
 
     // energy balance error integral
-    float _integSEBdot;
+    float _integSEBdot{};
 
     // pitch demand kinetic energy error integral
-    float _integKE;
+    float _integKE{};
 
     // throttle demand rate limiter state
-    float _last_throttle_dem;
+    float _last_throttle_dem{};
 
     // pitch demand rate limiter state
-    float _last_pitch_dem;
+    float _last_pitch_dem{};
 
     // Rate of change of speed along X axis
-    float _vel_dot;
-    float _vel_dot_lpf;
+    float _vel_dot{};
+    float _vel_dot_lpf{};
 
     // True airspeed limits
-    float _TASmax;
-    float _TASmin;
+    float _TASmax{};
+    float _TASmin{};
 
     // Current true airspeed demand
-    float _TAS_dem;
+    float _TAS_dem{};
 
     // Equivalent airspeed demand
-    float _EAS_dem;
+    float _EAS_dem{};
 
     // height demands
-    float _hgt_dem_in_raw;      // height demand input from autopilot before any modification (m)
-    float _hgt_dem_in;          // height demand input from autopilot after unachievable climb or descent limiting (m)
-    float _hgt_dem_in_prev;     // previous value of _hgt_dem_in (m)
-    float _hgt_dem_lpf;         // height demand after application of low pass filtering (m)
-    float _flare_hgt_dem_adj;   // height rate demand during flare adjusted for height tracking offset at flare entry (m)
-    float _flare_hgt_dem_ideal; // height we want to fly at during flare (m)
-    float _hgt_dem;             // height demand sent to control loops (m)
-    float _hgt_dem_prev;        // _hgt_dem from previous frame (m)
+    float _hgt_dem_in_raw{};      // height demand input from autopilot before any modification (m)
+    float _hgt_dem_in{};          // height demand input from autopilot after unachievable climb or descent limiting (m)
+    float _hgt_dem_in_prev{};     // previous value of _hgt_dem_in (m)
+    float _hgt_dem_lpf{};         // height demand after application of low pass filtering (m)
+    float _flare_hgt_dem_adj{};   // height rate demand during flare adjusted for height tracking offset at flare entry (m)
+    float _flare_hgt_dem_ideal{}; // height we want to fly at during flare (m)
+    float _hgt_dem{};             // height demand sent to control loops (m)
+    float _hgt_dem_prev{};        // _hgt_dem from previous frame (m)
 
     // height rate demands
-    float _hgt_dem_rate_ltd;    // height demand after application of the rate limiter (m)
-    float _hgt_rate_dem;        // height rate demand sent to control loops
+    float _hgt_dem_rate_ltd{};    // height demand after application of the rate limiter (m)
+    float _hgt_rate_dem{};        // height rate demand sent to control loops
 
     // offset applied to height demand post takeoff to compensate for height demand filter lag
-    float _post_TO_hgt_offset;
+    float _post_TO_hgt_offset{};
 
     // last lag compensation offset applied to height demand
-    float _lag_comp_hgt_offset;
+    float _lag_comp_hgt_offset{};
 
     // Speed demand after application of rate limiting
     // This is the demand tracked by the TECS control loops
-    float _TAS_dem_adj;
+    float _TAS_dem_adj{};
 
     // Speed rate demand after application of rate limiting
     // This is the demand tracked by the TECS control loops
-    float _TAS_rate_dem;
-    float _TAS_rate_dem_lpf;
+    float _TAS_rate_dem{};
+    float _TAS_rate_dem_lpf{};
 
     // Total energy rate filter state
-    float _STEdotErrLast;
+    float _STEdotErrLast{};
 
     struct flags {
         // Underspeed condition
@@ -354,22 +354,22 @@ private:
     };
 
     // time when underspeed started
-    uint32_t _underspeed_start_ms;
+    uint32_t _underspeed_start_ms{};
 
     // auto mode flightstage
-    enum AP_FixedWing::FlightStage _flight_stage;
+    enum AP_FixedWing::FlightStage _flight_stage{};
 
     // pitch demand before limiting
-    float _pitch_dem_unc;
+    float _pitch_dem_unc{};
 
     // Specific total energy rate limits
-    float _STEdot_max;     // Specific total energy rate gain at cruise airspeed & THR_MAX (m/s/s)
-    float _STEdot_min;     // Specific total energy rate loss at cruise airspeed & THR_MIN (m/s/s)
-    float _STEdot_neg_max; // Specific total energy rate loss at max airspeed & THR_MIN (m/s/s)
+    float _STEdot_max{};     // Specific total energy rate gain at cruise airspeed & THR_MAX (m/s/s)
+    float _STEdot_min{};     // Specific total energy rate loss at cruise airspeed & THR_MIN (m/s/s)
+    float _STEdot_neg_max{}; // Specific total energy rate loss at max airspeed & THR_MIN (m/s/s)
 
     // Maximum and minimum floating point throttle limits
-    float _THRmaxf;
-    float _THRminf;
+    float _THRmaxf{};
+    float _THRminf{};
     // Maximum and minimum throttle safety limits, set externally, typically by servos.cpp:apply_throttle_limits()
     float _THRmaxf_ext = 1.0f;
     float _THRminf_ext = -1.0f;
@@ -378,8 +378,8 @@ private:
     float _PITCHminf_ext = -90.0f;
 
     // Maximum and minimum floating point pitch limits
-    float _PITCHmaxf;
-    float _PITCHminf;
+    float _PITCHmaxf{};
+    float _PITCHminf{};
 
     // 1 if throttle is clipping at max value, -1 if clipping at min value, 0 otherwise
     enum class clipStatus  : int8_t {
@@ -387,76 +387,76 @@ private:
         NONE =  0,
         MAX  =  1,
     };
-    clipStatus _thr_clip_status;
+    clipStatus _thr_clip_status{};
 
     // Specific energy quantities
-    float _SPE_dem;
-    float _SKE_dem;
-    float _SPEdot_dem;
-    float _SKEdot_dem;
-    float _SPE_est;
-    float _SKE_est;
-    float _SPEdot;
-    float _SKEdot;
+    float _SPE_dem{};
+    float _SKE_dem{};
+    float _SPEdot_dem{};
+    float _SKEdot_dem{};
+    float _SPE_est{};
+    float _SKE_est{};
+    float _SPEdot{};
+    float _SKEdot{};
 
     // variables used for precision landing pitch control
-    float _hgt_at_start_of_flare;
-    float _hgt_rate_at_flare_entry;
-    float _hgt_afe;
-    float _pitch_min_at_flare_entry;
+    float _hgt_at_start_of_flare{};
+    float _hgt_rate_at_flare_entry{};
+    float _hgt_afe{};
+    float _pitch_min_at_flare_entry{};
 
     // used to scale max climb and sink limits to match vehicle ability
-    float _max_climb_scaler;
-    float _max_sink_scaler;
-    float _sink_fraction;
+    float _max_climb_scaler{};
+    float _max_sink_scaler{};
+    float _sink_fraction{};
 
     // Specific energy error quantities
-    float _STE_error;
+    float _STE_error{};
 
     // 1 when specific energy balance rate demand is clipping in the up direction
     // -1 when specific energy balance rate demand is clipping in the down direction
     // 0 when not clipping
-    clipStatus _SEBdot_dem_clip;
+    clipStatus _SEBdot_dem_clip{};
 
     // Time since last update of main TECS loop (seconds)
-    float _DT;
+    float _DT{};
 
     // true when class variables used for flare control have been initialised
     // on flare entry
-    bool _flare_initialised;
+    bool _flare_initialised{};
 
     // percent traveled along the previous and next waypoints
-    float _path_proportion;
+    float _path_proportion{};
 
-    float _distance_beyond_land_wp;
+    float _distance_beyond_land_wp{};
 
     float _land_pitch_min = -90;
 
     // need to reset on next loop
-    bool _need_reset;
+    bool _need_reset{};
     // Flag if someone else drives throttle externally.
-    bool _flag_throttle_forced;
+    bool _flag_throttle_forced{};
 
     // Checks if we reset at the beginning of takeoff.
-    bool _flag_have_reset_after_takeoff;
+    bool _flag_have_reset_after_takeoff{};
 
-    float _SKE_weighting;
+    float _SKE_weighting{};
 
     AP_Int8 _use_synthetic_airspeed;
     
     // use synthetic airspeed for next loop
-    bool _use_synthetic_airspeed_once;
+    bool _use_synthetic_airspeed_once{};
 
     // using airspeed in throttle calculation this frame
-    bool _using_airspeed_for_throttle;
+    bool _using_airspeed_for_throttle{};
 
     // low pass filters used for crossover filter that combines demanded and measured pitch
     // when calculating a pitch to throttle mapping.
-    LowPassFilterFloat _pitch_demand_lpf;
-    LowPassFilterFloat _pitch_measured_lpf;
+    LowPassFilterFloat _pitch_demand_lpf{};
+    LowPassFilterFloat _pitch_measured_lpf{};
 
     // aerodynamic load factor
-    float _load_factor;
+    float _load_factor{};
 
     // Update the airspeed internal state using a second order complementary filter
     void _update_speed(float DT);

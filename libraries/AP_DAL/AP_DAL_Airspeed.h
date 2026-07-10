@@ -58,6 +58,6 @@ public:
 
 private:
 
-    struct log_RASH _RASH;
-    struct log_RASI _RASI[AIRSPEED_MAX_SENSORS];
+    struct log_RASH _RASH{};
+    struct log_RASI _RASI[AIRSPEED_MAX_SENSORS]{};
 };

@@ -411,7 +411,7 @@ class ModeAcro : public Mode {
 
 public:
     // inherit constructor
-    using Mode::Mode;
+    ModeAcro() : Mode(), disable_air_mode_reset(false) {}
     Number mode_number() const override { return Number::ACRO; }
 
     enum class Trainer {
@@ -847,7 +847,7 @@ class ModeBrake : public Mode {
 
 public:
     // inherit constructor
-    using Mode::Mode;
+    ModeBrake() : Mode(), _timeout_start(0), _timeout_ms(0) {}
     Number mode_number() const override { return Number::BRAKE; }
 
     bool init(bool ignore_checks) override;
@@ -1316,7 +1316,11 @@ class ModeLoiter : public Mode {
 
 public:
     // inherit constructor
-    using Mode::Mode;
+    ModeLoiter() : Mode()
+#if AC_PRECLAND_ENABLED
+        , _precision_loiter_enabled(false), _precision_loiter_active(false)
+#endif
+    {}
     Number mode_number() const override { return Number::LOITER; }
 
     bool init(bool ignore_checks) override;
@@ -1451,7 +1455,7 @@ class ModeRTL : public Mode {
 
 public:
     // inherit constructor
-    using Mode::Mode;
+    ModeRTL() : Mode(), _loiter_start_time(0), terrain_following_allowed(false) {}
     Number mode_number() const override { return Number::RTL; }
 
     bool init(bool ignore_checks) override;
@@ -1570,7 +1574,7 @@ class ModeSmartRTL : public ModeRTL {
 
 public:
     // inherit constructor
-    using ModeRTL::Mode;
+    ModeSmartRTL() : ModeRTL() {}
     Number mode_number() const override { return Number::SMART_RTL; }
 
     bool init(bool ignore_checks) override;

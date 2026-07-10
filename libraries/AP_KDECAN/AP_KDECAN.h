@@ -134,7 +134,7 @@ private:
     static AP_KDECAN *_singleton;
 
     AP_Int8 _num_poles;
-    AP_KDECAN_Driver *_driver;
+    AP_KDECAN_Driver *_driver = nullptr;
 };
 namespace AP {
     AP_KDECAN *kdecan();

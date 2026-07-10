@@ -182,21 +182,21 @@ protected:
     AP_Float            _boost_scale;
 
     // motor output variables
-    bool                motor_enabled[AP_MOTORS_MAX_NUM_MOTORS];    // true if motor is enabled
+    bool                motor_enabled[AP_MOTORS_MAX_NUM_MOTORS]{};    // true if motor is enabled
 
     // spool variables
-    float               _spin_up_ratio;      // throttle percentage (0 ~ 1) between zero and throttle_min
+    float               _spin_up_ratio{};      // throttle percentage (0 ~ 1) between zero and throttle_min
 
     // battery voltage, current and air pressure compensation variables
-    float               _throttle_limit;        // ratio of throttle limit between hover and maximum
-    float               _throttle_thrust_max;   // the maximum allowed throttle thrust 0.0 to 1.0 in the range throttle_min to throttle_max
-    float               _disarm_safe_timer;     // Timer for the esc when transitioning between zero pwm to minimum
+    float               _throttle_limit{1.0f};        // ratio of throttle limit between hover and maximum
+    float               _throttle_thrust_max{};   // the maximum allowed throttle thrust 0.0 to 1.0 in the range throttle_min to throttle_max
+    float               _disarm_safe_timer{};     // Timer for the esc when transitioning between zero pwm to minimum
 
     // vehicle supplied callback for thrust compensation. Used for tiltrotors and tiltwings
     thrust_compensation_fn_t _thrust_compensation_callback;
 
     // array of motor output values
-    float _actuator[AP_MOTORS_MAX_NUM_MOTORS];
+    float _actuator[AP_MOTORS_MAX_NUM_MOTORS]{};
 
     /* motor enabled, checking the override mask
        _motor_mask_override is only set for tilt quadplanes
@@ -206,5 +206,5 @@ protected:
     }
 
     // mask of overridden motors (used by quadplane tiltrotors)
-    uint32_t _motor_mask_override;
+    uint32_t _motor_mask_override{};
 };

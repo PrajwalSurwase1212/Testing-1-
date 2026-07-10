@@ -27,8 +27,8 @@
 // returned structure from a load_file() call
 class FileData {
 public:
-    uint32_t length;
-    const uint8_t *data;
+    uint32_t length{0};
+    const uint8_t *data{nullptr};
 
     FileData(void *_backend) :
         backend(_backend) {}

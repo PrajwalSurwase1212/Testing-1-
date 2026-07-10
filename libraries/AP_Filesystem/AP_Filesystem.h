@@ -171,9 +171,9 @@ private:
     // support for listing out virtual directory entries (e.g. @SYS
     // then @MISSION)
     struct {
-        uint8_t backend_ofs;
-        struct dirent de;
-        uint8_t d_off;
+        uint8_t backend_ofs{};
+        struct dirent de{};
+        uint8_t d_off{};
     } virtual_dirent;
 };
 

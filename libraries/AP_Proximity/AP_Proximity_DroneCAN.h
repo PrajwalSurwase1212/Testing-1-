@@ -29,10 +29,10 @@ public:
 
 private:
 
-    uint32_t _last_update_ms;   // system time of last message received
+    uint32_t _last_update_ms{};   // system time of last message received
 
-    AP_DroneCAN* _ap_dronecan;
-    uint8_t _node_id;
+    AP_DroneCAN* _ap_dronecan = nullptr;
+    uint8_t _node_id{};
 
     struct ObstacleItem {
         float yaw_deg;
@@ -42,7 +42,7 @@ private:
 
     static ObjectBuffer_TS<ObstacleItem> items;
 
-    AP_Proximity::Status _status;
+    AP_Proximity::Status _status{AP_Proximity::Status::NotConnected};
 };
 
 #endif // AP_PROXIMITY_DRONECAN_ENABLED

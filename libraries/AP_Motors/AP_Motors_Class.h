@@ -385,7 +385,7 @@ protected:
 
 #if AP_SCRIPTING_ENABLED
     // Custom frame string set from scripting
-    char* custom_frame_string;
+    char* custom_frame_string{nullptr};
 
     // external limits from scripting
     AP_Motors_limit external_limits;

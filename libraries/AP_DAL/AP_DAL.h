@@ -382,15 +382,15 @@ private:
     AP_DAL_Baro _baro;
     AP_DAL_GPS _gps;
 #if AP_RANGEFINDER_ENABLED
-    AP_DAL_RangeFinder *_rangefinder;
+    AP_DAL_RangeFinder *_rangefinder{nullptr};
 #endif
     AP_DAL_Compass _compass;
-    AP_DAL_Airspeed *_airspeed;
+    AP_DAL_Airspeed *_airspeed{nullptr};
 #if AP_BEACON_ENABLED
-    AP_DAL_Beacon *_beacon;
+    AP_DAL_Beacon *_beacon{nullptr};
 #endif
 #if HAL_VISUALODOM_ENABLED
-    AP_DAL_VisualOdom *_visualodom;
+    AP_DAL_VisualOdom *_visualodom{nullptr};
 #endif
 
     static bool logging_started;

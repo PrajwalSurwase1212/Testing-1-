@@ -93,7 +93,7 @@ private:
     struct {
         uint32_t mask;
         uint32_t value;
-    } filter[8];
+    } filter[8]{};
     uint8_t num_filters = 0;
 
 };

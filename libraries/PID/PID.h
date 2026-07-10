@@ -106,10 +106,10 @@ private:
     AP_Float        _kd;
     AP_Int16        _imax;
 
-    float           _integrator;///< integrator value
-    float           _last_error;///< last error for derivative
+    float           _integrator{};///< integrator value
+    float           _last_error{};///< last error for derivative
     float           _last_derivative;///< last derivative for low-pass filter
-    uint32_t        _last_t;///< last time get_pid() was called in millis
+    uint32_t        _last_t{};///< last time get_pid() was called in millis
 
     float           _get_pid(float error, uint16_t dt, float scaler);
 

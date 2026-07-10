@@ -15,11 +15,11 @@ public:
     // these variables are periodically written into the actual
     // parameters.  If you add a variable here, make sure to update
     // init() to set initial values from the parameters!
-    uint32_t flttime; // seconds in flight (or driving)
-    uint32_t runtime; // total wallclock time spent running ArduPilot (seconds)
-    uint32_t reset;   // last time AP_Stats parameters were reset (in seconds since AP_Stats Jan 1st 2016)
-    uint32_t flttime_boot; // seconds in flight (or driving), at boot
-    uint32_t fltcount; // total number of takeoffs
+    uint32_t flttime{}; // seconds in flight (or driving)
+    uint32_t runtime{}; // total wallclock time spent running ArduPilot (seconds)
+    uint32_t reset{};   // last time AP_Stats parameters were reset (in seconds since AP_Stats Jan 1st 2016)
+    uint32_t flttime_boot{}; // seconds in flight (or driving), at boot
+    uint32_t fltcount{}; // total number of takeoffs
     
     void init();
 
@@ -61,11 +61,11 @@ private:
 
     void copy_variables_from_parameters();
 
-    uint64_t last_flush_ms; // in terms of system uptime
+    uint64_t last_flush_ms{}; // in terms of system uptime
     const uint16_t flush_interval_ms = 30000;
 
-    uint64_t _flying_ms;
-    uint64_t _last_runtime_ms;
+    uint64_t _flying_ms{};
+    uint64_t _last_runtime_ms{};
 
     void update_flighttime();
     void update_runtime();
