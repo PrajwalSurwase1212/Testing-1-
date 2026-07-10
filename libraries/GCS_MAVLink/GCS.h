@@ -787,8 +787,8 @@ protected:
 private:
 
     // define the two objects used for parsing incoming messages:
-    mavlink_message_t _channel_buffer;
-    mavlink_status_t _channel_status;
+    mavlink_message_t _channel_buffer{};
+    mavlink_status_t _channel_status{};
 
     const AP_SerialManager::UARTState *uartstate{nullptr};
 

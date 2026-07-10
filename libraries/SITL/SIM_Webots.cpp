@@ -127,7 +127,7 @@ Webots::Webots(const char *frame_str) :
         if (sim_defaults[i].save) {
             enum ap_var_type ptype;
             AP_Param *p = AP_Param::find(sim_defaults[i].name, &ptype);
-            if (!p->configured()) {
+            if (p != nullptr && !p->configured()) {
                 p->save();
             }
         }

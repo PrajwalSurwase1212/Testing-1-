@@ -227,7 +227,7 @@ void AP::PerfInfo::update_logging() const
 void AP::PerfInfo::set_loop_rate(uint16_t rate_hz)
 {
     // allow a 20% overrun before we consider a loop "slow":
-    overtime_threshold_micros = 1000000/rate_hz * 1.2f;
+    overtime_threshold_micros = 1000000.0f/rate_hz * 1.2f;
 
     if (loop_rate_hz != rate_hz) {
         loop_rate_hz = rate_hz;

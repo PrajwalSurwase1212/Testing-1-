@@ -65,15 +65,17 @@ SOCKET_CLASS_NAME::SOCKET_CLASS_NAME(bool _datagram, int _fd) :
     datagram(_datagram),
     fd(_fd)
 {
+    if (fd != -1) {
 #ifdef FD_CLOEXEC
-    if (CALL_PREFIX(fcntl)(fd, F_SETFD, FD_CLOEXEC) == -1) {
-        // Handle gracefully by continuing; CLOEXEC failure is not critical for basic socket I/O
-    }
+        if (CALL_PREFIX(fcntl)(fd, F_SETFD, FD_CLOEXEC) == -1) {
+            // Handle gracefully by continuing; CLOEXEC failure is not critical for basic socket I/O
+        }
 #endif
-    if (!datagram) {
-        int one = 1;
-        if (CALL_PREFIX(setsockopt)(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) == -1) {
-            // Handle gracefully by continuing; NODELAY failure is not critical for basic socket I/O
+        if (!datagram) {
+            int one = 1;
+            if (CALL_PREFIX(setsockopt)(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) == -1) {
+                // Handle gracefully by continuing; NODELAY failure is not critical for basic socket I/O
+            }
         }
     }
 }
@@ -189,8 +191,10 @@ bool SOCKET_CLASS_NAME::connect(const char *address, uint16_t port)
     }
     return true;
 fail_multi:
-    CALL_PREFIX(close)(fd_in);
-    fd_in = -1;
+    if (fd_in != -1) {
+        CALL_PREFIX(close)(fd_in);
+        fd_in = -1;
+    }
     return false;
 }
 #endif // !defined(HAL_BOOTLOADER_BUILD) || AP_NETWORKING_CAN_MCAST_ENABLED

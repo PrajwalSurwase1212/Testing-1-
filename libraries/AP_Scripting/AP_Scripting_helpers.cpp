@@ -21,6 +21,9 @@ int lua_new_Parameter(lua_State *L) {
 
     // This chunk is the same as the auto generated constructor
     void *ud = lua_newuserdata(L, sizeof(Parameter));
+    if (ud == nullptr) {
+        return 0;
+    }
     new (ud) Parameter();
     luaL_getmetatable(L, "Parameter");
     lua_setmetatable(L, -2);
@@ -360,7 +363,9 @@ bool DroneCAN_Handle::Subscriber::handle_message(const CanardRxTransfer& transfe
     }
 
     // push to queue
-    payloads.push(payload);
+    if (!payloads.push(payload)) {
+        free(payload.data);
+    }
 
     return true;
 }

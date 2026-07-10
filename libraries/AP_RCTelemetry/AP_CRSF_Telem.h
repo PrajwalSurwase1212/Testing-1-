@@ -180,7 +180,7 @@ public:
     // Generic pending parameter request, used internally
     struct PendingParameterRequest : public ParameterSettingsReadFrame {
         ParameterPayload payload;
-    } _param_request;
+    } _param_request{};
 
     const static uint8_t PARAMETER_MENU_ID = 1; // id of the parameter menu
 

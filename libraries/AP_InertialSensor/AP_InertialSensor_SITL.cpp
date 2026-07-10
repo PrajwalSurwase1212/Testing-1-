@@ -472,10 +472,11 @@ void AP_InertialSensor_SITL::write_gyro_to_file(const Vector3f& gyro)
         gyro_fd = open(namebuf, O_WRONLY|O_TRUNC|O_CREAT, S_IRWXU|S_IRGRP|S_IROTH);
     }
 
-    float buf[] { gyro.x, gyro.y, gyro.z };
-
-    if (::write(gyro_fd, (void*)buf, sizeof(float) * 3) < 0) {
-        ::printf("Could not write to file\n");
+    if (gyro_fd != -1) {
+        float buf[] { gyro.x, gyro.y, gyro.z };
+        if (::write(gyro_fd, (void*)buf, sizeof(float) * 3) < 0) {
+            ::printf("Could not write to file\n");
+        }
     }
 }
 
@@ -544,10 +545,11 @@ void AP_InertialSensor_SITL::write_accel_to_file(const Vector3f& accel)
         accel_fd = open(namebuf, O_WRONLY|O_TRUNC|O_CREAT, S_IRWXU|S_IRGRP|S_IROTH);
     }
 
-    float buf[] { accel.x, accel.y, accel.z };
-
-    if (::write(accel_fd, (void*)buf, sizeof(float) * 3) < 0) {
-        ::printf("Could not write to file\n");
+    if (accel_fd != -1) {
+        float buf[] { accel.x, accel.y, accel.z };
+        if (::write(accel_fd, (void*)buf, sizeof(float) * 3) < 0) {
+            ::printf("Could not write to file\n");
+        }
     }
 }
 

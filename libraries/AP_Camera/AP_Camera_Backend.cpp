@@ -265,7 +265,7 @@ void AP_Camera_Backend::send_camera_information(mavlink_channel_t chan) const
 }
 
 #if AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
-void AP_Camera_Backend::set_camera_information(mavlink_camera_information_t camera_info)
+void AP_Camera_Backend::set_camera_information(const mavlink_camera_information_t &camera_info)
 {
     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Camera %u CAMERA_INFORMATION (%s %s) set from script", _instance, camera_info.vendor_name, camera_info.model_name);
     _camera_info = camera_info;
@@ -286,7 +286,7 @@ void AP_Camera_Backend::send_video_stream_information(mavlink_channel_t chan) co
 #endif // AP_MAVLINK_MSG_VIDEO_STREAM_INFORMATION_ENABLED
 
 #if AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
-void AP_Camera_Backend::set_stream_information(mavlink_video_stream_information_t stream_info)
+void AP_Camera_Backend::set_stream_information(const mavlink_video_stream_information_t &stream_info)
 {
     _stream_info = stream_info;
 };

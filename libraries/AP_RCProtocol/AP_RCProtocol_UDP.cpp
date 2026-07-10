@@ -165,7 +165,9 @@ void AP_RCProtocol_UDP::read_all_socket_input(void)
     if (pwm_pkt_num_channels == 0) {
         return;
     }
-    for (uint8_t i=0; i<pwm_pkt_num_channels; i++) {
+    const uint8_t max_channels = MIN(ARRAY_SIZE(pwm_pkt.pwm), ARRAY_SIZE(pwm_input));
+    const uint8_t limit = MIN(pwm_pkt_num_channels, max_channels);
+    for (uint8_t i=0; i<limit; i++) {
         // setup the pwm input for the RC channel inputs
         const uint16_t pwm = pwm_pkt.pwm[i];
         if (pwm == 0) {
@@ -174,7 +176,7 @@ void AP_RCProtocol_UDP::read_all_socket_input(void)
         }
         pwm_input[i] = pwm;
     }
-    num_channels = pwm_pkt_num_channels;  // or ARRAY_SIZE(pwm_input)?
+    num_channels = limit;  // or ARRAY_SIZE(pwm_input)?
 }
 
 #endif // AP_RCPROTOCOL_UDP_ENABLED

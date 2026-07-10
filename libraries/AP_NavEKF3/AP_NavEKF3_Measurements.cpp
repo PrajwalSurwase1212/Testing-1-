@@ -189,9 +189,10 @@ void NavEKF3_core::writeOptFlowMeas(const uint8_t rawFlowQuality, const Vector2f
     // calculate bias errors on flow sensor gyro rates, but protect against spikes in data
     // reset the accumulated body delta angle and time
     // don't do the calculation if not enough time lapsed for a reliable body rate measurement
-    if (delTimeOF > 0.01f) {
-        flowGyroBias.x = 0.99f * flowGyroBias.x + 0.01f * constrain_ftype((rawGyroRates.x - delAngBodyOF.x/delTimeOF),-0.1f,0.1f);
-        flowGyroBias.y = 0.99f * flowGyroBias.y + 0.01f * constrain_ftype((rawGyroRates.y - delAngBodyOF.y/delTimeOF),-0.1f,0.1f);
+    const float local_delTimeOF = delTimeOF;
+    if (local_delTimeOF > 0.01f) {
+        flowGyroBias.x = 0.99f * flowGyroBias.x + 0.01f * constrain_ftype((rawGyroRates.x - delAngBodyOF.x/local_delTimeOF),-0.1f,0.1f);
+        flowGyroBias.y = 0.99f * flowGyroBias.y + 0.01f * constrain_ftype((rawGyroRates.y - delAngBodyOF.y/local_delTimeOF),-0.1f,0.1f);
         delAngBodyOF.zero();
         delTimeOF = 0.0f;
     }
@@ -206,12 +207,14 @@ void NavEKF3_core::writeOptFlowMeas(const uint8_t rawFlowQuality, const Vector2f
         ofDataNew.bodyRadXYZ.x = rawGyroRates.x - flowGyroBias.x;
         ofDataNew.bodyRadXYZ.y = rawGyroRates.y - flowGyroBias.y;
         // the sensor interface doesn't provide a z axis rate so use the rate from the nav sensor instead
-        if (delTimeOF > 0.001f) {
+        const float local_delTimeOF_2 = delTimeOF;
+        const float local_delAngDT = imuDataNew.delAngDT;
+        if (local_delTimeOF_2 > 0.001f) {
             // first preference is to use the rate averaged over the same sampling period as the flow sensor
-            ofDataNew.bodyRadXYZ.z = delAngBodyOF.z / delTimeOF;
-        } else if (imuDataNew.delAngDT > 0.001f){
+            ofDataNew.bodyRadXYZ.z = delAngBodyOF.z / local_delTimeOF_2;
+        } else if (local_delAngDT > 0.001f){
             // second preference is to use most recent IMU data
-            ofDataNew.bodyRadXYZ.z = imuDataNew.delAng.z / imuDataNew.delAngDT;
+            ofDataNew.bodyRadXYZ.z = imuDataNew.delAng.z / local_delAngDT;
         } else {
             // third preference is use zero
             ofDataNew.bodyRadXYZ.z =  0.0f;

@@ -166,8 +166,12 @@ static inline bool run_decimated_callback(uint8_t decimation_rate, uint8_t& deci
 */
 void Copter::rate_controller_thread()
 {
-    uint8_t target_rate_decimation = constrain_int16(g2.att_decimation.get(), 1,
-                                                     DIV_ROUND_INT(ins.get_raw_gyro_rate_hz(), AP::scheduler().get_loop_rate_hz()));
+    uint8_t target_rate_decimation = 1;
+    const uint16_t loop_rate_hz = AP::scheduler().get_loop_rate_hz();
+    if (loop_rate_hz > 0) {
+        target_rate_decimation = constrain_int16(g2.att_decimation.get(), 1,
+                                                 DIV_ROUND_INT(ins.get_raw_gyro_rate_hz(), loop_rate_hz));
+    }
     uint8_t rate_decimation = target_rate_decimation;
 
     // set up the decimation rates
@@ -243,7 +247,8 @@ void Copter::rate_controller_thread()
 #endif
 
         // we must use multiples of the actual sensor rate
-        const float sensor_dt = 1.0f * rate_decimation / ins.get_raw_gyro_rate_hz();
+        const float raw_gyro_hz = ins.get_raw_gyro_rate_hz();
+        const float sensor_dt = (raw_gyro_hz > 0.0f) ? (1.0f * rate_decimation / raw_gyro_hz) : 0.001f;
         const uint32_t now_us = AP_HAL::micros();
         const uint32_t dt_us = now_us - last_run_us;
         const float dt = dt_us * 1.0e-6;

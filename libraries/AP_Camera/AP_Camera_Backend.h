@@ -121,8 +121,8 @@ public:
 #endif // AP_MAVLINK_MSG_VIDEO_STREAM_INFORMATION_ENABLED
 
 #if AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
-    void set_camera_information(mavlink_camera_information_t camera_info);
-    void set_stream_information(mavlink_video_stream_information_t stream_info);
+    void set_camera_information(const mavlink_camera_information_t &camera_info);
+    void set_stream_information(const mavlink_video_stream_information_t &stream_info);
 #endif // AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
 
     // send camera settings message to GCS
@@ -192,8 +192,8 @@ protected:
     uint8_t get_gimbal_device_id() const;
 
 #if AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
-    mavlink_camera_information_t _camera_info;
-    mavlink_video_stream_information_t _stream_info;
+    mavlink_camera_information_t _camera_info{};
+    mavlink_video_stream_information_t _stream_info{};
 #endif // AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
 
     // internal members

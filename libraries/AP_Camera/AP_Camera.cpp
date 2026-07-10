@@ -866,7 +866,7 @@ bool AP_Camera::change_setting(uint8_t instance, CameraSetting setting, float va
 
 
 #if AP_CAMERA_INFO_FROM_SCRIPT_ENABLED
-void AP_Camera::set_camera_information(mavlink_camera_information_t camera_info)
+void AP_Camera::set_camera_information(const mavlink_camera_information_t &camera_info)
 {
     WITH_SEMAPHORE(_rsem);
 
@@ -876,7 +876,7 @@ void AP_Camera::set_camera_information(mavlink_camera_information_t camera_info)
     return primary->set_camera_information(camera_info);
 }
 
-void AP_Camera::set_camera_information(uint8_t instance, mavlink_camera_information_t camera_info)
+void AP_Camera::set_camera_information(uint8_t instance, const mavlink_camera_information_t &camera_info)
 {
     WITH_SEMAPHORE(_rsem);
 
@@ -889,7 +889,7 @@ void AP_Camera::set_camera_information(uint8_t instance, mavlink_camera_informat
     backend->set_camera_information(camera_info);
 }
 
-void AP_Camera::set_stream_information(mavlink_video_stream_information_t stream_info)
+void AP_Camera::set_stream_information(const mavlink_video_stream_information_t &stream_info)
 {
     WITH_SEMAPHORE(_rsem);
 
@@ -899,7 +899,7 @@ void AP_Camera::set_stream_information(mavlink_video_stream_information_t stream
     return primary->set_stream_information(stream_info);
 }
 
-void AP_Camera::set_stream_information(uint8_t instance, mavlink_video_stream_information_t stream_info)
+void AP_Camera::set_stream_information(uint8_t instance, const mavlink_video_stream_information_t &stream_info)
 {
     WITH_SEMAPHORE(_rsem);
 

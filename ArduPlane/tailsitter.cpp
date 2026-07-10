@@ -650,7 +650,7 @@ void Tailsitter::speed_scaling(void)
 
     // Scaling with throttle
     float throttle_scaler = throttle_scale_max;
-    if (is_positive(throttle)) {
+    if (throttle > 0.0f && hover_throttle > 0.0f) {
         throttle_scaler = constrain_float(hover_throttle / throttle, gain_scaling_min, throttle_scale_max);
     }
 
@@ -702,7 +702,7 @@ void Tailsitter::speed_scaling(void)
             spd_scaler = MAX(throttle_scaler,1.0f);
         }
 
-    } else if (((gain_scaling_mask & TAILSITTER_GSCL_DISK_THEORY) != 0) && is_positive(disk_loading.get())) {
+    } else if (((gain_scaling_mask & TAILSITTER_GSCL_DISK_THEORY) != 0) && disk_loading.get() > 0.0f) {
         // Use disk theory to estimate the velocity over the control surfaces
         // https://web.mit.edu/16.unified/www/FALL/thermodynamics/notes/node86.html
 
@@ -712,15 +712,6 @@ void Tailsitter::speed_scaling(void)
             spd_scaler = throttle_scaler;
 
         } else {
-
-
-            // use the equation: T = 0.5 * rho * A (Ue^2 - U0^2) solved for Ue^2:
-            // Ue^2 = (T / (0.5 * rho *A)) + U0^2
-            // We don't know thrust or disk area, use T = (throttle/throttle_hover) * weight
-            // ((t / t_h ) * weight) / (0.5 * rho * A) = ((t / t_h) * mass * 9.81) / (0.5 * rho * A)
-            // (mass / A) is disk loading DL so:
-            // Ue^2 = (((t / t_h) * DL * 9.81)/(0.5 * rho)) + U0^2
-
             const float rho = SSL_AIR_DENSITY * quadplane.ahrs.get_air_density_ratio();
             float hover_rho = rho;
             if ((gain_scaling_mask & TAILSITTER_GSCL_ALTITUDE) != 0) {
@@ -728,35 +719,36 @@ void Tailsitter::speed_scaling(void)
                 hover_rho = SSL_AIR_DENSITY;
             }
 
-            // hover case: (t / t_h) = 1 and U0 = 0
-            const float sq_hover_outflow = (disk_loading.get() * GRAVITY_MSS) / (0.5f * hover_rho);
+            if (hover_rho > 0.0f && rho > 0.0f && hover_throttle > 0.0f) {
+                // hover case: (t / t_h) = 1 and U0 = 0
+                const float sq_hover_outflow = (disk_loading.get() * GRAVITY_MSS) / (0.5f * hover_rho);
 
+                // calculate the true outflow speed
+                const float sq_outflow = (((throttle/hover_throttle) *  disk_loading.get() * GRAVITY_MSS) / (0.5f * rho)) + sq(MAX(airspeed,0));
 
-            // calculate the true outflow speed
-            const float sq_outflow = (((throttle/hover_throttle) *  disk_loading.get() * GRAVITY_MSS) / (0.5f * rho)) + sq(MAX(airspeed,0));
-
-            // Scale by the ratio of squared hover outflow velocity to squared actual outflow velocity
-            spd_scaler = throttle_scale_max;
-            if (is_positive(sq_outflow)) {
-                spd_scaler = constrain_float(sq_hover_outflow / sq_outflow, gain_scaling_min.get(), throttle_scale_max.get());
-            }
-
-            if (is_positive(disk_loading_min_outflow)) {
-                // calculate throttle required to give minimum outflow speed over control surfaces
-                if (is_positive(airspeed)) {
-                    disk_loading_min_throttle = (((sq(disk_loading_min_outflow) - sq(airspeed)) * (0.5 * rho)) / (disk_loading.get() * GRAVITY_MSS)) * hover_throttle;
-                } else {
-                    // estimate backwards airspeed
-                    float reverse_airspeed = 0.0;
-                    Vector3f vel;
-                    if (quadplane.ahrs.get_velocity_NED(vel)) {
-                        reverse_airspeed = quadplane.ahrs.earth_to_body(vel - quadplane.ahrs.wind_estimate()).x;
-                    }
-                    // make sure actually negative
-                    reverse_airspeed = MIN(reverse_airspeed, 0.0);
-                    disk_loading_min_throttle = (((sq(disk_loading_min_outflow) + sq(reverse_airspeed)) * (0.5 * rho)) / (disk_loading.get() * GRAVITY_MSS)) * hover_throttle;
+                // Scale by the ratio of squared hover outflow velocity to squared actual outflow velocity
+                spd_scaler = throttle_scale_max;
+                if (sq_outflow > 0.0f) {
+                    spd_scaler = constrain_float(sq_hover_outflow / sq_outflow, gain_scaling_min.get(), throttle_scale_max.get());
                 }
-                disk_loading_min_throttle = MAX(disk_loading_min_throttle, 0.0);
+
+                if (disk_loading_min_outflow > 0.0f) {
+                    // calculate throttle required to give minimum outflow speed over control surfaces
+                    if (airspeed > 0.0f) {
+                        disk_loading_min_throttle = (((sq(disk_loading_min_outflow) - sq(airspeed)) * (0.5 * rho)) / (disk_loading.get() * GRAVITY_MSS)) * hover_throttle;
+                    } else {
+                        // estimate backwards airspeed
+                        float reverse_airspeed = 0.0;
+                        Vector3f vel;
+                        if (quadplane.ahrs.get_velocity_NED(vel)) {
+                            reverse_airspeed = quadplane.ahrs.earth_to_body(vel - quadplane.ahrs.wind_estimate()).x;
+                        }
+                        // make sure actually negative
+                        reverse_airspeed = MIN(reverse_airspeed, 0.0);
+                        disk_loading_min_throttle = (((sq(disk_loading_min_outflow) + sq(reverse_airspeed)) * (0.5 * rho)) / (disk_loading.get() * GRAVITY_MSS)) * hover_throttle;
+                    }
+                    disk_loading_min_throttle = MAX(disk_loading_min_throttle, 0.0);
+                }
             }
         }
 

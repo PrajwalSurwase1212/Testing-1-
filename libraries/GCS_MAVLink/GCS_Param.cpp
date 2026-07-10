@@ -446,8 +446,9 @@ uint8_t GCS_MAVLINK::send_parameter_async_replies()
         if (!HAVE_PAYLOAD_SPACE(reply.chan, PARAM_VALUE)) {
             reserve_param_space_start_ms = AP_HAL::millis();
             return async_replies_sent_count;
+        } else {
+            reserve_param_space_start_ms = saved_reserve_param_space_start_ms;
         }
-        reserve_param_space_start_ms = saved_reserve_param_space_start_ms;
 
         mavlink_msg_param_value_send(
             reply.chan,

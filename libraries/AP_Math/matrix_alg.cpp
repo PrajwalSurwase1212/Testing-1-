@@ -35,13 +35,15 @@
 template<typename T>
 static T* matrix_multiply(const T *A, const T *B, uint16_t n)
 {
-    T* ret = NEW_NOTHROW T[n*n];
-    memset(ret,0.0f,n*n*sizeof(T));
+    const uint32_t n_32 = n;
+    const uint32_t n_sq = n_32 * n_32;
+    T* ret = NEW_NOTHROW T[n_sq];
+    memset(ret,0,n_sq*sizeof(T));
 
     for(uint16_t i = 0; i < n; i++) {
         for(uint16_t j = 0; j < n; j++) {
             for(uint16_t k = 0;k < n; k++) {
-                ret[i*n + j] += A[i*n + k] * B[k*n + j];
+                ret[i*n_32 + j] += A[i*n_32 + k] * B[k*n_32 + j];
             }
         }
     }
@@ -145,29 +147,31 @@ static void mat_back_sub(const T *U, T *out, uint16_t n)
 template<typename T>
 static void mat_LU_decompose(const T* A, T* L, T* U, T *P, uint16_t n)
 {
-    memset(L,0,n*n*sizeof(T));
-    memset(U,0,n*n*sizeof(T));
-    memset(P,0,n*n*sizeof(T));
+    const uint32_t n_32 = n;
+    const uint32_t n_sq = n_32 * n_32;
+    memset(L,0,n_sq*sizeof(T));
+    memset(U,0,n_sq*sizeof(T));
+    memset(P,0,n_sq*sizeof(T));
     mat_pivot(A,P,n);
 
     T *APrime = matrix_multiply(P,A,n);
     for(uint16_t i = 0; i < n; i++) {
-        L[i*n + i] = 1;
+        L[i*n_32 + i] = 1;
     }
     for(uint16_t i = 0; i < n; i++) {
         for(uint16_t j = 0; j < n; j++) {
             if(j <= i) {    
-                U[j*n + i] = APrime[j*n + i];
+                U[j*n_32 + i] = APrime[j*n_32 + i];
                 for(uint16_t k = 0; k < j; k++) {
-                    U[j*n + i] -= L[j*n + k] * U[k*n + i]; 
+                    U[j*n_32 + i] -= L[j*n_32 + k] * U[k*n_32 + i]; 
                 }
             }
             if(j >= i) {
-                L[j*n + i] = APrime[j*n + i];
+                L[j*n_32 + i] = APrime[j*n_32 + i];
                 for(uint16_t k = 0; k < i; k++) {
-                    L[j*n + i] -= L[j*n + k] * U[k*n + i]; 
+                    L[j*n_32 + i] -= L[j*n_32 + k] * U[k*n_32 + i]; 
                 }
-                L[j*n + i] /= U[i*n + i];
+                L[j*n_32 + i] /= U[i*n_32 + i];
             }
         }
     }
@@ -186,20 +190,22 @@ static void mat_LU_decompose(const T* A, T* L, T* U, T *P, uint16_t n)
 template<typename T>
 static bool mat_inverseN(const T* A, T* inv, uint16_t n)
 {
+    const uint32_t n_32 = n;
+    const uint32_t n_sq = n_32 * n_32;
     T *L, *U, *P;
     bool ret = true;
-    L = NEW_NOTHROW T[n*n];
-    U = NEW_NOTHROW T[n*n];
-    P = NEW_NOTHROW T[n*n];
+    L = NEW_NOTHROW T[n_sq];
+    U = NEW_NOTHROW T[n_sq];
+    P = NEW_NOTHROW T[n_sq];
     mat_LU_decompose(A,L,U,P,n);
 
-    T *L_inv = NEW_NOTHROW T[n*n];
-    T *U_inv = NEW_NOTHROW T[n*n];
+    T *L_inv = NEW_NOTHROW T[n_sq];
+    T *U_inv = NEW_NOTHROW T[n_sq];
 
-    memset(L_inv,0,n*n*sizeof(T));
+    memset(L_inv,0,n_sq*sizeof(T));
     mat_forward_sub(L,L_inv,n);
 
-    memset(U_inv,0,n*n*sizeof(T));
+    memset(U_inv,0,n_sq*sizeof(T));
     mat_back_sub(U,U_inv,n);
 
     // decomposed matrices no longer required
@@ -212,12 +218,12 @@ static bool mat_inverseN(const T* A, T* inv, uint16_t n)
     //check sanity of results
     for(uint16_t i = 0; i < n; i++) {
         for(uint16_t j = 0; j < n; j++) {
-            if(isnan(inv_pivoted[i*n+j]) || isinf(inv_pivoted[i*n+j])){
+            if(isnan(inv_pivoted[i*n_32+j]) || isinf(inv_pivoted[i*n_32+j])){
                 ret = false;
             }
         }
     }
-    memcpy(inv,inv_pivoted,n*n*sizeof(T));
+    memcpy(inv,inv_pivoted,n_sq*sizeof(T));
 
     //free memory
     delete[] inv_pivoted;

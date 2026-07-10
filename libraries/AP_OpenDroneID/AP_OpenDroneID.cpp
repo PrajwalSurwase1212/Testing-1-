@@ -89,7 +89,31 @@ const AP_Param::GroupInfo AP_OpenDroneID::var_info[] = {
 #endif
 
 // constructor
-AP_OpenDroneID::AP_OpenDroneID()
+AP_OpenDroneID::AP_OpenDroneID() :
+    _initialised(false),
+    id_len(0),
+    bootloader_flashed(false),
+    _chan(MAV_CHAN_INVALID),
+    _last_send_location_ms(0),
+    _last_send_system_update_ms(0),
+    _last_send_static_messages_ms(0),
+    _have_height_above_takeoff(false),
+    _was_armed(false),
+    last_system_ms(0),
+    last_system_update_ms(0),
+    last_arm_status_ms(0),
+    last_lost_tx_ms(0),
+    last_lost_operator_msg_ms(0),
+    next_msg_to_send(NEXT_MSG_BASIC_ID),
+    last_msg_send_ms(0),
+    driver_mask(0),
+    need_send_location(0),
+    need_send_basic_id(0),
+    need_send_system(0),
+    need_send_self_id(0),
+    need_send_operator_id(0),
+    dronecan_done_init(0),
+    dronecan_init_failed(0)
 {
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     if (_singleton != nullptr) {
@@ -98,6 +122,18 @@ AP_OpenDroneID::AP_OpenDroneID()
 #endif
     _singleton = this;
     AP_Param::setup_object_defaults(this, var_info);
+
+    memset(ua_type, 0, sizeof(ua_type));
+    memset(id_type, 0, sizeof(id_type));
+    memset(id_str, 0, sizeof(id_str));
+    _takeoff_location = {};
+
+    memset(&pkt_location, 0, sizeof(pkt_location));
+    memset(&pkt_basic_id, 0, sizeof(pkt_basic_id));
+    memset(&pkt_system, 0, sizeof(pkt_system));
+    memset(&pkt_self_id, 0, sizeof(pkt_self_id));
+    memset(&pkt_operator_id, 0, sizeof(pkt_operator_id));
+    memset(&arm_status, 0, sizeof(arm_status));
 }
 
 void AP_OpenDroneID::init()

@@ -80,8 +80,14 @@ bool JSBSim::create_templates(void)
         return true;
     }
 
-    asprintf(&jsbsim_script, "%s/jsbsim_start_%u.xml", autotest_dir, instance);
-    asprintf(&jsbsim_fgout,  "%s/jsbsim_fgout_%u.xml", autotest_dir, instance);
+    if (asprintf(&jsbsim_script, "%s/jsbsim_start_%u.xml", autotest_dir, instance) == -1) {
+        return false;
+    }
+    if (asprintf(&jsbsim_fgout,  "%s/jsbsim_fgout_%u.xml", autotest_dir, instance) == -1) {
+        free(jsbsim_script);
+        jsbsim_script = nullptr;
+        return false;
+    }
 
     printf("JSBSim_script: '%s'\n", jsbsim_script);
     printf("JSBSim_fgout: '%s'\n", jsbsim_fgout);
@@ -143,8 +149,10 @@ bool JSBSim::create_templates(void)
             fdm_port, rate_hz);
     fclose(f);
 
-    char *jsbsim_reset;
-    asprintf(&jsbsim_reset, "%s/aircraft/%s/reset.xml", autotest_dir, jsbsim_model);
+    char *jsbsim_reset = nullptr;
+    if (asprintf(&jsbsim_reset, "%s/aircraft/%s/reset.xml", autotest_dir, jsbsim_model) == -1) {
+        return false;
+    }
 
     printf("JSBSim_reset: '%s'\n", jsbsim_reset);
 

@@ -237,11 +237,12 @@ void shape_vel_accel_xy(const Vector2f& vel_input, const Vector2f& accel_input,
     Vector2f accel_target = sqrt_controller(vel_error, KPa, jerk_max, dt);
 
     // limit correction acceleration to accel_max
-    if (vel_input.is_zero()) {
+    const float vel_input_len = vel_input.length();
+    if (is_zero(vel_input_len)) {
         accel_target.limit_length(accel_max);
     } else {
         // calculate acceleration in the direction of and perpendicular to the velocity input
-        const Vector2f vel_input_unit = vel_input.normalized();
+        const Vector2f vel_input_unit = vel_input / vel_input_len;
         float accel_dir = vel_input_unit * accel_target;
         Vector2f accel_cross =  accel_target - (vel_input_unit * accel_dir);
 

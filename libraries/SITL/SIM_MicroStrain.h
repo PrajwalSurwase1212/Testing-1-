@@ -36,7 +36,7 @@ protected:
 
     void generate_checksum(MicroStrain_Packet&);
 
-    void send_packet(MicroStrain_Packet);
+    void send_packet(MicroStrain_Packet&);
     void send_imu_packet();
     virtual void send_gnss_packet() = 0;
     virtual void send_filter_packet() = 0;

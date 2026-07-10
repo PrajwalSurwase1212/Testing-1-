@@ -73,7 +73,7 @@ void MicroStrain::generate_checksum(MicroStrain_Packet& packet)
     packet.checksum[1] = checksumByte2;
 }
 
-void MicroStrain::send_packet(MicroStrain_Packet packet)
+void MicroStrain::send_packet(MicroStrain_Packet &packet)
 {
     generate_checksum(packet);
 

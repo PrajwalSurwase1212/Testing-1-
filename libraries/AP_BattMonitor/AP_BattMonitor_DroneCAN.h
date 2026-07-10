@@ -84,7 +84,7 @@ private:
     // Return false if state of charge should be calculated locally by counting mah.
     bool use_CAN_SoC() const;
 
-    AP_BattMonitor::BattMonitor_State _interim_state;
+    AP_BattMonitor::BattMonitor_State _interim_state{};
 
     HAL_Semaphore _sem_battmon;
 

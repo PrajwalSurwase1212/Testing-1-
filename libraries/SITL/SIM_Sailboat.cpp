@@ -94,7 +94,11 @@ float Sailboat::get_turn_circle(float steering) const
     if (is_zero(steering)) {
         return 0;
     }
-    return turning_circle * sinf(radians(steering_angle_max)) / sinf(radians(steering * steering_angle_max));
+    const float sin_denom = sinf(radians(steering * steering_angle_max));
+    if (is_zero(sin_denom)) {
+        return 0;
+    }
+    return turning_circle * sinf(radians(steering_angle_max)) / sin_denom;
 }
 
 // return yaw rate in deg/sec given a steering input (in the range -1 to +1) and speed in m/s
@@ -109,8 +113,14 @@ float Sailboat::get_yaw_rate(float steering, float speed) const
         rate = steering * M_PI * 5;
     } else {
         float d = get_turn_circle(steering);
+        if (is_zero(d) || is_zero(speed)) {
+            return 0.0f;
+        }
         float c = M_PI * d;
         float t = c / speed;
+        if (is_zero(t)) {
+            return 0.0f;
+        }
         rate = 360.0f / t;
     }
     return rate;

@@ -583,7 +583,7 @@ void AP_Baro::init(void)
 #endif
     // do not probe for other drivers when using simulation:
     return;
-#endif
+#else
 
 #if defined(HAL_BARO_PROBE_LIST)
     // probe list from BARO lines in hwdef.dat
@@ -684,6 +684,7 @@ void AP_Baro::init(void)
         sensors[i].calibrated = true;
         sensors[i].alt_ok = true;
     }
+#endif
 #endif
 }
 

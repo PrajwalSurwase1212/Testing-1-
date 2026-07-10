@@ -3435,9 +3435,9 @@ float GCS_MAVLINK::vfr_hud_airspeed() const
     // different sort of speed estimate in the relevant field for
     // comparison's sake.
     return AP::gps().ground_speed();
-#endif
-
+#else
     return 0.0;
+#endif
 }
 
 float GCS_MAVLINK::vfr_hud_climbrate() const

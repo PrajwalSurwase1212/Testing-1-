@@ -196,11 +196,11 @@ public:
         uint8_t ins_sol_status;
     };
 
-    AP_ExternalAHRS::gps_data_message_t gps_data;
-    AP_ExternalAHRS::mag_data_message_t mag_data;
-    AP_ExternalAHRS::baro_data_message_t baro_data;
-    AP_ExternalAHRS::ins_data_message_t ins_data;
-    AP_ExternalAHRS::airspeed_data_message_t airspeed_data;
+    AP_ExternalAHRS::gps_data_message_t gps_data{};
+    AP_ExternalAHRS::mag_data_message_t mag_data{};
+    AP_ExternalAHRS::baro_data_message_t baro_data{};
+    AP_ExternalAHRS::ins_data_message_t ins_data{};
+    AP_ExternalAHRS::airspeed_data_message_t airspeed_data{};
 
     uint16_t buffer_ofs = 0;
     uint8_t buffer[256]; // max for normal message set is 167+8

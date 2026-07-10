@@ -124,7 +124,7 @@ public:
         uint8_t steer_right     : 1; // we have reached the steering controller's right most limit
         uint8_t throttle_lower  : 1; // we have reached throttle's lower limit
         uint8_t throttle_upper  : 1; // we have reached throttle's upper limit
-    } limit;
+    } limit{};
 
     // var_info for holding Parameter information
     static const struct AP_Param::GroupInfo var_info[];

@@ -139,7 +139,7 @@ private:
         float _attenuation_cutoff;
         // SNR Threshold
         float _snr_threshold_db;
-    } _config;
+    } _config{};
 
     // smoothing filter that first takes the median from a sliding window and then
     // applies a low pass filter to the result

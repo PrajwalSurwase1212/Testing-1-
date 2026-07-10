@@ -163,16 +163,33 @@ void SplineCurve::calc_dt_speed_max(float time, float distance_delta, float &spl
         // if spline velocity is zero then direction must be defined by acceleration or jerk
         if (is_zero(spline_accel.length_squared())) {
             // if acceleration is zero then direction must be defined by jerk
-            spline_vel_unit = spline_jerk.normalized();
-            spline_dt = powf(6.0f * distance_delta / spline_jerk.length(), 1.0f/3.0f);
+            const float jerk_len = spline_jerk.length();
+            if (jerk_len > 0.0f) {
+                spline_vel_unit = spline_jerk / jerk_len;
+                spline_dt = powf(6.0f * distance_delta / jerk_len, 1.0f/3.0f);
+            } else {
+                spline_vel_unit.zero();
+                spline_dt = 0.0f;
+            }
         } else {
             // all spline acceleration is in the direction of travel
-            spline_vel_unit = spline_accel.normalized();
-            spline_dt = safe_sqrt(2.0f * distance_delta / spline_accel.length());
+            const float accel_len = spline_accel.length();
+            if (accel_len > 0.0f) {
+                spline_vel_unit = spline_accel / accel_len;
+                spline_dt = safe_sqrt(2.0f * distance_delta / accel_len);
+            } else {
+                spline_vel_unit.zero();
+                spline_dt = 0.0f;
+            }
         }
     } else {
-        spline_vel_unit = spline_vel.normalized();
-        spline_dt = distance_delta / spline_vel_length;
+        if (spline_vel_length > 0.0f) {
+            spline_vel_unit = spline_vel / spline_vel_length;
+            spline_dt = distance_delta / spline_vel_length;
+        } else {
+            spline_vel_unit.zero();
+            spline_dt = 0.0f;
+        }
     }
 
     // calculate acceleration normal to the direction of travel
@@ -194,9 +211,19 @@ void SplineCurve::calc_dt_speed_max(float time, float distance_delta, float &spl
         return;
     }
 
-    if ((is_positive(accel_norm_max)) && is_positive(spline_accel_norm_length) && is_positive(spline_vel_length) &&
-         ((spline_accel_norm_length/accel_norm_max) > sq(spline_vel_length/tangential_speed_max))) {
-        speed_max = spline_vel_length / safe_sqrt(spline_accel_norm_length/accel_norm_max);
+    if (accel_norm_max > 0.0f && spline_accel_norm_length > 0.0f && spline_vel_length > 0.0f) {
+        const float ratio = spline_accel_norm_length / accel_norm_max;
+        const float speed_sq_ratio = sq(spline_vel_length / tangential_speed_max);
+        if (ratio > speed_sq_ratio) {
+            const float sqrt_ratio = safe_sqrt(ratio);
+            if (sqrt_ratio > 0.0f) {
+                speed_max = spline_vel_length / sqrt_ratio;
+            } else {
+                speed_max = tangential_speed_max;
+            }
+        } else {
+            speed_max = tangential_speed_max;
+        }
     } else {
         speed_max = tangential_speed_max;
     }
@@ -212,7 +239,9 @@ void SplineCurve::calc_dt_speed_max(float time, float distance_delta, float &spl
         return;
     }
     const float dist = (_destination - target_pos).length();
-    speed_max = MIN(speed_max, safe_sqrt(2.0f * accel_max * (dist + sq(_destination_speed_max) / (2.0f*accel_max))));
+    if (accel_max > 0.0f) {
+        speed_max = MIN(speed_max, safe_sqrt(2.0f * accel_max * (dist + sq(_destination_speed_max) / (2.0f * accel_max))));
+    }
 }
 
 // recalculate hermite_solution grid

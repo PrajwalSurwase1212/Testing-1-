@@ -862,16 +862,18 @@ float AP_AHRS::get_error_rp(void) const
 {
 #if AP_AHRS_DCM_ENABLED
     return dcm.get_error_rp();
-#endif
+#else
     return 0;
+#endif
 }
 
 float AP_AHRS::get_error_yaw(void) const
 {
 #if AP_AHRS_DCM_ENABLED
     return dcm.get_error_yaw();
-#endif
+#else
     return 0;
+#endif
 }
 
 // return a wind estimation vector, in m/s
@@ -2181,7 +2183,7 @@ AP_AHRS::EKFType AP_AHRS::fallback_active_EKF_type(void) const
 {
 #if AP_AHRS_DCM_ENABLED
     return EKFType::DCM;
-#endif
+#else
 
 #if HAL_NAVEKF3_AVAILABLE
     if (_ekf3_started) {
@@ -2208,6 +2210,8 @@ AP_AHRS::EKFType AP_AHRS::fallback_active_EKF_type(void) const
     return EKFType::TWO;
 #elif AP_AHRS_EXTERNAL_ENABLED
     return EKFType::EXTERNAL;
+#endif
+
 #endif
 }
 

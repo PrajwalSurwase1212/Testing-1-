@@ -4420,7 +4420,11 @@ float QuadPlane::FW_vector_throttle_scaling()
     // scale relative to a fixed 0.5 mid throttle so that changes in TRIM_THROTTLE in missions don't change
     // the scaling of tilt
     const float mid_throttle = 0.5;
-    return mid_throttle / constrain_float(throttle, 0.1, 1.0);
+    const float constrained_throttle = constrain_float(throttle, 0.1f, 1.0f);
+    if (constrained_throttle > 0.0f) {
+        return mid_throttle / constrained_throttle;
+    }
+    return 1.0f;
 }
 
 QuadPlane *QuadPlane::_singleton = nullptr;

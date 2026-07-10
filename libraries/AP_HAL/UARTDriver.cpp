@@ -213,14 +213,23 @@ void AP_HAL::UARTDriver::log_stats(const uint8_t inst, StatsTracker &stats, cons
     const uint32_t rx_bytes = stats.rx.update(total_rx_bytes);
     const uint32_t rx_dropped_bytes = stats.rx_dropped.update(get_total_dropped_rx_bytes());
 
+    float tx_rate_val = 0.0f;
+    float rx_rate_val = 0.0f;
+    float rx_drop_rate_val = 0.0f;
+    if (dt_ms > 0) {
+        tx_rate_val = (tx_bytes * 1000.0f) / dt_ms;
+        rx_rate_val = (rx_bytes * 1000.0f) / dt_ms;
+        rx_drop_rate_val = (rx_dropped_bytes * 1000.0f) / dt_ms;
+    }
+
     // Assemble struct and log
     struct log_UART pkt {
         LOG_PACKET_HEADER_INIT(LOG_UART_MSG),
         time_us  : AP_HAL::micros64(),
         instance : inst,
-        tx_rate  : float((tx_bytes * 1000) / dt_ms),
-        rx_rate  : float((rx_bytes * 1000) / dt_ms),
-        rx_drop_rate : float((rx_dropped_bytes * 1000) / dt_ms),
+        tx_rate  : tx_rate_val,
+        rx_rate  : rx_rate_val,
+        rx_drop_rate : rx_drop_rate_val,
     };
     AP::logger().WriteBlock(&pkt, sizeof(pkt));
 }
